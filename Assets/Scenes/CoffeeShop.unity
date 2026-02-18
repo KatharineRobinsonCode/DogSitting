@@ -3562,7 +3562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 0
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 206634189}
@@ -8084,7 +8084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 0
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1185790253}
@@ -12094,7 +12094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 0
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1387984346}
@@ -13103,7 +13103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 0
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 613842826}
@@ -16230,7 +16230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 0
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1317517101}
@@ -19462,7 +19462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 0
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}

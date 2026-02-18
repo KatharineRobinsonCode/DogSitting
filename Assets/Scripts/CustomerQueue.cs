@@ -27,6 +27,7 @@ public class CustomerQueue : MonoBehaviour
     
     private int customersServed = 0;
     private bool hasTriggeredTextMessage = false;
+    private bool hasStartedServing = false; // ✨ NEW
     
     #endregion
     
@@ -59,13 +60,38 @@ public class CustomerQueue : MonoBehaviour
     {
         LogDebug($"[CustomerQueue] Starting with {customersInShop.Count} customers");
         
-        if (HasCustomersWaiting())
+        // ✨ CHANGED: Don't call customer yet - wait for CoffeeShopManager
+        if (customersInShop.Count > 0)
         {
-            CallNextCustomer();
+            LogDebug("[CustomerQueue] Customers ready, waiting for player to start shift");
         }
         else
         {
-            LogDebug("[CustomerQueue] No customers in queue at start");
+            LogDebug("[CustomerQueue] No customers in queue");
+        }
+    }
+    
+    #endregion
+    
+    #region Public API - Starting Service // ✨ NEW REGION
+    
+    /// <summary>
+    /// Starts serving customers. Called by CoffeeShopManager when player enters counter area.
+    /// </summary>
+    public void StartServing()
+    {
+        if (hasStartedServing)
+        {
+            LogDebug("[CustomerQueue] Already started serving");
+            return;
+        }
+        
+        hasStartedServing = true;
+        LogDebug("[CustomerQueue] Starting customer service");
+        
+        if (HasCustomersWaiting())
+        {
+            CallNextCustomer();
         }
     }
     
@@ -98,8 +124,16 @@ public class CustomerQueue : MonoBehaviour
             return; // Text message will call next customer after player responds
         }
         
-        // Normal flow - call next customer
-        CallNextCustomerIfAvailable();
+        // Normal flow - call next customer or end shift
+        if (HasCustomersWaiting())
+        {
+            CallNextCustomer();
+            UpdateTaskWithRemainingCustomers(); // ✨ NEW
+        }
+        else
+        {
+            OnAllCustomersServed(); // ✨ NEW
+        }
     }
     
     private void IncrementCustomersServed()
@@ -121,18 +155,6 @@ public class CustomerQueue : MonoBehaviour
         }
     }
     
-    private void CallNextCustomerIfAvailable()
-    {
-        if (HasCustomersWaiting())
-        {
-            CallNextCustomer();
-        }
-        else
-        {
-            LogDebug("[CustomerQueue] No more customers waiting");
-        }
-    }
-    
     private void CallNextCustomer()
     {
         if (!HasCustomersWaiting())
@@ -148,6 +170,26 @@ public class CustomerQueue : MonoBehaviour
     private bool HasCustomersWaiting()
     {
         return customersInShop.Count > 0;
+    }
+    
+    // ✨ NEW METHOD
+    private void UpdateTaskWithRemainingCustomers()
+    {
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.UpdateTask($"Serve customers ({customersInShop.Count} remaining)");
+        }
+    }
+    
+    // ✨ NEW METHOD
+    private void OnAllCustomersServed()
+    {
+        LogDebug("[CustomerQueue] All customers served - shift complete");
+        
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.ShowTask("Leave cafe");
+        }
     }
     
     #endregion
@@ -189,7 +231,15 @@ public class CustomerQueue : MonoBehaviour
     private void HandlePhoneManagerMissing()
     {
         Debug.LogWarning("[CustomerQueue] Skipping text message event, resuming queue");
-        CallNextCustomerIfAvailable();
+        
+        if (HasCustomersWaiting())
+        {
+            CallNextCustomer();
+        }
+        else
+        {
+            OnAllCustomersServed(); // ✨ CHANGED
+        }
     }
     
     private void ShowDogSitTextMessage()
@@ -216,7 +266,16 @@ public class CustomerQueue : MonoBehaviour
     private void ResumeQueueAfterPhone()
     {
         LogDebug("[CustomerQueue] Resuming queue after phone interaction");
-        CallNextCustomerIfAvailable();
+        
+        if (HasCustomersWaiting())
+        {
+            CallNextCustomer();
+            UpdateTaskWithRemainingCustomers(); // ✨ NEW
+        }
+        else
+        {
+            OnAllCustomersServed(); // ✨ NEW
+        }
     }
     
     #endregion
@@ -243,8 +302,8 @@ public class CustomerQueue : MonoBehaviour
         customersInShop.Add(customer);
         LogDebug($"[CustomerQueue] Added {customer.name}. Total in queue: {customersInShop.Count}");
         
-        // If this is the only customer, call them immediately
-        if (customersInShop.Count == 1)
+        // If this is the only customer and we've started serving, call them
+        if (customersInShop.Count == 1 && hasStartedServing) // ✨ CHANGED
         {
             CallNextCustomer();
         }
@@ -305,6 +364,7 @@ public class CustomerQueue : MonoBehaviour
         Debug.Log("=== QUEUE STATE ===");
         Debug.Log($"Customers Served: {customersServed}");
         Debug.Log($"Customers in Queue: {customersInShop.Count}");
+        Debug.Log($"Has Started Serving: {hasStartedServing}");
         Debug.Log($"Text Message Triggered: {hasTriggeredTextMessage}");
         
         for (int i = 0; i < customersInShop.Count; i++)

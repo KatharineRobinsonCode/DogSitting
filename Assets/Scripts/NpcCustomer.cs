@@ -298,57 +298,65 @@ public int ItemsReceived => itemsReceived;
     
     #endregion
     
-    #region Order Management
-    
-    private void DisplayOrder()
+   #region Order Management
+
+private void DisplayOrder()
+{
+    if (OrderManager.Instance != null)
     {
-        if (OrderManager.Instance != null)
-        {
-            OrderManager.Instance.ShowOrder($"Order: {finalOrderToDisplay}");
-        }
+        OrderManager.Instance.ShowOrder($"Order: {finalOrderToDisplay}");
     }
-    
-    public void DeliverItem()
+}
+
+private void UpdateTaskWithOrder() // ✨ NEW METHOD
+{
+    if (TaskManager.Instance != null)
     {
-        itemsReceived++;
-        int remainingItems = itemsExpected - itemsReceived;
-        
-        Debug.Log($"[{name}] Received item. {remainingItems} remaining.");
-        
-        if (IsOrderComplete())
-        {
-            CompleteOrder();
-        }
-        else
-        {
-            UpdatePartialOrder(remainingItems);
-        }
+        TaskManager.Instance.ShowTask($"Serve customer: {finalOrderToDisplay}");
     }
+}
+
+public void DeliverItem()
+{
+    itemsReceived++;
+    int remainingItems = itemsExpected - itemsReceived;
     
-    private bool IsOrderComplete()
+    Debug.Log($"[{name}] Received item. {remainingItems} remaining.");
+    
+    if (IsOrderComplete())
     {
-        return itemsReceived >= itemsExpected;
+        CompleteOrder();
     }
-    
-    private void CompleteOrder()
+    else
     {
-        isInDialogue = false;
-        hasFinishedOrderConversation = true;
-        
-        HideDialogueUI();
-        FinishOrderAndLeave();
+        UpdatePartialOrder(remainingItems);
     }
+}
+
+private bool IsOrderComplete()
+{
+    return itemsReceived >= itemsExpected;
+}
+
+private void CompleteOrder()
+{
+    isInDialogue = false;
+    hasFinishedOrderConversation = true;
     
-    private void UpdatePartialOrder(int remainingItems)
+    HideDialogueUI();
+    FinishOrderAndLeave();
+}
+
+private void UpdatePartialOrder(int remainingItems)
+{
+    if (OrderManager.Instance != null)
     {
-        if (OrderManager.Instance != null)
-        {
-            string updatedText = $"{finalOrderToDisplay} (Waiting for {remainingItems} more)";
-            OrderManager.Instance.ShowOrder($"Order: {updatedText}");
-        }
+        string updatedText = $"{finalOrderToDisplay} (Waiting for {remainingItems} more)";
+        OrderManager.Instance.ShowOrder($"Order: {updatedText}");
     }
-    
-    #endregion
+}
+
+#endregion
     
     #region Movement System
     
