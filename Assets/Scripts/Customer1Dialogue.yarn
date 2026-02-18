@@ -1,0 +1,9 @@
+﻿title: Customer1_Order
+---
+Customer: Hey girl, give me a large beer it's been a long day.
+-> {$PlayerName}: Sure, I know the feeling!
+    Customer: Cheers
+-> {$PlayerName}: I didn't ask but fine.
+    Customer: ... thanks?
+<<CompleteOrderConversation_Customer1>>
+===

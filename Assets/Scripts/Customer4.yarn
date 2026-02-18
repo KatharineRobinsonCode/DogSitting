@@ -1,0 +1,21 @@
+﻿title: Customer4_Waiting
+---
+Customer: Hello dear!
+{$PlayerName}: Hi! 
+<<CompleteWaitingConversation_Customer4>>
+===
+
+title: Customer4_Order
+---
+Customer: Hello lovely, it's so nice to see you again. I was just saying to Carol it's been too long since you last came round!
+-> {$PlayerName}: Great to see you again! How is everything?
+   Customer: Bless you, we're doing well. You know Jamie keeps me busy!
+        -> {$PlayerName}: Haha, kids can be alot! What can I get you?
+        -> {$PlayerName}: Urgh, that's why I don't want kids. What can I get you?
+             Customer: Just 2 coffees for me today. As tempting as those doughnuts look!
+-> {$PlayerName}: What can I get you?
+    Customer: Right, right. Just 2 coffees for me today, need my energy looking after Jamie.
+    {$PlayerName}: Sure, i'm on it.
+    Customer: Thanks
+<<CompleteOrderConversation_Customer4>>
+===

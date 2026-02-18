@@ -1,0 +1,17 @@
+﻿title: Customer2_Waiting
+---
+Customer: Hello beautiful
+{$PlayerName}: ...
+<<CompleteWaitingConversation_Customer2>>
+===
+
+title: Customer2_Order
+---
+Customer: Give me your number.
+-> {$PlayerName}: Haha, sorry I have a boyfriend... What can I get you?
+    Customer: You're lying. Whatever, you're not that hot anyway - get me a Grande no-whip white chocolate mocha with five pumps and an extra shot, made with soy.
+-> {$PlayerName}: Obviously not. Are you gonna order?
+    Customer: **** you - get me a Grande no-whip white chocolate mocha with five pumps and an extra shot, made with soy.
+{$PlayerName}: (Okay well I'm just gonna make him a black coffee in a takeaway cup)
+<<CompleteOrderConversation_Customer2>>
+===

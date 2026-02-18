@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 3de7da9f252794aa1980372d6bb76990
+  - enabled: 1
+    path: Assets/Scenes/CoffeeShop.unity
+    guid: a11c73f75c7f242e49e1aa69fd617e1e
+  - enabled: 1
+    path: Assets/Scenes/GameOver_Fired.unity
+    guid: 24e59f4f8c8ef428bad8ae662935e48f
+  - enabled: 1
+    path: Assets/Scenes/GameOver_NoDogsitting.unity
+    guid: b2b0cf4814eb042d7b57c2226b60ee54
+  - enabled: 1
+    path: Assets/Scenes/DrivingScene.unity
+    guid: 781d16d14dcda4fa187c17eeb988837e
+  - enabled: 1
+    path: Assets/Scenes/GameOver_CarCrash.unity
+    guid: 8f606abf977184944b62c5341997e59e
+  - enabled: 1
+    path: Assets/Scenes/HouseExterior.unity
+    guid: 04e385f2a6e244d929a02ccb1075b4a4
+  - enabled: 1
+    path: Assets/Scenes/HouseInterior.unity
+    guid: a8f2cb40c63f54cbfb0c26e82c194a1f
+  - enabled: 1
+    path: Assets/Scenes/Ending_Escaped.unity
+    guid: dff2ad51e2ffb4d72972bc7edafbd357
+  - enabled: 1
+    path: Assets/Scenes/Ending_HeroEscape.unity
+    guid: efdb2d07f10374c4895c31a1a8c10b34
+  - enabled: 1
+    path: Assets/Scenes/GameOver_Caught.unity
+    guid: 3914d9bb6b9d0424f973a5daa2b4ecfe
+  m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
