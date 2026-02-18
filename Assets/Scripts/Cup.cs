@@ -263,29 +263,41 @@ public class Cup : MonoBehaviour
     
     #region Debug Helpers
     
-    #if UNITY_EDITOR
-    /// <summary>
-    /// Validates that liquid models are properly assigned in the editor.
-    /// </summary>
-    private void OnValidate()
+  #if UNITY_EDITOR
+/// <summary>
+/// Validates that liquid models are properly assigned in the editor.
+/// </summary>
+private void OnValidate()
+{
+    // Only check for the model that matches this cup type
+    switch (cupType)
     {
-        // Check for missing models
-        if (coffeeModel == null)
-        {
-            Debug.LogWarning($"[Cup] {gameObject.name}: Coffee model not assigned", this);
-        }
+        case CupType.Coffee:
+            if (coffeeModel == null)
+            {
+                Debug.LogWarning($"[Cup] {gameObject.name}: Coffee cup missing coffee model", this);
+            }
+            if (cappuccinoModel == null)
+            {
+                Debug.LogWarning($"[Cup] {gameObject.name}: Coffee cup missing cappuccino model (for specialty drinks)", this);
+            }
+            break;
         
-        if (cupType == CupType.Beer && beerModel == null)
-        {
-            Debug.LogWarning($"[Cup] {gameObject.name}: Beer cup missing beer model", this);
-        }
+        case CupType.Beer:
+            if (beerModel == null)
+            {
+                Debug.LogWarning($"[Cup] {gameObject.name}: Beer cup missing beer model", this);
+            }
+            break;
         
-        if (cupType == CupType.Takeaway && takeawayModel == null)
-        {
-            Debug.LogWarning($"[Cup] {gameObject.name}: Takeaway cup missing takeaway model", this);
-        }
+        case CupType.Takeaway:
+            if (takeawayModel == null)
+            {
+                Debug.LogWarning($"[Cup] {gameObject.name}: Takeaway cup missing takeaway model", this);
+            }
+            break;
     }
-    #endif
-    
-    #endregion
+}
+#endif
+#endregion
 }
