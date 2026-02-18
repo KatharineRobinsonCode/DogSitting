@@ -2,389 +2,668 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
+/// <summary>
+/// Manages phone UI interactions including AirDrop notifications and text messaging.
+/// Handles both horror elements (creepy photos) and narrative choices (dog sitting request).
+/// </summary>
 public class PhoneManager : MonoBehaviour
 {
-    public static PhoneManager Instance;
-   
-    [Header("UI Components")]
-    public GameObject phonePanel;        
-    public CanvasGroup phoneCanvasGroup; 
-    public Image airdropImage;    
-    public GameObject actionButtons; 
-
-    [Header("Dialogue System")]
-    public TextMeshProUGUI playerDialogueText; 
-
+    #region Singleton
+    
+    public static PhoneManager Instance { get; private set; }
+    
+    #endregion
+    
+    #region Serialized Fields
+    
+    [Header("Phone UI Components")]
+    [SerializeField] private GameObject phonePanel;
+    [SerializeField] private CanvasGroup phoneCanvasGroup;
+    [SerializeField] private Image airdropImage;
+    [SerializeField] private GameObject actionButtons;
+    
+    [Header("Player Dialogue")]
+    [SerializeField] private TextMeshProUGUI playerDialogueText;
+    
     [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip notificationSound; 
-    public AudioClip scaryZoomSound;
-    public AudioClip textMessageSound;
-
-    [Header("Ending Panel (Reuse Door UI)")]
-    public GameObject endingCanvas;
-    public TextMeshProUGUI endingText;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip notificationSound;
+    [SerializeField] private AudioClip scaryZoomSound;
+    [SerializeField] private AudioClip textMessageSound;
+    
+    [Header("Game Ending")]
+    [SerializeField] private GameObject endingCanvas;
+    [SerializeField] private TextMeshProUGUI endingText;
+    
     [TextArea(3, 10)]
-    public string declineEndingMessage =
+    [SerializeField] private string declineEndingMessage =
         "ENDING 2/5\n\nYou ignored your best friend.\n" +
         "You never met the dog...\n" +
         "But something else found them...";
-
+    
     [Header("Text Message UI")]
-    public GameObject textMessagePanel;
-    public TextMeshProUGUI contactNameText;
-    public TextMeshProUGUI messageText;
-    public GameObject messageAcceptButton;
-    public GameObject messageDeclineButton;
-
-    [Header("Text Message Settings")]
-    public string contactName = "Bestie 🐾";
+    [SerializeField] private GameObject textMessagePanel;
+    [SerializeField] private TextMeshProUGUI contactNameText;
+    [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private GameObject messageAcceptButton;
+    [SerializeField] private GameObject messageDeclineButton;
+    
+    [Header("Text Message Content")]
+    [SerializeField] private string contactName = "Bestie 🐾";
+    
     [TextArea(3, 10)]
-    public string dogSitMessage =
+    [SerializeField] private string dogSitMessage =
         "Hey!! Are you free after your shift? \n" +
         "I need someone to watch my dog tonight... \n" +
         "Please please please 🐶🙏";
-
+    
+    [Header("Timing Settings")]
+    [Tooltip("Delay before showing phone UI")]
+    [SerializeField] private float phoneShowDelay = 0.5f;
+    
+    [Tooltip("Delay before showing message buttons")]
+    [SerializeField] private float buttonShowDelay = 0.5f;
+    
+    [Tooltip("Simulated typing delay before player's reply")]
+    [SerializeField] private float playerTypingDelay = 0.8f;
+    
+    [Tooltip("Simulated typing delay before friend's response")]
+    [SerializeField] private float friendTypingDelay = 1.2f;
+    
+    [Tooltip("Time to read final message before closing")]
+    [SerializeField] private float messageReadTime = 2f;
+    
+    [Tooltip("Duration of player reaction to creepy photo")]
+    [SerializeField] private float creepyReactionTime = 3f;
+    
+    [Header("Animation Settings")]
+    [Tooltip("Duration of photo zoom animation")]
+    [SerializeField] private float zoomDuration = 0.8f;
+    
+    [Tooltip("Scale multiplier for zoomed photo")]
+    [SerializeField] private float zoomScale = 5.0f;
+    
+    #endregion
+    
+    #region Private Fields
+    
     private Vector3 originalImageScale;
-    private Vector3 originalImagePos;
-
-    private System.Action onAccepted;
-    private System.Action onDeclined;
-
-  void Awake()
-{
-    Instance = this;
+    private Vector3 originalImagePosition;
     
-    originalImageScale = airdropImage.transform.localScale;
-    originalImagePos = airdropImage.transform.localPosition;
+    private Action onAcceptedCallback;
+    private Action onDeclinedCallback;
     
-    // CHANGE: Keep phonePanel active, but hide all children
-    if (phonePanel != null) phonePanel.SetActive(true);
+    // Constants
+    private const float PHONE_VISIBLE_ALPHA = 1f;
+    private const float PHONE_HIDDEN_ALPHA = 0f;
+    private const float SCROLL_TOP = 1f;
+    private const float SCROLL_BOTTOM = 0f;
     
-    // Hide all children at start
-    if (actionButtons != null) actionButtons.SetActive(false);
-    if (playerDialogueText != null) playerDialogueText.text = "";
-    if (textMessagePanel != null) textMessagePanel.SetActive(false);
-    if (airdropImage != null) airdropImage.gameObject.SetActive(false);
+    #endregion
     
-    // Hide the phone background/frame
-    if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 0f;
-}
-
-    // ============================
-    // AIRDROP LOGIC
-    // ============================
-
-    public void ReceiveAirdrop(string content, Sprite horrorPhoto = null)
+    #region Unity Lifecycle
+    
+    private void Awake()
     {
-        StopAllCoroutines(); 
-
-       if (textMessagePanel != null) textMessagePanel.SetActive(false); // Hide text UI
-        actionButtons.SetActive(false); 
-
-        airdropImage.transform.localScale = originalImageScale;
-        airdropImage.transform.localPosition = originalImagePos;
-
-        StartCoroutine(ProcessAirdrop(horrorPhoto));
+        InitializeSingleton();
+        CacheOriginalImageTransform();
+        InitializePhoneState();
     }
-
-    IEnumerator ProcessAirdrop(Sprite horrorPhoto)
+    
+    #endregion
+    
+    #region Initialization
+    
+    private void InitializeSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        Instance = this;
+    }
+    
+    private void CacheOriginalImageTransform()
+    {
+        if (airdropImage != null)
+        {
+            originalImageScale = airdropImage.transform.localScale;
+            originalImagePosition = airdropImage.transform.localPosition;
+        }
+    }
+    
+    private void InitializePhoneState()
+    {
+        if (phonePanel != null)
+        {
+            phonePanel.SetActive(true);
+        }
+        
+        HideAllPhoneChildren();
+        HidePhoneCanvas();
+    }
+    
+    private void HideAllPhoneChildren()
+    {
+        if (actionButtons != null)
+        {
+            actionButtons.SetActive(false);
+        }
+        
+        if (playerDialogueText != null)
+        {
+            playerDialogueText.text = string.Empty;
+        }
+        
+        if (textMessagePanel != null)
+        {
+            textMessagePanel.SetActive(false);
+        }
+        
+        if (airdropImage != null)
+        {
+            airdropImage.gameObject.SetActive(false);
+        }
+    }
+    
+    private void HidePhoneCanvas()
     {
         if (phoneCanvasGroup != null)
-            phoneCanvasGroup.alpha = 1f;
-        
-        yield return new WaitForEndOfFrame(); 
-
-        if (horrorPhoto != null)
         {
-            airdropImage.sprite = horrorPhoto;
+            phoneCanvasGroup.alpha = PHONE_HIDDEN_ALPHA;
+        }
+    }
+    
+    #endregion
+    
+    #region Public API - AirDrop System
+    
+    /// <summary>
+    /// Displays a creepy AirDrop notification with an image.
+    /// </summary>
+    /// <param name="content">AirDrop message text (currently unused)</param>
+    /// <param name="horrorPhoto">The creepy image to display</param>
+    public void ReceiveAirdrop(string content = null, Sprite horrorPhoto = null)
+    {
+        StopAllCoroutines();
+        
+        PrepareForAirdrop();
+        StartCoroutine(ProcessAirdrop(horrorPhoto));
+    }
+    
+    #endregion
+    
+    #region Public API - Text Message System
+    
+    /// <summary>
+    /// Displays a text message conversation with accept/decline options.
+    /// </summary>
+    /// <param name="onAccept">Callback invoked when player accepts</param>
+    /// <param name="onDecline">Callback invoked when player declines</param>
+    public void ReceiveTextMessage(Action onAccept = null, Action onDecline = null)
+    {
+        onAcceptedCallback = onAccept;
+        onDeclinedCallback = onDecline;
+        
+        StopAllCoroutines();
+        
+        PrepareForTextMessage();
+        StartCoroutine(ShowTextMessage());
+    }
+    
+    #endregion
+    
+    #region Public API - Button Callbacks
+    
+    public void OnAcceptPressed()
+    {
+        StartCoroutine(EnlargeImageAndShowReaction());
+    }
+    
+    public void OnDeclinePressed()
+    {
+        ClosePhone();
+    }
+    
+    public void OnTextMessageAccepted()
+    {
+        StartCoroutine(HandleTextMessageAccepted());
+    }
+    
+    public void OnTextMessageDeclined()
+    {
+        StartCoroutine(HandleTextMessageDeclined());
+    }
+    
+    #endregion
+    
+    #region AirDrop - Private Methods
+    
+    private void PrepareForAirdrop()
+    {
+        HideTextMessageUI();
+        
+        if (actionButtons != null)
+        {
+            actionButtons.SetActive(false);
+        }
+        
+        ResetAirdropImage();
+    }
+    
+    private IEnumerator ProcessAirdrop(Sprite horrorPhoto)
+    {
+        ShowPhoneCanvas();
+        
+        yield return new WaitForEndOfFrame();
+        
+        DisplayAirdropImage(horrorPhoto);
+        PlayNotificationSound();
+        
+        if (actionButtons != null)
+        {
+            actionButtons.SetActive(true);
+        }
+    }
+    
+    private void DisplayAirdropImage(Sprite photo)
+    {
+        if (airdropImage == null) return;
+        
+        if (photo != null)
+        {
+            airdropImage.sprite = photo;
             airdropImage.gameObject.SetActive(true);
         }
         else
         {
             airdropImage.gameObject.SetActive(false);
         }
-
-        if (notificationSound != null && audioSource != null)
-            audioSource.PlayOneShot(notificationSound);
-
+    }
+    
+    private IEnumerator EnlargeImageAndShowReaction()
+    {
         if (actionButtons != null)
-            actionButtons.SetActive(true);
-    }
-
-    public void OnAcceptPressed()
-    {
-        StartCoroutine(EnlargeImageAndTalk());
-    }
-
-    public void OnDeclinePressed()
-    {
+        {
+            actionButtons.SetActive(false);
+        }
+        
+        Image phoneBackground = GetPhoneBackground();
+        if (phoneBackground != null)
+        {
+            phoneBackground.enabled = false;
+        }
+        
+        yield return StartCoroutine(AnimateImageZoom());
+        
+        PlayScarySound();
+        ShowPlayerReaction();
+        
+        yield return new WaitForSeconds(creepyReactionTime);
+        
+        if (phoneBackground != null)
+        {
+            phoneBackground.enabled = true;
+        }
+        
         ClosePhone();
     }
-
-    IEnumerator EnlargeImageAndTalk()
+    
+    private Image GetPhoneBackground()
     {
-        if (actionButtons != null)
-            actionButtons.SetActive(false); 
-
-        float duration = 0.8f; 
-        float elapsed = 0;
+        return phonePanel != null ? phonePanel.GetComponent<Image>() : null;
+    }
+    
+    private IEnumerator AnimateImageZoom()
+    {
+        Vector3 targetScale = originalImageScale * zoomScale;
+        Vector3 targetPosition = Vector3.zero;
         
-        Image phoneBackground = phonePanel.GetComponent<Image>();
-        if (phoneBackground != null) phoneBackground.enabled = false;
-
-        Vector3 targetScale = originalImageScale * 5.0f; 
-        Vector3 targetPos = Vector3.zero; 
+        float elapsed = 0f;
         
-        while (elapsed < duration)
+        while (elapsed < zoomDuration)
         {
-            float t = elapsed / duration;
+            float progress = elapsed / zoomDuration;
             
-            airdropImage.transform.localScale = Vector3.Lerp(originalImageScale, targetScale, t);
-            airdropImage.transform.localPosition = Vector3.Lerp(originalImagePos, targetPos, t);
+            airdropImage.transform.localScale = Vector3.Lerp(
+                originalImageScale, 
+                targetScale, 
+                progress
+            );
+            
+            airdropImage.transform.localPosition = Vector3.Lerp(
+                originalImagePosition, 
+                targetPosition, 
+                progress
+            );
             
             elapsed += Time.deltaTime;
             yield return null;
         }
-
+        
+        // Ensure final values are set
+        airdropImage.transform.localScale = targetScale;
+        airdropImage.transform.localPosition = targetPosition;
+    }
+    
+    private void PlayScarySound()
+    {
         if (audioSource != null && scaryZoomSound != null)
         {
             audioSource.PlayOneShot(scaryZoomSound);
         }
-
+    }
+    
+    private void ShowPlayerReaction()
+    {
         if (playerDialogueText != null)
         {
             playerDialogueText.text = "Well that's creepy...";
-            playerDialogueText.gameObject.SetActive(true); 
+            playerDialogueText.gameObject.SetActive(true);
+        }
+    }
+    
+    #endregion
+    
+    #region Text Message - Private Methods
+    
+    private void PrepareForTextMessage()
+    {
+        HideAirdropUI();
+        ShowTextMessageUI();
+        ClearMessageContent();
+        HideMessageButtons();
+    }
+    
+    private void HideAirdropUI()
+    {
+        ResetAirdropImage();
+        
+        if (actionButtons != null)
+        {
+            actionButtons.SetActive(false);
         }
         
-        yield return new WaitForSeconds(3f);
-        
-        if (phoneBackground != null) phoneBackground.enabled = true;
-        ClosePhone();
+        if (playerDialogueText != null)
+        {
+            playerDialogueText.text = string.Empty;
+            playerDialogueText.gameObject.SetActive(false);
+        }
     }
-
-   public void ClosePhone()
-{
-    if (playerDialogueText != null) playerDialogueText.text = "";
-
-    airdropImage.transform.localScale = originalImageScale;
-    airdropImage.transform.localPosition = originalImagePos;
-
-    // CHANGE: Just hide via alpha instead of deactivating panel
-    if (phoneCanvasGroup != null)
-        phoneCanvasGroup.alpha = 0f;
     
-    // Hide all children
-    if (airdropImage != null) airdropImage.gameObject.SetActive(false);
-    if (textMessagePanel != null) textMessagePanel.SetActive(false);
-    if (actionButtons != null) actionButtons.SetActive(false);
-}
-
-    // ============================
-    // TEXT MESSAGE SYSTEM
-    // ============================
-
-public void ReceiveTextMessage(
-    System.Action onAccept = null,
-    System.Action onDecline = null)
-{
-    onAccepted = onAccept;
-    onDeclined = onDecline;
-
-    StopAllCoroutines();
-
-    // Phone panel already active, just swap children
-    // FIRST: Hide airdrop UI
-    if (airdropImage != null)
+    private void ResetAirdropImage()
     {
+        if (airdropImage == null) return;
+        
         airdropImage.gameObject.SetActive(false);
         airdropImage.transform.localScale = originalImageScale;
-        airdropImage.transform.localPosition = originalImagePos;
+        airdropImage.transform.localPosition = originalImagePosition;
     }
     
-    if (actionButtons != null)
-        actionButtons.SetActive(false);
+    private void ShowTextMessageUI()
+    {
+        if (textMessagePanel != null)
+        {
+            textMessagePanel.SetActive(true);
+        }
+    }
     
-    if (playerDialogueText != null)
+    private void HideTextMessageUI()
     {
-        playerDialogueText.text = "";
-        playerDialogueText.gameObject.SetActive(false);
+        if (textMessagePanel != null)
+        {
+            textMessagePanel.SetActive(false);
+        }
     }
-
-    // SECOND: Show text message UI
-    if (textMessagePanel != null)
-        textMessagePanel.SetActive(true);
-
-    if (contactNameText != null)
-        contactNameText.text = contactName;
-
-    if (messageText != null)
-        messageText.text = "";
-
-    if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
-    if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
-
-    StartCoroutine(ShowTextMessage());
-}
-
-  IEnumerator ShowTextMessage()
-{
-    // Play notification sound
-    if (textMessageSound != null && audioSource != null)
-        audioSource.PlayOneShot(textMessageSound);
-
-    yield return new WaitForSeconds(0.5f);
-
-    // Show phone instantly (don't fade the whole thing)
-    if (phoneCanvasGroup != null)
-    {
-        phoneCanvasGroup.alpha = 1f; // Just set to 1 instantly
-    }
-
-    // 3) Optional: second "UI blip" when the message text appears
-    if (notificationSound != null && audioSource != null)
-        audioSource.PlayOneShot(notificationSound);
-
-    // Clear and reset scroll
-    if (messageText != null)
-        messageText.text = "";
-
-    ScrollRect scrollRect = textMessagePanel.GetComponentInChildren<ScrollRect>();
-    if (scrollRect != null)
-    {
-        scrollRect.verticalNormalizedPosition = 1f;
-    }
-
-    // Show message instantly
-    if (messageText != null)
-        messageText.text = dogSitMessage;
-
-    yield return new WaitForSeconds(0.5f);
-
-    // Show buttons
-    if (messageAcceptButton != null) messageAcceptButton.SetActive(true);
-    if (messageDeclineButton != null) messageDeclineButton.SetActive(true);
-}
-
-void ShowMessage(string message, bool addNewlineBefore = true)
-{
-    if (messageText == null) return;
-
-    if (addNewlineBefore)
-    {
-        messageText.text += "\n\n";
-    }
-
-    messageText.text += message;
-
-    // Scroll stays at top initially, only scroll down when content exceeds viewport
-    Canvas.ForceUpdateCanvases();
     
-    ScrollRect scrollRect = textMessagePanel.GetComponentInChildren<ScrollRect>();
-    if (scrollRect != null)
+    private void ClearMessageContent()
     {
-        // Check if content is taller than viewport
+        if (contactNameText != null)
+        {
+            contactNameText.text = contactName;
+        }
+        
+        if (messageText != null)
+        {
+            messageText.text = string.Empty;
+        }
+    }
+    
+    private void HideMessageButtons()
+    {
+        if (messageAcceptButton != null)
+        {
+            messageAcceptButton.SetActive(false);
+        }
+        
+        if (messageDeclineButton != null)
+        {
+            messageDeclineButton.SetActive(false);
+        }
+    }
+    
+    private IEnumerator ShowTextMessage()
+    {
+        PlayTextMessageSound();
+        
+        yield return new WaitForSeconds(phoneShowDelay);
+        
+        ShowPhoneCanvas();
+        PlayNotificationSound();
+        
+        ResetScrollPosition();
+        DisplayInitialMessage();
+        
+        yield return new WaitForSeconds(buttonShowDelay);
+        
+        ShowMessageButtons();
+    }
+    
+    private void PlayTextMessageSound()
+    {
+        if (audioSource != null && textMessageSound != null)
+        {
+            audioSource.PlayOneShot(textMessageSound);
+        }
+    }
+    
+    private void PlayNotificationSound()
+    {
+        if (audioSource != null && notificationSound != null)
+        {
+            audioSource.PlayOneShot(notificationSound);
+        }
+    }
+    
+    private void ShowPhoneCanvas()
+    {
+        if (phoneCanvasGroup != null)
+        {
+            phoneCanvasGroup.alpha = PHONE_VISIBLE_ALPHA;
+        }
+    }
+    
+    private void ResetScrollPosition()
+    {
+        if (messageText != null)
+        {
+            messageText.text = string.Empty;
+        }
+        
+        ScrollRect scrollRect = GetMessageScrollRect();
+        if (scrollRect != null)
+        {
+            scrollRect.verticalNormalizedPosition = SCROLL_TOP;
+        }
+    }
+    
+    private void DisplayInitialMessage()
+    {
+        if (messageText != null)
+        {
+            messageText.text = dogSitMessage;
+        }
+    }
+    
+    private void ShowMessageButtons()
+    {
+        if (messageAcceptButton != null)
+        {
+            messageAcceptButton.SetActive(true);
+        }
+        
+        if (messageDeclineButton != null)
+        {
+            messageDeclineButton.SetActive(true);
+        }
+    }
+    
+    private void AppendMessage(string message, bool addNewlineBefore = true)
+    {
+        if (messageText == null) return;
+        
+        if (addNewlineBefore)
+        {
+            messageText.text += "\n\n";
+        }
+        
+        messageText.text += message;
+        
+        ScrollToBottomIfNeeded();
+    }
+    
+    private void ScrollToBottomIfNeeded()
+    {
+        Canvas.ForceUpdateCanvases();
+        
+        ScrollRect scrollRect = GetMessageScrollRect();
+        if (scrollRect == null) return;
+        
         RectTransform content = scrollRect.content;
         RectTransform viewport = scrollRect.viewport;
         
-        if (content.rect.height > viewport.rect.height)
+        if (content != null && viewport != null)
         {
-            // Content overflows, scroll to bottom
-            scrollRect.verticalNormalizedPosition = 0f;
+            if (content.rect.height > viewport.rect.height)
+            {
+                scrollRect.verticalNormalizedPosition = SCROLL_BOTTOM;
+            }
         }
     }
-}
-    public void OnTextMessageAccepted()
+    
+    private ScrollRect GetMessageScrollRect()
     {
-        StartCoroutine(HandleTextMessageAccepted());
+        return textMessagePanel != null ? 
+               textMessagePanel.GetComponentInChildren<ScrollRect>() : 
+               null;
     }
-
-    public void OnTextMessageDeclined()
+    
+    #endregion
+    
+    #region Text Message - Conversation Flows
+    
+    private IEnumerator HandleTextMessageAccepted()
     {
-        StartCoroutine(HandleTextMessageDeclined());
-    }
-
-    IEnumerator HandleTextMessageAccepted()
-    {
-        // Hide buttons
-        if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
-        if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
-
-        // Player typing delay
-        yield return new WaitForSeconds(0.8f);
-
-        // Show player reply
-        ShowMessage("You: Sure! I'll be there after my shift 🐾", true);
-
-        // Friend typing delay
-        yield return new WaitForSeconds(1.2f);
-
-        // Show friend response
-        ShowMessage("Bestie: YAYY thank you!! You're the best!! 🎉", true);
-
-        yield return new WaitForSeconds(2f);
-
+        HideMessageButtons();
+        
+        yield return new WaitForSeconds(playerTypingDelay);
+        AppendMessage("You: Sure! I'll be there after my shift 🐾");
+        
+        yield return new WaitForSeconds(friendTypingDelay);
+        AppendMessage("Bestie: YAYY thank you!! You're the best!! 🎉");
+        
+        yield return new WaitForSeconds(messageReadTime);
+        
         CloseTextMessage();
-        onAccepted?.Invoke();
+        onAcceptedCallback?.Invoke();
     }
-
-    IEnumerator HandleTextMessageDeclined()
+    
+    private IEnumerator HandleTextMessageDeclined()
     {
-        // Hide buttons
-        if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
-        if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
-
-        // Player typing delay
-        yield return new WaitForSeconds(0.8f);
-
-        // Show player reply
-        ShowMessage("You: Sorry, can't tonight!", true);
-
-        // Friend typing delay
-        yield return new WaitForSeconds(1.2f);
-
-        // Show friend response
-        ShowMessage("Bestie: Aw no worries 😢", true);
-
-        yield return new WaitForSeconds(2f);
-
+        HideMessageButtons();
+        
+        yield return new WaitForSeconds(playerTypingDelay);
+        AppendMessage("You: Sorry, can't tonight!");
+        
+        yield return new WaitForSeconds(friendTypingDelay);
+        AppendMessage("Bestie: Aw no worries 😢");
+        
+        yield return new WaitForSeconds(messageReadTime);
+        
         ShowDeclineEnding();
-        onDeclined?.Invoke();
+        onDeclinedCallback?.Invoke();
     }
-
-    void CloseTextMessage()
+    
+    #endregion
+    
+    #region Phone State Management
+    
+    public void ClosePhone()
     {
-        if (textMessagePanel != null) textMessagePanel.SetActive(false);
-        if (airdropImage != null) airdropImage.gameObject.SetActive(true);
-
+        if (playerDialogueText != null)
+        {
+            playerDialogueText.text = string.Empty;
+        }
+        
+        ResetAirdropImage();
+        HidePhoneCanvas();
+        HideAllPhoneChildren();
+    }
+    
+    private void CloseTextMessage()
+    {
+        HideTextMessageUI();
+        
+        if (airdropImage != null)
+        {
+            airdropImage.gameObject.SetActive(true);
+        }
+        
         ClosePhone();
     }
-
-    // ============================
-    // ENDING 2/5
-    // ============================
-
+    
+    #endregion
+    
+    #region Game Ending
+    
     public void ShowDeclineEnding()
     {
         ClosePhone();
-
+        
         if (endingCanvas != null)
         {
             endingCanvas.SetActive(true);
-
+            
             Transform panel = endingCanvas.transform.Find("EndingPanel");
-            if (panel != null) panel.gameObject.SetActive(true);
-
+            if (panel != null)
+            {
+                panel.gameObject.SetActive(true);
+            }
+            
             if (endingText != null)
             {
                 endingText.text = declineEndingMessage;
             }
         }
-
+        
+        PauseGame();
+        ShowCursor();
+    }
+    
+    private void PauseGame()
+    {
         Time.timeScale = 0f;
+    }
+    
+    private void ShowCursor()
+    {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
+    
+    #endregion
 }

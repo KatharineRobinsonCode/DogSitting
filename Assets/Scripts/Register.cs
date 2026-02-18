@@ -1,129 +1,307 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-
+/// <summary>
+/// Handles customer order fulfillment at the cash register.
+/// Validates drinks against customer orders and manages order completion.
+/// </summary>
+[RequireComponent(typeof(AudioSource))]
 public class Register : MonoBehaviour
 {
-    private AudioSource audioSource;
+#region Serialized Fields
+[Header("Current Customer")]
+[Tooltip("NPC currently being served (assigned by customer when they arrive)")]
+public NpcCustomer currentCustomer;
 
-    [Header("NPC Settings")]
-    public NpcCustomer currentCustomer;
+[Header("Queue Management")]
+[Tooltip("Reference to the customer queue manager")]
+[SerializeField] private CustomerQueue queueManager;
 
-    [Header("Queue Settings")]
-    public CustomerQueue queueManager;
+[Header("Audio Feedback")]
+[Tooltip("Sound played when order is correct")]
+[SerializeField] private AudioClip successSound;
 
-    [Header("Audio")]
-    public AudioClip successSound;
-    public AudioClip errorSound;
+[Tooltip("Sound played when wrong drink is served")]
+[SerializeField] private AudioClip errorSound;
 
-    void Start()
+#endregion
+
+#region Private Fields
+
+private AudioSource audioSource;
+
+#endregion
+
+#region Unity Lifecycle
+
+private void Start()
+{
+    InitializeComponents();
+    ValidateReferences();
+}
+
+#endregion
+
+#region Initialization
+
+private void InitializeComponents()
+{
+    audioSource = GetComponent<AudioSource>();
+}
+
+private void ValidateReferences()
+{
+    if (queueManager == null)
     {
-        audioSource = GetComponent<AudioSource>();
+        Debug.LogWarning("[Register] Queue Manager not assigned. Order completion may not work properly.");
     }
+}
 
-    // Called by PlayerInteraction when E is pressed on the register
-    public void Interact(PlayerInteraction player)
+#endregion
+
+#region Public API
+
+/// <summary>
+/// Called by PlayerInteraction when player presses E while looking at register.
+/// Validates and processes drink delivery to current customer.
+/// </summary>
+public void Interact(PlayerInteraction player)
+{
+    // Validation chain - fail fast
+    if (!ValidatePlayerHoldingItem(player)) return;
+    if (!ValidateCupContents(player, out Cup cup)) return;
+    if (!ValidateCustomerPresent()) return;
+    
+    // Process the drink delivery
+    ProcessDrinkDelivery(player, cup);
+}
+
+#endregion
+
+#region Validation
+
+private bool ValidatePlayerHoldingItem(PlayerInteraction player)
+{
+    if (player.CurrentHeldItem != null)
     {
-        // 1. Is the player holding anything?
-        if (player.currentHeldItem == null)
-        {
-            FeedbackManager.Instance?.ShowMessage(
-                "You need to hold a drink first!", 
-                FeedbackManager.MessageType.Error
-            );
-            return;
-        }
-
-        // 2. Is it a Cup?
-        Cup cup = player.currentHeldItem.GetComponent<Cup>();
-        if (cup == null || cup.contents == Cup.DrinkType.None)
-        {
-            FeedbackManager.Instance?.ShowMessage(
-                "This cup is empty!", 
-                FeedbackManager.MessageType.Error
-            );
-            return;
-        }
-
-        // 3. Is there a customer to serve?
-        if (currentCustomer == null)
-        {
-            FeedbackManager.Instance?.ShowMessage(
-                "No customer here right now.", 
-                FeedbackManager.MessageType.Info
-            );
-            return;
-        }
-
-        // 4. Convert the cup contents to a string we can match
-        string heldDrinkName = cup.contents.ToString();
-        string orderText     = currentCustomer.finalOrderToDisplay;
-        string orderLower    = orderText.ToLower();
-        string drinkLower    = heldDrinkName.ToLower();
-
-        Debug.Log($"[Register] Serving customer: {currentCustomer.name} | " +
-                  $"Order text: '{orderText}' | Held drink: '{heldDrinkName}'");
-
-        // 5. Does this drink appear in their order text? (case‑insensitive)
-        if (orderLower.Contains(drinkLower))
-        {
-            // ===== SUCCESS: This item is part of their order =====
-            if (audioSource != null && successSound != null)
-                audioSource.PlayOneShot(successSound);
-
-            // Remove the physical cup from the world
-            Destroy(player.currentHeldItem);
-            player.currentHeldItem = null;
-
-            // Tell the NPC they received one required item
-            currentCustomer.DeliverItem();
-
-            // If they are now fully satisfied, hand them back to the queue and clear slot
-            if (currentCustomer.itemsExpected <= currentCustomer.itemsReceived)
-            {
-                Debug.Log($"[Register] Customer {currentCustomer.name} order complete!");
-                
-                // Queue handover
-                if (queueManager != null)
-                {
-                    Debug.Log($"[Register] Calling queueManager.CustomerLeft({currentCustomer.name})");
-                    queueManager.CustomerLeft(currentCustomer);
-                }
-                else
-                {
-                    Debug.LogError("[Register] QueueManager is NULL!");
-                }
-
-                // Free the register for the next customer
-                Debug.Log($"[Register] Clearing currentCustomer (was {currentCustomer.name})");
-                currentCustomer = null;
-                Debug.Log("[Register] currentCustomer is now NULL");
-
-                FeedbackManager.Instance?.ShowMessage(
-                    "Order Complete!", 
-                    FeedbackManager.MessageType.Success
-                );
-            }
-            else
-            {
-                // Partial success – let the player know there's more to do
-                int remaining = currentCustomer.itemsExpected - currentCustomer.itemsReceived;
-                FeedbackManager.Instance?.ShowMessage(
-                    $"Nice! {remaining} more item(s) to serve.", 
-                    FeedbackManager.MessageType.Success
-                );
-            }
-        }
-        else
-        {
-            // ===== FAILURE: Wrong drink =====
-            if (audioSource != null && errorSound != null)
-                audioSource.PlayOneShot(errorSound);
-
-            FeedbackManager.Instance?.ShowMessage(
-                "Wrong Drink! They want " + currentCustomer.finalOrderToDisplay, 
-                FeedbackManager.MessageType.Error
-            );
-        }
+        return true;
     }
+    
+    ShowFeedback("You need to hold a drink first!", FeedbackManager.MessageType.Error);
+    return false;
+}
+
+private bool ValidateCupContents(PlayerInteraction player, out Cup cup)
+{
+    cup = player.CurrentHeldItem.GetComponent<Cup>();
+    
+    if (cup == null)
+    {
+        ShowFeedback("That's not a cup!", FeedbackManager.MessageType.Error);
+        return false;
+    }
+    
+    if (cup.contents == Cup.DrinkType.None)
+    {
+        ShowFeedback("This cup is empty!", FeedbackManager.MessageType.Error);
+        return false;
+    }
+    
+    return true;
+}
+
+private bool ValidateCustomerPresent()
+{
+    if (currentCustomer != null)
+    {
+        return true;
+    }
+    
+    ShowFeedback("No customer here right now.", FeedbackManager.MessageType.Info);
+    return false;
+}
+
+#endregion
+
+#region Order Processing
+
+private void ProcessDrinkDelivery(PlayerInteraction player, Cup cup)
+{
+    string drinkName = cup.contents.ToString();
+    string orderText = currentCustomer.FinalOrderToDisplay;  // ✅ FIXED - Using property
+    
+    Debug.Log($"[Register] Processing delivery: Customer={currentCustomer.name}, " +
+              $"Order='{orderText}', Drink='{drinkName}'");
+    
+    if (IsCorrectDrink(drinkName, orderText))
+    {
+        HandleCorrectDrink(player);
+    }
+    else
+    {
+        HandleWrongDrink(orderText);
+    }
+}
+
+private bool IsCorrectDrink(string drinkName, string orderText)
+{
+    // Case-insensitive comparison
+    return orderText.ToLower().Contains(drinkName.ToLower());
+}
+
+#endregion
+
+#region Correct Drink Handling
+
+private void HandleCorrectDrink(PlayerInteraction player)
+{
+    PlaySuccessSound();
+    RemoveCupFromPlayer(player);
+    DeliverItemToCustomer();
+    
+    if (IsOrderComplete())
+    {
+        CompleteOrder();
+    }
+    else
+    {
+        ShowPartialOrderFeedback();
+    }
+}
+
+private void PlaySuccessSound()
+{
+    if (audioSource != null && successSound != null)
+    {
+        audioSource.PlayOneShot(successSound);
+    }
+}
+
+private void RemoveCupFromPlayer(PlayerInteraction player)
+{
+    if (player.CurrentHeldItem != null)
+    {
+        Destroy(player.CurrentHeldItem);
+    }
+}
+
+private void DeliverItemToCustomer()
+{
+    if (currentCustomer != null)
+    {
+        currentCustomer.DeliverItem();
+    }
+}
+
+private bool IsOrderComplete()
+{
+    return currentCustomer != null && 
+           currentCustomer.ItemsReceived >= currentCustomer.ItemsExpected;  // ✅ FIXED - Using properties
+}
+
+private void CompleteOrder()
+{
+    Debug.Log($"[Register] Order complete for {currentCustomer.name}");
+    
+    NotifyQueueManager();
+    ClearCurrentCustomer();
+    ShowOrderCompleteFeedback();
+}
+
+private void NotifyQueueManager()
+{
+    if (queueManager != null && currentCustomer != null)
+    {
+        Debug.Log($"[Register] Notifying queue: {currentCustomer.name} finished");
+        queueManager.CustomerLeft(currentCustomer);
+    }
+    else if (queueManager == null)
+    {
+        Debug.LogError("[Register] Cannot notify queue: QueueManager is null!");
+    }
+}
+
+private void ClearCurrentCustomer()
+{
+    if (currentCustomer != null)
+    {
+        Debug.Log($"[Register] Clearing current customer: {currentCustomer.name}");
+        currentCustomer = null;
+    }
+}
+
+private void ShowPartialOrderFeedback()
+{
+    int remaining = currentCustomer.ItemsExpected - currentCustomer.ItemsReceived;  // ✅ FIXED - Using properties
+    ShowFeedback(
+        $"Nice! {remaining} more item(s) to serve.", 
+        FeedbackManager.MessageType.Success
+    );
+}
+
+private void ShowOrderCompleteFeedback()
+{
+    ShowFeedback("Order Complete!", FeedbackManager.MessageType.Success);
+}
+
+#endregion
+
+#region Wrong Drink Handling
+
+private void HandleWrongDrink(string expectedOrder)
+{
+    PlayErrorSound();
+    ShowWrongDrinkFeedback(expectedOrder);
+}
+
+private void PlayErrorSound()
+{
+    if (audioSource != null && errorSound != null)
+    {
+        audioSource.PlayOneShot(errorSound);
+    }
+}
+
+private void ShowWrongDrinkFeedback(string expectedOrder)
+{
+    ShowFeedback(
+        $"Wrong Drink! They want {expectedOrder}", 
+        FeedbackManager.MessageType.Error
+    );
+}
+
+#endregion
+
+#region Feedback Helpers
+
+private void ShowFeedback(string message, FeedbackManager.MessageType type)
+{
+    FeedbackManager.Instance?.ShowMessage(message, type);
+}
+
+#endregion
+
+#region Public Utility Methods
+
+/// <summary>
+/// Checks if register is currently occupied by a customer
+/// </summary>
+public bool IsOccupied()
+{
+    return currentCustomer != null;
+}
+
+/// <summary>
+/// Manually clears the current customer (use with caution)
+/// </summary>
+public void ForceReleaseCustomer()
+{
+    if (currentCustomer != null)
+    {
+        Debug.LogWarning($"[Register] Force releasing customer: {currentCustomer.name}");
+        currentCustomer = null;
+    }
+}
+
+#endregion
 }

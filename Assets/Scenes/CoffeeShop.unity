@@ -2022,11 +2022,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 403a895ae63714feea7cc4f08a3c7a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrderManager
-  currentRequiredItem: 
   orderPanel: {fileID: 1855909218}
   orderDisplay: {fileID: 1450467401}
-  customersServed: 0
   creepyPhoto: {fileID: 21300000, guid: 05c124280764542e58b16a892913e375, type: 3}
+  horrorEventTriggerCustomer: 3
+  customersServed: 0
 --- !u!4 &169391946
 Transform:
   m_ObjectHideFlags: 0
@@ -2082,6 +2082,14 @@ MonoBehaviour:
   contactName: "Bestie \U0001F43E"
   dogSitMessage: "Hey!! Are you free after your shift? \nI need someone to watch
     my dog tonight... \nPlease please please \U0001F436\U0001F64F"
+  phoneShowDelay: 0.5
+  buttonShowDelay: 0.5
+  playerTypingDelay: 0.8
+  friendTypingDelay: 1.2
+  messageReadTime: 2
+  creepyReactionTime: 3
+  zoomDuration: 0.8
+  zoomScale: 5
 --- !u!1 &171086908 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4009366606922696574, guid: a15e5580c84e4470a8ff387960ad9122, type: 3}
@@ -2236,6 +2244,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 1289166412}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!54 &204041996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3558,6 +3567,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 206634189}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &320903952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5394,6 +5404,9 @@ MonoBehaviour:
   pausePanel: {fileID: 1816876448}
   settingsPanel: {fileID: 878574376}
   controlsPanel: {fileID: 1399837756}
+  mainMenuSceneName: MainMenu
+  defaultSensitivity: 2
+  defaultVolume: 1
 --- !u!4 &505537785
 Transform:
   m_ObjectHideFlags: 0
@@ -5674,6 +5687,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 421862057}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &567055691
 GameObject:
   m_ObjectHideFlags: 0
@@ -6280,6 +6294,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 265592457}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &618711827
 GameObject:
   m_ObjectHideFlags: 0
@@ -7095,7 +7110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f18b8843f1a4b88af6537388c9e72b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Trash
-  audioSource: {fileID: 689832691}
   trashSound: {fileID: 8300000, guid: 7afbd47384d7f45ddbc36f17eb80394b, type: 3}
 --- !u!1 &692212093
 GameObject:
@@ -7962,12 +7976,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
+  turnSpeed: 5
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 0}
+  counterLookTarget: {fileID: 2112291235}
   shouldSitAtTable: 0
-  turnSpeed: 5
-  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer4_Waiting
@@ -7977,10 +7991,8 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
-  counterLookTarget: {fileID: 2112291235}
   finalOrderToDisplay: 2x Coffee
   itemsExpected: 2
-  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -8077,6 +8089,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1185790253}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &767494404
 GameObject:
   m_ObjectHideFlags: 0
@@ -8413,6 +8426,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1355210055}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &796353278
 GameObject:
   m_ObjectHideFlags: 0
@@ -8765,12 +8779,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
+  turnSpeed: 5
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 938654960}
+  counterLookTarget: {fileID: 1497122903}
   shouldSitAtTable: 1
-  turnSpeed: 5
-  isWaiting: 0
   interactionBubble: {fileID: 1595116304}
   interactDistance: 2
   waitingYarnNodeName: Customer1_Waiting
@@ -8780,10 +8794,8 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
-  counterLookTarget: {fileID: 1497122903}
   finalOrderToDisplay: 1x Beer Cup
   itemsExpected: 1
-  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -8856,6 +8868,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 1429984599}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &875694553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9533,12 +9546,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 15
   walkSpeed: 3.5
+  turnSpeed: 7
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 0}
+  counterLookTarget: {fileID: 1497122903}
   shouldSitAtTable: 0
-  turnSpeed: 7
-  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer2_Waiting
@@ -9548,10 +9561,8 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
-  counterLookTarget: {fileID: 1497122903}
   finalOrderToDisplay: 1x Takeaway Coffee
   itemsExpected: 1
-  itemsReceived: 0
   audioSource: {fileID: 920048177}
   scaryRunSound: {fileID: 8300000, guid: 5b37b4db1460446c6b140153cfe048da, type: 3}
   audioDelay: 0.5
@@ -9938,9 +9949,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc7f331dbbcd4e3c92ff3efc5d8b219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrinkMachine
+  drinkType: 1
   pourSound: {fileID: 8300000, guid: 833737e3238ce463aadeb7ae99c91665, type: 3}
   errorSound: {fileID: 0}
-  typeToGive: 1
 --- !u!82 &944594956
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11125,12 +11136,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
+  turnSpeed: 7
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 0}
   seatTarget: {fileID: 1077351176}
+  counterLookTarget: {fileID: 1497122903}
   shouldSitAtTable: 1
-  turnSpeed: 7
-  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer5_Waiting
@@ -11140,10 +11151,8 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
-  counterLookTarget: {fileID: 1497122903}
   finalOrderToDisplay: 1x Beer
   itemsExpected: 2
-  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -11417,6 +11426,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 628938752}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!54 &1061181831
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11797,8 +11807,6 @@ MonoBehaviour:
   introCanvasGroup: {fileID: 1112030129}
   introText: {fileID: 1231666741}
   entireIntroUI: {fileID: 18896951}
-  audioSource: {fileID: 18896956}
-  typingSound: {fileID: 8300000, guid: 79e39c41c4c674c5bbf167c85bb904ab, type: 3}
   fullText: '[Press E to skip]
 
 
@@ -11809,11 +11817,15 @@ MonoBehaviour:
 
     You know you need to make smart decisions today... '
   typingSpeed: 0.08
+  audioSource: {fileID: 18896956}
+  typingSound: {fileID: 8300000, guid: 79e39c41c4c674c5bbf167c85bb904ab, type: 3}
   typingSoundInterval: 0.08
   typingPitchMin: 1.2
   typingPitchMax: 1.5
   fadeDuration: 2
   stayVisibleTime: 2
+  initialDelay: 0.4
+  skipMinimumWait: 0.5
 --- !u!114 &1112030127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12087,6 +12099,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1387984346}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &1161608976
 GameObject:
   m_ObjectHideFlags: 0
@@ -12553,6 +12566,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 1589834896}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!65 &1212623413
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12881,6 +12895,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 2120849982}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!65 &1236089926
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13093,6 +13108,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 613842826}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &1257387549 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eaa485208398343d5a6e88da76f54e3e, type: 3}
@@ -13216,6 +13232,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 2108965771}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &1274203301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14075,6 +14092,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 82166516}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &1337190880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14552,6 +14570,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 350504196}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &1371274181 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 27ee5d8ee4fdc06478e19394cc474032, type: 3}
@@ -14955,6 +14974,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 265592457}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &1399837756
 GameObject:
   m_ObjectHideFlags: 0
@@ -15920,6 +15940,7 @@ GameObject:
   - component: {fileID: 1473500990}
   - component: {fileID: 1473500996}
   - component: {fileID: 1473500997}
+  - component: {fileID: 1473500998}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -15967,13 +15988,13 @@ MonoBehaviour:
   playerCamera: {fileID: 165417863}
   walkSpeed: 4
   runSpeed: 8
+  crouchSpeed: 3
   jumpPower: 1
   gravity: 10
   lookSpeed: 2
   lookXLimit: 45
   defaultHeight: 2
   crouchHeight: 0.5
-  crouchSpeed: 3
   jumpSound: {fileID: 0}
 --- !u!4 &1473500995
 Transform:
@@ -16005,19 +16026,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   interactDistance: 2
-  promptObject: {fileID: 1022050600}
-  interactionPromptCanvas: {fileID: 1595116304}
   excludeLayers:
     serializedVersion: 2
     m_Bits: 128
-  holdPoint: {fileID: 608509286}
-  holdPosition: {x: 0.45, y: -0.4, z: 0.6}
-  holdRotation: {x: -70, y: 0, z: 0}
-  currentHeldItem: {fileID: 0}
+  interactionPromptCanvas: {fileID: 1595116304}
+  promptObject: {fileID: 1022050600}
   crosshairImage: {fileID: 753942796}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   interactColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   interactScale: 1.2
+  pulseSpeed: 10
+  pulseIntensity: 0.1
+  holdPoint: {fileID: 608509286}
+  holdPosition: {x: 0.45, y: -0.4, z: 0.6}
+  holdRotation: {x: -70, y: 0, z: 0}
+  currentHeldItem: {fileID: 0}
 --- !u!54 &1473500997
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16045,6 +16068,103 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &1473500998
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473500989}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1474004099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1098208b9555e5e41b56ddef8dd20663, type: 3}
@@ -16115,6 +16235,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1317517101}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &1495326365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16414,6 +16535,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1642238988}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &1520260949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17266,6 +17388,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 1049967520}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1001 &1581026437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17943,12 +18066,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
+  turnSpeed: 5
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 0}
+  counterLookTarget: {fileID: 2112291235}
   shouldSitAtTable: 0
-  turnSpeed: 5
-  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer3_Waiting
@@ -17958,10 +18081,8 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
-  counterLookTarget: {fileID: 2112291235}
   finalOrderToDisplay: 1x Coffee and 1x Beer
   itemsExpected: 2
-  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -18338,6 +18459,9 @@ MonoBehaviour:
   nameInputField: {fileID: 0}
   variableStorage: {fileID: 0}
   menuMusic: {fileID: 0}
+  gameSceneName: CoffeeShop
+  defaultSensitivity: 2
+  defaultVolume: 1
 --- !u!1001 &1667852217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19343,6 +19467,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!54 &1750274304
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19408,6 +19533,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 0}
   beerModel: {fileID: 884103186}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!1 &1756020084
 GameObject:
   m_ObjectHideFlags: 0
@@ -19598,9 +19724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc7f331dbbcd4e3c92ff3efc5d8b219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Machine
+  drinkType: 2
   pourSound: {fileID: 8300000, guid: 549263cf8a4d440768ea9631acc72c2c, type: 3}
   errorSound: {fileID: 0}
-  typeToGive: 2
 --- !u!65 &1758522302
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20344,6 +20470,7 @@ MonoBehaviour:
   - {fileID: 754882911}
   - {fileID: 1040346585}
   customersBeforeTextMessage: 1
+  enableDebugLogs: 1
 --- !u!4 &1828321942
 Transform:
   m_ObjectHideFlags: 0
@@ -21086,6 +21213,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 171086908}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!54 &1951797917
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21352,6 +21480,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 1833918752}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!65 &1957920569
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22438,6 +22567,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 1984522893}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!65 &2046652949
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24240,6 +24370,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 281247023}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!33 &7016351079228107132
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24431,6 +24562,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 216093075}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!33 &8265112304885549494
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24505,6 +24637,7 @@ MonoBehaviour:
   coffeeModel: {fileID: 983297953}
   beerModel: {fileID: 0}
   cappuccinoModel: {fileID: 0}
+  takeawayModel: {fileID: 0}
 --- !u!23 &8265112305389271737
 MeshRenderer:
   m_ObjectHideFlags: 0
