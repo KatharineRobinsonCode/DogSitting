@@ -1,38 +1,39 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 /// <summary>
-/// Interactable door that triggers an ending sequence when the player leaves early.
-/// Implements IInteractable to work with the player interaction system.
+/// Handles ending triggers when player interacts with the exit door.
+/// Checks if shift is complete before allowing player to leave.
 /// </summary>
 public class DoorEnding : MonoBehaviour, IInteractable
 {
     #region Serialized Fields
     
-    [Header("Player Reference")]
-    [Tooltip("Reference to player transform (for distance checks if needed)")]
-    [SerializeField] private Transform player;
+    [Header("Scene Transitions")]
+    [Tooltip("Scene to load when shift is complete (e.g., 'DrivingScene')")]
+    [SerializeField] private string nextSceneName = "DrivingScene";
     
-    [Header("Interaction Settings")]
-    [Tooltip("Maximum distance for interaction prompt")]
-    [SerializeField] private float interactDistance = 3f;
-    
-    [Header("Ending UI")]
-    [Tooltip("Canvas containing the ending screen")]
+    [Header("Early Exit Ending")]
+    [Tooltip("Canvas containing the ending UI")]
     [SerializeField] private GameObject endingCanvas;
     
-    [Tooltip("Text component for ending message")]
-    [SerializeField] private TextMeshProUGUI endingText;
+    [Tooltip("Panel with ending text and buttons")]
+    [SerializeField] private GameObject endingPanel;
     
-    [Header("Ending Content")]
-    [TextArea(3, 10)]
-    [Tooltip("Message displayed when ending is triggered")]
-    [SerializeField] private string endingMessage = 
-        "ENDING 1/5\n\n" +
-        "You left your shift early.\n" +
-        "You missed an important text on the drive home because your boss fired you...\n" +
-        "Don't you wish you stayed so you could meet the dog?";
+    [Header("Task Requirement")]
+    [Tooltip("Task text that allows leaving (e.g., 'Leave cafe')")]
+    [SerializeField] private string allowedLeaveTask = "Leave cafe";
+    
+    [Header("Debug")]
+    [Tooltip("Enable detailed logging")]
+    [SerializeField] private bool enableDebugLogs = true;
+    
+    #endregion
+    
+    #region Constants
+    
+    private const string ENDING_CANVAS_NAME = "EndingPanelCanvas";
+    private const string ENDING_PANEL_NAME = "EndingPanel";
     
     #endregion
     
@@ -40,9 +41,14 @@ public class DoorEnding : MonoBehaviour, IInteractable
     
     private bool hasTriggeredEnding = false;
     
-    // Constants
-    private const string ENDING_CANVAS_NAME = "EndingPanelCanvas";
-    private const string ENDING_PANEL_NAME = "EndingPanel";
+    #endregion
+    
+    #region Properties
+    
+    /// <summary>
+    /// Returns true if ending has been triggered.
+    /// </summary>
+    public bool HasEndingBeenTriggered => hasTriggeredEnding;
     
     #endregion
     
@@ -50,102 +56,139 @@ public class DoorEnding : MonoBehaviour, IInteractable
     
     public string GetInteractionPrompt()
     {
-        return "Press E to Leave Early";
+        if (CanLeave())
+        {
+            return "Press E to leave cafe";
+        }
+        
+        return "Press E to leave (shift incomplete)";
     }
     
     public void Interact(PlayerInteraction player)
     {
-        if (!hasTriggeredEnding)
+        LogDebug("[DoorEnding] Player interacted with door");
+        
+        if (CanLeave())
         {
-            TriggerEnding();
+            LeaveAndContinue();
+        }
+        else
+        {
+            TriggerEarlyExitEnding();
         }
     }
     
     #endregion
     
-    #region Ending System
+    #region Leave Logic
     
-    private void TriggerEnding()
+    private bool CanLeave()
     {
-        hasTriggeredEnding = true;
-        
-        Debug.Log("[DoorEnding] Ending sequence triggered");
-        
-        if (SetupEndingUI())
+        // Check if TaskManager says it's okay to leave
+        if (TaskManager.Instance == null)
         {
-            DisplayEndingScreen();
-            PauseGameForEnding();
+            LogDebug("[DoorEnding] TaskManager not found - allowing exit");
+            return true; // Fallback: allow if no task manager
+        }
+        
+        bool allowed = TaskManager.Instance.IsCurrentTask(allowedLeaveTask);
+        LogDebug($"[DoorEnding] Can leave? {allowed} (Current task: '{TaskManager.Instance.CurrentTask}', Required: '{allowedLeaveTask}')");
+        
+        return allowed;
+    }
+    
+    private void LeaveAndContinue()
+    {
+        LogDebug($"[DoorEnding] Shift complete! Loading next scene: {nextSceneName}");
+        
+        // Hide task UI
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.HideTask();
+        }
+        
+        // Show transition feedback
+        if (FeedbackManager.Instance != null)
+        {
+            FeedbackManager.Instance.ShowSuccess("Shift complete! Going home...");
+        }
+        
+        // Load next scene
+        LoadNextScene();
+    }
+    
+    private void LoadNextScene()
+    {
+        if (string.IsNullOrEmpty(nextSceneName))
+        {
+            Debug.LogWarning("[DoorEnding] Next scene name not set! Cannot transition.");
+            return;
+        }
+        
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.LoadSceneWithDelay(nextSceneName, 1f);
         }
         else
         {
-            Debug.LogError("[DoorEnding] Failed to display ending screen");
+            // Fallback: direct scene load
+            SceneManager.LoadScene(nextSceneName);
         }
     }
     
-    private bool SetupEndingUI()
-    {
-        if (!EnsureEndingCanvasExists())
-        {
-            return false;
-        }
-        
-        EnsureEndingPanelActive();
-        EnsureEndingTextExists();
-        
-        return true;
-    }
+    #endregion
     
-    private bool EnsureEndingCanvasExists()
-    {
-        if (endingCanvas != null)
-        {
-            return true;
-        }
-        
-        // Fallback: try to find by name
-        endingCanvas = GameObject.Find(ENDING_CANVAS_NAME);
-        
-        if (endingCanvas != null)
-        {
-            Debug.LogWarning($"[DoorEnding] Found ending canvas by name. Consider assigning it in Inspector.");
-            return true;
-        }
-        
-        Debug.LogError($"[DoorEnding] Ending canvas not found! Looking for: {ENDING_CANVAS_NAME}");
-        return false;
-    }
+    #region Early Exit Ending
     
-    private void EnsureEndingPanelActive()
+    private void TriggerEarlyExitEnding()
     {
-        Transform panel = endingCanvas.transform.Find(ENDING_PANEL_NAME);
-        
-        if (panel != null)
-        {
-            panel.gameObject.SetActive(true);
-        }
-        else
-        {
-            Debug.LogWarning($"[DoorEnding] Could not find child panel: {ENDING_PANEL_NAME}");
-        }
-    }
-    
-    private void EnsureEndingTextExists()
-    {
-        if (endingText != null)
+        if (hasTriggeredEnding)
         {
             return;
         }
         
-        // Fallback: search in children
-        endingText = endingCanvas.GetComponentInChildren<TextMeshProUGUI>();
+        hasTriggeredEnding = true;
         
-        if (endingText != null)
+        LogDebug("[DoorEnding] Triggering early exit ending");
+        
+        SetupEndingUI();
+        DisplayEndingScreen();
+        PauseGameForEnding();
+    }
+    
+    private void SetupEndingUI()
+    {
+        EnsureEndingCanvasExists();
+        EnsureEndingPanelActive();
+    }
+    
+    private void EnsureEndingCanvasExists()
+    {
+        if (endingCanvas == null)
         {
-            Debug.LogWarning("[DoorEnding] Found ending text in children. Consider assigning it in Inspector.");
+            endingCanvas = GameObject.Find(ENDING_CANVAS_NAME);
+            
+            if (endingCanvas == null)
+            {
+                Debug.LogWarning($"[DoorEnding] Ending canvas '{ENDING_CANVAS_NAME}' not found");
+            }
         }
-        else
+    }
+    
+    private void EnsureEndingPanelActive()
+    {
+        if (endingPanel == null && endingCanvas != null)
         {
-            Debug.LogError("[DoorEnding] No TextMeshProUGUI component found for ending text!");
+            Transform panelTransform = endingCanvas.transform.Find(ENDING_PANEL_NAME);
+            
+            if (panelTransform != null)
+            {
+                endingPanel = panelTransform.gameObject;
+            }
+            else
+            {
+                Debug.LogWarning($"[DoorEnding] Ending panel '{ENDING_PANEL_NAME}' not found");
+            }
         }
     }
     
@@ -156,20 +199,16 @@ public class DoorEnding : MonoBehaviour, IInteractable
             endingCanvas.SetActive(true);
         }
         
-        if (endingText != null)
+        if (endingPanel != null)
         {
-            endingText.text = endingMessage;
+            endingPanel.SetActive(true);
         }
     }
     
     private void PauseGameForEnding()
     {
         Time.timeScale = 0f;
-        ShowCursor();
-    }
-    
-    private void ShowCursor()
-    {
+        
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -179,22 +218,24 @@ public class DoorEnding : MonoBehaviour, IInteractable
     #region Button Callbacks
     
     /// <summary>
-    /// Restarts the current scene. Called by Retry button.
+    /// Called by Retry button - reloads the current scene.
     /// </summary>
     public void RetryGame()
     {
-        Debug.Log("[DoorEnding] Restarting scene");
+        LogDebug("[DoorEnding] Retrying game");
         
         ResumeTime();
         ReloadCurrentScene();
     }
     
     /// <summary>
-    /// Quits the application. Called by Quit button.
+    /// Called by Quit button - exits the application.
     /// </summary>
     public void QuitToDesktop()
     {
-        Debug.Log("[DoorEnding] Quitting game");
+        LogDebug("[DoorEnding] Quitting to desktop");
+        
+        ResumeTime();
         
         #if UNITY_EDITOR
         QuitEditor();
@@ -203,10 +244,6 @@ public class DoorEnding : MonoBehaviour, IInteractable
         #endif
     }
     
-    #endregion
-    
-    #region Game Flow Helpers
-    
     private void ResumeTime()
     {
         Time.timeScale = 1f;
@@ -214,8 +251,14 @@ public class DoorEnding : MonoBehaviour, IInteractable
     
     private void ReloadCurrentScene()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.ReloadScene();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
     
     private void QuitApplication()
@@ -235,26 +278,15 @@ public class DoorEnding : MonoBehaviour, IInteractable
     #region Public Utility Methods
     
     /// <summary>
-    /// Checks if the ending has been triggered.
-    /// </summary>
-    public bool HasEndingBeenTriggered()
-    {
-        return hasTriggeredEnding;
-    }
-    
-    /// <summary>
-    /// Manually trigger the ending (for testing or scripted events).
+    /// Manually trigger the ending (for testing or other scripts).
     /// </summary>
     public void ForceEndingTrigger()
     {
-        if (!hasTriggeredEnding)
-        {
-            TriggerEnding();
-        }
+        TriggerEarlyExitEnding();
     }
     
     /// <summary>
-    /// Reset the ending state (useful for testing).
+    /// Reset ending state (useful for testing).
     /// </summary>
     public void ResetEndingState()
     {
@@ -265,7 +297,24 @@ public class DoorEnding : MonoBehaviour, IInteractable
             endingCanvas.SetActive(false);
         }
         
+        if (endingPanel != null)
+        {
+            endingPanel.SetActive(false);
+        }
+        
         ResumeTime();
+    }
+    
+    #endregion
+    
+    #region Debug Helpers
+    
+    private void LogDebug(string message)
+    {
+        if (enableDebugLogs)
+        {
+            Debug.Log(message);
+        }
     }
     
     #endregion

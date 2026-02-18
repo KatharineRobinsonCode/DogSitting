@@ -1561,6 +1561,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1277900232}
     - target: {fileID: 4343499808989159542, guid: 474e596dc3e339e42bef4bf139d2e520, type: 3}
+      propertyPath: endingPanel
+      value: 
+      objectReference: {fileID: 1847547928}
+    - target: {fileID: 4343499808989159542, guid: 474e596dc3e339e42bef4bf139d2e520, type: 3}
       propertyPath: endingCanvas
       value: 
       objectReference: {fileID: 1324168712}
@@ -2003,6 +2007,7 @@ GameObject:
   - component: {fileID: 169391946}
   - component: {fileID: 169391947}
   - component: {fileID: 169391948}
+  - component: {fileID: 169391949}
   m_Layer: 0
   m_Name: TaskManager
   m_TagString: Untagged
@@ -2089,6 +2094,23 @@ MonoBehaviour:
   taskDisplay: {fileID: 1450467401}
   taskPrefix: 'Task: '
   enableDebugLogs: 1
+--- !u!114 &169391949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169391944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403a895ae63714feea7cc4f08a3c7a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  orderPanel: {fileID: 1065629377}
+  orderDisplay: {fileID: 1450467401}
+  creepyPhoto: {fileID: 21300000, guid: 05c124280764542e58b16a892913e375, type: 3}
+  horrorEventTriggerCustomer: 3
+  customersServed: 0
 --- !u!1 &171086908 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4009366606922696574, guid: a15e5580c84e4470a8ff387960ad9122, type: 3}
@@ -10689,54 +10711,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997847911}
   m_CullTransparentMesh: 1
---- !u!1 &1002482686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1002482688}
-  - component: {fileID: 1002482687}
-  m_Layer: 0
-  m_Name: TaskManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1002482687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002482686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3da1e204ce81b4026940fdcb8ba92f70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaskManager
-  taskPanel: {fileID: 1065629377}
-  taskDisplay: {fileID: 1450467401}
-  taskPrefix: 'Task: '
-  enableDebugLogs: 0
---- !u!4 &1002482688
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002482686}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1010729096
 GameObject:
   m_ObjectHideFlags: 0
@@ -11267,7 +11241,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
   finalOrderToDisplay: 1x Beer
-  itemsExpected: 2
+  itemsExpected: 1
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -24890,5 +24864,4 @@ SceneRoots:
   - {fileID: 505537785}
   - {fileID: 1658103880}
   - {fileID: 1013898434}
-  - {fileID: 1002482688}
   - {fileID: 1797335370}

@@ -9,12 +9,12 @@ title: Customer3_Order
 ---
 Customer: Hi. Do you remember me?
 -> {$PlayerName}: Of course, it's been so long! How are you?
-    Customer: I can't believe you remember me... I've always looked up to you... Anyway, i'm fine, alittle lonely.
-        -> {$PlayerName}: Oh i'm sorry to hear that... Can I take your order?
+    Customer: I can't believe you remember me... I'm okay...
+        -> {$PlayerName}: Of course I do! Can I take your order?
         -> {$PlayerName}: ... Are you gonna order?
              Customer: Yes. a Coffee and a Beer. Please.
 -> {$PlayerName}: No, we've never met?
-    Customer: I knew you'd say that. You never noticed me, but I noticed you...
+    Customer: You never noticed me, but I noticed you...
     {$PlayerName}: ... What would you like to order?
     Customer: A Coffee and a Beer. If that's okay?
 <<CompleteOrderConversation_Customer3>>

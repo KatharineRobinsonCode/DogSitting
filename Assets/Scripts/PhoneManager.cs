@@ -571,10 +571,10 @@ public class PhoneManager : MonoBehaviour
         HideMessageButtons();
         
         yield return new WaitForSeconds(playerTypingDelay);
-        AppendMessage("You: Sure! I'll be there after my shift 🐾");
+        AppendMessage("Sure, I'll be there after my shift");
         
         yield return new WaitForSeconds(friendTypingDelay);
-        AppendMessage("Bestie: YAYY thank you!! You're the best!! 🎉");
+        AppendMessage("Bestie: YAYY thank you!! You're the best!!");
         
         yield return new WaitForSeconds(messageReadTime);
         
@@ -590,7 +590,7 @@ public class PhoneManager : MonoBehaviour
         AppendMessage("You: Sorry, can't tonight!");
         
         yield return new WaitForSeconds(friendTypingDelay);
-        AppendMessage("Bestie: Aw no worries 😢");
+        AppendMessage("Bestie: Aw no worries");
         
         yield return new WaitForSeconds(messageReadTime);
         
