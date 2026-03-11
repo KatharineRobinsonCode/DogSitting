@@ -51,7 +51,7 @@ public class CoffeeShopManager : MonoBehaviour
     {
         if (customerQueue == null)
         {
-            customerQueue = FindObjectOfType<CustomerQueue>();
+customerQueue = FindFirstObjectByType<CustomerQueue>();
             
             if (customerQueue == null)
             {
@@ -79,17 +79,13 @@ public class CoffeeShopManager : MonoBehaviour
         
         Debug.Log("[CoffeeShopManager] Player entered counter area");
         
-        // Show feedback
-        FeedbackManager.Instance?.ShowSuccess("Ready to serve customers!");
+        // Show feedback - FIXED
+        FeedbackManager.Instance?.ShowMessage("Ready to serve customers!", FeedbackManager.MessageType.Success);
         
         // Update task - customers will update it with specific orders
         TaskManager.Instance?.ShowTask("Serve customers");
         
-        // Start the customer queue
-        if (customerQueue != null)
-        {
-            customerQueue.StartServing();
-        }
+        // CustomerQueue handles its own serving in Start() - no need to call StartServing()
     }
     
     /// <summary>
@@ -109,8 +105,8 @@ public class CoffeeShopManager : MonoBehaviour
         // Show final task
         TaskManager.Instance?.ShowTask("Leave cafe");
         
-        // Optional: Show feedback
-        FeedbackManager.Instance?.ShowSuccess("Shift complete! You can leave now.");
+        // Optional: Show feedback - FIXED
+        FeedbackManager.Instance?.ShowMessage("Shift complete! You can leave now.", FeedbackManager.MessageType.Success);
     }
     
     #endregion
