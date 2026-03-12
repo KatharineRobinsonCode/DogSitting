@@ -27,7 +27,7 @@ public class CustomerQueue : MonoBehaviour
         // NEW: Increment counter when a customer leaves
         customersServed++;
         Debug.Log($"[Queue] Total customers served: {customersServed}");
-        
+            OrderManager.Instance?.CustomerLeft();
         if (customersInShop.Contains(npc))
         {
             customersInShop.Remove(npc);
