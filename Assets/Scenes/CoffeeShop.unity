@@ -2007,7 +2007,6 @@ GameObject:
   - component: {fileID: 169391946}
   - component: {fileID: 169391947}
   - component: {fileID: 169391948}
-  - component: {fileID: 169391949}
   m_Layer: 0
   m_Name: TaskManager
   m_TagString: Untagged
@@ -2067,17 +2066,9 @@ MonoBehaviour:
   messageText: {fileID: 692212095}
   messageAcceptButton: {fileID: 841331536}
   messageDeclineButton: {fileID: 997847911}
-  contactName: "Bestie \U0001F43E"
+  contactName: Carol <3
   dogSitMessage: "Hey!! Are you free after your shift? \nI need someone to watch
     my dog tonight... \nPlease please please?!"
-  phoneShowDelay: 0.5
-  buttonShowDelay: 0.5
-  playerTypingDelay: 0.8
-  friendTypingDelay: 1.2
-  messageReadTime: 2
-  creepyReactionTime: 3
-  zoomDuration: 0.8
-  zoomScale: 5
 --- !u!114 &169391948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2087,30 +2078,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 169391944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3da1e204ce81b4026940fdcb8ba92f70, type: 3}
+  m_Script: {fileID: 11500000, guid: d6834a89fa5f849ad9986732c8fc7f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
   taskPanel: {fileID: 1065629377}
   taskDisplay: {fileID: 1450467401}
   taskPrefix: 'Task: '
   enableDebugLogs: 1
---- !u!114 &169391949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 169391944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 403a895ae63714feea7cc4f08a3c7a20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
-  orderPanel: {fileID: 1065629377}
-  orderDisplay: {fileID: 1450467401}
-  creepyPhoto: {fileID: 21300000, guid: 05c124280764542e58b16a892913e375, type: 3}
-  horrorEventTriggerCustomer: 3
-  customersServed: 0
 --- !u!1 &171086908 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4009366606922696574, guid: a15e5580c84e4470a8ff387960ad9122, type: 3}
@@ -8065,12 +8039,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
-  turnSpeed: 5
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 0}
-  counterLookTarget: {fileID: 2112291235}
   shouldSitAtTable: 0
+  turnSpeed: 5
+  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer4_Waiting
@@ -8080,8 +8054,10 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
+  counterLookTarget: {fileID: 2112291235}
   finalOrderToDisplay: 2x Coffee
   itemsExpected: 2
+  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -8868,12 +8844,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
-  turnSpeed: 5
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 938654960}
-  counterLookTarget: {fileID: 1497122903}
   shouldSitAtTable: 1
+  turnSpeed: 5
+  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 2
   waitingYarnNodeName: Customer1_Waiting
@@ -8883,8 +8859,10 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
+  counterLookTarget: {fileID: 1497122903}
   finalOrderToDisplay: 1x Beer Cup
   itemsExpected: 1
+  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -9635,12 +9613,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 15
   walkSpeed: 3.5
-  turnSpeed: 7
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 0}
-  counterLookTarget: {fileID: 1497122903}
   shouldSitAtTable: 0
+  turnSpeed: 7
+  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer2_Waiting
@@ -9650,8 +9628,10 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
+  counterLookTarget: {fileID: 1497122903}
   finalOrderToDisplay: 1x Takeaway Coffee
   itemsExpected: 1
+  itemsReceived: 0
   audioSource: {fileID: 920048177}
   scaryRunSound: {fileID: 8300000, guid: 5b37b4db1460446c6b140153cfe048da, type: 3}
   audioDelay: 0.5
@@ -11225,12 +11205,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
-  turnSpeed: 7
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 0}
   seatTarget: {fileID: 1077351176}
-  counterLookTarget: {fileID: 1497122903}
   shouldSitAtTable: 1
+  turnSpeed: 7
+  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer5_Waiting
@@ -11240,8 +11220,10 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
+  counterLookTarget: {fileID: 1497122903}
   finalOrderToDisplay: 1x Beer
   itemsExpected: 1
+  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -18158,12 +18140,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NpcCustomer
   runSpeed: 7
   walkSpeed: 3.5
-  turnSpeed: 5
   counterTarget: {fileID: 2112291235}
   exitPoint: {fileID: 1187827499}
   seatTarget: {fileID: 0}
-  counterLookTarget: {fileID: 2112291235}
   shouldSitAtTable: 0
+  turnSpeed: 5
+  isWaiting: 1
   interactionBubble: {fileID: 1595116304}
   interactDistance: 3
   waitingYarnNodeName: Customer3_Waiting
@@ -18173,8 +18155,10 @@ MonoBehaviour:
   player: {fileID: 1473500995}
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1686814753}
+  counterLookTarget: {fileID: 2112291235}
   finalOrderToDisplay: 1x Coffee and 1x Beer
   itemsExpected: 2
+  itemsReceived: 0
   audioSource: {fileID: 0}
   scaryRunSound: {fileID: 0}
   audioDelay: 0.5
@@ -19946,7 +19930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1797335370}
-  - component: {fileID: 1797335369}
+  - component: {fileID: 1797335371}
   m_Layer: 0
   m_Name: CoffeeShopManager
   m_TagString: Untagged
@@ -19954,21 +19938,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1797335369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1797335368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8190cf1158014ac9adeca9805ff48f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoffeeShopManager
-  customerQueue: {fileID: 1828321941}
-  counterAreaTrigger: {fileID: 280024266}
-  playerTag: Player
 --- !u!4 &1797335370
 Transform:
   m_ObjectHideFlags: 0
@@ -19984,6 +19953,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1797335371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797335368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2e79fe66cc048b99f8d57ce9ceb806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoffeeShopManager
+  customerQueue: {fileID: 1828321941}
+  counterAreaTrigger: {fileID: 280024266}
+  playerTag: Player
 --- !u!1 &1808619043
 GameObject:
   m_ObjectHideFlags: 0
@@ -20609,7 +20593,6 @@ MonoBehaviour:
   - {fileID: 754882911}
   - {fileID: 1040346585}
   customersBeforeTextMessage: 1
-  enableDebugLogs: 1
 --- !u!4 &1828321942
 Transform:
   m_ObjectHideFlags: 0
@@ -20783,6 +20766,7 @@ GameObject:
   - component: {fileID: 1855909221}
   - component: {fileID: 1855909220}
   - component: {fileID: 1855909219}
+  - component: {fileID: 1855909223}
   m_Layer: 5
   m_Name: Orders
   m_TagString: Untagged
@@ -20873,6 +20857,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1855909223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855909218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa92cc985a5a49a883397085e76e060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  currentRequiredItem: 
+  orderPanel: {fileID: 1065629377}
+  orderDisplay: {fileID: 1450467401}
+  customersServed: 0
+  creepyPhoto: {fileID: 21300000, guid: 05c124280764542e58b16a892913e375, type: 3}
 --- !u!1 &1861577967
 GameObject:
   m_ObjectHideFlags: 0

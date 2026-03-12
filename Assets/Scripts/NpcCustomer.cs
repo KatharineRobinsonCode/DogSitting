@@ -78,6 +78,11 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public bool hideUntilCalled = false;
     public Transform spawnPoint;
 
+    // Properties for Register.cs compatibility
+public string FinalOrderToDisplay => finalOrderToDisplay;
+public int ItemsReceived => itemsReceived;
+public int ItemsExpected => itemsExpected;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
