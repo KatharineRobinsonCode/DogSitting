@@ -318,4 +318,15 @@ public class DoorEnding : MonoBehaviour, IInteractable
     }
     
     #endregion
+    public void OnDirtSpotCleaned()
+{
+    dirtSpotsRemaining--;
+    Debug.Log($"[CoffeeShopManager] Dirt spot cleaned. Remaining: {dirtSpotsRemaining}");
+
+    if (dirtSpotsRemaining <= 0)
+    {
+        TaskManager.Instance?.ShowTask("End shift");
+        FeedbackManager.Instance?.ShowMessage("All clean! Head to the door.", FeedbackManager.MessageType.Success);
+    }
+}
 }
