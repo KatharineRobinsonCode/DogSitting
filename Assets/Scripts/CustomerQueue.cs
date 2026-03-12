@@ -57,6 +57,7 @@ public class CustomerQueue : MonoBehaviour
         else
         {
             Debug.Log("[Queue] No more customers waiting");
+        CoffeeShopManager.Instance?.OnAllCustomersServed(); 
         }
     }
 

@@ -99,6 +99,13 @@ public class PlayerInteraction : MonoBehaviour
     }
     
     #endregion
+
+    public bool IsHoldingBroom { get; private set; }
+
+public void SetHoldingBroom(bool value)
+{
+    IsHoldingBroom = value;
+}
     
     #region Initialization
     
