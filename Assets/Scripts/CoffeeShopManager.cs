@@ -76,6 +76,5 @@ public class CoffeeShopManager : MonoBehaviour
         if (other.CompareTag(playerTag))
             OnPlayerEnteredCounterArea();
     }
-
     public void TriggerCounterEntrance() => OnPlayerEnteredCounterArea();
 }
