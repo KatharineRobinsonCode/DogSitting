@@ -1,4 +1,11 @@
-﻿title: Customer1_Order
+﻿title: Customer1_Waiting
+---
+Customer: Hi! You're pretty
+{$PlayerName}: Cheers
+<<CompleteWaitingConversation_Customer1>>
+===
+
+title: Customer1_Order
 ---
 Customer: Hey girl, give me a large beer it's been a long day.
 -> {$PlayerName}: Sure, I know the feeling!

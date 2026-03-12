@@ -1,140 +1,324 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Yarn.Unity;
 
-// This line ensures that the object MUST have a CharacterController component attached
+/// <summary>
+/// Handles first-person player movement, jumping, crouching, and camera look.
+/// Movement is blocked during dialogue and pause states.
+/// </summary>
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public Camera playerCamera;      // The "Eyes" of the player
-    public float walkSpeed = 6f;     // Normal walking speed
-    public float runSpeed = 12f;      // Speed when holding Shift
-    public float jumpPower = 7f;      // How high the player leaps
-    public float gravity = 10f;       // How fast the player falls back down
-    public float lookSpeed = 2f;      // Sensitivity of the mouse
-    public float lookXLimit = 45f;    // Limits how far you can look up or down (prevents neck-snapping!)
+    #region Serialized Fields
+    
+    [Header("Camera")]
+    [Tooltip("First-person camera (player's view)")]
+    [SerializeField] private Camera playerCamera;
+    
+    [Header("Movement Speeds")]
+    [Tooltip("Normal walking speed")]
+    [SerializeField] private float walkSpeed = 6f;
+    
+    [Tooltip("Speed when holding sprint key")]
+    [SerializeField] private float runSpeed = 12f;
+    
+    [Tooltip("Speed while crouching")]
+    [SerializeField] private float crouchSpeed = 3f;
+    
+    [Header("Jump Settings")]
+    [Tooltip("Upward force applied when jumping")]
+    [SerializeField] private float jumpPower = 7f;
+    
+    [Tooltip("Downward acceleration (gravity strength)")]
+    [SerializeField] private float gravity = 10f;
+    
+    [Header("Camera Look")]
+    [Tooltip("Mouse sensitivity for looking around")]
+    [SerializeField] private float lookSpeed = 2f;
+    
+    [Tooltip("Maximum vertical look angle (prevents looking backwards)")]
+    [SerializeField] private float lookXLimit = 45f;
     
     [Header("Crouch Settings")]
-    public float defaultHeight = 2f;  // Normal standing height
-    public float crouchHeight = 1f;   // Height when ducking
-    public float crouchSpeed = 3f;    // Speed while ducking
-
-    // Internal variables to keep track of the player's state
-    private Vector3 moveDirection = Vector3.zero; // The direction the player is currently moving
-    private float rotationX = 0;                  // Current vertical head tilt
-    private CharacterController characterController; // The movement component
+    [Tooltip("Character height when standing")]
+    [SerializeField] private float defaultHeight = 2f;
     
-    // --- UPDATED: Added a variable to store the dialogue runner ---
-    private DialogueRunner dialogueRunner;
-
-    private bool canMove = true; // Useful if you want to freeze the player during a cutscene
-
+    [Tooltip("Character height when crouching")]
+    [SerializeField] private float crouchHeight = 1f;
+    
     [Header("Audio")]
-    public AudioClip jumpSound;   // The sound file for jumping
-    private AudioSource audioSource; // The component that plays the sound
-
-    void Start()
+    [Tooltip("Sound played when jumping")]
+    [SerializeField] private AudioClip jumpSound;
+    
+    #endregion
+    
+    #region Private Fields
+    
+    private CharacterController characterController;
+    private AudioSource audioSource;
+    private DialogueRunner dialogueRunner;
+    
+    private Vector3 moveDirection = Vector3.zero;
+    private float rotationX = 0f;
+    private bool canMove = true;
+    
+    // Cached speed values for crouch toggle
+    private float baseWalkSpeed;
+    private float baseRunSpeed;
+    
+    // Constants
+    private const float GROUND_STICK_FORCE = -2f;
+    private const KeyCode SPRINT_KEY = KeyCode.LeftShift;
+    private const KeyCode CROUCH_KEY = KeyCode.C;
+    private const string JUMP_INPUT = "Jump";
+    private const string VERTICAL_AXIS = "Vertical";
+    private const string HORIZONTAL_AXIS = "Horizontal";
+    private const string MOUSE_X_AXIS = "Mouse X";
+    private const string MOUSE_Y_AXIS = "Mouse Y";
+    
+    #endregion
+    
+    #region Unity Lifecycle
+    
+    private void Start()
     {
-        // Link up the components on the Player object
+        InitializeComponents();
+        CacheBaseValues();
+        InitializeCursor();
+    }
+    
+    private void Update()
+    {
+        if (!CanPlayerMove())
+        {
+            return;
+        }
+        
+        HandleMovement();
+        HandleCameraLook();
+    }
+    
+    #endregion
+    
+    #region Initialization
+    
+    private void InitializeComponents()
+    {
         characterController = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
-
-        // --- UPDATED: Find the DialogueRunner only once when the game starts ---
-        // This is much faster for the computer than looking for it every frame.
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
-        // Lock the mouse cursor to the middle of the screen and hide it
+        
+        if (characterController == null)
+        {
+            Debug.LogError("[PlayerMovement] CharacterController component missing!");
+        }
+        
+        if (playerCamera == null)
+        {
+            Debug.LogWarning("[PlayerMovement] Player camera not assigned!");
+        }
+    }
+    
+    private void CacheBaseValues()
+    {
+        baseWalkSpeed = walkSpeed;
+        baseRunSpeed = runSpeed;
+    }
+    
+    private void InitializeCursor()
+    {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    void Update()
+    
+    #endregion
+    
+    #region Movement System
+    
+    private bool CanPlayerMove()
     {
-    // Don't allow movement when paused
-    if (PauseManager.Instance != null && PauseManager.Instance.IsPaused())
-    {
-        return; // Exit early, no movement allowed
-    }
-       
-        // --- UPDATED: Safe check for dialogue ---
-        // We check "dialogueRunner != null" first. If the DialogueRunner is missing, 
-        // it skips the second part instead of crashing your game.
-        if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+        // Block movement when paused
+        if (IsPaused())
         {
-            // If dialogue is open, stop movement and exit Update
-            return; 
+            return false;
         }
-
-        // 1. HORIZONTAL MOVEMENT
-        // Figure out which way is "Forward" and "Right" based on where the player is facing
+        
+        // Block movement during dialogue
+        if (IsDialogueRunning())
+        {
+            return false;
+        }
+        
+        return canMove;
+    }
+    
+    private bool IsPaused()
+    {
+        return PauseManager.Instance != null && PauseManager.Instance.IsPaused();
+    }
+    
+    private bool IsDialogueRunning()
+    {
+        return dialogueRunner != null && dialogueRunner.IsDialogueRunning;
+    }
+    
+    private void HandleMovement()
+    {
+        UpdateMovementDirection();
+        ApplyGravityAndJump();
+        HandleCrouching();
+        ApplyMovement();
+    }
+    
+    private void UpdateMovementDirection()
+    {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
-
-        // Check if we are holding Left Shift to run
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
-
-        // Calculate speed based on WASD input. 
-        // If canMove is false, speed is 0. If isRunning is true, use runSpeed.
-        float curSpeedX = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? (isRunning ? runSpeed : walkSpeed) * Input.GetAxis("Horizontal") : 0;
         
-        // Store our current downward (gravity) speed so we don't lose it when we move sideways
-        float movementDirectionY = moveDirection.y;
+        bool isSprinting = Input.GetKey(SPRINT_KEY);
+        float currentSpeed = isSprinting ? runSpeed : walkSpeed;
         
-        // Combine forward/backward and left/right movement into one direction
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-
-        // 2. GRAVITY & JUMPING
-        // isGrounded is a special check that knows if your feet are touching the floor
+        float verticalInput = Input.GetAxis(VERTICAL_AXIS);
+        float horizontalInput = Input.GetAxis(HORIZONTAL_AXIS);
+        
+        // Store Y velocity before updating horizontal movement
+        float verticalVelocity = moveDirection.y;
+        
+        // Calculate horizontal movement
+        moveDirection = (forward * verticalInput + right * horizontalInput) * currentSpeed;
+        
+        // Restore Y velocity (don't let horizontal movement affect falling)
+        moveDirection.y = verticalVelocity;
+    }
+    
+    private void ApplyGravityAndJump()
+    {
         if (characterController.isGrounded)
         {
-            // We set Y to -2 instead of 0 so the player stays "snapped" to the floor on stairs
-            moveDirection.y = -2f; 
-
-            // If the jump button (Space) is pressed
-            if (Input.GetButton("Jump") && canMove)
-            {
-                moveDirection.y = jumpPower; // Launch the player upward
-                if (audioSource != null && jumpSound != null) audioSource.PlayOneShot(jumpSound);
-            }
+            HandleGroundedState();
         }
         else
         {
-            // If we are in the air, subtract gravity over time to fall
-            moveDirection.y = movementDirectionY - (gravity * Time.deltaTime);
-        }
-
-        // 3. CROUCH LOGIC (Holding 'C')
-        if (Input.GetKey(KeyCode.C) && canMove)
-        {
-            characterController.height = crouchHeight; // Make the character shorter
-            walkSpeed = crouchSpeed; // Slow down while crouching
-            runSpeed = crouchSpeed;
-        }
-        else
-        {
-            // Reset to normal standing height and speed
-            characterController.height = defaultHeight;
-            walkSpeed = 6f;
-            runSpeed = 12f;
-        }
-
-        // 4. THE MOVE COMMAND: This actually applies all the math above to the character
-        characterController.Move(moveDirection * Time.deltaTime);
-
-        // 5. CAMERA LOOK: Rotate the head (up/down) and the body (left/right)
-        if (canMove)
-        {
-            // Rotate the head up/down based on Mouse Y
-            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
-            // Clamp ensures you can't look so far back that you see inside your own neck
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-
-            // Rotate the whole player body left/right based on Mouse X
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+            HandleAirborneState();
         }
     }
+    
+    private void HandleGroundedState()
+    {
+        // Slight downward force keeps player grounded on slopes/stairs
+        moveDirection.y = GROUND_STICK_FORCE;
+        
+        if (Input.GetButton(JUMP_INPUT))
+        {
+            Jump();
+        }
+    }
+    
+    private void HandleAirborneState()
+    {
+        // Apply gravity while in air
+        moveDirection.y -= gravity * Time.deltaTime;
+    }
+    
+    private void Jump()
+    {
+        moveDirection.y = jumpPower;
+        PlayJumpSound();
+    }
+    
+    private void PlayJumpSound()
+    {
+        if (audioSource != null && jumpSound != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
+    }
+    
+    private void HandleCrouching()
+    {
+        if (Input.GetKey(CROUCH_KEY))
+        {
+            EnableCrouch();
+        }
+        else
+        {
+            DisableCrouch();
+        }
+    }
+    
+    private void EnableCrouch()
+    {
+        characterController.height = crouchHeight;
+        walkSpeed = crouchSpeed;
+        runSpeed = crouchSpeed;
+    }
+    
+    private void DisableCrouch()
+    {
+        characterController.height = defaultHeight;
+        walkSpeed = baseWalkSpeed;
+        runSpeed = baseRunSpeed;
+    }
+    
+    private void ApplyMovement()
+    {
+        characterController.Move(moveDirection * Time.deltaTime);
+    }
+    
+    #endregion
+    
+    #region Camera Look System
+    
+    private void HandleCameraLook()
+    {
+        UpdateVerticalLook();
+        UpdateHorizontalLook();
+    }
+    
+    private void UpdateVerticalLook()
+    {
+        if (playerCamera == null) return;
+        
+        float mouseY = Input.GetAxis(MOUSE_Y_AXIS);
+        rotationX += -mouseY * lookSpeed;
+        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+        
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
+    }
+    
+    private void UpdateHorizontalLook()
+    {
+        float mouseX = Input.GetAxis(MOUSE_X_AXIS);
+        transform.rotation *= Quaternion.Euler(0f, mouseX * lookSpeed, 0f);
+    }
+    
+    #endregion
+    
+    #region Public API
+    
+    /// <summary>
+    /// Enables or disables player movement (useful for cutscenes)
+    /// </summary>
+    public void SetMovementEnabled(bool enabled)
+    {
+        canMove = enabled;
+    }
+    
+    /// <summary>
+    /// Returns true if player is currently grounded
+    /// </summary>
+    public bool IsGrounded()
+    {
+        return characterController != null && characterController.isGrounded;
+    }
+    
+    /// <summary>
+    /// Returns current movement velocity
+    /// </summary>
+    public Vector3 GetVelocity()
+    {
+        return characterController != null ? characterController.velocity : Vector3.zero;
+    }
+    
+    #endregion
 }
