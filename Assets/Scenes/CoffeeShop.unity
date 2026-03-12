@@ -349,7 +349,7 @@ Transform:
   m_GameObject: {fileID: 15045358}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.39, y: 1.3, z: 2.45}
+  m_LocalPosition: {x: 1.39, y: -1.2, z: 2.45}
   m_LocalScale: {x: 0.474907, y: 0.27518284, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -443,8 +443,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.0000002, z: 6.123235e-17}
-  m_Center: {x: 0, y: 0.0000009536743, z: -0.000000029802322}
+  m_Size: {x: 1, y: 1.0000002, z: 0.5}
+  m_Center: {x: 0, y: 0.00000086503644, z: -0.50629836}
 --- !u!1 &18896951
 GameObject:
   m_ObjectHideFlags: 0
@@ -10785,8 +10785,8 @@ Transform:
   m_GameObject: {fileID: 963005766}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.5773, y: 1.3, z: -0.99}
-  m_LocalScale: {x: 0.474907, y: 0.27518284, z: 1}
+  m_LocalPosition: {x: 3.5773, y: -1.2, z: -0.99}
+  m_LocalScale: {x: 0.474907, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 68199227}
@@ -10879,8 +10879,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.0000002, z: 6.123235e-17}
-  m_Center: {x: 0, y: -0.00000023841858, z: -0.000000029802322}
+  m_Size: {x: 1, y: 1, z: 0.5}
+  m_Center: {x: 0, y: -0.00000037397308, z: -0.50484556}
 --- !u!1 &983297953
 GameObject:
   m_ObjectHideFlags: 0
@@ -17844,7 +17844,7 @@ Transform:
   m_GameObject: {fileID: 1573406998}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.27, y: 1.3, z: -0.444}
+  m_LocalPosition: {x: -4.27, y: -1.2, z: -0.444}
   m_LocalScale: {x: 0.474907, y: 0.27518284, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17938,8 +17938,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.0000002, z: 6.123235e-17}
-  m_Center: {x: 0, y: 0, z: 0.000000029802322}
+  m_Size: {x: 1, y: 1.0000002, z: 0.5}
+  m_Center: {x: 0, y: -0.00000011250183, z: -0.51939875}
 --- !u!65 &1573532002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20514,6 +20514,10 @@ MonoBehaviour:
   - {fileID: 842920518}
   - {fileID: 1040346585}
   totalDirtSpots: 3
+  dirtSpots:
+  - {fileID: 963005771}
+  - {fileID: 1573407003}
+  - {fileID: 15045363}
 --- !u!1 &1808619043
 GameObject:
   m_ObjectHideFlags: 0
