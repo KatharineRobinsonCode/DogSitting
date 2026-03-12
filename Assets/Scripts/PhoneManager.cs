@@ -316,13 +316,13 @@ void ShowMessage(string message, bool addNewlineBefore = true)
         yield return new WaitForSeconds(0.8f);
 
         // Show player reply
-        ShowMessage("You: Sure! I'll be there after my shift 🐾", true);
+        ShowMessage("You: Sure! I'll be there after my shift", true);
 
         // Friend typing delay
         yield return new WaitForSeconds(1.2f);
 
         // Show friend response
-        ShowMessage("Bestie: YAYY thank you!! You're the best!! 🎉", true);
+        ShowMessage("Bestie: YAYY thank you!! You're the best!!", true);
 
         yield return new WaitForSeconds(2f);
 
@@ -346,7 +346,7 @@ void ShowMessage(string message, bool addNewlineBefore = true)
         yield return new WaitForSeconds(1.2f);
 
         // Show friend response
-        ShowMessage("Bestie: Aw no worries 😢", true);
+        ShowMessage("Bestie: Aw no worries", true);
 
         yield return new WaitForSeconds(2f);
 
