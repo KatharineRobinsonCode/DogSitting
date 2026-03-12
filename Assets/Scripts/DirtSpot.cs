@@ -3,10 +3,16 @@ using UnityEngine;
 public class DirtSpot : MonoBehaviour, IInteractable
 {
     private bool isCleaned = false;
+    private bool isActive = false; // Only cleanable after shift ends
+
+    public void Activate()
+    {
+        isActive = true;
+    }
 
     public string GetInteractionPrompt()
     {
-        if (!isCleaned)
+        if (!isCleaned && isActive)
             return "Press E to clean";
         return "";
     }
@@ -14,6 +20,8 @@ public class DirtSpot : MonoBehaviour, IInteractable
     public void Interact(PlayerInteraction player)
     {
         if (isCleaned) return;
+
+        if (!isActive) return;
 
         if (!player.IsHoldingBroom)
         {

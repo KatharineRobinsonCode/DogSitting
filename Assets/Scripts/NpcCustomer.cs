@@ -438,4 +438,21 @@ public int ItemsExpected => itemsExpected;
         if (interactionBubble != null)
             interactionBubble.SetActive(isVisible);
     }
+    public void ForceLeave()
+{
+    Debug.Log($"[{name}] ForceLeave called - heading to exit");
+    hasBeenServed = true;
+    isHeadingToSeat = false;
+    isLeaving = true;
+    
+    if (agent != null)
+    {
+        agent.isStopped = false;
+        agent.speed = walkSpeed;
+        agent.SetDestination(exitPoint.position);
+    }
+    
+    if (anim != null)
+        anim.SetBool("isSitting", false);
+}
 }

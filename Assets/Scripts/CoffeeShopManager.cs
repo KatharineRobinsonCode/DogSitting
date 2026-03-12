@@ -11,6 +11,7 @@ public class CoffeeShopManager : MonoBehaviour
     [Header("End of Shift")]
     [SerializeField] private NpcCustomer[] seatedCustomers;
     [SerializeField] private int totalDirtSpots = 3;
+    [SerializeField] private DirtSpot[] dirtSpots; 
 
     private bool hasEnteredCounter = false;
     private bool allCustomersServed = false;
@@ -42,22 +43,26 @@ public class CoffeeShopManager : MonoBehaviour
     }
 
     public void OnAllCustomersServed()
+{
+    if (allCustomersServed) return;
+    allCustomersServed = true;
+
+    foreach (NpcCustomer seated in seatedCustomers)
     {
-        if (allCustomersServed) return;
-        allCustomersServed = true;
-
-        Debug.Log("[CoffeeShopManager] All customers served!");
-
-        // Send seated customers home
-        foreach (NpcCustomer seated in seatedCustomers)
-        {
-            if (seated != null)
-                seated.FinishOrderAndLeave();
-        }
-
-        TaskManager.Instance?.ShowTask("Sweep the floor");
-        FeedbackManager.Instance?.ShowMessage("Shift almost over - sweep up!", FeedbackManager.MessageType.Success);
+        if (seated != null)
+            seated.ForceLeave();
     }
+
+    // Activate dirt spots
+    foreach (DirtSpot spot in dirtSpots)
+    {
+        if (spot != null)
+            spot.Activate();
+    }
+
+    TaskManager.Instance?.ShowTask("Sweep the floor");
+    FeedbackManager.Instance?.ShowMessage("Shift almost over - sweep up!", FeedbackManager.MessageType.Success);
+}
 
    public void OnDirtSpotCleaned()
 {
