@@ -126,22 +126,20 @@ public class DrivingSceneManager : MonoBehaviour
     
     #region Driving Phase
     
-    private void StartDriving()
-    {
-        LogDebug("[DrivingScene] Starting driving phase");
-        
-        // Show task
-        if (TaskManager.Instance != null)
-        {
-            TaskManager.Instance.ShowTask("Drive to the house");
-        }
-        
-        // Enable car controls
-        if (carController != null)
-        {
-            carController.EnableControls();
-        }
-    }
+   private void StartDriving()
+{
+    LogDebug("[DrivingScene] Starting driving phase");
+    
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.ShowTask("Drive to the house");
+    
+    if (carController != null)
+        carController.EnableControls();
+
+    // ADD THIS:
+    FollowCar followCar = FindFirstObjectByType<FollowCar>();
+    followCar?.StartFollowing();
+}
     
     #endregion
     
