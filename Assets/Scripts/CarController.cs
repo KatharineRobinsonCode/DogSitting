@@ -17,6 +17,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private float minPitch = 0.8f;
     [SerializeField] private float maxPitch = 1.4f;
 
+[Header("Camera Look")]
+[SerializeField] private CarMouseLook carMouseLook; // drag cameraRig here in Inspector
     private float currentSpeed = 0f;
     private bool controlsEnabled = false;
     private bool isStopped = false;
@@ -74,21 +76,27 @@ public class CarController : MonoBehaviour
         engineAudio.pitch = Mathf.Lerp(minPitch, maxPitch, currentSpeed / maxSpeed);
     }
 
-    public void EnableControls()
-    {
-        controlsEnabled = true;
-        if (engineAudio != null && !engineAudio.isPlaying)
-            engineAudio.Play();
-    }
+ public void EnableControls()
+{
+    controlsEnabled = true;
+    if (engineAudio != null && !engineAudio.isPlaying)
+        engineAudio.Play();
+    if (carMouseLook != null) carMouseLook.enabled = true;
+}
 
-    public void DisableControls() => controlsEnabled = false;
+public void DisableControls()
+{
+    controlsEnabled = false;
+    if (carMouseLook != null) carMouseLook.enabled = false;
+}
 
-    public void StopCar()
-    {
-        isStopped = true;
-        currentSpeed = 0f;
-        if (engineAudio != null) engineAudio.Stop();
-    }
-
+public void StopCar()
+{
+    isStopped = true;
+    currentSpeed = 0f;
+    if (engineAudio != null) engineAudio.Stop();
+    // Don't deactivate mouse look here — player may still want to look around
+    // while parked and interact with the radio
+}
     public float CurrentSpeed => currentSpeed;
 }
