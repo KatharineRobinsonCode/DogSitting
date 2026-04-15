@@ -1,21 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Yarn.Unity;
 
 public class RearviewMirror : MonoBehaviour, IInteractable
 {
     [SerializeField] private GameObject mirrorCanvas;
     [SerializeField] private Image mirrorImage;
-    [SerializeField] private Sprite[] mirrorPhotos; // drag creepy car photos in
+    [SerializeField] private Sprite[] mirrorPhotos;
     [SerializeField] private float autoCloseTime = 3f;
-    
+
+    [Header("Dialogue")]
+    [SerializeField] private DialogueRunner dialogueRunner;
+    [SerializeField] private string thirdLookNode = "MirrorThirdLook";
+
     private bool isLooking = false;
     private int photoIndex = 0;
 
     public string GetInteractionPrompt()
     {
-        if (!isLooking)
-            return "Press E to check mirror";
-        return "";
+        return isLooking ? "" : "Press E to check mirror";
     }
 
     public void Interact(PlayerInteraction player)
@@ -26,12 +29,19 @@ public class RearviewMirror : MonoBehaviour, IInteractable
         if (mirrorCanvas != null)
             mirrorCanvas.SetActive(true);
 
-        // Show next photo in sequence
         if (mirrorImage != null && mirrorPhotos.Length > 0)
         {
-            photoIndex = Mathf.Min(photoIndex, mirrorPhotos.Length - 1);
-            mirrorImage.sprite = mirrorPhotos[photoIndex];
-            photoIndex++;
+            int index = Mathf.Clamp(photoIndex, 0, mirrorPhotos.Length - 1);
+            mirrorImage.sprite = mirrorPhotos[index];
+
+            // Trigger dialogue on third look (index 2)
+            if (index == 2 && dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+            {
+                dialogueRunner.StartDialogue(thirdLookNode);
+            }
+
+            if (photoIndex < mirrorPhotos.Length - 1)
+                photoIndex++;
         }
 
         StartCoroutine(AutoClose());
