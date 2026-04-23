@@ -157,23 +157,26 @@ public void SetHoldingBroom(bool value)
     }
     
     private void CheckForInteractables()
+{
+    Ray ray = GetCenterScreenRay();
+    
+    // Draw the raycast in Scene view - green if hitting interactable, red if not
+    if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
     {
-        Ray ray = GetCenterScreenRay();
+        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.green);
+        UpdateUI(true, promptMessage);
         
-        if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
+        if (Input.GetKeyDown(INTERACT_KEY))
         {
-            UpdateUI(true, promptMessage);
-            
-            if (Input.GetKeyDown(INTERACT_KEY))
-            {
-                HandleInteraction(hit);
-            }
-        }
-        else
-        {
-            UpdateUI(false, string.Empty);
+            HandleInteraction(hit);
         }
     }
+    else
+    {
+        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
+        UpdateUI(false, string.Empty);
+    }
+}
     
     private Ray GetCenterScreenRay()
     {
