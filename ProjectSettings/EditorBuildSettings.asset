@@ -23,12 +23,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameOver_CarCrash.unity
     guid: 8f606abf977184944b62c5341997e59e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HouseExterior.unity
     guid: 04e385f2a6e244d929a02ccb1075b4a4
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HouseInterior.unity
-    guid: a8f2cb40c63f54cbfb0c26e82c194a1f
+    guid: fde350f4a21054298a998b9a86b67839
+  - enabled: 1
+    path: Assets/Scenes/House.unity
+    guid: 4f80debdb52c166478997e1d2b329e3c
+  - enabled: 0
+    path: Assets/Brick Project Studio/Apartment Kit/Scenes/Scene_02.unity
+    guid: 9b5aa6428ba7a6246bd201ba8d95cebe
   - enabled: 1
     path: Assets/Scenes/Ending_Escaped.unity
     guid: dff2ad51e2ffb4d72972bc7edafbd357

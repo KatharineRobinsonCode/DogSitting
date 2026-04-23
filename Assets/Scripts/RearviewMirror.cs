@@ -7,14 +7,21 @@ public class RearviewMirror : MonoBehaviour, IInteractable
     [SerializeField] private GameObject mirrorCanvas;
     [SerializeField] private Image mirrorImage;
     [SerializeField] private Sprite[] mirrorPhotos;
-    [SerializeField] private float autoCloseTime = 3f;
+    [SerializeField] private float autoCloseTime = 2f;
 
     [Header("Dialogue")]
     [SerializeField] private DialogueRunner dialogueRunner;
-    [SerializeField] private string thirdLookNode = "MirrorThirdLook";
+    [SerializeField] private string mirrorDialogueNode = "MirrorThirdLook";
 
     private bool isLooking = false;
     private int photoIndex = 0;
+    private bool hasTriggeredDialogue = false;
+
+    private void Start()
+    {
+        if (dialogueRunner == null)
+            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+    }
 
     public string GetInteractionPrompt()
     {
@@ -34,10 +41,11 @@ public class RearviewMirror : MonoBehaviour, IInteractable
             int index = Mathf.Clamp(photoIndex, 0, mirrorPhotos.Length - 1);
             mirrorImage.sprite = mirrorPhotos[index];
 
-            // Trigger dialogue on third look (index 2)
-            if (index == 2 && dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+            // Trigger dialogue on second look (index 1), once only
+            if (index == 1 && !hasTriggeredDialogue && dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
             {
-                dialogueRunner.StartDialogue(thirdLookNode);
+                hasTriggeredDialogue = true;
+                dialogueRunner.StartDialogue(mirrorDialogueNode);
             }
 
             if (photoIndex < mirrorPhotos.Length - 1)
