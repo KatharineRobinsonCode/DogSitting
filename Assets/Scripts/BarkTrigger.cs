@@ -4,14 +4,15 @@ public class BarkTrigger : MonoBehaviour
 {
     [SerializeField] private AudioSource barkAudio;
     [SerializeField] private AudioClip barkClip;
+    private bool hasBarked = false;
 
     private void OnTriggerEnter(Collider other)
-{
-    Debug.Log($"[BarkTrigger] Hit by: {other.gameObject.name} tag: {other.tag}");
-    if (other.CompareTag("Player"))
     {
-        barkAudio.PlayOneShot(barkClip);
-        gameObject.SetActive(false);
+        if (hasBarked) return;
+        if (other.CompareTag("Player"))
+        {
+            hasBarked = true;
+            barkAudio.PlayOneShot(barkClip);
+        }
     }
-}
 }

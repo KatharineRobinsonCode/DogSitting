@@ -63778,7 +63778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
   m_SerializedVersion: 0
   m_AgentTypeID: 0
-  m_CollectObjects: 0
+  m_CollectObjects: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
@@ -102283,7 +102283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.157
+      value: 4.097
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -131106,11 +131106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070489090118878978, guid: 7ade998a75360c54ca6e55373981e604, type: 3}
       propertyPath: m_Size.y
-      value: 0.16147713
+      value: 1.4780707
       objectReference: {fileID: 0}
     - target: {fileID: 6070489090118878978, guid: 7ade998a75360c54ca6e55373981e604, type: 3}
       propertyPath: m_Center.y
-      value: 0.08073852
+      value: 0.67441773
       objectReference: {fileID: 0}
     - target: {fileID: 6070489090118878978, guid: 7ade998a75360c54ca6e55373981e604, type: 3}
       propertyPath: m_IsTrigger
