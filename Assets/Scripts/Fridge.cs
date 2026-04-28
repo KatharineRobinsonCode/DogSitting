@@ -19,7 +19,7 @@ public class Fridge : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteraction player)
 {
-    if (doorScript == null) return;
+    if (fridgeScript == null) return;
 
     Debug.Log($"[Fridge] Interact called. open = {fridgeScript.open}");
 
