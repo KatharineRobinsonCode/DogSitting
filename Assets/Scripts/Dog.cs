@@ -18,6 +18,8 @@ public class Dog : MonoBehaviour, IInteractable
 {
     if (isPetting) return;
     isPetting = true;
+        Debug.Log("[Dog] SetTrigger Pet called");
+
     dogAnimator.SetTrigger("Pet");
     StartCoroutine(ResetAfterAnimation());
 }

@@ -85349,8 +85349,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387248504}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
+  m_Controller: {fileID: 9100000, guid: 360787ff9c11d449da624e5843487904, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -101700,6 +101700,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 360787ff9c11d449da624e5843487904, type: 2}
+    - target: {fileID: 5866666021909216657, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -5117700066308340382, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
@@ -101756,7 +101768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dog
   dogName: Brinkley
-  dogAnimator: {fileID: 0}
+  dogAnimator: {fileID: 1387248507}
   petAnimationName: Pet
 --- !u!1001 &1618763889
 PrefabInstance:
