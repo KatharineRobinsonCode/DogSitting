@@ -6,7 +6,6 @@ public class Dog : MonoBehaviour, IInteractable
     [Header("Settings")]
     [SerializeField] private string dogName = "the dog";
     [SerializeField] private Animator dogAnimator;
-    [SerializeField] private string petAnimationName = "Pet";
 
     [Header("Audio")]
     [SerializeField] private AudioSource dogAudio;
@@ -26,14 +25,24 @@ public class Dog : MonoBehaviour, IInteractable
         if (agent != null) agent.enabled = false;
     }
 
-   private void Update()
-{
-    if (!isFollowing || agent == null || player == null) return;
-    float dist = Vector3.Distance(transform.position, player.position);
-    Debug.Log($"[Dog] dist: {dist}, onNavMesh: {agent.isOnNavMesh}, speed: {agent.speed}, pathStatus: {agent.pathStatus}, velocity: {agent.velocity}");
-    if (dist > followDistance) agent.SetDestination(player.position);
-    else agent.ResetPath();
-}
+    private void Update()
+    {
+        if (!isFollowing || agent == null || player == null) return;
+
+        float dist = Vector3.Distance(transform.position, player.position);
+        if (dist > followDistance)
+        {
+            agent.isStopped = false;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(player.position, out hit, 3f, NavMesh.AllAreas))
+                agent.SetDestination(hit.position);
+        }
+        else
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+        }
+    }
 
     public string GetInteractionPrompt()
     {
@@ -53,20 +62,29 @@ public class Dog : MonoBehaviour, IInteractable
         StartCoroutine(ResetAfterAnimation());
     }
 
-   private System.Collections.IEnumerator ResetAfterAnimation()
-{
-    yield return new WaitForSeconds(0.1f); // small delay to let animator transition
-    float animLength = dogAnimator.GetCurrentAnimatorStateInfo(0).length;
-    Debug.Log($"[Dog] Waiting for animation: {animLength}s");
-    yield return new WaitForSeconds(animLength);
-    
-    Debug.Log($"[Dog] Animation done. Agent on NavMesh: {agent.isOnNavMesh}");
-    isPetting = false;
-    if (!isFollowing)
+    private System.Collections.IEnumerator ResetAfterAnimation()
     {
-        isFollowing = true;
-        if (agent != null) agent.enabled = true;
-        Debug.Log("[Dog] Now following");
+        yield return new WaitForSeconds(0.1f);
+        float animLength = dogAnimator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(animLength);
+
+        isPetting = false;
+
+        if (!isFollowing && agent != null)
+        {
+            agent.enabled = true;
+            agent.Warp(transform.position);
+            yield return null;
+
+            if (agent.isOnNavMesh)
+            {
+                isFollowing = true;
+                agent.isStopped = false;
+            }
+            else
+            {
+                agent.enabled = false;
+            }
+        }
     }
-}
 }
