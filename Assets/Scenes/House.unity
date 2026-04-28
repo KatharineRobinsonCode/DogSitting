@@ -16481,6 +16481,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5921126462729845301, guid: bee09117d2231334d90a559b1ff7f323, type: 3}
   m_PrefabInstance: {fileID: 256092389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &256164323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7334539273898789907, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
+  m_PrefabInstance: {fileID: 326956460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &256164330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256164323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8997c2fe5272242138a5287b4d21102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fridge
 --- !u!1001 &257220255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21040,13 +21057,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fridge_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8683862293970279672, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8683862293970279672, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5341955133804256074, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1027511873}
+      addedObject: {fileID: 1906893626}
+    - targetCorrespondingSourceObject: {fileID: 7334539273898789907, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 256164330}
     - targetCorrespondingSourceObject: {fileID: 1073981064842182943, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
       insertIndex: -1
       addedObject: {fileID: 326956464}
@@ -62029,23 +62053,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5769129917905125718, guid: 3106a6f3c2fc2a547b55f8f47ff2e09c, type: 3}
   m_PrefabInstance: {fileID: 1026725259}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1027511869 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8683862293970279672, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
-  m_PrefabInstance: {fileID: 326956460}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1027511873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1027511869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8997c2fe5272242138a5287b4d21102d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Fridge
 --- !u!1001 &1028380047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119244,6 +119251,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1017606091530846216, guid: c5be39b879c83f54d9bbfebe68c809be, type: 3}
   m_PrefabInstance: {fileID: 354593665875501198}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1906893619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5341955133804256074, guid: b9f258a086096d24aa7861fa20deed65, type: 3}
+  m_PrefabInstance: {fileID: 326956460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1906893626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906893619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8997c2fe5272242138a5287b4d21102d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fridge
 --- !u!1001 &1907886127
 PrefabInstance:
   m_ObjectHideFlags: 0
