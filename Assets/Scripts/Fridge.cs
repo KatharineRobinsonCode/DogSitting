@@ -25,15 +25,15 @@ public class Fridge : MonoBehaviour, IInteractable
     {
         bool isOpen = (leftDoor != null && leftDoor.open) || (rightDoor != null && rightDoor.open);
 
-        if (!isOpen)
-        {
-            if (leftDoor != null) { leftDoor.openandclose.Play("Opening"); leftDoor.open = true; }
-            if (rightDoor != null) { rightDoor.openandclose.Play("Opening"); rightDoor.open = true; }
-        }
-        else
-        {
-            if (leftDoor != null) { leftDoor.openandclose.Play("Closing"); leftDoor.open = false; }
-            if (rightDoor != null) { rightDoor.openandclose.Play("Closing"); rightDoor.open = false; }
-        }
+       if (!isOpen)
+{
+    if (leftDoor != null) { leftDoor.openandclose.Play("Opening"); leftDoor.open = true; }
+    if (rightDoor != null) { rightDoor.openandclose1.Play("Opening 1"); rightDoor.open = true; }
+}
+else
+{
+    if (leftDoor != null) { leftDoor.openandclose.Play("Closing"); leftDoor.open = false; }
+    if (rightDoor != null) { rightDoor.openandclose1.Play("Closing 1"); rightDoor.open = false; }
+}
     }
 }
