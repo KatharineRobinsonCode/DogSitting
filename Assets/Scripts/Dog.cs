@@ -14,15 +14,13 @@ public class Dog : MonoBehaviour, IInteractable
         return isPetting ? "" : $"Press E to pet {dogName}";
     }
 
-    public void Interact(PlayerInteraction player)
-    {
-        if (isPetting) return;
-
-        isPetting = true;
-        dogAnimator.Play(petAnimationName);
-
-        StartCoroutine(ResetAfterAnimation());
-    }
+  public void Interact(PlayerInteraction player)
+{
+    if (isPetting) return;
+    isPetting = true;
+    dogAnimator.SetTrigger("Pet");
+    StartCoroutine(ResetAfterAnimation());
+}
 
     private System.Collections.IEnumerator ResetAfterAnimation()
     {
