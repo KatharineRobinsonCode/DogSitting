@@ -85335,33 +85335,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1017606091530846216, guid: c5be39b879c83f54d9bbfebe68c809be, type: 3}
   m_PrefabInstance: {fileID: 1386983199}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1387248504 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -7262846764577238214, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
-  m_PrefabInstance: {fileID: 1618730627}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1387248507
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1387248504}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
-  m_Controller: {fileID: 9100000, guid: 360787ff9c11d449da624e5843487904, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1388766294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101725,9 +101698,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1618730630}
-    - targetCorrespondingSourceObject: {fileID: -7262846764577238214, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1387248507}
   m_SourcePrefab: {fileID: 100100000, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
 --- !u!4 &1618730628 stripped
 Transform:
@@ -101768,8 +101738,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Dog
   dogName: Brinkley
-  dogAnimator: {fileID: 1387248507}
+  dogAnimator: {fileID: 1618730631}
   petAnimationName: Pet
+--- !u!95 &1618730631 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
+  m_PrefabInstance: {fileID: 1618730627}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1618763889
 PrefabInstance:
   m_ObjectHideFlags: 0

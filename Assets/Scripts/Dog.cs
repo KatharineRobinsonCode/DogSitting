@@ -7,6 +7,10 @@ public class Dog : MonoBehaviour, IInteractable
     [SerializeField] private Animator dogAnimator;
     [SerializeField] private string petAnimationName = "Pet";
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource dogAudio;
+    [SerializeField] private AudioClip petSound;
+
     private bool isPetting = false;
 
     public string GetInteractionPrompt()
@@ -14,19 +18,21 @@ public class Dog : MonoBehaviour, IInteractable
         return isPetting ? "" : $"Press E to pet {dogName}";
     }
 
-  public void Interact(PlayerInteraction player)
-{
-    if (isPetting) return;
-    isPetting = true;
-        Debug.Log("[Dog] SetTrigger Pet called");
+    public void Interact(PlayerInteraction player)
+    {
+        if (isPetting) return;
+        isPetting = true;
 
-    dogAnimator.SetTrigger("Pet");
-    StartCoroutine(ResetAfterAnimation());
-}
+        dogAnimator.SetTrigger("Pet");
+
+        if (dogAudio != null && petSound != null)
+            dogAudio.PlayOneShot(petSound);
+
+        StartCoroutine(ResetAfterAnimation());
+    }
 
     private System.Collections.IEnumerator ResetAfterAnimation()
     {
-        // Wait for the animation to finish before allowing petting again
         yield return new WaitForSeconds(dogAnimator.GetCurrentAnimatorStateInfo(0).length);
         isPetting = false;
     }
