@@ -7,31 +7,30 @@ public class Closet : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        closetScript = GetComponentInParent<ClosetopencloseDoor>();
+        closetScript = GetComponent<ClosetopencloseDoor>(); // same object, not parent
         if (closetScript != null)
-            closetScript.enabled = false; // hand control to Door.cs
+            closetScript.enabled = false;
     }
 
     public string GetInteractionPrompt()
     {
+        if (closetScript == null) return "Press E to open closet";
         return closetScript.open ? "Press E to close closet" : "Press E to open closet";
     }
 
     public void Interact(PlayerInteraction player)
-{
-    if (closetScript == null) return;
-
-    Debug.Log($"[Closet] Interact called. open = {closetScript.open}");
-
-    if (!closetScript.open)
     {
-        closetScript.Closetopenandclose.Play("Opening");
-        closetScript.open = true;
+        if (closetScript == null) return;
+
+        if (!closetScript.open)
+        {
+            closetScript.Closetopenandclose.Play("ClosetOpening"); // fixed name
+            closetScript.open = true;
+        }
+        else
+        {
+            closetScript.Closetopenandclose.Play("ClosetClosing"); // fixed name
+            closetScript.open = false;
+        }
     }
-    else
-    {
-        closetScript.Closetopenandclose.Play("Closing");
-        closetScript.open = false;
-    }
-}
 }
