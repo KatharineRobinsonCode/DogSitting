@@ -26,17 +26,14 @@ public class Dog : MonoBehaviour, IInteractable
         if (agent != null) agent.enabled = false;
     }
 
-    private void Update()
-    {
-        if (!isFollowing || agent == null || player == null) return;
-
-        float dist = Vector3.Distance(transform.position, player.position);
-
-        if (dist > followDistance)
-            agent.SetDestination(player.position);
-        else
-            agent.ResetPath(); // stop when close enough
-    }
+   private void Update()
+{
+    if (!isFollowing || agent == null || player == null) return;
+    float dist = Vector3.Distance(transform.position, player.position);
+    Debug.Log($"[Dog] dist: {dist}, onNavMesh: {agent.isOnNavMesh}, speed: {agent.speed}, pathStatus: {agent.pathStatus}, velocity: {agent.velocity}");
+    if (dist > followDistance) agent.SetDestination(player.position);
+    else agent.ResetPath();
+}
 
     public string GetInteractionPrompt()
     {
@@ -56,16 +53,20 @@ public class Dog : MonoBehaviour, IInteractable
         StartCoroutine(ResetAfterAnimation());
     }
 
-    private System.Collections.IEnumerator ResetAfterAnimation()
+   private System.Collections.IEnumerator ResetAfterAnimation()
+{
+    yield return new WaitForSeconds(0.1f); // small delay to let animator transition
+    float animLength = dogAnimator.GetCurrentAnimatorStateInfo(0).length;
+    Debug.Log($"[Dog] Waiting for animation: {animLength}s");
+    yield return new WaitForSeconds(animLength);
+    
+    Debug.Log($"[Dog] Animation done. Agent on NavMesh: {agent.isOnNavMesh}");
+    isPetting = false;
+    if (!isFollowing)
     {
-        yield return new WaitForSeconds(dogAnimator.GetCurrentAnimatorStateInfo(0).length);
-        isPetting = false;
-
-        // Start following after first pet
-        if (!isFollowing)
-        {
-            isFollowing = true;
-            if (agent != null) agent.enabled = true;
-        }
+        isFollowing = true;
+        if (agent != null) agent.enabled = true;
+        Debug.Log("[Dog] Now following");
     }
+}
 }
