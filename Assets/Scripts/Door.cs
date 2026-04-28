@@ -7,7 +7,7 @@ public class Door : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        doorScript = GetComponentInParent<opencloseDoor>();
+        doorScript = GetComponentInChildren<opencloseDoor>();
         if (doorScript != null)
             doorScript.enabled = false; // hand control to Door.cs
     }
