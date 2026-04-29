@@ -59,6 +59,10 @@ public class Dog : MonoBehaviour, IInteractable
         if (dogAudio != null && petSound != null)
             dogAudio.PlayOneShot(petSound);
 
+                // Complete "Find Brinkley" task on first pet only
+    if (!isFollowing && TaskManager.Instance != null)
+        TaskManager.Instance.CompleteTask();
+
         StartCoroutine(ResetAfterAnimation());
     }
 

@@ -13,6 +13,9 @@ public class BarkTrigger : MonoBehaviour
         {
             hasBarked = true;
             barkAudio.PlayOneShot(barkClip);
+
+            if (TaskManager.Instance != null)
+                TaskManager.Instance.CompleteTask();
         }
     }
 }
