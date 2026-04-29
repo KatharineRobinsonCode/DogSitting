@@ -141,7 +141,6 @@ public class TaskManager : MonoBehaviour
     public void LogTaskState()
     {
         Debug.Log($"Current: {(HasActiveTask ? currentTask : "None")}");
-        Debug.Log($"Completed: {completedTasks.Count}, Queued: {taskQueue.Count}");
     }
     #endregion
 }
