@@ -20,7 +20,7 @@ public class TaskManager : MonoBehaviour
     #region Private Fields
     private string currentTask = "";
     private Queue<string> taskQueue = new Queue<string>();
-    private List<string> completedTasks = new List<string>();
+
     #endregion
 
     #region Properties
@@ -69,9 +69,6 @@ public class TaskManager : MonoBehaviour
     public void CompleteTask(bool showNextTask = true)
     {
         LogDebug($"[TaskManager] Task completed: {currentTask}");
-
-        if (!string.IsNullOrEmpty(currentTask))
-            completedTasks.Add(currentTask);
 
         if (showNextTask && taskQueue.Count > 0)
             ShowNextQueuedTask();
@@ -122,20 +119,12 @@ public class TaskManager : MonoBehaviour
 
     #region Private Methods - UI
     private void RefreshDisplay()
-    {
-        if (taskPanel != null) taskPanel.SetActive(true);
-        if (taskDisplay == null) return;
-
-        string display = "";
-
-        foreach (string done in completedTasks)
-            display += $"<color=#888888><s>✓ {done}</s></color>\n";
-
-        if (!string.IsNullOrEmpty(currentTask))
-            display += $"<color=#FFFFFF>→ {currentTask}</color>";
-
-        taskDisplay.text = display.TrimEnd();
-    }
+{
+    if (taskPanel != null) taskPanel.SetActive(!string.IsNullOrEmpty(currentTask));
+    if (taskDisplay != null) taskDisplay.text = !string.IsNullOrEmpty(currentTask) 
+        ? $"→ {currentTask}" 
+        : "";
+}
     #endregion
 
     #region Public Utility Methods
@@ -143,8 +132,6 @@ public class TaskManager : MonoBehaviour
     {
         return currentTask.Equals(taskText, System.StringComparison.OrdinalIgnoreCase);
     }
-
-    public void ClearCompleted() { completedTasks.Clear(); RefreshDisplay(); }
     #endregion
 
     #region Debug
