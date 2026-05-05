@@ -246,6 +246,15 @@ public class PauseManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
+    public void ShowCursorPublic()
+{
+    ShowCursor();
+}
+
+public void HideCursorPublic()
+{
+    HideCursor();
+}
     
     #endregion
     

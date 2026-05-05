@@ -17740,7 +17740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.025024414, y: -50}
+  m_AnchoredPosition: {x: -0.025024414, y: -50.000977}
   m_SizeDelta: {x: -152.94, y: -9950}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &259039489
@@ -72672,6 +72672,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1129999413580534391, guid: edb02028d59ccac4ca6641a183fa7346, type: 3}
   m_PrefabInstance: {fileID: 1146500397}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1146804856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146804858}
+  - component: {fileID: 1146804857}
+  m_Layer: 0
+  m_Name: PhoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1146804857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146804856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558016cc9c3f449d28dea4b8cdbc877e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhoneManager
+  phonePanel: {fileID: 190932879}
+  phoneCanvasGroup: {fileID: 190932881}
+  airdropImage: {fileID: 1734837818}
+  actionButtons: {fileID: 252887834}
+  playerDialogueText: {fileID: 0}
+  audioSource: {fileID: 0}
+  notificationSound: {fileID: 0}
+  scaryZoomSound: {fileID: 0}
+  textMessageSound: {fileID: 0}
+  endingCanvas: {fileID: 0}
+  endingText: {fileID: 0}
+  declineEndingMessage: 
+  textMessagePanel: {fileID: 1734837815}
+  contactNameText: {fileID: 1358640998}
+  messageText: {fileID: 259039489}
+  messageAcceptButton: {fileID: 1192875509}
+  messageDeclineButton: {fileID: 625898963}
+  contactName: "Bestie \U0001F43E"
+  dogSitMessage: "Hey!! Are you free after your shift? \nI need someone to watch
+    my dog tonight... \nPlease please please"
+  carolContactName: "Bestie \U0001F43E"
+  carolCheckInMessage: "Hey! Just arrived at yours \u2014 Brinkley is safe and sound
+    \U0001F436"
+--- !u!4 &1146804858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146804856}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 174.34613, y: -2014.89, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1147042413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3108454442468392478, guid: 3f867dd7956e96f4a90edce652fc7512, type: 3}
@@ -90553,7 +90620,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PhoneManager, Assembly-CSharp
-        m_MethodName: OnAcceptPressed
+        m_MethodName: OnCarolCheckInSent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -133520,6 +133587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2054253910}
   - component: {fileID: 2054253909}
+  - component: {fileID: 2054253911}
   m_Layer: 0
   m_Name: HouseTaskStarter
   m_TagString: Untagged
@@ -133554,6 +133622,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2054253911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054253908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee206521ef9414a7284864576078d66d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextCarol
 --- !u!1001 &2055146403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -135624,7 +135704,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00036621094}
+  m_AnchoredPosition: {x: 0, y: 0.00048828125}
   m_SizeDelta: {x: 0, y: 9900}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!4 &2093004865 stripped
@@ -141369,3 +141449,4 @@ SceneRoots:
   - {fileID: 1637114701}
   - {fileID: 142990419}
   - {fileID: 135891322}
+  - {fileID: 1146804858}
