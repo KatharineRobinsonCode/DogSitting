@@ -453,18 +453,14 @@ IEnumerator HandleCarolCheckInSent()
     if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
 
     yield return new WaitForSeconds(0.8f);
-    ShowMessage("You: Here with Brinkley!", true);
+    ShowMessage("You: Here with Brinkley! Let me know if you need anything 😊", true);
 
-    yield return new WaitForSeconds(1.2f);
-    ShowMessage("Carol: Amazing thank you!! Help yourself to anything in the kitchen 😊", true);
-
-    yield return new WaitForSeconds(2f);
+    yield return new WaitForSeconds(2.5f);
+    // Carol never replies...
 
     CloseTextMessage();
 
     if (TaskManager.Instance != null)
         TaskManager.Instance.CompleteTask();
-
-    onAccepted?.Invoke();
 }
 }
