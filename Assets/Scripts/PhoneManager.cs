@@ -473,7 +473,7 @@ IEnumerator HandlePizzaOrder(string pizzaName)
     if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(true);
 
     if (pizzaConfirmText != null)
-        pizzaConfirmText.text = $"🍕 {pizzaName}\n\nYour order is on its way!\nEstimated delivery: 30 mins";
+        pizzaConfirmText.text = $"{pizzaName}\n\nYour order is on its way!\nEstimated delivery: 30 mins";
 
     if (notificationSound != null && audioSource != null)
         audioSource.PlayOneShot(notificationSound);
