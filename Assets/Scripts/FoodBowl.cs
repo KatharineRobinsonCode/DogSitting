@@ -10,6 +10,9 @@ public class FoodBowl : MonoBehaviour, IInteractable
     [SerializeField] private GameObject emptyBowl;
     [SerializeField] private GameObject fullBowl;
 
+    [Header("Dog")]
+[SerializeField] private Dog dog;
+
     private bool isFilled = false;
 
     public string GetInteractionPrompt()
@@ -31,5 +34,8 @@ public class FoodBowl : MonoBehaviour, IInteractable
 
         if (TaskManager.Instance != null)
             TaskManager.Instance.CompleteTask();
+
+            if (dog != null)
+    dog.StopFollowing();
     }
 }

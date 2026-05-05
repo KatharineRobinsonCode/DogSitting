@@ -91,4 +91,15 @@ public class Dog : MonoBehaviour, IInteractable
             }
         }
     }
+
+    public void StopFollowing()
+{
+        Debug.Log("[Dog] StopFollowing called");
+    isFollowing = false;
+    if (agent != null)
+    {
+        agent.isStopped = true;
+        agent.ResetPath();
+    }
+}
 }

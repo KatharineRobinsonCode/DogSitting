@@ -44,13 +44,18 @@ public class PhoneManager : MonoBehaviour
     public string dogSitMessage =
         "Hey!! Are you free after your shift? \n" +
         "I need someone to watch my dog tonight... \n" +
-        "Please please please 🐶🙏";
+        "Please please please";
 
     private Vector3 originalImageScale;
     private Vector3 originalImagePos;
 
     private System.Action onAccepted;
     private System.Action onDeclined;
+
+    [Header("Text Carol Settings")]
+public string carolContactName = "Bestie 🐾";
+[TextArea(3, 10)]
+public string carolCheckInMessage = "Hey! Just arrived at yours — Brinkley is safe and sound 🐶";
 
   void Awake()
 {
@@ -387,4 +392,79 @@ void ShowMessage(string message, bool addNewlineBefore = true)
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
+
+    public void ReceiveCarolCheckIn(System.Action onSent = null)
+{
+    onAccepted = onSent;
+    onDeclined = null;
+
+    StopAllCoroutines();
+
+    if (airdropImage != null)
+    {
+        airdropImage.gameObject.SetActive(false);
+        airdropImage.transform.localScale = originalImageScale;
+        airdropImage.transform.localPosition = originalImagePos;
+    }
+
+    if (actionButtons != null) actionButtons.SetActive(false);
+    if (playerDialogueText != null)
+    {
+        playerDialogueText.text = "";
+        playerDialogueText.gameObject.SetActive(false);
+    }
+
+    if (textMessagePanel != null) textMessagePanel.SetActive(true);
+    if (contactNameText != null) contactNameText.text = carolContactName;
+    if (messageText != null) messageText.text = "";
+    if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
+    if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
+
+    StartCoroutine(ShowCarolCheckIn());
+}
+
+IEnumerator ShowCarolCheckIn()
+{
+    if (textMessageSound != null && audioSource != null)
+        audioSource.PlayOneShot(textMessageSound);
+
+    yield return new WaitForSeconds(0.5f);
+
+    if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 1f;
+
+    if (notificationSound != null && audioSource != null)
+        audioSource.PlayOneShot(notificationSound);
+
+    if (messageText != null) messageText.text = carolCheckInMessage;
+
+    yield return new WaitForSeconds(0.5f);
+
+    // Only show accept (send), no decline option
+    if (messageAcceptButton != null) messageAcceptButton.SetActive(true);
+}
+
+public void OnCarolCheckInSent()
+{
+    StartCoroutine(HandleCarolCheckInSent());
+}
+
+IEnumerator HandleCarolCheckInSent()
+{
+    if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
+
+    yield return new WaitForSeconds(0.8f);
+    ShowMessage("You: Here with Brinkley!", true);
+
+    yield return new WaitForSeconds(1.2f);
+    ShowMessage("Carol: Amazing thank you!! Help yourself to anything in the kitchen 😊", true);
+
+    yield return new WaitForSeconds(2f);
+
+    CloseTextMessage();
+
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.CompleteTask();
+
+    onAccepted?.Invoke();
+}
 }
