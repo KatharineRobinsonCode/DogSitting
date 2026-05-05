@@ -57,6 +57,11 @@ public class PhoneManager : MonoBehaviour
     private System.Action onAccepted;
     private System.Action onDeclined;
 
+    [Header("Pizza Order UI")]
+public GameObject pizzaOrderPanel;
+public GameObject pizzaConfirmPanel;
+public TextMeshProUGUI pizzaConfirmText;
+
     void Awake()
     {
         Instance = this;
@@ -436,4 +441,53 @@ public class PhoneManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
+    // ============================
+// PIZZA ORDER SYSTEM
+// ============================
+
+public void OpenPizzaOrder()
+{
+    StopAllCoroutines();
+
+    // Hide other panels
+    if (textMessagePanel != null) textMessagePanel.SetActive(false);
+    if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
+
+    // Show phone and pizza order panel
+    if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 1f;
+    if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(true);
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.ShowCursorPublic();
+}
+
+public void OnPizzaSelected(string pizzaName)
+{
+    StartCoroutine(HandlePizzaOrder(pizzaName));
+}
+
+IEnumerator HandlePizzaOrder(string pizzaName)
+{
+    // Swap to confirm panel
+    if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(false);
+    if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(true);
+
+    if (pizzaConfirmText != null)
+        pizzaConfirmText.text = $"🍕 {pizzaName}\n\nYour order is on its way!\nEstimated delivery: 30 mins";
+
+    if (notificationSound != null && audioSource != null)
+        audioSource.PlayOneShot(notificationSound);
+
+    yield return new WaitForSeconds(3f);
+
+    // Close everything
+    if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
+    ClosePhone();
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.HideCursorPublic();
+
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.CompleteTask();
+}
 }

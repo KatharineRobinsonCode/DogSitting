@@ -72682,6 +72682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1146804858}
   - component: {fileID: 1146804857}
+  - component: {fileID: 1146804859}
   m_Layer: 0
   m_Name: PhoneManager
   m_TagString: Untagged
@@ -72722,8 +72723,7 @@ MonoBehaviour:
   dogSitMessage: "Hey!! Are you free after your shift? \nI need someone to watch
     my dog tonight... \nPlease please please"
   carolContactName: "Bestie \U0001F43E"
-  carolCheckInMessage: "Hey! Just arrived at yours \u2014 Brinkley is safe and sound
-    \U0001F436"
+  carolCheckInMessage: 
 --- !u!4 &1146804858
 Transform:
   m_ObjectHideFlags: 0
@@ -72739,6 +72739,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146804859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146804856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee206521ef9414a7284864576078d66d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TextCarol
 --- !u!4 &1147042413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3108454442468392478, guid: 3f867dd7956e96f4a90edce652fc7512, type: 3}
@@ -76389,9 +76401,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1146804857}
         m_TargetAssemblyTypeName: PhoneManager, Assembly-CSharp
-        m_MethodName: OnTextMessageAccepted
+        m_MethodName: OnCarolCheckInSent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -90618,7 +90630,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1146804857}
         m_TargetAssemblyTypeName: PhoneManager, Assembly-CSharp
         m_MethodName: OnCarolCheckInSent
         m_Mode: 1
@@ -106778,7 +106790,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ACCEPT
+  m_text: SEND
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -133587,7 +133599,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2054253910}
   - component: {fileID: 2054253909}
-  - component: {fileID: 2054253911}
   m_Layer: 0
   m_Name: HouseTaskStarter
   m_TagString: Untagged
@@ -133622,18 +133633,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2054253911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054253908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee206521ef9414a7284864576078d66d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TextCarol
 --- !u!1001 &2055146403
 PrefabInstance:
   m_ObjectHideFlags: 0
