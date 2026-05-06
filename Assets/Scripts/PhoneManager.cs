@@ -489,8 +489,9 @@ IEnumerator HandlePizzaOrder(string pizzaName)
 
     if (TaskManager.Instance != null)
         TaskManager.Instance.CompleteTask();
-
+Debug.Log("[PhoneManager] Pizza ordered, finding FoodBowl");
         FoodBowl foodBowl = FindFirstObjectByType<FoodBowl>();
+        Debug.Log("[PhoneManager] FoodBowl found: " + (foodBowl != null));
 if (foodBowl != null)
     foodBowl.OnPizzaOrdered();
 }

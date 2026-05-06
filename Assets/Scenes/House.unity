@@ -16837,6 +16837,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1017606091530846216, guid: c5be39b879c83f54d9bbfebe68c809be, type: 3}
   m_PrefabInstance: {fileID: 247746094}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &249119871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 249119872}
+  m_Layer: 0
+  m_Name: BrinkleyLookTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &249119872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249119871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.068, y: 0, z: -0.053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1715564026}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &249468434
 GameObject:
   m_ObjectHideFlags: 0
@@ -60427,7 +60458,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2250178883754422351, guid: 143623a82f19a9e49b450142a80c6d52, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 249119872}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4035178881683024354, guid: 143623a82f19a9e49b450142a80c6d52, type: 3}
       insertIndex: -1
@@ -65385,10 +65419,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FoodBowl
   bowlAudio: {fileID: 1033719666}
   fillSound: {fileID: 8300000, guid: ea583e88657344bbfbc8c66c89c6afb2, type: 3}
-  emptyBowl: {fileID: 1033719665}
-  fullBowl: {fileID: 0}
+  emptyBowl: {fileID: 956163351}
+  fullBowl: {fileID: 1033719665}
   dog: {fileID: 1618730630}
-  closetTarget: {fileID: 0}
+  closetTarget: {fileID: 93240560}
 --- !u!1001 &1033932646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73242,8 +73276,8 @@ MonoBehaviour:
   airdropImage: {fileID: 1734837818}
   actionButtons: {fileID: 252887834}
   playerDialogueText: {fileID: 0}
-  audioSource: {fileID: 0}
-  notificationSound: {fileID: 0}
+  audioSource: {fileID: 135891321}
+  notificationSound: {fileID: 8300000, guid: b5c0ed134b24f4f99b4d5fe6b3c7ddde, type: 3}
   scaryZoomSound: {fileID: 0}
   textMessageSound: {fileID: 0}
   endingCanvas: {fileID: 0}
@@ -82556,15 +82590,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.2
+      value: -2.64
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.23
+      value: 5.28
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.79
+      value: -2.68
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -107427,7 +107461,8 @@ MonoBehaviour:
   dogAudio: {fileID: 1618730632}
   petSound: {fileID: 8300000, guid: f1c66683164c6431ca61a8468a9877b1, type: 3}
   player: {fileID: 552239441}
-  followDistance: 2
+  followDistance: 3
+  lookTarget: {fileID: 249119872}
 --- !u!95 &1618730631 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}

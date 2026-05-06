@@ -39,6 +39,11 @@ public void Interact(PlayerInteraction player)
 
 public void OnPizzaOrdered()
 {
+      Debug.Log("[FoodBowl] OnPizzaOrdered called");
+    Debug.Log("[FoodBowl] dog is null: " + (dog == null));
+    Debug.Log("[FoodBowl] closetTarget is null: " + (closetTarget == null));
+    Debug.Log("[FoodBowl] fullBowl is null: " + (fullBowl == null));
+    
     // Hide the food
     if (fullBowl != null) fullBowl.SetActive(false);
     

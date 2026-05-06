@@ -15,12 +15,12 @@ public class Dog : MonoBehaviour, IInteractable
     [SerializeField] private Transform player;
     [SerializeField] private float followDistance = 2f;
 
-[Header("Look Target")]
-[SerializeField] private Transform lookTarget;
-private bool hasReachedDestination = false;
+    [Header("Look Target")]
+    [SerializeField] private Transform lookTarget;
 
     private bool isPetting = false;
     private bool isFollowing = false;
+    private bool isMovingToTarget = false;
     private NavMeshAgent agent;
 
     private void Awake()
@@ -29,58 +29,82 @@ private bool hasReachedDestination = false;
         if (agent != null) agent.enabled = false;
     }
 
-   private void Update()
-{
-    if (!isFollowing || agent == null || player == null)
+    private void Update()
     {
-         // Check if Brinkley has reached his NavMesh destination
-        if (agent != null && agent.enabled && !agent.isStopped && 
-            !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        // Case 1: Moving to a specific target (bowl/closet)
+        if (isMovingToTarget && agent != null && agent.enabled)
         {
-            if (lookTarget != null)
+            if (dogAnimator != null)
+                dogAnimator.SetBool("IsWalking", true);
+
+            // Check if arrived
+            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
-                // Rotate to face the look target
-                Vector3 direction = lookTarget.position - transform.position;
-                direction.y = 0f; // Keep rotation on Y axis only
-                if (direction != Vector3.zero)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(direction);
-                    transform.rotation = Quaternion.Slerp(
-                        transform.rotation, 
-                        targetRotation, 
-                        Time.deltaTime * 5f
-                    );
-                }
+                isMovingToTarget = false;
+                agent.isStopped = true;
+
+                if (dogAnimator != null)
+                    dogAnimator.SetBool("IsWalking", false);
+
+                // Face the look target if assigned
+                if (lookTarget != null)
+                    StartCoroutine(FaceTarget(lookTarget));
             }
+            return;
         }
-        // Tell animator Brinkley is not walking
-        if (dogAnimator != null)
-            dogAnimator.SetBool("IsWalking", false);
-        return;
+
+        // Case 2: Not following — just idle
+        if (!isFollowing || agent == null || player == null)
+        {
+            if (dogAnimator != null)
+                dogAnimator.SetBool("IsWalking", false);
+            return;
+        }
+
+        // Case 3: Following player
+        float dist = Vector3.Distance(transform.position, player.position);
+        if (dist > followDistance)
+        {
+            agent.isStopped = false;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(player.position, out hit, 3f, NavMesh.AllAreas))
+                agent.SetDestination(hit.position);
+
+            if (dogAnimator != null)
+                dogAnimator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+
+            if (dogAnimator != null)
+                dogAnimator.SetBool("IsWalking", false);
+        }
     }
 
-    float dist = Vector3.Distance(transform.position, player.position);
-    if (dist > followDistance)
+    private System.Collections.IEnumerator FaceTarget(Transform target)
     {
-        agent.isStopped = false;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(player.position, out hit, 3f, NavMesh.AllAreas))
-            agent.SetDestination(hit.position);
+        float elapsed = 0f;
+        float duration = 0.5f;
+        Quaternion startRotation = transform.rotation;
 
-        // Brinkley is moving — play walking animation
-        if (dogAnimator != null)
-            dogAnimator.SetBool("IsWalking", true);
-    }
-    else
-    {
-        agent.isStopped = true;
-        agent.ResetPath();
+        Vector3 direction = target.position - transform.position;
+        direction.y = 0f;
 
-        // Brinkley reached player — back to idle
-        if (dogAnimator != null)
-            dogAnimator.SetBool("IsWalking", false);
+        if (direction == Vector3.zero) yield break;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        while (elapsed < duration)
+        {
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetRotation;
     }
-}
 
     public string GetInteractionPrompt()
     {
@@ -97,9 +121,8 @@ private bool hasReachedDestination = false;
         if (dogAudio != null && petSound != null)
             dogAudio.PlayOneShot(petSound);
 
-                // Complete "Find Brinkley" task on first pet only
-    if (!isFollowing && TaskManager.Instance != null)
-        TaskManager.Instance.CompleteTask();
+        if (!isFollowing && TaskManager.Instance != null)
+            TaskManager.Instance.CompleteTask();
 
         StartCoroutine(ResetAfterAnimation());
     }
@@ -131,25 +154,30 @@ private bool hasReachedDestination = false;
     }
 
     public void StopFollowing()
-{
-        Debug.Log("[Dog] StopFollowing called");
-    isFollowing = false;
-    if (agent != null)
     {
-        agent.isStopped = true;
-        agent.ResetPath();
+        isFollowing = false;
+        isMovingToTarget = false;
+        if (agent != null)
+        {
+            agent.isStopped = true;
+            agent.ResetPath();
+        }
     }
-}
-public void GoToPosition(Transform target)
-{
-    if (agent == null || target == null) return;
+
+    public void GoToPosition(Transform target)
+    {
+            Debug.Log("[Dog] GoToPosition called, target: " + target.name);
+        if (agent == null || target == null) return;
+
+        isFollowing = false;
+        isMovingToTarget = true;
+
+        agent.enabled = true;
+        agent.isStopped = false;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(target.position, out hit, 3f, NavMesh.AllAreas))
+            agent.SetDestination(hit.position);
+    }
     
-    isFollowing = false;
-    agent.enabled = true;
-    agent.isStopped = false;
-    
-    NavMeshHit hit;
-    if (NavMesh.SamplePosition(target.position, out hit, 3f, NavMesh.AllAreas))
-        agent.SetDestination(hit.position);
-}
 }
