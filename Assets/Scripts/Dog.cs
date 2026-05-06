@@ -25,24 +25,38 @@ public class Dog : MonoBehaviour, IInteractable
         if (agent != null) agent.enabled = false;
     }
 
-    private void Update()
+   private void Update()
+{
+    if (!isFollowing || agent == null || player == null)
     {
-        if (!isFollowing || agent == null || player == null) return;
-
-        float dist = Vector3.Distance(transform.position, player.position);
-        if (dist > followDistance)
-        {
-            agent.isStopped = false;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(player.position, out hit, 3f, NavMesh.AllAreas))
-                agent.SetDestination(hit.position);
-        }
-        else
-        {
-            agent.isStopped = true;
-            agent.ResetPath();
-        }
+        // Tell animator Brinkley is not walking
+        if (dogAnimator != null)
+            dogAnimator.SetBool("IsWalking", false);
+        return;
     }
+
+    float dist = Vector3.Distance(transform.position, player.position);
+    if (dist > followDistance)
+    {
+        agent.isStopped = false;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(player.position, out hit, 3f, NavMesh.AllAreas))
+            agent.SetDestination(hit.position);
+
+        // Brinkley is moving — play walking animation
+        if (dogAnimator != null)
+            dogAnimator.SetBool("IsWalking", true);
+    }
+    else
+    {
+        agent.isStopped = true;
+        agent.ResetPath();
+
+        // Brinkley reached player — back to idle
+        if (dogAnimator != null)
+            dogAnimator.SetBool("IsWalking", false);
+    }
+}
 
     public string GetInteractionPrompt()
     {
@@ -101,5 +115,17 @@ public class Dog : MonoBehaviour, IInteractable
         agent.isStopped = true;
         agent.ResetPath();
     }
+}
+public void GoToPosition(Transform target)
+{
+    if (agent == null || target == null) return;
+    
+    isFollowing = false;
+    agent.enabled = true;
+    agent.isStopped = false;
+    
+    NavMeshHit hit;
+    if (NavMesh.SamplePosition(target.position, out hit, 3f, NavMesh.AllAreas))
+        agent.SetDestination(hit.position);
 }
 }

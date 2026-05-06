@@ -12,6 +12,7 @@ public class FoodBowl : MonoBehaviour, IInteractable
 
     [Header("Dog")]
 [SerializeField] private Dog dog;
+[SerializeField] private Transform closetTarget;
 
     private bool isFilled = false;
 
@@ -20,22 +21,29 @@ public class FoodBowl : MonoBehaviour, IInteractable
         return isFilled ? "" : "Press E to fill Brinkley's bowl";
     }
 
-    public void Interact(PlayerInteraction player)
-    {
-        if (isFilled) return;
-        isFilled = true;
+public void Interact(PlayerInteraction player)
+{
+    if (isFilled) return;
+    isFilled = true;
 
-        if (bowlAudio != null && fillSound != null)
-            bowlAudio.PlayOneShot(fillSound);
+    if (bowlAudio != null && fillSound != null)
+        bowlAudio.PlayOneShot(fillSound);
 
-        // Swap bowl visuals if assigned
-        if (emptyBowl != null) emptyBowl.SetActive(false);
-        if (fullBowl != null) fullBowl.SetActive(true);
+    // Swap bowl visuals if assigned
+    if (emptyBowl != null) emptyBowl.SetActive(false);
+    if (fullBowl != null) fullBowl.SetActive(true);
 
-        if (TaskManager.Instance != null)
-            TaskManager.Instance.CompleteTask();
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.CompleteTask();
+}
 
-            if (dog != null)
-    dog.StopFollowing();
-    }
+public void OnPizzaOrdered()
+{
+    // Hide the food
+    if (fullBowl != null) fullBowl.SetActive(false);
+    
+    // Send Brinkley to closet
+    if (dog != null && closetTarget != null)
+        dog.GoToPosition(closetTarget);
+}
 }
