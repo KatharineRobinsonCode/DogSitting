@@ -15,6 +15,10 @@ public class Dog : MonoBehaviour, IInteractable
     [SerializeField] private Transform player;
     [SerializeField] private float followDistance = 2f;
 
+[Header("Look Target")]
+[SerializeField] private Transform lookTarget;
+private bool hasReachedDestination = false;
+
     private bool isPetting = false;
     private bool isFollowing = false;
     private NavMeshAgent agent;
@@ -29,6 +33,26 @@ public class Dog : MonoBehaviour, IInteractable
 {
     if (!isFollowing || agent == null || player == null)
     {
+         // Check if Brinkley has reached his NavMesh destination
+        if (agent != null && agent.enabled && !agent.isStopped && 
+            !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (lookTarget != null)
+            {
+                // Rotate to face the look target
+                Vector3 direction = lookTarget.position - transform.position;
+                direction.y = 0f; // Keep rotation on Y axis only
+                if (direction != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation, 
+                        targetRotation, 
+                        Time.deltaTime * 5f
+                    );
+                }
+            }
+        }
         // Tell animator Brinkley is not walking
         if (dogAnimator != null)
             dogAnimator.SetBool("IsWalking", false);
