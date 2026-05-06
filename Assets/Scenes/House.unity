@@ -3161,14 +3161,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorFrame_Apt_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501971208833686894, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694369, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282455707208595339, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5599452659419228336, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -3368,9 +3384,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1163633517}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -5305,9 +5333,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600862588}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -6413,6 +6453,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 552239441}
     - target: {fileID: 4929668019831370948, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929668019831370948, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
@@ -6463,6 +6507,14 @@ PrefabInstance:
     - target: {fileID: 9090885670013408196, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090885670013408196, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179463739569323174, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4929668019831370810, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
@@ -7836,6 +7888,10 @@ PrefabInstance:
     - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8128322320853617336, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_RootOrder
@@ -27958,9 +28014,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600862588}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -29984,6 +30052,10 @@ PrefabInstance:
     - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8128322320853617336, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_RootOrder
@@ -38313,14 +38385,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorFrame_Apt_02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501971208833686894, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694369, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282455707208595339, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5599452659419228336, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -38964,9 +39052,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600862588}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -47467,14 +47567,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorFrame_Apt_02
       objectReference: {fileID: 0}
+    - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501971208833686894, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694369, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282455707208595339, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5599452659419228336, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -48451,9 +48567,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1163633517}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -48933,7 +49061,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -48965,7 +49093,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 43c5c821a6cff49ae932c276efd8773e, type: 2}
   m_BuildHeightMesh: 0
@@ -49777,7 +49905,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 2f759b9e4946747a2b00f8210b6427a1, type: 2}
   m_BuildHeightMesh: 0
@@ -52296,9 +52424,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1163633517}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -56472,7 +56612,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -57016,6 +57156,22 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305940152919047789, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984325087548485788, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437184127787543326, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7036766287611309663, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -57064,7 +57220,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorFrame_Apt_04 (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1769733901, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -62787,7 +62948,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -64505,12 +64666,20 @@ PrefabInstance:
       value: DoorFrame_Apt_02
       objectReference: {fileID: 0}
     - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501971208833686894, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694368, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_Size.x
@@ -64532,6 +64701,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_TagString
       value: Interactable
@@ -64556,6 +64729,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_TagString
       value: Interactable
@@ -64629,6 +64806,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 4929668019831370948, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8136687124933929416, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -64676,6 +64857,14 @@ PrefabInstance:
     - target: {fileID: 9090885670013408196, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090885670013408196, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179463739569323174, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4929668019831370810, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
@@ -65782,7 +65971,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5a97ed66590214712a53a9456009307b, type: 2}
   m_BuildHeightMesh: 0
@@ -66259,6 +66448,7 @@ GameObject:
   - component: {fileID: 1044450716}
   - component: {fileID: 1044450717}
   - component: {fileID: 1044450718}
+  - component: {fileID: 1044450719}
   m_Layer: 0
   m_Name: Floors
   m_TagString: Untagged
@@ -66358,13 +66548,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
   m_SerializedVersion: 0
   m_AgentTypeID: -1372625422
-  m_CollectObjects: 2
+  m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
+    m_Bits: 251
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -66398,6 +66588,38 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4498645795199510514, guid: c3d7a75a4712f48bf9ce1d0fe4efe553, type: 3}
+--- !u!114 &1044450719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044450715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.033333335
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1001 &1045343870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66541,9 +66763,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600862588}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -67858,7 +68092,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -68259,7 +68493,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -69619,7 +69853,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5771174a0e34a4986b2d0a64a4602a8d, type: 2}
   m_BuildHeightMesh: 0
@@ -73039,7 +73273,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -74846,6 +75080,22 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305940152919047789, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984325087548485788, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437184127787543326, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7036766287611309663, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -74893,6 +75143,10 @@ PrefabInstance:
     - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -81352,7 +81606,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -82590,15 +82844,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.64
+      value: 10.27
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.28
+      value: 1.19
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.68
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 1927095934725912877, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -83901,7 +84155,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -89872,7 +90126,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -94842,6 +95096,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 552239441}
     - target: {fileID: 4929668019831370948, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4929668019831370948, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
@@ -94894,8 +95152,16 @@ PrefabInstance:
       value: DoorFrame_Apt_03
       objectReference: {fileID: 0}
     - target: {fileID: 9090885670013408196, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9090885670013408196, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179463739569323174, guid: f3e82dc7c471ff447b3ca0e0bfded076, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -96607,7 +96873,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: d6fdba94094bf41d98d319a35fe7de40, type: 2}
   m_BuildHeightMesh: 0
@@ -99204,8 +99470,8 @@ Transform:
   m_GameObject: {fileID: 1524829168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 1.77, z: 0.83}
-  m_LocalScale: {x: 2.5, y: 0.1, z: 0.2}
+  m_LocalPosition: {x: 0.06, y: 2.287, z: 2.634}
+  m_LocalScale: {x: 2.5, y: 0.1, z: 1.68526}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1281367907}
@@ -99229,8 +99495,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 4.947241, z: 1}
-  m_Center: {x: 5.7933e-16, y: 1.97362, z: -7.8329255e-16}
+  m_Size: {x: 1, y: 13.2974415, z: 1}
+  m_Center: {x: 1.804874e-15, y: 6.148721, z: -2.905561e-15}
 --- !u!23 &1524829171
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -99299,7 +99565,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 9db4a78fc6538406da656d88e6a16e96, type: 3}
+  m_Resource: {fileID: 8300000, guid: 6c2775614f01e4d949b3958161be41b8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -99398,7 +99664,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Neighbour
   stepAudio: {fileID: 1524829173}
-  stepClip: {fileID: 8300000, guid: 9db4a78fc6538406da656d88e6a16e96, type: 3}
+  stepClip: {fileID: 8300000, guid: 6c2775614f01e4d949b3958161be41b8, type: 3}
+  dialogueRunner: {fileID: 465915661}
+  dialogueNode: NeighbourHello
+  dialogueDelay: 1
 --- !u!1001 &1525062062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99478,9 +99747,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1600862588}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -101703,7 +101984,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -102467,9 +102748,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1163633517}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -110442,6 +110735,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorFrame_Apt_05 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8128322320853617336, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -112621,7 +112918,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -123840,13 +124137,25 @@ PrefabInstance:
       value: DoorFrame_Apt_02 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501971208833686894, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694369, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -123859,6 +124168,10 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_TagString
       value: Interactable
@@ -127631,6 +127944,22 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305940152919047789, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984325087548485788, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437184127787543326, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7036766287611309663, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -127678,6 +128007,10 @@ PrefabInstance:
     - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1769733901, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
@@ -127902,6 +128235,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NeighbourKnock
   knockAudio: {fileID: 1936001732}
   knockClip: {fileID: 8300000, guid: 12a635469041d4bc880d38baa71993c4, type: 3}
+  dialogueRunner: {fileID: 465915661}
+  dialogueNode: NeighbourSilence
+  dialogueDelay: 2
 --- !u!82 &1936001732
 AudioSource:
   m_ObjectHideFlags: 0
@@ -129150,6 +129486,10 @@ PrefabInstance:
     - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_05 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8128322320853617336, guid: 509ac6312e62e5743ae96298947599f7, type: 3}
       propertyPath: m_RootOrder
@@ -133947,9 +134287,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1163633517}
     m_Modifications:
+    - target: {fileID: 1143746962895186319, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_01 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2170178008488602006, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296751938604968509, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7296751938604968511, guid: e9a47cdb5968d66499f6b4ee53467cd4, type: 3}
       propertyPath: Player
@@ -134217,14 +134569,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoorFrame_Apt_02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1236093353314466020, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501971208833686894, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3165364041864694369, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 3165364041864694371, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5282455707208595339, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 552239441}
+    - target: {fileID: 5282455707208595340, guid: 46552e96207732c4789f21297738d416, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5599452659419228336, guid: 46552e96207732c4789f21297738d416, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -137538,7 +137906,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 30c1eff800fdc4b3d96c18ae8b8a5c91, type: 2}
   m_BuildHeightMesh: 0
@@ -138505,7 +138873,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.1
+  m_VoxelSize: 0.033333335
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
@@ -141585,8 +141953,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 552239441}
     - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_TagString
       value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305940152919047789, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984325087548485788, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437184127787543326, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7036766287611309663, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_RootOrder
@@ -141635,6 +142019,10 @@ PrefabInstance:
     - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_TagString
@@ -142249,8 +142637,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 552239441}
     - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1188093265419913699, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_TagString
       value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2305940152919047789, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2984325087548485788, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4437184127787543326, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7036766287611309663, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_RootOrder
@@ -142299,6 +142703,10 @@ PrefabInstance:
     - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
       propertyPath: m_Name
       value: DoorFrame_Apt_04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8769131554781824903, guid: 6723febf70d07b7469fbcddd65e8660b, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
