@@ -73509,7 +73509,7 @@ MonoBehaviour:
   phoneCanvasGroup: {fileID: 190932881}
   airdropImage: {fileID: 1734837818}
   actionButtons: {fileID: 252887834}
-  playerDialogueText: {fileID: 0}
+  playerDialogueText: {fileID: 1868498158}
   audioSource: {fileID: 135891321}
   notificationSound: {fileID: 8300000, guid: b5c0ed134b24f4f99b4d5fe6b3c7ddde, type: 3}
   scaryZoomSound: {fileID: 0}

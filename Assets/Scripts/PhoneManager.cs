@@ -401,22 +401,41 @@ public TextMeshProUGUI pizzaConfirmText;
     {
         StartCoroutine(HandleCarolCheckInSent());
     }
+IEnumerator HandleCarolCheckInSent()
+{
+    if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
 
-    IEnumerator HandleCarolCheckInSent()
+    yield return new WaitForSeconds(0.8f);
+    ShowMessage("You: Here with Brinkley!", true);
+
+    yield return new WaitForSeconds(2.5f);
+    // Carol never replies...
+
+    CloseTextMessage();
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.HideCursorPublic();
+
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.CompleteTask();
+
+    // Find DialogueRunner and play pizza thought
+    DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
+    if (runner != null)
     {
-        if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
-
-        yield return new WaitForSeconds(0.8f);
-        ShowMessage("You: Here with Brinkley!", true);
-
-        yield return new WaitForSeconds(2.5f);
-        // Carol never replies...
-
-        CloseTextMessage();
-
-        if (TaskManager.Instance != null)
-            TaskManager.Instance.CompleteTask();
+        runner.onDialogueComplete.AddListener(OnPizzaThoughtComplete);
+        runner.StartDialogue("PizzaThought");
     }
+}
+
+private void OnPizzaThoughtComplete()
+{
+    DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
+    if (runner != null)
+        runner.onDialogueComplete.RemoveListener(OnPizzaThoughtComplete);
+
+    OpenPizzaOrder();
+}
 
     // ============================
     // ENDING 2/5

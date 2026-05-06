@@ -3,7 +3,6 @@ using UnityEngine;
 public class HouseTaskStarter : MonoBehaviour
 {
     private bool carolTextTriggered = false;
-    private bool pizzaOrderTriggered = false;
 
     private void Start()
     {
@@ -24,18 +23,13 @@ public class HouseTaskStarter : MonoBehaviour
 
     private void Update()
     {
+        if (carolTextTriggered) return;
         if (TaskManager.Instance == null || PhoneManager.Instance == null) return;
 
-        if (!carolTextTriggered && TaskManager.Instance.IsCurrentTask("Text Carol"))
+        if (TaskManager.Instance.IsCurrentTask("Text Carol"))
         {
             carolTextTriggered = true;
             PhoneManager.Instance.ReceiveCarolCheckIn();
-        }
-
-        if (!pizzaOrderTriggered && TaskManager.Instance.IsCurrentTask("Order Pizza"))
-        {
-            pizzaOrderTriggered = true;
-            PhoneManager.Instance.OpenPizzaOrder();
         }
     }
 }
