@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
+using Yarn.Unity;
 
 public class PhoneManager : MonoBehaviour
 {
