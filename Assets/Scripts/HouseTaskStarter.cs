@@ -31,5 +31,14 @@ public class HouseTaskStarter : MonoBehaviour
             carolTextTriggered = true;
             PhoneManager.Instance.ReceiveCarolCheckIn();
         }
+
+         if (!pizzaWaitTriggered &&
+            TaskManager.Instance.IsCurrentTask("Wait for the Pizza"))
+        {
+            pizzaWaitTriggered = true;
+
+            if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+                dialogueRunner.StartDialogue("PizzaWait");
+        }
     }
 }
