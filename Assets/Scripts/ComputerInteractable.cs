@@ -16,21 +16,21 @@ public class ComputerInteractable : MonoBehaviour, IInteractable
         return "Press E to play a game";
     }
 
-    public void Interact(PlayerInteraction player)
-    {
-        if (TaskManager.Instance == null) return;
-        if (!TaskManager.Instance.IsCurrentTask("Wait for the Pizza")) return;
+  public void Interact(PlayerInteraction player)
+{
+    if (TaskManager.Instance == null) return;
+    if (!TaskManager.Instance.IsCurrentTask("Wait for the Pizza")) return;
 
-        // Save player position and rotation before leaving
-        PizzaBoxTrigger.savedPlayerPosition = player.transform.position;
-        PizzaBoxTrigger.savedPlayerRotation = player.transform.rotation;
-        PizzaBoxTrigger.returningFromMiniGame = true;
+    HouseSceneState.SaveState(
+        player.transform.position,
+        player.transform.rotation
+    );
 
-        if (audioSource != null && computerStartSound != null)
-            audioSource.PlayOneShot(computerStartSound);
+    if (audioSource != null && computerStartSound != null)
+        audioSource.PlayOneShot(computerStartSound);
 
-        StartCoroutine(LoadSceneAfterDelay());
-    }
+    StartCoroutine(LoadSceneAfterDelay());
+}
 
     private IEnumerator LoadSceneAfterDelay()
     {

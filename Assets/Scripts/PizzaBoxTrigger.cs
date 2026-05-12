@@ -12,35 +12,35 @@ public class PizzaBoxTrigger : MonoBehaviour
 
     private void Start()
     {
-        if (pizzaBox != null)
-            pizzaBox.SetActive(false);
+    if (pizzaBox != null)
+        pizzaBox.SetActive(false);
 
-        if (returningFromMiniGame)
+    if (HouseSceneState.isReturningFromMiniGame)
+    {
+        // Skip intro
+        IntroSequence intro = FindFirstObjectByType<IntroSequence>();
+        if (intro != null) intro.ForceSkip();
+
+        // Restore player position
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
         {
-            returningFromMiniGame = false;
-
-            // Skip intro
-            IntroSequence intro = FindFirstObjectByType<IntroSequence>();
-            if (intro != null)
-                intro.ForceSkip();
-
-            // Restore player position
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
-            {
-                // CharacterController must be disabled before teleporting
-                CharacterController cc = player.GetComponent<CharacterController>();
-                if (cc != null) cc.enabled = false;
-
-                player.transform.position = savedPlayerPosition;
-                player.transform.rotation = savedPlayerRotation;
-
-                if (cc != null) cc.enabled = true;
-            }
-
-            StartCoroutine(PizzaArrival());
+            CharacterController cc = player.GetComponent<CharacterController>();
+            if (cc != null) cc.enabled = false;
+            player.transform.position = HouseSceneState.playerPosition;
+            player.transform.rotation = HouseSceneState.playerRotation;
+            if (cc != null) cc.enabled = true;
         }
+
+        // Restore task
+        if (TaskManager.Instance != null && !string.IsNullOrEmpty(HouseSceneState.savedTask))
+            TaskManager.Instance.ShowTask(HouseSceneState.savedTask);
+
+        StartCoroutine(PizzaArrival());
+
+        HouseSceneState.Clear();
     }
+}
 
     private System.Collections.IEnumerator PizzaArrival()
     {
