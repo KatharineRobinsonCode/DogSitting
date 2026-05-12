@@ -1,5 +1,6 @@
 using UnityEngine;
 using Yarn.Unity;
+using System.Collections;
 
 public class HouseTaskStarter : MonoBehaviour
 {
@@ -38,8 +39,7 @@ public class HouseTaskStarter : MonoBehaviour
         {
             feedBrinkleyTriggered = true;
 
-            if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
-                dialogueRunner.StartDialogue("FeedBrinkley");
+            StartCoroutine(DelayedDialogue("FeedBrinkley", 4f));
         }
 
         if (!carolTextTriggered && PhoneManager.Instance != null &&
@@ -58,4 +58,10 @@ public class HouseTaskStarter : MonoBehaviour
                 dialogueRunner.StartDialogue("PizzaWait");
         }
     }
+    private IEnumerator DelayedDialogue(string nodeName, float delay)
+{
+    yield return new WaitForSeconds(delay);
+    if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+        dialogueRunner.StartDialogue(nodeName);
+}
 }
