@@ -24,14 +24,17 @@ public class MiniGameManager : MonoBehaviour
     private float knockTimer;
     private bool knockFired = false;
 
-    private void Start()
-    {
-        // Randomise when the knock fires
-        knockTimer = Random.Range(minKnockTime, maxKnockTime);
+   private void Start()
+{
+    knockTimer = Random.Range(minKnockTime, maxKnockTime);
 
-        if (blackScreenCanvas != null)
-            blackScreenCanvas.SetActive(false);
-    }
+    if (blackScreenCanvas != null)
+        blackScreenCanvas.SetActive(false);
+
+    // Unlock cursor for clicking
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+}
 
     private void Update()
     {
@@ -74,6 +77,10 @@ public class MiniGameManager : MonoBehaviour
         // Wait then load house scene
         yield return new WaitForSeconds(dialogueDisplayTime);
 
-        SceneManager.LoadScene(houseSceneName);
+// Re-lock cursor before returning to house
+Cursor.visible = false;
+Cursor.lockState = CursorLockMode.Locked;
+
+SceneManager.LoadScene(houseSceneName);
     }
 }
