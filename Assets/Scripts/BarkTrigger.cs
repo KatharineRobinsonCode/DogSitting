@@ -8,7 +8,7 @@ public class BarkTrigger : MonoBehaviour
 
 private void OnTriggerEnter(Collider other)
 {
-    if (hasBarkd) return;
+    if (hasBarked) return;
     if (!other.CompareTag("Player")) return;
     if (HouseSceneState.skipBarkTrigger) return;
             hasBarked = true;
