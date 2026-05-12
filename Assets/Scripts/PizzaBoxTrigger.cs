@@ -9,7 +9,10 @@ public class PizzaBoxTrigger : MonoBehaviour
     [SerializeField] private GameObject pizzaBox;
     [SerializeField] private AudioSource doorbellAudio;
     [SerializeField] private AudioClip doorbellClip;
-
+private void Awake()
+{
+    Debug.Log("[PizzaBoxTrigger] Awake called, isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
+}
     private void Start()
     {
     if (pizzaBox != null)
@@ -38,7 +41,6 @@ public class PizzaBoxTrigger : MonoBehaviour
 
         StartCoroutine(PizzaArrival());
 
-        HouseSceneState.Clear();
     }
 }
 
@@ -56,5 +58,6 @@ public class PizzaBoxTrigger : MonoBehaviour
 
         if (TaskManager.Instance != null)
             TaskManager.Instance.CompleteTask();
+          HouseSceneState.Clear();
     }
 }

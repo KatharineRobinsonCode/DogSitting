@@ -496,53 +496,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &284965862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 284965863}
-  - component: {fileID: 284965864}
-  m_Layer: 0
-  m_Name: PizzaBoxTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &284965863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284965862}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 141.37679, y: -40.3104, z: 0}
-  m_LocalScale: {x: 0.41666663, y: 0.41666663, z: 0.41666663}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 906137937}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &284965864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284965862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 033ab05fed82745ff88dabeb4988ebbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PizzaBoxTrigger
-  pizzaBox: {fileID: 0}
-  doorbellAudio: {fileID: 0}
-  doorbellClip: {fileID: 0}
 --- !u!1 &841948761
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +635,6 @@ RectTransform:
   - {fileID: 1205888251}
   - {fileID: 1896610301}
   - {fileID: 2094902009}
-  - {fileID: 284965863}
   - {fileID: 1667128794}
   - {fileID: 969224076}
   m_Father: {fileID: 0}

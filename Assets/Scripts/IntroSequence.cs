@@ -74,12 +74,20 @@ public class IntroSequence : MonoBehaviour
     
     #region Unity Lifecycle
     
-    private void Start()
+private void Start()
+{
+    Debug.Log("[IntroSequence] Start called, isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
+    
+    if (HouseSceneState.isReturningFromMiniGame)
     {
-        InitializeCursor();
-        InitializeUI();
-        StartCoroutine(RunIntroSequence());
+        HideIntroUI();
+        return;
     }
+
+    InitializeCursor();
+    InitializeUI();
+    StartCoroutine(RunIntroSequence());
+}
     
     private void Update()
     {

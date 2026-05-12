@@ -30,6 +30,9 @@ public class ComputerInteractable : MonoBehaviour, IInteractable
         audioSource.PlayOneShot(computerStartSound);
 
     StartCoroutine(LoadSceneAfterDelay());
+
+    Debug.Log("[Computer] SaveState called, isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
+    
 }
 
     private IEnumerator LoadSceneAfterDelay()
