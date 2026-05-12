@@ -2,20 +2,42 @@ using UnityEngine;
 
 public class PizzaBoxTrigger : MonoBehaviour
 {
+    public static bool returningFromMiniGame = false;
+    public static Vector3 savedPlayerPosition;
+    public static Quaternion savedPlayerRotation;
+
     [SerializeField] private GameObject pizzaBox;
     [SerializeField] private AudioSource doorbellAudio;
     [SerializeField] private AudioClip doorbellClip;
 
     private void Start()
     {
-        // Hide pizza box initially
         if (pizzaBox != null)
             pizzaBox.SetActive(false);
 
-        // If returning from mini game, show pizza box
-        if (TaskManager.Instance != null &&
-            TaskManager.Instance.IsCurrentTask("Wait for the Pizza"))
+        if (returningFromMiniGame)
         {
+            returningFromMiniGame = false;
+
+            // Skip intro
+            IntroSequence intro = FindFirstObjectByType<IntroSequence>();
+            if (intro != null)
+                intro.ForceSkip();
+
+            // Restore player position
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+            {
+                // CharacterController must be disabled before teleporting
+                CharacterController cc = player.GetComponent<CharacterController>();
+                if (cc != null) cc.enabled = false;
+
+                player.transform.position = savedPlayerPosition;
+                player.transform.rotation = savedPlayerRotation;
+
+                if (cc != null) cc.enabled = true;
+            }
+
             StartCoroutine(PizzaArrival());
         }
     }

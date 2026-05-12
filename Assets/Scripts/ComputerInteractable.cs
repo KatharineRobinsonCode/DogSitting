@@ -21,6 +21,11 @@ public class ComputerInteractable : MonoBehaviour, IInteractable
         if (TaskManager.Instance == null) return;
         if (!TaskManager.Instance.IsCurrentTask("Wait for the Pizza")) return;
 
+        // Save player position and rotation before leaving
+        PizzaBoxTrigger.savedPlayerPosition = player.transform.position;
+        PizzaBoxTrigger.savedPlayerRotation = player.transform.rotation;
+        PizzaBoxTrigger.returningFromMiniGame = true;
+
         if (audioSource != null && computerStartSound != null)
             audioSource.PlayOneShot(computerStartSound);
 

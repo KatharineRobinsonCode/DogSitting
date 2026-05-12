@@ -1248,8 +1248,8 @@ MonoBehaviour:
   houseSceneName: House
   audioSource: {fileID: 906137938}
   knockSound: {fileID: 8300000, guid: 6ff54d83794c5453f97ddf1a9148d701, type: 3}
-  minKnockTime: 45
-  maxKnockTime: 75
+  minKnockTime: 10
+  maxKnockTime: 20
   blackScreenCanvas: {fileID: 96581842}
   blackPanel: {fileID: 1330085998}
   dialogueText: {fileID: 161934465}

@@ -12,8 +12,8 @@ public class MiniGameManager : MonoBehaviour
     [Header("Knock")]
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip knockSound;
-    [SerializeField] private float minKnockTime = 45f;
-    [SerializeField] private float maxKnockTime = 75f;
+    [SerializeField] private float minKnockTime = 10f;
+    [SerializeField] private float maxKnockTime = 20f;
 
     [Header("Black Screen")]
     [SerializeField] private GameObject blackScreenCanvas;
@@ -80,6 +80,9 @@ public class MiniGameManager : MonoBehaviour
 // Re-lock cursor before returning to house
 Cursor.visible = false;
 Cursor.lockState = CursorLockMode.Locked;
+
+PizzaBoxTrigger.returningFromMiniGame = true;
+SceneManager.LoadScene(houseSceneName);
 
 SceneManager.LoadScene(houseSceneName);
     }
