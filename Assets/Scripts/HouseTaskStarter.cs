@@ -1,8 +1,13 @@
 using UnityEngine;
+using Yarn.Unity;
 
 public class HouseTaskStarter : MonoBehaviour
 {
     private bool carolTextTriggered = false;
+    private bool pizzaWaitTriggered = false;
+    private bool feedBrinkleyTriggered = false;
+
+    private DialogueRunner dialogueRunner;
 
     private void Start()
     {
@@ -11,6 +16,9 @@ public class HouseTaskStarter : MonoBehaviour
             Debug.LogWarning("[HouseTaskStarter] No TaskManager found in scene!");
             return;
         }
+
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
         TaskManager.Instance.SetTaskSequence(
             "Go to Carol's flat on the first floor",
             "Find Brinkley",
@@ -23,16 +31,25 @@ public class HouseTaskStarter : MonoBehaviour
 
     private void Update()
     {
-        if (carolTextTriggered) return;
-        if (TaskManager.Instance == null || PhoneManager.Instance == null) return;
+        if (TaskManager.Instance == null) return;
 
-        if (TaskManager.Instance.IsCurrentTask("Text Carol"))
+        if (!feedBrinkleyTriggered &&
+            TaskManager.Instance.IsCurrentTask("Feed Brinkley"))
+        {
+            feedBrinkleyTriggered = true;
+
+            if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+                dialogueRunner.StartDialogue("FeedBrinkley");
+        }
+
+        if (!carolTextTriggered && PhoneManager.Instance != null &&
+            TaskManager.Instance.IsCurrentTask("Text Carol"))
         {
             carolTextTriggered = true;
             PhoneManager.Instance.ReceiveCarolCheckIn();
         }
 
-         if (!pizzaWaitTriggered &&
+        if (!pizzaWaitTriggered &&
             TaskManager.Instance.IsCurrentTask("Wait for the Pizza"))
         {
             pizzaWaitTriggered = true;
