@@ -1,4 +1,9 @@
 ﻿title: NPCOutside
 ---
-Another one missing now... People I get but who would hurt innocent animals...
+Resident: Another one missing now... People I get but who would hurt innocent animals...
+-> Player: People you get?
+    Resident: ... yeah.
+-> Player: I know, hopefully it's just a misunderstanding
+    Resident: That's a little naive.
+Player: Yeah...
 ===

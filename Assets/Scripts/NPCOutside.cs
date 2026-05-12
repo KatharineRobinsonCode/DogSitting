@@ -9,12 +9,19 @@ public class NPCOutside : MonoBehaviour, IInteractable
     [SerializeField] private bool interactOnce = true;
 
     private bool hasInteracted = false;
+private void Start()
+{
+    if (dialogueRunner == null)
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
 
-    private void Start()
-    {
-        if (dialogueRunner == null)
-            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-    }
+    dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+}
+
+private void OnDialogueComplete()
+{
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.HideCursorPublic();
+}
 
     public string GetInteractionPrompt()
     {
@@ -23,11 +30,15 @@ public class NPCOutside : MonoBehaviour, IInteractable
     }
 
     public void Interact(PlayerInteraction player)
-    {
-        if (interactOnce && hasInteracted) return;
-        if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
+{
+    if (interactOnce && hasInteracted) return;
+    if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
-        hasInteracted = true;
-        dialogueRunner.StartDialogue(dialogueNode);
-    }
+    hasInteracted = true;
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.ShowCursorPublic();
+
+    dialogueRunner.StartDialogue(dialogueNode);
+}
 }
