@@ -48,38 +48,42 @@ public class MiniGameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator KnockSequence()
+   private IEnumerator KnockSequence()
+{
+    // 1. Play knock sound first
+    if (audioSource != null && knockSound != null)
+        audioSource.PlayOneShot(knockSound);
+
+    yield return new WaitForSeconds(0.8f);
+
+    // 2. Show black screen
+    if (blackScreenCanvas != null)
+        blackScreenCanvas.SetActive(true);
+
+    if (blackPanel != null)
+        blackPanel.color = Color.black;
+
+    yield return new WaitForSeconds(0.5f);
+
+    // 3. Show dialogue
+    if (dialogueText != null)
     {
-        Debug.Log("[MiniGameManager] About to load house — isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
-HouseSceneState.isReturningFromMiniGame = true;
-Debug.Log("[MiniGameManager] After setting — isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
-SceneManager.LoadScene(houseSceneName);
-
-        if (audioSource != null && knockSound != null)
-            audioSource.PlayOneShot(knockSound);
-
-        yield return new WaitForSeconds(0.8f);
-
-        if (blackScreenCanvas != null)
-            blackScreenCanvas.SetActive(true);
-
-        if (blackPanel != null)
-            blackPanel.color = Color.black;
-
-        yield return new WaitForSeconds(0.5f);
-
-        if (dialogueText != null)
-        {
-            dialogueText.text = "Jeez, that scared me...";
-            dialogueText.gameObject.SetActive(true);
-        }
-
-        yield return new WaitForSeconds(dialogueDisplayTime);
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        HouseSceneState.isReturningFromMiniGame = true;
-        SceneManager.LoadScene(houseSceneName);
+        Debug.Log("[MiniGameManager] Setting dialogue text");
+        dialogueText.text = "Jeez, that scared me...";
+        dialogueText.gameObject.SetActive(true);
     }
+    else
+    {
+        Debug.Log("[MiniGameManager] dialogueText is NULL");
+    }
+
+    yield return new WaitForSeconds(dialogueDisplayTime);
+
+    // 4. Lock cursor and load house scene LAST
+    Cursor.visible = false;
+    Cursor.lockState = CursorLockMode.Locked;
+
+    HouseSceneState.isReturningFromMiniGame = true;
+    SceneManager.LoadScene(houseSceneName);
+}
 }
