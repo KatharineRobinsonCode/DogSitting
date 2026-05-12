@@ -23,14 +23,15 @@ public class HouseTaskStarter : MonoBehaviour
     // Skip task setup if returning from mini game — PizzaBoxTrigger handles task restoration
     if (HouseSceneState.isReturningFromMiniGame) return;
 
-    TaskManager.Instance.SetTaskSequence(
-        "Go to Carol's flat on the first floor",
-        "Find Brinkley",
-        "Feed Brinkley",
-        "Text Carol",
-        "Order Pizza",
-        "Wait for the Pizza"
-    );
+ TaskManager.Instance.SetTaskSequence(
+    "Go to Carol's flat on the first floor",
+    "Find Brinkley",
+    "Feed Brinkley",
+    "Text Carol",
+    "Order Pizza",
+    "Wait for the Pizza",
+    "Answer the Door"
+);
 }
 
    private void Update()
@@ -61,4 +62,10 @@ public class HouseTaskStarter : MonoBehaviour
             dialogueRunner.StartDialogue("PizzaWait");
     }
 }
+private IEnumerator DelayedDialogue(string nodeName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+            dialogueRunner.StartDialogue(nodeName);
+    }
 }

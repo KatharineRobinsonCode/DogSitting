@@ -36,28 +36,35 @@ private void Awake()
         }
 
         // Restore task
-        if (TaskManager.Instance != null && !string.IsNullOrEmpty(HouseSceneState.savedTask))
-            TaskManager.Instance.ShowTask(HouseSceneState.savedTask);
+if (TaskManager.Instance != null && !string.IsNullOrEmpty(HouseSceneState.savedTask))
+{
+    TaskManager.Instance.ShowTask(HouseSceneState.savedTask);
+    // Queue the remaining tasks after current
+    TaskManager.Instance.QueueTask("Answer the Door");
+}
 
         StartCoroutine(PizzaArrival());
 
     }
 }
 
-    private System.Collections.IEnumerator PizzaArrival()
-    {
-        yield return new WaitForSeconds(1f);
+   private System.Collections.IEnumerator PizzaArrival()
+{
+      Debug.Log("[PizzaArrival] Starting...");
+    yield return new WaitForSeconds(1f);
+    Debug.Log("[PizzaArrival] After first wait, doorbell firing");
 
-        if (doorbellAudio != null && doorbellClip != null)
-            doorbellAudio.PlayOneShot(doorbellClip);
+    if (doorbellAudio != null && doorbellClip != null)
+        doorbellAudio.PlayOneShot(doorbellClip);
 
-        yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(1f);
 
-        if (pizzaBox != null)
-            pizzaBox.SetActive(true);
+    if (pizzaBox != null)
+        pizzaBox.SetActive(true);
 
-        if (TaskManager.Instance != null)
-            TaskManager.Instance.CompleteTask();
-          HouseSceneState.Clear();
-    }
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.CompleteTask();
+
+    HouseSceneState.Clear();
+}
 }

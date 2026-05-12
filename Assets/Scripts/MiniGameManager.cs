@@ -24,17 +24,16 @@ public class MiniGameManager : MonoBehaviour
     private float knockTimer;
     private bool knockFired = false;
 
-   private void Start()
-{
-    knockTimer = Random.Range(minKnockTime, maxKnockTime);
+    private void Start()
+    {
+        knockTimer = Random.Range(minKnockTime, maxKnockTime);
 
-    if (blackScreenCanvas != null)
-        blackScreenCanvas.SetActive(false);
+        if (blackScreenCanvas != null)
+            blackScreenCanvas.SetActive(false);
 
-    // Unlock cursor for clicking
-    Cursor.visible = true;
-    Cursor.lockState = CursorLockMode.None;
-}
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     private void Update()
     {
@@ -51,21 +50,22 @@ public class MiniGameManager : MonoBehaviour
 
     private IEnumerator KnockSequence()
     {
-        // Play knock sound
+        Debug.Log("[MiniGameManager] About to load house — isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
+HouseSceneState.isReturningFromMiniGame = true;
+Debug.Log("[MiniGameManager] After setting — isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
+SceneManager.LoadScene(houseSceneName);
+
         if (audioSource != null && knockSound != null)
             audioSource.PlayOneShot(knockSound);
 
-        // Brief pause — let the knock land
         yield return new WaitForSeconds(0.8f);
 
-        // Show black screen
         if (blackScreenCanvas != null)
             blackScreenCanvas.SetActive(true);
 
         if (blackPanel != null)
             blackPanel.color = Color.black;
 
-        // Show dialogue after short pause
         yield return new WaitForSeconds(0.5f);
 
         if (dialogueText != null)
@@ -74,16 +74,12 @@ public class MiniGameManager : MonoBehaviour
             dialogueText.gameObject.SetActive(true);
         }
 
-        // Wait then load house scene
         yield return new WaitForSeconds(dialogueDisplayTime);
 
-// Re-lock cursor before returning to house
-Cursor.visible = false;
-Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
-PizzaBoxTrigger.returningFromMiniGame = true;
-SceneManager.LoadScene(houseSceneName);
-
-SceneManager.LoadScene(houseSceneName);
+        HouseSceneState.isReturningFromMiniGame = true;
+        SceneManager.LoadScene(houseSceneName);
     }
 }
