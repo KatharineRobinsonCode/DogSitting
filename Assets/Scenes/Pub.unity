@@ -18332,7 +18332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17a3147fe1f34cc8bda0e54c58f89b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  interactDistance: 5
+  interactDistance: 2
   excludeLayers:
     serializedVersion: 2
     m_Bits: 0
