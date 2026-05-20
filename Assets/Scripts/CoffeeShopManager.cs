@@ -71,7 +71,7 @@ public class CoffeeShopManager : MonoBehaviour
 
     if (dirtSpotsRemaining <= 0)
     {
-        TaskManager.Instance?.ShowTask("End shift");
+        TaskManager.Instance?.ShowTask("Leave pub");
         FeedbackManager.Instance?.ShowMessage("All clean! Head to the door.", FeedbackManager.MessageType.Success);
     }
 }
