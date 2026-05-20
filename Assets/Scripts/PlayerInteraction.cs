@@ -263,12 +263,13 @@ public void SetHoldingBroom(bool value)
             return;
         }
         
-        Cup cup = hit.collider.GetComponentInParent<Cup>();
-        if (cup != null && currentHeldItem == null)
-        {
-            PickUpItem(cup.gameObject);
-            return;
-        }
+       Cup cup = hit.collider.GetComponentInParent<Cup>();
+if (cup != null && currentHeldItem == null)
+{
+    Debug.Log("[PlayerInteraction] Picking up cup: " + cup.gameObject.name);
+    PickUpItem(cup.gameObject);
+    return;
+}
     }
     
     #endregion

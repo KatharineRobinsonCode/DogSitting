@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 988d59b8c6ba47e4cbfd1067cc8a815a
+timeCreated: 1493166329
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_light_01.mat
+  uploadId: 179237

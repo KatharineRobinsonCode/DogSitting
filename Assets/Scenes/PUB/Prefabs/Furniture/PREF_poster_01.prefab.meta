@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 52a4efcaee04ba9469e2d8f54e1d565a
+timeCreated: 1493935605
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Furniture/PREF_poster_01.prefab
+  uploadId: 179237

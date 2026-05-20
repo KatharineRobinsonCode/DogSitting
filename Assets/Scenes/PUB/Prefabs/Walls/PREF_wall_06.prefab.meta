@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 305505eb70e213243a8fa2ec582d434e
+timeCreated: 1492639666
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Walls/PREF_wall_06.prefab
+  uploadId: 179237

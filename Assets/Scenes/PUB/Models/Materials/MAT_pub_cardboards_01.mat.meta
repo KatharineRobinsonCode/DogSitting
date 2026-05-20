@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 96b0f7590b2aca1419ccb27bead412ac
+timeCreated: 1494205231
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_cardboards_01.mat
+  uploadId: 179237

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f5aca443576c9054eb8b2b59a340be3f
+timeCreated: 1492626397
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Walls/PREF_ceiling_01.prefab
+  uploadId: 179237

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0530a98ba11844042b7821a688814a91
+timeCreated: 1494150047
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Props/PREF_palett_01.prefab
+  uploadId: 179237

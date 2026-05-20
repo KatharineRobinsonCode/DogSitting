@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1d9aa8cd232308d4a9ffe0ffaae87f46
+timeCreated: 1494162872
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_cashregister_01.mat
+  uploadId: 179237

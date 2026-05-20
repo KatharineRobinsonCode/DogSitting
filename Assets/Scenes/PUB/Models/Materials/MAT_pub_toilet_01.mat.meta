@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 38515055404fd0a43b5a06b3099d3c1a
+timeCreated: 1494186245
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_toilet_01.mat
+  uploadId: 179237

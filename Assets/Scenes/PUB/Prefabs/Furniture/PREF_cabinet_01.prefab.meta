@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7a784d6130bb58441b668620834388fb
+timeCreated: 1493337263
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Furniture/PREF_cabinet_01.prefab
+  uploadId: 179237

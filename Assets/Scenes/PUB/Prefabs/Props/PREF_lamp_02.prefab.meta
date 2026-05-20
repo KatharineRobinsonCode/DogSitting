@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 52be76f476c3cea4fb9af0044f4c028d
+timeCreated: 1493166423
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Props/PREF_lamp_02.prefab
+  uploadId: 179237

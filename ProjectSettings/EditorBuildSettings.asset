@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 3de7da9f252794aa1980372d6bb76990
   - enabled: 1
+    path: Assets/Scenes/Pub.unity
+    guid: 5665acb7b70a8ab4d85439c17fe0c66c
+  - enabled: 0
     path: Assets/Scenes/CoffeeShop.unity
     guid: a11c73f75c7f242e49e1aa69fd617e1e
   - enabled: 1

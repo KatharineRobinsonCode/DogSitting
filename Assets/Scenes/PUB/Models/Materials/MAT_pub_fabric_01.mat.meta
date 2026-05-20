@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f71ab43c6d6a074e90b2963ac024c29
+timeCreated: 1494149699
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_fabric_01.mat
+  uploadId: 179237

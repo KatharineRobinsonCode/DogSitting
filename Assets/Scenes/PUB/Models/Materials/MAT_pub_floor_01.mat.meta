@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8fce039b8082f5a4ebb050dc0806a673
+timeCreated: 1492626058
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_floor_01.mat
+  uploadId: 179237

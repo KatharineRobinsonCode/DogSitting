@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 089ad789e577a14408ad3f5c966063c6
+timeCreated: 1493338486
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Furniture/PREF_shelf_01.prefab
+  uploadId: 179237

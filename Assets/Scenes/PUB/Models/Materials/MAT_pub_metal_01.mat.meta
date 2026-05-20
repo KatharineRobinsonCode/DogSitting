@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: aed09cf83c85a1d4f9f70873d5cc7bf7
+timeCreated: 1494209685
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_metal_01.mat
+  uploadId: 179237

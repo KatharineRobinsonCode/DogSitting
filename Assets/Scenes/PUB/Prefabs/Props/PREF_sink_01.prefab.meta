@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c5cca190968952649931f75a34e702c9
+timeCreated: 1494186380
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Props/PREF_sink_01.prefab
+  uploadId: 179237

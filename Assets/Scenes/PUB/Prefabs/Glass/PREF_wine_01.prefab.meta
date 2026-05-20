@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7f2c5162d34ca294b96a3f5380eff5ca
+timeCreated: 1493945509
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Glass/PREF_wine_01.prefab
+  uploadId: 179237

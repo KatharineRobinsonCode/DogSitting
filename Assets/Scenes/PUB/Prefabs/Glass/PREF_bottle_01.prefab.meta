@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b11c078514623a345940e4402a891a9b
+timeCreated: 1493945507
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Glass/PREF_bottle_01.prefab
+  uploadId: 179237

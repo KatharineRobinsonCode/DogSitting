@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 64f61d3c18990484e8df70ba629aa2df
+timeCreated: 1494205413
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Props/PREF_cardboard_02.prefab
+  uploadId: 179237

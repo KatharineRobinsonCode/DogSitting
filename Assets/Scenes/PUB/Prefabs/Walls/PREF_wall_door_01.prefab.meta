@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 59b9ec4bc6d0ff647887afaa842f401c
+timeCreated: 1492634412
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Walls/PREF_wall_door_01.prefab
+  uploadId: 179237

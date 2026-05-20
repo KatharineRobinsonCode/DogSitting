@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 456aca97067643a4c8aeb234290e58b2
+timeCreated: 1492626058
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_wood_01.mat
+  uploadId: 179237

@@ -1190,7 +1190,7 @@ MonoBehaviour:
   nameInputField: {fileID: 1731207816}
   variableStorage: {fileID: 1573391670}
   menuMusic: {fileID: 409967975}
-  gameSceneName: CoffeeShop
+  gameSceneName: Pub
   defaultSensitivity: 2
   defaultVolume: 1
 --- !u!4 &409967974

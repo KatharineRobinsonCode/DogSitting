@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1b8e6d7d17e093042a53923a8f5c0a9a
+timeCreated: 1493915595
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Props/PREF_beer_columns_01.prefab
+  uploadId: 179237

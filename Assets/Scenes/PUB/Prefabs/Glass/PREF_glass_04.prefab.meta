@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: debd2af45a2bd0e48a4908032b610a39
+timeCreated: 1493847962
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Glass/PREF_glass_04.prefab
+  uploadId: 179237

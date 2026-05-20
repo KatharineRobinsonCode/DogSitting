@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d64841726954a694986c294638c56abc
+timeCreated: 1493584499
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Props/PREF_handpump_02.prefab
+  uploadId: 179237

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 29650af103de3ce47a6eb1df6c77dd89
+timeCreated: 1494149159
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Models/Materials/MAT_pub_ad_01.mat
+  uploadId: 179237

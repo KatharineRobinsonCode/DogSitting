@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0cfb313620d7b0d48b98a8a77f4e43d4
+timeCreated: 1494155229
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 90231
+  packageName: Pub
+  packageVersion: 1.0
+  assetPath: Assets/PUB/Prefabs/Glass/PREF_tap_set_01.prefab
+  uploadId: 179237
