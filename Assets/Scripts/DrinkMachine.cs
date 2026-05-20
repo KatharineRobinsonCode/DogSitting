@@ -142,63 +142,59 @@ public class DrinkMachine : MonoBehaviour
     
     #region Cup Compatibility System
     
-    private bool IsCupCompatibleWithDrink(Cup.CupType cupType, Cup.DrinkType drinkType)
+  private bool IsCupCompatibleWithDrink(Cup.CupType cupType, Cup.DrinkType drinkType)
+{
+    switch (drinkType)
     {
-        Cup.CupType requiredCupType = GetRequiredCupType(drinkType);
+        case Cup.DrinkType.DraftBeer:
+            return cupType == Cup.CupType.DraftBeer;
         
-        // If no specific requirement, allow any cup
-        if (requiredCupType == Cup.CupType.Coffee && 
-            drinkType == Cup.DrinkType.None)
-        {
-            return true;
-        }
+        case Cup.DrinkType.TakeawayBeer:
+            return cupType == Cup.CupType.TakeawayBeer;
         
-        return cupType == requiredCupType;
+        case Cup.DrinkType.Spirit:
+            return cupType == Cup.CupType.Spirit;
+        
+        default:
+            return false;
     }
-    
-    private Cup.CupType GetRequiredCupType(Cup.DrinkType drinkType)
+}
+
+private Cup.CupType GetRequiredCupType(Cup.DrinkType drinkType)
+{
+    switch (drinkType)
     {
-        switch (drinkType)
-        {
-            case Cup.DrinkType.Coffee:
-            case Cup.DrinkType.Cappuccino:
-            case Cup.DrinkType.Latte:
-            case Cup.DrinkType.Mocha:
-            case Cup.DrinkType.Espresso:
-                return Cup.CupType.Coffee;
-            
-            case Cup.DrinkType.Beer:
-                return Cup.CupType.Beer;
-            
-            case Cup.DrinkType.Takeaway:
-                return Cup.CupType.Takeaway;
-            
-            default:
-                return Cup.CupType.Coffee; // Default fallback
-        }
+        case Cup.DrinkType.DraftBeer:
+            return Cup.CupType.DraftBeer;
+        
+        case Cup.DrinkType.TakeawayBeer:
+            return Cup.CupType.TakeawayBeer;
+        
+        case Cup.DrinkType.Spirit:
+            return Cup.CupType.Spirit;
+        
+        default:
+            return Cup.CupType.DraftBeer;
     }
-    
-    private string GetRequiredCupTypeName(Cup.DrinkType drinkType)
+}
+
+private string GetRequiredCupTypeName(Cup.DrinkType drinkType)
+{
+    switch (drinkType)
     {
-        switch (drinkType)
-        {
-            case Cup.DrinkType.Coffee:
-            case Cup.DrinkType.Cappuccino:
-            case Cup.DrinkType.Latte:
-            case Cup.DrinkType.Mocha:
-            case Cup.DrinkType.Espresso:
-                return "Coffee Cup";
-            
-            case Cup.DrinkType.Beer:
-                return "Beer Mug";
-            
-            case Cup.DrinkType.Takeaway:
-                return "Takeaway Cup";
-            
-            default:
-                return "proper cup";
-        }
+        case Cup.DrinkType.DraftBeer:
+            return "Beer Glass";
+        
+        case Cup.DrinkType.TakeawayBeer:
+            return "Takeaway Cup";
+        
+        case Cup.DrinkType.Spirit:
+            return "Spirit Glass";
+        
+        default:
+            return "correct glass";
     }
+}
     
     #endregion
     
