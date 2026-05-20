@@ -12,10 +12,10 @@ Customer: Hi. Do you remember me?
     Customer: I can't believe you remember me... I'm okay...
         -> {$PlayerName}: Of course I do! Can I take your order?
         -> {$PlayerName}: ... Are you gonna order?
-             Customer: Yes. a Coffee and a Beer. Please.
+             Customer: Yes. a spirit drink. Please.
 -> {$PlayerName}: No, we've never met?
     Customer: You never noticed me, but I noticed you...
     {$PlayerName}: ... What would you like to order?
-    Customer: A Coffee and a Beer. If that's okay?
+    Customer: Any spirit drink. If that's okay?
 <<CompleteOrderConversation_Customer3>>
 ===

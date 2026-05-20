@@ -23,7 +23,7 @@ public class PhoneManager : MonoBehaviour
     public AudioClip scaryZoomSound;
     public AudioClip textMessageSound;
 
-    [Header("Ending Panel (Reuse Door UI)")]
+    [Header("Ending Panel")]
     public GameObject endingCanvas;
     public TextMeshProUGUI endingText;
     [TextArea(3, 10)]
@@ -52,16 +52,15 @@ public class PhoneManager : MonoBehaviour
     [TextArea(3, 10)]
     public string carolCheckInMessage = "Hey! Just arrived at yours — Brinkley is safe and sound 🐶";
 
+    [Header("Pizza Order UI")]
+    public GameObject pizzaOrderPanel;
+    public GameObject pizzaConfirmPanel;
+    public TextMeshProUGUI pizzaConfirmText;
+
     private Vector3 originalImageScale;
     private Vector3 originalImagePos;
-
     private System.Action onAccepted;
     private System.Action onDeclined;
-
-    [Header("Pizza Order UI")]
-public GameObject pizzaOrderPanel;
-public GameObject pizzaConfirmPanel;
-public TextMeshProUGUI pizzaConfirmText;
 
     void Awake()
     {
@@ -71,13 +70,42 @@ public TextMeshProUGUI pizzaConfirmText;
         originalImagePos = airdropImage.transform.localPosition;
         
         if (phonePanel != null) phonePanel.SetActive(true);
-        
         if (actionButtons != null) actionButtons.SetActive(false);
         if (playerDialogueText != null) playerDialogueText.text = "";
         if (textMessagePanel != null) textMessagePanel.SetActive(false);
         if (airdropImage != null) airdropImage.gameObject.SetActive(false);
-        
         if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 0f;
+    }
+
+    // ============================
+    // SHARED PHONE OPEN/CLOSE
+    // ============================
+
+    private void OpenPhone()
+    {
+        if (phoneCanvasGroup != null)
+            phoneCanvasGroup.alpha = 1f;
+
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.ShowCursorPublic();
+    }
+
+    public void ClosePhone()
+    {
+        if (playerDialogueText != null) playerDialogueText.text = "";
+
+        airdropImage.transform.localScale = originalImageScale;
+        airdropImage.transform.localPosition = originalImagePos;
+
+        if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 0f;
+        if (airdropImage != null) airdropImage.gameObject.SetActive(false);
+        if (textMessagePanel != null) textMessagePanel.SetActive(false);
+        if (actionButtons != null) actionButtons.SetActive(false);
+        if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(false);
+        if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
+
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.HideCursorPublic();
     }
 
     // ============================
@@ -86,10 +114,10 @@ public TextMeshProUGUI pizzaConfirmText;
 
     public void ReceiveAirdrop(string content, Sprite horrorPhoto = null)
     {
-        StopAllCoroutines(); 
+        StopAllCoroutines();
 
         if (textMessagePanel != null) textMessagePanel.SetActive(false);
-        actionButtons.SetActive(false); 
+        if (actionButtons != null) actionButtons.SetActive(false);
 
         airdropImage.transform.localScale = originalImageScale;
         airdropImage.transform.localPosition = originalImagePos;
@@ -99,10 +127,7 @@ public TextMeshProUGUI pizzaConfirmText;
 
     IEnumerator ProcessAirdrop(Sprite horrorPhoto)
     {
-        if (phoneCanvasGroup != null)
-            phoneCanvasGroup.alpha = 1f;
-        
-        yield return new WaitForEndOfFrame(); 
+        yield return new WaitForEndOfFrame();
 
         if (horrorPhoto != null)
         {
@@ -119,6 +144,8 @@ public TextMeshProUGUI pizzaConfirmText;
 
         if (actionButtons != null)
             actionButtons.SetActive(true);
+
+        OpenPhone();
     }
 
     public void OnAcceptPressed()
@@ -134,24 +161,22 @@ public TextMeshProUGUI pizzaConfirmText;
     IEnumerator EnlargeImageAndTalk()
     {
         if (actionButtons != null)
-            actionButtons.SetActive(false); 
+            actionButtons.SetActive(false);
 
-        float duration = 0.8f; 
+        float duration = 0.8f;
         float elapsed = 0;
         
         Image phoneBackground = phonePanel.GetComponent<Image>();
         if (phoneBackground != null) phoneBackground.enabled = false;
 
-        Vector3 targetScale = originalImageScale * 5.0f; 
-        Vector3 targetPos = Vector3.zero; 
+        Vector3 targetScale = originalImageScale * 5.0f;
+        Vector3 targetPos = Vector3.zero;
         
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            
             airdropImage.transform.localScale = Vector3.Lerp(originalImageScale, targetScale, t);
             airdropImage.transform.localPosition = Vector3.Lerp(originalImagePos, targetPos, t);
-            
             elapsed += Time.deltaTime;
             yield return null;
         }
@@ -162,28 +187,13 @@ public TextMeshProUGUI pizzaConfirmText;
         if (playerDialogueText != null)
         {
             playerDialogueText.text = "Well that's creepy...";
-            playerDialogueText.gameObject.SetActive(true); 
+            playerDialogueText.gameObject.SetActive(true);
         }
         
         yield return new WaitForSeconds(3f);
         
         if (phoneBackground != null) phoneBackground.enabled = true;
         ClosePhone();
-    }
-
-    public void ClosePhone()
-    {
-        if (playerDialogueText != null) playerDialogueText.text = "";
-
-        airdropImage.transform.localScale = originalImageScale;
-        airdropImage.transform.localPosition = originalImagePos;
-
-        if (phoneCanvasGroup != null)
-            phoneCanvasGroup.alpha = 0f;
-        
-        if (airdropImage != null) airdropImage.gameObject.SetActive(false);
-        if (textMessagePanel != null) textMessagePanel.SetActive(false);
-        if (actionButtons != null) actionButtons.SetActive(false);
     }
 
     // ============================
@@ -206,24 +216,16 @@ public TextMeshProUGUI pizzaConfirmText;
             airdropImage.transform.localPosition = originalImagePos;
         }
         
-        if (actionButtons != null)
-            actionButtons.SetActive(false);
-        
+        if (actionButtons != null) actionButtons.SetActive(false);
         if (playerDialogueText != null)
         {
             playerDialogueText.text = "";
             playerDialogueText.gameObject.SetActive(false);
         }
 
-        if (textMessagePanel != null)
-            textMessagePanel.SetActive(true);
-
-        if (contactNameText != null)
-            contactNameText.text = contactName;
-
-        if (messageText != null)
-            messageText.text = "";
-
+        if (textMessagePanel != null) textMessagePanel.SetActive(true);
+        if (contactNameText != null) contactNameText.text = contactName;
+        if (messageText != null) messageText.text = "";
         if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
         if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
 
@@ -237,14 +239,12 @@ public TextMeshProUGUI pizzaConfirmText;
 
         yield return new WaitForSeconds(0.5f);
 
-        if (phoneCanvasGroup != null)
-            phoneCanvasGroup.alpha = 1f;
+        OpenPhone();
 
         if (notificationSound != null && audioSource != null)
             audioSource.PlayOneShot(notificationSound);
 
-        if (messageText != null)
-            messageText.text = "";
+        if (messageText != null) messageText.text = "";
 
         ScrollRect scrollRect = textMessagePanel.GetComponentInChildren<ScrollRect>();
         if (scrollRect != null)
@@ -257,10 +257,6 @@ public TextMeshProUGUI pizzaConfirmText;
 
         if (messageAcceptButton != null) messageAcceptButton.SetActive(true);
         if (messageDeclineButton != null) messageDeclineButton.SetActive(true);
-
-        // Unlock cursor so player can click buttons
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
     }
 
     void ShowMessage(string message, bool addNewlineBefore = true)
@@ -335,10 +331,6 @@ public TextMeshProUGUI pizzaConfirmText;
         if (airdropImage != null) airdropImage.gameObject.SetActive(true);
 
         ClosePhone();
-
-        // Re-lock cursor when phone closes
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.HideCursorPublic();
     }
 
     // ============================
@@ -382,7 +374,7 @@ public TextMeshProUGUI pizzaConfirmText;
 
         yield return new WaitForSeconds(0.5f);
 
-        if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 1f;
+        OpenPhone();
 
         if (notificationSound != null && audioSource != null)
             audioSource.PlayOneShot(notificationSound);
@@ -392,51 +384,90 @@ public TextMeshProUGUI pizzaConfirmText;
         yield return new WaitForSeconds(0.5f);
 
         if (messageAcceptButton != null) messageAcceptButton.SetActive(true);
-
-        // Unlock cursor so player can click Send
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
     }
 
     public void OnCarolCheckInSent()
     {
         StartCoroutine(HandleCarolCheckInSent());
     }
-IEnumerator HandleCarolCheckInSent()
-{
-    if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
 
-    yield return new WaitForSeconds(0.8f);
-    ShowMessage("You: Here with Brinkley!", true);
-
-    yield return new WaitForSeconds(2.5f);
-    // Carol never replies...
-
-    CloseTextMessage();
-
-    if (PauseManager.Instance != null)
-        PauseManager.Instance.HideCursorPublic();
-
-    if (TaskManager.Instance != null)
-        TaskManager.Instance.CompleteTask();
-
-    // Find DialogueRunner and play pizza thought
-    DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
-    if (runner != null)
+    IEnumerator HandleCarolCheckInSent()
     {
-        runner.onDialogueComplete.AddListener(OnPizzaThoughtComplete);
-        runner.StartDialogue("PizzaThought");
+        if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
+
+        yield return new WaitForSeconds(0.8f);
+        ShowMessage("You: Here with Brinkley!", true);
+
+        yield return new WaitForSeconds(2.5f);
+
+        CloseTextMessage();
+
+        if (TaskManager.Instance != null)
+            TaskManager.Instance.CompleteTask();
+
+        DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
+        if (runner != null)
+        {
+            runner.onDialogueComplete.AddListener(OnPizzaThoughtComplete);
+            runner.StartDialogue("PizzaThought");
+        }
     }
-}
 
-private void OnPizzaThoughtComplete()
-{
-    DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
-    if (runner != null)
-        runner.onDialogueComplete.RemoveListener(OnPizzaThoughtComplete);
+    private void OnPizzaThoughtComplete()
+    {
+        DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
+        if (runner != null)
+            runner.onDialogueComplete.RemoveListener(OnPizzaThoughtComplete);
 
-    OpenPizzaOrder();
-}
+        OpenPizzaOrder();
+    }
+
+    // ============================
+    // PIZZA ORDER SYSTEM
+    // ============================
+
+    public void OpenPizzaOrder()
+    {
+        StopAllCoroutines();
+
+        if (textMessagePanel != null) textMessagePanel.SetActive(false);
+        if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
+        if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(true);
+
+        OpenPhone();
+    }
+
+    public void OnPizzaSelected(string pizzaName)
+    {
+        StartCoroutine(HandlePizzaOrder(pizzaName));
+    }
+
+    IEnumerator HandlePizzaOrder(string pizzaName)
+    {
+        if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(false);
+        if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(true);
+
+        if (pizzaConfirmText != null)
+            pizzaConfirmText.text = $"🍕 {pizzaName}\n\nYour order is on its way!\nEstimated delivery: 30 mins";
+
+        if (notificationSound != null && audioSource != null)
+            audioSource.PlayOneShot(notificationSound);
+
+        yield return new WaitForSeconds(3f);
+
+        if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
+
+        ClosePhone();
+
+        if (TaskManager.Instance != null)
+            TaskManager.Instance.CompleteTask();
+
+        Debug.Log("[PhoneManager] Pizza ordered, finding FoodBowl");
+        FoodBowl foodBowl = FindFirstObjectByType<FoodBowl>();
+        Debug.Log("[PhoneManager] FoodBowl found: " + (foodBowl != null));
+        if (foodBowl != null)
+            foodBowl.OnPizzaOrdered();
+    }
 
     // ============================
     // ENDING 2/5
@@ -461,58 +492,4 @@ private void OnPizzaThoughtComplete()
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
-    // ============================
-// PIZZA ORDER SYSTEM
-// ============================
-
-public void OpenPizzaOrder()
-{
-    StopAllCoroutines();
-
-    // Hide other panels
-    if (textMessagePanel != null) textMessagePanel.SetActive(false);
-    if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
-
-    // Show phone and pizza order panel
-    if (phoneCanvasGroup != null) phoneCanvasGroup.alpha = 1f;
-    if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(true);
-
-    if (PauseManager.Instance != null)
-        PauseManager.Instance.ShowCursorPublic();
-}
-
-public void OnPizzaSelected(string pizzaName)
-{
-    StartCoroutine(HandlePizzaOrder(pizzaName));
-}
-
-IEnumerator HandlePizzaOrder(string pizzaName)
-{
-    // Swap to confirm panel
-    if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(false);
-    if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(true);
-
-    if (pizzaConfirmText != null)
-        pizzaConfirmText.text = $"{pizzaName}\n\nYour order is on its way!\nEstimated delivery: 30 mins";
-
-    if (notificationSound != null && audioSource != null)
-        audioSource.PlayOneShot(notificationSound);
-
-    yield return new WaitForSeconds(3f);
-
-    // Close everything
-    if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
-    ClosePhone();
-
-    if (PauseManager.Instance != null)
-        PauseManager.Instance.HideCursorPublic();
-
-    if (TaskManager.Instance != null)
-        TaskManager.Instance.CompleteTask();
-Debug.Log("[PhoneManager] Pizza ordered, finding FoodBowl");
-        FoodBowl foodBowl = FindFirstObjectByType<FoodBowl>();
-        Debug.Log("[PhoneManager] FoodBowl found: " + (foodBowl != null));
-if (foodBowl != null)
-    foodBowl.OnPizzaOrdered();
-}
 }

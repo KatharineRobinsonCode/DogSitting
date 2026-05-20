@@ -21,8 +21,8 @@ public class DoorEnding : MonoBehaviour, IInteractable
     [SerializeField] private GameObject endingPanel;
     
     [Header("Task Requirement")]
-    [Tooltip("Task text that allows leaving (e.g., 'Leave cafe')")]
-    [SerializeField] private string allowedLeaveTask = "Leave cafe";
+    [Tooltip("Task text that allows leaving (e.g., 'Leave pub')")]
+    [SerializeField] private string allowedLeaveTask = "Leave pub";
     
     [Header("Debug")]
     [Tooltip("Enable detailed logging")]

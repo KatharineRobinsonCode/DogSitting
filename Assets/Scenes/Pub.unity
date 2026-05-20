@@ -1900,18 +1900,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1762154696750458, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
   m_PrefabInstance: {fileID: 1507797772}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &77815602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77815597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8ce94e67574402bafe68aee1d4dcf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Door
 --- !u!1 &77816458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,7 +2455,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1616546619}
   counterLookTarget: {fileID: 1310120397}
-  finalOrderToDisplay: 1x Bottled Beer
+  finalOrderToDisplay: 1x Takeaway Beer
   itemsExpected: 1
   itemsReceived: 0
   audioSource: {fileID: 93261022}
@@ -8892,7 +8880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &311535626
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13405,6 +13393,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Draft Beer
       objectReference: {fileID: 0}
+    - target: {fileID: 1077225729501284, guid: bd3784fbbf3ab8f42bafaf44867acaa4, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 4820813131674558, guid: bd3784fbbf3ab8f42bafaf44867acaa4, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -13566,6 +13558,10 @@ PrefabInstance:
     - target: {fileID: 1050573634350536, guid: d64841726954a694986c294638c56abc, type: 3}
       propertyPath: m_Name
       value: Draft Beer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1050573634350536, guid: d64841726954a694986c294638c56abc, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: 4163495536601832, guid: d64841726954a694986c294638c56abc, type: 3}
       propertyPath: m_RootOrder
@@ -15291,7 +15287,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1616546619}
   counterLookTarget: {fileID: 1310120397}
-  finalOrderToDisplay: 1x Coffee and 1x Beer
+  finalOrderToDisplay: 1x Spirit
   itemsExpected: 2
   itemsReceived: 0
   audioSource: {fileID: 0}
@@ -15996,21 +15992,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 70254003}
     m_Modifications:
+    - target: {fileID: 1453847057466076, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
+      propertyPath: m_Name
+      value: SPIRIT GLASS
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453847057466076, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453847057466076, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4154781524146890, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4154781524146890, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.419
+      value: -4.172
       objectReference: {fileID: 0}
     - target: {fileID: 4154781524146890, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.244
+      value: 1.273
       objectReference: {fileID: 0}
     - target: {fileID: 4154781524146890, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.641
+      value: 4.996
       objectReference: {fileID: 0}
     - target: {fileID: 4154781524146890, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16030,7 +16038,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4154781524146890, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1157203574}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1453847057466076, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
       insertIndex: -1
@@ -24635,7 +24646,7 @@ Transform:
   m_GameObject: {fileID: 826402546}
   serializedVersion: 2
   m_LocalRotation: {x: 0.65052366, y: -0.16418429, z: 0.29375315, w: 0.680861}
-  m_LocalPosition: {x: -0.043, y: 0.197, z: -0.005}
+  m_LocalPosition: {x: -0.01, y: 0.181, z: 0.016}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26582,7 +26593,7 @@ RectTransform:
   m_Father: {fileID: 1017597135}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -29458,10 +29469,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 0
   contents: 0
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!1001 &993611167
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31465,7 +31475,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1046423868
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31499,12 +31509,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 0
+  cupType: 2
   contents: 0
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 1157203573}
 --- !u!1 &1047598639
 GameObject:
   m_ObjectHideFlags: 0
@@ -33374,10 +33383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!54 &1133778836
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -34102,6 +34110,97 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1157203573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1157203574}
+  - component: {fileID: 1157203575}
+  m_Layer: 0
+  m_Name: SPIRIT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1157203574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157203573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.44602424, y: -0.4556185, z: 0.55725604, w: 0.53192097}
+  m_LocalPosition: {x: 0, y: 0.168, z: -0.002}
+  m_LocalScale: {x: 0.09999998, y: 0.099999994, z: 0.09999998}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1046423864}
+  m_LocalEulerAnglesHint: {x: 79.201, y: 57.841, z: 95.803}
+--- !u!212 &1157203575
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157203573}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Color: {r: 0.8679245, g: 0.72702324, b: 0.6263795, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1001 &1159854040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35442,7 +35541,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1507797774}
         m_TargetAssemblyTypeName: DoorEnding, Assembly-CSharp
         m_MethodName: RetryGame
         m_Mode: 1
@@ -36645,6 +36744,10 @@ PrefabInstance:
     - target: {fileID: 1130159444144144, guid: 3728c609ad9c607459f27f969b80b01c, type: 3}
       propertyPath: m_Name
       value: Draft Beer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130159444144144, guid: 3728c609ad9c607459f27f969b80b01c, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: 4554948557178456, guid: 3728c609ad9c607459f27f969b80b01c, type: 3}
       propertyPath: m_RootOrder
@@ -37880,10 +37983,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 1
   contents: 0
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!1001 &1320038215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38139,6 +38241,38 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd66fb265712b0d449cb367c631b5566, type: 3}
+--- !u!1 &1322833811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1948217606784654, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+  m_PrefabInstance: {fileID: 1507797772}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1322833816
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322833811}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1001 &1324368266
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39260,6 +39394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Draft Beer
       objectReference: {fileID: 0}
+    - target: {fileID: 1378790115824248, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 4483922264215526, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -39400,7 +39538,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745278577058374, guid: ae3c1e24ce954cd49a8a5be81b963b79, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.696
+      value: -0.609
       objectReference: {fileID: 0}
     - target: {fileID: 4745278577058374, guid: ae3c1e24ce954cd49a8a5be81b963b79, type: 3}
       propertyPath: m_LocalPosition.y
@@ -41183,7 +41321,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1616546619}
   counterLookTarget: {fileID: 1310120397}
-  finalOrderToDisplay: 1x Whiskey Neat
+  finalOrderToDisplay: 1x Spirit
   itemsExpected: 1
   itemsReceived: 0
   audioSource: {fileID: 0}
@@ -42052,6 +42190,10 @@ PrefabInstance:
     - target: {fileID: 1808277958215904, guid: 9d3926e3c47acaf43b2be9f58b752d71, type: 3}
       propertyPath: m_Name
       value: Draft Beer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808277958215904, guid: 9d3926e3c47acaf43b2be9f58b752d71, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
       objectReference: {fileID: 0}
     - target: {fileID: 4319386765389776, guid: 9d3926e3c47acaf43b2be9f58b752d71, type: 3}
       propertyPath: m_RootOrder
@@ -43619,6 +43761,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 937495227}
     m_Modifications:
+    - target: {fileID: 1762154696750458, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 4590392201148512, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
       propertyPath: m_RootOrder
       value: 195
@@ -43655,19 +43801,81 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4739739371895398, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739739371895398, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 65956034372345314, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1762154696750458, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 77815602}
+      addedObject: {fileID: 1507797774}
+    - targetCorrespondingSourceObject: {fileID: 1762154696750458, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1507797778}
+    - targetCorrespondingSourceObject: {fileID: 1948217606784654, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1322833816}
   m_SourcePrefab: {fileID: 100100000, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
 --- !u!4 &1507797773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4739739371895398, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
   m_PrefabInstance: {fileID: 1507797772}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1507797774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77815597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dec11ceec3764b8c9bd1d1409070b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorEnding
+  nextSceneName: DrivingScene
+  endingCanvas: {fileID: 1515763276}
+  endingPanel: {fileID: 1053026639}
+  allowedLeaveTask: Leave pub
+  enableDebugLogs: 1
+--- !u!54 &1507797778
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77815597}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1 &1508131017 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1378790115824248, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
@@ -44375,10 +44583,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!54 &1527488304
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -44615,10 +44822,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!54 &1536418228
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -45777,7 +45983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc7f331dbbcd4e3c92ff3efc5d8b219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrinkMachine
-  drinkType: 2
+  drinkType: 1
   pourSound: {fileID: 8300000, guid: 549263cf8a4d440768ea9631acc72c2c, type: 3}
   errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
 --- !u!82 &1569085950
@@ -46478,12 +46684,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 1
+  cupType: 0
   contents: 0
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 826402546}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!65 &1579157402
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49129,7 +49334,7 @@ MonoBehaviour:
   dialogueCanvas: {fileID: 0}
   register: {fileID: 1616546619}
   counterLookTarget: {fileID: 1310120397}
-  finalOrderToDisplay: 2x Rum + Cokes
+  finalOrderToDisplay: 2x Draft Beers
   itemsExpected: 2
   itemsReceived: 0
   audioSource: {fileID: 0}
@@ -51350,10 +51555,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!54 &1769202257
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -53916,10 +54120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!65 &1865649382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55153,7 +55356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc7f331dbbcd4e3c92ff3efc5d8b219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrinkMachine
-  drinkType: 2
+  drinkType: 1
   pourSound: {fileID: 8300000, guid: 549263cf8a4d440768ea9631acc72c2c, type: 3}
   errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
 --- !u!82 &1899107164
@@ -56543,7 +56746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc7f331dbbcd4e3c92ff3efc5d8b219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrinkMachine
-  drinkType: 1
+  drinkType: 3
   pourSound: {fileID: 8300000, guid: 833737e3238ce463aadeb7ae99c91665, type: 3}
   errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
 --- !u!82 &1959078546
@@ -57921,10 +58124,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!54 &1991134155
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -59478,13 +59680,160 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1831825937130918, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2034686167}
+    - targetCorrespondingSourceObject: {fileID: 1831825937130918, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2034686166}
+    - targetCorrespondingSourceObject: {fileID: 1831825937130918, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2034686165}
   m_SourcePrefab: {fileID: 100100000, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
 --- !u!4 &2034686163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4334506045429294, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
   m_PrefabInstance: {fileID: 2034686162}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2034686164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1831825937130918, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
+  m_PrefabInstance: {fileID: 2034686162}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2034686165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034686164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc7f331dbbcd4e3c92ff3efc5d8b219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DrinkMachine
+  drinkType: 1
+  pourSound: {fileID: 0}
+  errorSound: {fileID: 0}
+--- !u!82 &2034686166
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034686164}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!65 &2034686167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034686164}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2035840262
 GameObject:
   m_ObjectHideFlags: 0
@@ -59969,9 +60318,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DoorEnding, Assembly-CSharp
-        m_MethodName: QuitToDesktop
+      - m_Target: {fileID: 1646912800}
+        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_MethodName: ReturnToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -61035,10 +61384,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 2
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 0}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!54 &2078073908
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -62878,12 +63226,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3af51f3348447c5ac6710e79238d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
-  cupType: 2
+  cupType: 1
   contents: 2
-  coffeeModel: {fileID: 0}
   beerModel: {fileID: 229462923}
-  cappuccinoModel: {fileID: 0}
   takeawayModel: {fileID: 0}
+  spiritModel: {fileID: 0}
 --- !u!1001 &2132544561
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,6 +20,17 @@ public class Cup : MonoBehaviour
         Spirit
     }
 
+    public static string GetDisplayName(DrinkType drinkType)
+{
+    switch (drinkType)
+    {
+        case DrinkType.DraftBeer: return "Draft Beer";
+        case DrinkType.TakeawayBeer: return "Takeaway Beer";
+        case DrinkType.Spirit: return "Spirit";
+        default: return "None";
+    }
+}
+
     #endregion
 
     #region Serialized Fields

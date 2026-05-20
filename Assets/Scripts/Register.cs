@@ -127,20 +127,13 @@ private bool ValidateCustomerPresent()
 
 private void ProcessDrinkDelivery(PlayerInteraction player, Cup cup)
 {
-    string drinkName = cup.contents.ToString();
-    string orderText = currentCustomer.FinalOrderToDisplay;  // ✅ FIXED - Using property
-    
-    Debug.Log($"[Register] Processing delivery: Customer={currentCustomer.name}, " +
-              $"Order='{orderText}', Drink='{drinkName}'");
+    string drinkName = Cup.GetDisplayName(cup.contents); // ← changed
+    string orderText = currentCustomer.FinalOrderToDisplay;
     
     if (IsCorrectDrink(drinkName, orderText))
-    {
         HandleCorrectDrink(player);
-    }
     else
-    {
         HandleWrongDrink(orderText);
-    }
 }
 
 private bool IsCorrectDrink(string drinkName, string orderText)

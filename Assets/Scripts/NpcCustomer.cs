@@ -60,7 +60,7 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     // ORDER INFORMATION
     // ==========================
     [Header("Order Info")]
-    public string finalOrderToDisplay = "1x Coffee";
+    public string finalOrderToDisplay = "1x Draft Beer";
 
     [Header("Multi-Order Settings")]
     public int itemsExpected = 1;

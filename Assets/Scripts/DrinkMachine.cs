@@ -221,12 +221,12 @@ private string GetRequiredCupTypeName(Cup.DrinkType drinkType)
     #region Feedback
     
     private void ShowSuccessFeedback()
-    {
-        FeedbackManager.Instance?.ShowMessage(
-            $"Filled cup with {drinkType}", 
-            FeedbackManager.MessageType.Success
-        );
-    }
+{
+    FeedbackManager.Instance?.ShowMessage(
+        $"Filled cup with {Cup.GetDisplayName(drinkType)}", // ← changed
+        FeedbackManager.MessageType.Success
+    );
+}
     
     private void ShowErrorFeedback(string message)
     {
