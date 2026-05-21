@@ -68,21 +68,24 @@ public class CustomerQueue : MonoBehaviour
         CallNextCustomer();
     }
 
-    private void CallNextCustomer()
-    {
-        if (isPaused) return;
+   private void CallNextCustomer()
+{
+    if (isPaused) return;
 
-        if (customersInShop.Count > 0)
-        {
-            Debug.Log($"[Queue] Calling next customer: {customersInShop[0].name}");
-            customersInShop[0].CallToCounter();
-        }
+    if (customersInShop.Count > 0)
+    {
+        NpcCustomer next = customersInShop[0];
+        if (next != null)
+            next.CallToCounter();
         else
-        {
-            Debug.Log("[Queue] No more customers");
-            CoffeeShopManager.Instance?.OnAllCustomersServed();
-        }
+            Debug.LogError("[Queue] Next customer is null!");
     }
+    else
+    {
+        Debug.Log("[Queue] No more customers");
+        CoffeeShopManager.Instance?.OnAllCustomersServed();
+    }
+}
 
     void ShowDogSitTextMessage()
     {

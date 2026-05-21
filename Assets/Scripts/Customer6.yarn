@@ -1,0 +1,17 @@
+﻿title: Customer6_Waiting
+---
+Drunk: *hic* ...you're pretty
+{$PlayerName}: ...thanks
+<<CompleteWaitingConversation_Customer6>>
+===
+
+title: Customer6_Order
+---
+Drunk: Get me another one *hic*
+-> {$PlayerName}: Sure, one more...
+    Drunk: Knew you liked me *hic*
+    <<CompleteOrderConversation_Customer6_Serve>>
+-> {$PlayerName}: I think you've had enough. Time to go.
+    Drunk: You can't... *hic* ...tell me what to do
+    <<CompleteOrderConversation_Customer6_Kick>>
+===

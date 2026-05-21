@@ -18,14 +18,15 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public bool shouldSitAtTable = false;
     public float turnSpeed = 7f;
 
-    private NavMeshAgent agent;
-    private Animator anim;
+    // Changed from private to protected so DrunkCustomer can access
+    protected NavMeshAgent agent;
+    protected Animator anim;
 
-    private bool isLeaving = false;
-    private bool isHeadingToSeat = false;
+    protected bool isLeaving = false;
+    protected bool isHeadingToSeat = false;
     public bool isWaiting = true;
-    private bool hasArrivedAtCounter = false;
-    private bool isThisNPCActing = false;
+    protected bool hasArrivedAtCounter = false;
+    protected bool isThisNPCActing = false;
 
     // ==========================
     // DIALOGUE SETTINGS
@@ -34,13 +35,12 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public GameObject interactionBubble;
     public float interactDistance = 3f;
 
-    private bool hasFinishedWaitingConversation = false;
-    private bool hasFinishedOrderConversation = false;
+    protected bool hasFinishedWaitingConversation = false;
+    protected bool hasFinishedOrderConversation = false;
 
     public string waitingYarnNodeName = "Customer1_Waiting";
     public string counterYarnNodeName = "Customer1_Order";
 
-    // NEW: Unique command names for each customer
     [Header("Yarn Commands (Make These Unique!)")]
     public string waitingCommandName = "CompleteWaitingConversation_Customer1";
     public string orderCommandName = "CompleteOrderConversation_Customer1";
@@ -54,7 +54,7 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public Register register;
     public Transform counterLookTarget;
 
-    private DialogueRunner dialogueRunner;
+    protected DialogueRunner dialogueRunner;
 
     // ==========================
     // ORDER INFORMATION
@@ -69,7 +69,7 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip scaryRunSound;
-    private bool hasBeenServed = false;
+    protected bool hasBeenServed = false;
 
     [Header("Audio Settings")]
     public float audioDelay = 0.5f;
@@ -79,11 +79,12 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public Transform spawnPoint;
 
     // Properties for Register.cs compatibility
-public string FinalOrderToDisplay => finalOrderToDisplay;
-public int ItemsReceived => itemsReceived;
-public int ItemsExpected => itemsExpected;
+    public string FinalOrderToDisplay => finalOrderToDisplay;
+    public int ItemsReceived => itemsReceived;
+    public int ItemsExpected => itemsExpected;
 
-    void Start()
+    // Changed to protected virtual so DrunkCustomer can override
+    protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         if (agent != null) agent.updateRotation = false;
@@ -99,9 +100,7 @@ public int ItemsExpected => itemsExpected;
             CallToCounter();
 
         if (hideUntilCalled)
-        {
             SetNPCVisibility(false);
-        }
     }
 
     IEnumerator LateFindDialogueRunner()
@@ -111,13 +110,14 @@ public int ItemsExpected => itemsExpected;
 
         if (dialogueRunner != null)
         {
-            // Register commands with UNIQUE names
             dialogueRunner.AddCommandHandler(waitingCommandName, CompleteWaitingConversation);
             dialogueRunner.AddCommandHandler(orderCommandName, CompleteOrderConversation);
 
+            // Hook for subclasses to register their own commands
+            RegisterAdditionalYarnCommands(dialogueRunner);
+
             Debug.Log($"[{name}] Registered commands: {waitingCommandName}, {orderCommandName}");
 
-            // UI Setup
             Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
             if (canvasComponent != null)
             {
@@ -130,7 +130,10 @@ public int ItemsExpected => itemsExpected;
         }
     }
 
-    void Update()
+    // Virtual hook — base does nothing, DrunkCustomer overrides to add extra commands
+    protected virtual void RegisterAdditionalYarnCommands(DialogueRunner runner) { }
+
+    protected virtual void Update()
     {
         if (anim != null && agent != null)
             anim.SetFloat("Speed", agent.velocity.magnitude);
@@ -166,14 +169,10 @@ public int ItemsExpected => itemsExpected;
     public string GetInteractionPrompt()
     {
         if (hasArrivedAtCounter && itemsReceived < itemsExpected)
-        {
             return "Press E to take order";
-        }
 
         if (!hasArrivedAtCounter)
-        {
             return "Press E to chat";
-        }
 
         return "";
     }
@@ -183,9 +182,7 @@ public int ItemsExpected => itemsExpected;
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
 
         if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
-        {
             StartNpcDialogue();
-        }
     }
 
     void StartNpcDialogue()
@@ -212,15 +209,12 @@ public int ItemsExpected => itemsExpected;
     IEnumerator StartDialogueNextFrame(string nodeName)
     {
         yield return null;
-
         if (dialogueRunner != null)
             dialogueRunner.StartDialogue(nodeName);
     }
 
-    // ✅ CRITICAL FIX: Added null check to prevent MissingReferenceException
     public void CompleteWaitingConversation()
     {
-        // Null check - prevents error if NPC is destroyed mid-dialogue
         if (this == null || gameObject == null)
         {
             Debug.LogWarning("CompleteWaitingConversation called on destroyed NPC");
@@ -233,25 +227,26 @@ public int ItemsExpected => itemsExpected;
         HideUIElements();
     }
 
-   public void CompleteOrderConversation()
-{
-    if (this == null || gameObject == null) return;
+    public void CompleteOrderConversation()
+    {
+        if (this == null || gameObject == null) return;
 
-    Debug.Log($"[{name}] CompleteOrderConversation called");
-    Debug.Log($"[{name}] TaskManager.Instance is: {(TaskManager.Instance == null ? "NULL" : TaskManager.Instance.name)}");
-    
-    hasFinishedOrderConversation = true;
+        Debug.Log($"[{name}] CompleteOrderConversation called");
+        Debug.Log($"[{name}] TaskManager.Instance is: {(TaskManager.Instance == null ? "NULL" : TaskManager.Instance.name)}");
 
-    if (OrderManager.Instance != null)
-        OrderManager.Instance.ShowOrder("Order: " + finalOrderToDisplay);
+        hasFinishedOrderConversation = true;
 
-    if (TaskManager.Instance != null)
-        TaskManager.Instance.ShowTask("Make " + finalOrderToDisplay);
-    else
-        Debug.LogError($"[{name}] TaskManager.Instance is NULL! Can't update task.");
+        if (OrderManager.Instance != null)
+            OrderManager.Instance.ShowOrder("Order: " + finalOrderToDisplay);
 
-    HideUIElements();
-}
+        if (TaskManager.Instance != null)
+            TaskManager.Instance.ShowTask("Make " + finalOrderToDisplay);
+        else
+            Debug.LogError($"[{name}] TaskManager.Instance is NULL! Can't update task.");
+
+        HideUIElements();
+    }
+
     public void DeliverItem()
     {
         itemsReceived++;
@@ -263,7 +258,6 @@ public int ItemsExpected => itemsExpected;
         {
             isThisNPCActing = false;
             hasFinishedOrderConversation = true;
-
             HideUIElements();
             FinishOrderAndLeave();
         }
@@ -277,7 +271,7 @@ public int ItemsExpected => itemsExpected;
         }
     }
 
-    void HideUIElements()
+    protected void HideUIElements()
     {
         if (dialogueCanvas != null)
             dialogueCanvas.SetActive(false);
@@ -286,9 +280,7 @@ public int ItemsExpected => itemsExpected;
         {
             CanvasGroup optionsGroup = dialogueRunner.GetComponentInChildren<CanvasGroup>(true);
             if (optionsGroup != null)
-            {
                 optionsGroup.gameObject.SetActive(false);
-            }
         }
     }
 
@@ -298,7 +290,6 @@ public int ItemsExpected => itemsExpected;
         {
             if (exitPoint != null && Vector3.Distance(transform.position, exitPoint.position) < 1.5f)
                 Destroy(gameObject);
-
             return;
         }
 
@@ -325,6 +316,8 @@ public int ItemsExpected => itemsExpected;
                 agent.ResetPath();
                 agent.velocity = Vector3.zero;
 
+                OnArrivedAtCounter(); // ← virtual hook for DrunkCustomer
+
                 Vector3 lookPos = counterLookTarget != null ? counterLookTarget.position : counterTarget.position;
                 Vector3 direction = (lookPos - transform.position).normalized;
                 direction.y = 0;
@@ -340,6 +333,9 @@ public int ItemsExpected => itemsExpected;
             }
         }
     }
+
+    // Virtual hook — base does nothing, DrunkCustomer overrides to switch animation
+    protected virtual void OnArrivedAtCounter() { }
 
     public void FinishOrderAndLeave()
     {
@@ -397,7 +393,7 @@ public int ItemsExpected => itemsExpected;
         }
     }
 
-    public void CallToCounter()
+    public virtual void CallToCounter()
     {
         if (spawnPoint != null && agent != null)
         {
@@ -431,28 +427,27 @@ public int ItemsExpected => itemsExpected;
     {
         Renderer[] allRenderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer r in allRenderers)
-        {
             r.enabled = isVisible;
-        }
 
         if (interactionBubble != null)
             interactionBubble.SetActive(isVisible);
     }
+
     public void ForceLeave()
-{
-    Debug.Log($"[{name}] ForceLeave called - heading to exit");
-    hasBeenServed = true;
-    isHeadingToSeat = false;
-    isLeaving = true;
-    
-    if (agent != null)
     {
-        agent.isStopped = false;
-        agent.speed = walkSpeed;
-        agent.SetDestination(exitPoint.position);
+        Debug.Log($"[{name}] ForceLeave called - heading to exit");
+        hasBeenServed = true;
+        isHeadingToSeat = false;
+        isLeaving = true;
+
+        if (agent != null)
+        {
+            agent.isStopped = false;
+            agent.speed = walkSpeed;
+            agent.SetDestination(exitPoint.position);
+        }
+
+        if (anim != null)
+            anim.SetBool("isSitting", false);
     }
-    
-    if (anim != null)
-        anim.SetBool("isSitting", false);
-}
 }
