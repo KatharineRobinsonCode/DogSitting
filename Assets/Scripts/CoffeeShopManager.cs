@@ -19,11 +19,12 @@ public class CoffeeShopManager : MonoBehaviour
     [SerializeField] private AudioSource cryingAudio;
 
     [Header("Dialogue")]
-[SerializeField] private DialogueRunner dialogueRunner;
+ private DialogueRunner dialogueRunner;
 private bool toiletDialogueTriggered = false;
 
     private bool hasEnteredCounter = false;
     private bool allCustomersServed = false;
+    private bool leaveDialogueTriggered = false;
     private int dirtSpotsRemaining;
 
     private void Awake()
@@ -42,6 +43,8 @@ private bool toiletDialogueTriggered = false;
 
     if (dialogueRunner == null)
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+            Debug.Log($"[CoffeeShopManager] DialogueRunner found: {dialogueRunner != null}");
+
 }
 private void Update()
 {
@@ -66,8 +69,40 @@ private void Update()
             dialogueRunner.StartDialogue("ToiletThought");
         }
     }
+if (!leaveDialogueTriggered &&
+    TaskManager.Instance != null &&
+    TaskManager.Instance.IsCurrentTask("Leave pub"))
+{
+    leaveDialogueTriggered = true;
+
+    if (dialogueRunner != null)
+    {
+        if (!dialogueRunner.IsDialogueRunning)
+            StartLeavePubDialogue();
+        else
+            dialogueRunner.onDialogueComplete.AddListener(OnReadyForLeavePub);
+    }
+}
+}
+private void OnReadyForLeavePub()
+{
+    dialogueRunner.onDialogueComplete.RemoveListener(OnReadyForLeavePub);
+    StartLeavePubDialogue();
 }
 
+private void StartLeavePubDialogue()
+{
+    Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+    if (canvasComponent != null)
+    {
+        canvasComponent.gameObject.SetActive(true);
+        canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+        CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+        if (group != null) group.alpha = 1f;
+    }
+
+    dialogueRunner.StartDialogue("LeavePub");
+}
     public void OnPlayerEnteredCounterArea()
     {
         if (hasEnteredCounter) return;
