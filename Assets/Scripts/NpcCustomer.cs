@@ -134,39 +134,38 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     protected virtual void RegisterAdditionalYarnCommands(DialogueRunner runner) { }
 
     protected virtual void Update()
+{
+    if (anim != null && agent != null && agent.enabled)
+        anim.SetFloat("Speed", agent.velocity.magnitude);
+
+    HandleMovementAndArrival();
+
+    if (agent != null && agent.enabled && agent.velocity.sqrMagnitude > 0.1f)
     {
-        if (anim != null && agent != null)
-            anim.SetFloat("Speed", agent.velocity.magnitude);
+        FaceTarget(transform.position + agent.velocity);
+    }
+    else if (player != null)
+    {
+        float dist = Vector3.Distance(transform.position, player.position);
 
-        HandleMovementAndArrival();
-
-        if (agent != null && agent.velocity.sqrMagnitude > 0.1f)
+        if (!isLeaving && !isHeadingToSeat && !hasFinishedWaitingConversation && dist <= interactDistance + 2f)
         {
-            FaceTarget(transform.position + agent.velocity);
+            FaceTarget(player.position);
+
+            if (isThisNPCActing)
+            {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
-        else if (player != null)
+        else if (hasArrivedAtCounter && !isLeaving && !isHeadingToSeat && !isThisNPCActing)
         {
-            float dist = Vector3.Distance(transform.position, player.position);
-
-            if (!isLeaving && !isHeadingToSeat && !hasFinishedWaitingConversation && dist <= interactDistance + 2f)
-            {
-                FaceTarget(player.position);
-
-                if (isThisNPCActing)
-                {
-                    Cursor.visible = true;
-                    Cursor.lockState = CursorLockMode.None;
-                }
-            }
-            else if (hasArrivedAtCounter && !isLeaving && !isHeadingToSeat && !isThisNPCActing)
-            {
-                Vector3 lookPos = (counterLookTarget != null ? counterLookTarget.position : counterTarget.position);
-                FaceTarget(lookPos);
-            }
+            Vector3 lookPos = (counterLookTarget != null ? counterLookTarget.position : counterTarget.position);
+            FaceTarget(lookPos);
         }
     }
-
-    public string GetInteractionPrompt()
+}
+    public virtual string GetInteractionPrompt()
     {
         if (hasArrivedAtCounter && itemsReceived < itemsExpected)
             return "Press E to take order";
@@ -307,10 +306,10 @@ public class NpcCustomer : MonoBehaviour, IInteractable
             return;
         }
 
-        if (!isWaiting && !hasArrivedAtCounter && !hasBeenServed && agent != null && counterTarget != null)
-        {
-            if (agent.remainingDistance <= agent.stoppingDistance + 0.1f && !agent.pathPending)
-            {
+    if (!isWaiting && !hasArrivedAtCounter && !hasBeenServed && agent != null && agent.enabled && counterTarget != null)
+{
+    if (agent.remainingDistance <= agent.stoppingDistance + 0.1f && !agent.pathPending)
+    {
                 hasArrivedAtCounter = true;
                 agent.isStopped = true;
                 agent.ResetPath();

@@ -22,7 +22,7 @@ public class DrunkCustomer : NpcCustomer
 
         // Start seated
         if (drunkAnim != null)
-            drunkAnim.SetBool("IsStanding", false);
+            drunkAnim.SetBool("isStanding", false);
 
         // Disable agent while seated
         if (drunkAgent != null)
@@ -30,7 +30,7 @@ public class DrunkCustomer : NpcCustomer
     }
 protected override void Update()
 {
-    if (isWaiting) return; // Don't do anything while sitting
+    if (isWaiting) return;
     base.Update();
 }
     // Register extra commands on top of base ones
@@ -41,22 +41,27 @@ protected override void Update()
         runner.AddCommandHandler(kickCommandName, CompleteOrderConversationKick);
     }
 
-    public new void CallToCounter()
+public override void CallToCounter()
+{
+    Debug.Log("[DrunkCustomer] CallToCounter called");
+    isWaiting = false;
+    StartCoroutine(CallToCounterRoutine());
+}
+
+private IEnumerator CallToCounterRoutine()
+{
+    if (agent != null)
     {
-        // Enable agent and start walking
-        if (drunkAgent != null)
-        {
-            drunkAgent.enabled = true;
-            drunkAgent.Warp(transform.position);
-            drunkAgent.speed = walkSpeed;
-            drunkAgent.SetDestination(counterTarget.position);
-        }
-
-        if (drunkAnim != null)
-            drunkAnim.SetBool("IsStanding", true);
-
-        isWaiting = false;
+        agent.enabled = true;
+        yield return null; // give Unity a frame to register the agent on NavMesh
+        agent.Warp(transform.position);
+        agent.speed = walkSpeed;
+        agent.SetDestination(counterTarget.position);
     }
+
+    if (anim != null)
+        anim.SetBool("isStanding", true);
+}
 
     public void CompleteOrderConversationServe()
     {
@@ -80,12 +85,18 @@ protected override void Update()
         FinishOrderAndLeave();
     }
 
+    public override string GetInteractionPrompt()
+{
+    Debug.Log($"[DrunkCustomer] hasArrived: {hasArrivedAtCounter} hasFinishedWaiting: {hasFinishedWaitingConversation} itemsReceived: {itemsReceived} itemsExpected: {itemsExpected}");
+    return base.GetInteractionPrompt();
+}
+
     // Override arrival to switch to drunk idle instead of normal idle
     protected override void OnArrivedAtCounter()
     {
         base.OnArrivedAtCounter();
 
         if (drunkAnim != null)
-            drunkAnim.SetBool("IsStanding", true);
+            drunkAnim.SetBool("isStanding", true);
     }
 }
