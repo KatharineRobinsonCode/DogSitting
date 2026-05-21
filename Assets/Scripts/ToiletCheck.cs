@@ -9,6 +9,7 @@ public class ToiletCheck : MonoBehaviour
     [SerializeField] private AudioClip knockClip;
     [SerializeField] private AudioSource screamAudio;
     [SerializeField] private AudioClip screamClip;
+    [SerializeField] private AudioSource cryingAudio;
 
     [Header("Dialogue")]
     [SerializeField] private DialogueRunner dialogueRunner;
@@ -30,6 +31,13 @@ private void OnTriggerEnter(Collider other)
     if (!TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet")) return;
 
     hasTriggered = true;
+
+    // Start crying audio when player reaches the toilet
+    if (cryingAudio != null)
+    {
+        cryingAudio.loop = true;
+        cryingAudio.Play();
+    }
 
     // Set up canvas same way NpcCustomer does
     Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);

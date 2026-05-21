@@ -16,6 +16,10 @@ public class CoffeeShopManager : MonoBehaviour
     [Header("Toilet Event")]
     [SerializeField] private AudioSource cryingAudio;
 
+    [Header("Dialogue")]
+[SerializeField] private DialogueRunner dialogueRunner;
+private bool toiletDialogueTriggered = false;
+
     private bool hasEnteredCounter = false;
     private bool allCustomersServed = false;
     private int dirtSpotsRemaining;
@@ -26,14 +30,28 @@ public class CoffeeShopManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        dirtSpotsRemaining = totalDirtSpots;
-        TaskManager.Instance?.ShowTask("Go behind counter");
+   private void Start()
+{
+    dirtSpotsRemaining = totalDirtSpots;
+    TaskManager.Instance?.ShowTask("Go behind counter");
 
-        if (customerQueue == null)
-            customerQueue = FindFirstObjectByType<CustomerQueue>();
+    if (customerQueue == null)
+        customerQueue = FindFirstObjectByType<CustomerQueue>();
+
+    if (dialogueRunner == null)
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+}
+private void Update()
+{
+    if (!toiletDialogueTriggered && 
+        TaskManager.Instance != null &&
+        TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet"))
+    {
+        toiletDialogueTriggered = true;
+        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+            dialogueRunner.StartDialogue("ToiletThought");
     }
+}
 
     public void OnPlayerEnteredCounterArea()
     {
@@ -46,13 +64,6 @@ public class CoffeeShopManager : MonoBehaviour
 
 public void OnThirdCustomerServed()
 {
-    Debug.Log($"[CoffeeShopManager] OnThirdCustomerServed — cryingAudio null: {cryingAudio == null}");
-    if (cryingAudio != null)
-    {
-        cryingAudio.loop = true;
-        cryingAudio.Play();
-        Debug.Log("[CoffeeShopManager] Crying audio started");
-    }
     TaskManager.Instance?.ShowTask("Check on the customer in the toilet");
 }
 
