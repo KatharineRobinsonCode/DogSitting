@@ -1,15 +1,15 @@
 ﻿title: ToiletKnock
 ---
-You can hear crying from inside...
+{$PlayerName}: You can hear crying from inside...
 -> Should I knock?
     <<OnKnockYes>>
 -> I'll leave them to it.
-    Bartender: I'll be at the bar if you need me.
+    {$PlayerName}: I'll be at the bar if you need me.
     <<OnKnockNo>>
 ===
 
 title: ToiletAfterScream
 ---
-Jeez... okay I'll leave you to it.
-Outside if you need someone.
+{$PlayerName}: Jeez... okay I'll leave you to it.
+{$PlayerName}: Outside if you need someone.
 ===

@@ -23,21 +23,30 @@ public class ToiletCheck : MonoBehaviour
             dialogueRunner.AddCommandHandler("OnKnockYes", OnKnockYes);
 dialogueRunner.AddCommandHandler("OnKnockNo", OnKnockNo);
     }
+private void OnTriggerEnter(Collider other)
+{
+    if (hasTriggered) return;
+    if (!other.CompareTag("Player")) return;
+    if (!TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet")) return;
 
-    private void OnTriggerEnter(Collider other)
+    hasTriggered = true;
+
+    // Set up canvas same way NpcCustomer does
+    Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+    if (canvasComponent != null)
     {
-        if (hasTriggered) return;
-        if (!other.CompareTag("Player")) return;
-        if (!TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet")) return;
-
-        hasTriggered = true;
-
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
-
-        dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-        dialogueRunner.StartDialogue(toiletDialogueNode);
+        canvasComponent.gameObject.SetActive(true);
+        canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+        CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+        if (group != null) group.alpha = 1f;
     }
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.ShowCursorPublic();
+
+    dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+    dialogueRunner.StartDialogue(toiletDialogueNode);
+}
 
     private void OnDialogueComplete()
     {

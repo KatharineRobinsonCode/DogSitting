@@ -44,18 +44,17 @@ public class CoffeeShopManager : MonoBehaviour
         TaskManager.Instance?.ShowTask("Serve customers");
     }
 
-    public void OnThirdCustomerServed()
+public void OnThirdCustomerServed()
+{
+    Debug.Log($"[CoffeeShopManager] OnThirdCustomerServed — cryingAudio null: {cryingAudio == null}");
+    if (cryingAudio != null)
     {
-        // Start crying audio looping
-        if (cryingAudio != null)
-        {
-            cryingAudio.loop = true;
-            cryingAudio.Play();
-        }
-
-        TaskManager.Instance?.ShowTask("Check on the customer in the toilet");
-        FeedbackManager.Instance?.ShowMessage("Someone's been in there a while...", FeedbackManager.MessageType.Info);
+        cryingAudio.loop = true;
+        cryingAudio.Play();
+        Debug.Log("[CoffeeShopManager] Crying audio started");
     }
+    TaskManager.Instance?.ShowTask("Check on the customer in the toilet");
+}
 
     public void OnToiletTaskComplete()
     {
