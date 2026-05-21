@@ -42,31 +42,45 @@ public class NeighbourKnock : MonoBehaviour, IInteractable
         StartCoroutine(KnockSequence());
     }
 
-   private IEnumerator KnockSequence()
-{
-    yield return new WaitForSeconds(dialogueDelay);
-
-    if (neighbourDoor != null && !neighbourDoor.open)
-        neighbourDoor.OpenDoor();
-
-    yield return new WaitForSeconds(0.6f);
-
-    if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+    private IEnumerator KnockSequence()
     {
-        // Unlock cursor for dialogue options
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+        yield return new WaitForSeconds(dialogueDelay);
 
-        dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-        dialogueRunner.StartDialogue(dialogueNode);
+        if (neighbourDoor != null && !neighbourDoor.open)
+            neighbourDoor.OpenDoor();
+
+        yield return new WaitForSeconds(0.6f);
+
+        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+        {
+            if (PauseManager.Instance != null)
+                PauseManager.Instance.ShowCursorPublic();
+
+            dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+            dialogueRunner.StartDialogue(dialogueNode);
+        }
     }
-}
 
-private void OnDialogueComplete()
-{
-    dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
+    private void OnDialogueComplete()
+    {
+        dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
 
-    if (PauseManager.Instance != null)
-        PauseManager.Instance.HideCursorPublic();
-}
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.HideCursorPublic();
+
+        StartCoroutine(CloseAfterDelay());
+    }
+
+    private IEnumerator CloseAfterDelay()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (neighbourDoor != null && neighbourDoor.open)
+            neighbourDoor.CloseDoor();
+
+        yield return new WaitForSeconds(1f);
+
+        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+            dialogueRunner.StartDialogue("AfterKnock");
+    }
 }

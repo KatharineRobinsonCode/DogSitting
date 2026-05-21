@@ -71,6 +71,11 @@ public void OpenDoor()
     if (!open)
         StartCoroutine(opening());
 }
+public void CloseDoor()
+{
+    if (open)
+        StartCoroutine(closing());
+}
 
     }
 }
