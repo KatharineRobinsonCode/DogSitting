@@ -1,0 +1,15 @@
+﻿title: NeighbourChat
+---
+Player: Hi.. erm, I was just wondering if you were in the hallway just now? I heard... a noise?
+    Resident: You heard a noise? It's a big building that doesn't surprise me.
+        -> Player: Well it was a camera, so just checking there isn't a creep in the building.
+            Resident: ... You calling me a creep?
+            -> Player: No, just trying to figure out what's going on.
+                Resident: I don't know, but i'm busy.
+                    -> Player: Sorry!
+            -> Player: Are you?
+                Resident: GET OUT OF HERE.
+                    -> Player: Sorry!
+        -> Player: Yeah, of course.. Sorry for wasting your time.
+Resident:...
+===

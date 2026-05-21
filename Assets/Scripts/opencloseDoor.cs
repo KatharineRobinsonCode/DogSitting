@@ -66,7 +66,11 @@ namespace SojaExiles
             open = false;
             yield return new WaitForSeconds(.5f);
         }
-
+public void OpenDoor()
+{
+    if (!open)
+        StartCoroutine(opening());
+}
 
     }
 }
