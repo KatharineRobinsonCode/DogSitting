@@ -5,10 +5,12 @@ public class CustomerQueue : MonoBehaviour
 {
     public List<NpcCustomer> customersInShop = new List<NpcCustomer>();
     
-    // NEW: Track customers served for the dog sitting text trigger
     private int customersServed = 0;
-    public int customersBeforeTextMessage = 1; // Trigger after 1st customer
-    
+    public int customersBeforeTextMessage = 1;
+
+    // New pause flag
+    private bool isPaused = false;
+
     void Start()
     {
         Debug.Log($"[Queue] Starting with {customersInShop.Count} customers");
@@ -24,7 +26,6 @@ public class CustomerQueue : MonoBehaviour
     {
         Debug.Log($"[Queue] CustomerLeft called for: {npc.name}");
         
-        // NEW: Increment counter when a customer leaves
         customersServed++;
         Debug.Log($"[Queue] Total customers served: {customersServed}");
           
@@ -33,22 +34,44 @@ public class CustomerQueue : MonoBehaviour
         if (customersInShop.Contains(npc))
         {
             customersInShop.Remove(npc);
-            Debug.Log($"[Queue] Removed {npc.name}. Remaining customers: {customersInShop.Count}");
+            Debug.Log($"[Queue] Removed {npc.name}. Remaining: {customersInShop.Count}");
         }
         else
         {
             Debug.LogWarning($"[Queue] {npc.name} was not in the queue!");
         }
 
-        // NEW: Check if we should show the dog sitting text message
+        // Dog sit text message trigger
         if (customersServed == customersBeforeTextMessage)
         {
-            Debug.Log($"[Queue] {customersBeforeTextMessage}th customer served! Showing dog sitting text...");
+            Debug.Log($"[Queue] Showing dog sitting text...");
             ShowDogSitTextMessage();
-            return; // Exit early - don't call next customer yet (phone takes over)
+            return;
         }
 
-        // EXISTING: Call next customer as normal
+        // Toilet task trigger after 3rd customer
+        if (customersServed == 3)
+        {
+            Debug.Log($"[Queue] 3rd customer served — triggering toilet check");
+            isPaused = true;
+            CoffeeShopManager.Instance?.OnThirdCustomerServed();
+            return;
+        }
+
+        CallNextCustomer();
+    }
+
+    public void ResumeQueue()
+    {
+        isPaused = false;
+        Debug.Log("[Queue] Resuming queue");
+        CallNextCustomer();
+    }
+
+    private void CallNextCustomer()
+    {
+        if (isPaused) return;
+
         if (customersInShop.Count > 0)
         {
             Debug.Log($"[Queue] Calling next customer: {customersInShop[0].name}");
@@ -56,46 +79,30 @@ public class CustomerQueue : MonoBehaviour
         }
         else
         {
-            Debug.Log("[Queue] No more customers waiting");
-        CoffeeShopManager.Instance?.OnAllCustomersServed(); 
+            Debug.Log("[Queue] No more customers");
+            CoffeeShopManager.Instance?.OnAllCustomersServed();
         }
     }
 
-    // NEW: Show the dog sitting text message
     void ShowDogSitTextMessage()
     {
         if (PhoneManager.Instance == null)
         {
             Debug.LogError("[Queue] PhoneManager.Instance is NULL!");
-            // Fallback: just call next customer if phone manager isn't available
-            if (customersInShop.Count > 0)
-                customersInShop[0].CallToCounter();
+            CallNextCustomer();
             return;
         }
 
-        // Show the text message with callbacks
         PhoneManager.Instance.ReceiveTextMessage(
-            // When player accepts:
             onAccept: () =>
             {
-                Debug.Log("[Queue] Player accepted dog sitting! Story will continue...");
-                // Resume queue - call next customer
-                if (customersInShop.Count > 0)
-                {
-                    Debug.Log($"[Queue] Resuming queue, calling: {customersInShop[0].name}");
-                    customersInShop[0].CallToCounter();
-                }
+                Debug.Log("[Queue] Player accepted dog sitting!");
+                CallNextCustomer();
             },
-            // When player declines:
             onDecline: () =>
             {
-                Debug.Log("[Queue] Player declined dog sitting. Continuing normal shift...");
-                // Resume queue - call next customer
-                if (customersInShop.Count > 0)
-                {
-                    Debug.Log($"[Queue] Resuming queue, calling: {customersInShop[0].name}");
-                    customersInShop[0].CallToCounter();
-                }
+                Debug.Log("[Queue] Player declined dog sitting.");
+                CallNextCustomer();
             }
         );
     }
