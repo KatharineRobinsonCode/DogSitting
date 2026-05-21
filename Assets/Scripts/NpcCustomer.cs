@@ -336,7 +336,7 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     // Virtual hook — base does nothing, DrunkCustomer overrides to switch animation
     protected virtual void OnArrivedAtCounter() { }
 
-    public void FinishOrderAndLeave()
+    public virtual void FinishOrderAndLeave()
     {
         Debug.Log($"[{name}] FinishOrderAndLeave() called!");
         string seatName = (seatTarget != null) ? seatTarget.name : "None";
