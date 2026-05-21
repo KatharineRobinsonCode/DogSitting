@@ -19,42 +19,65 @@ public class ToiletCheck : MonoBehaviour
 
     private void Start()
     {
-        if (dialogueRunner == null)
-            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        StartCoroutine(LateRegisterCommands());
+    }
+
+    private IEnumerator LateRegisterCommands()
+    {
+        yield return new WaitForEndOfFrame();
+
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
+        if (dialogueRunner != null)
+        {
             dialogueRunner.AddCommandHandler("OnKnockYes", OnKnockYes);
-dialogueRunner.AddCommandHandler("OnKnockNo", OnKnockNo);
+            dialogueRunner.AddCommandHandler("OnKnockNo", OnKnockNo);
+            Debug.Log("[ToiletCheck] Commands registered");
+        }
+        else
+        {
+            Debug.LogError("[ToiletCheck] DialogueRunner not found!");
+        }
     }
-private void OnTriggerEnter(Collider other)
-{
-    if (hasTriggered) return;
-    if (!other.CompareTag("Player")) return;
-    if (!TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet")) return;
 
-    hasTriggered = true;
-
-    // Start crying audio when player reaches the toilet
-    if (cryingAudio != null)
+    private void OnTriggerEnter(Collider other)
     {
-        cryingAudio.loop = true;
-        cryingAudio.Play();
+        Debug.Log($"[ToiletCheck] Trigger entered by: {other.name}");
+
+        if (hasTriggered) return;
+        if (!other.CompareTag("Player")) return;
+
+        bool isCorrectTask = TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet");
+        Debug.Log($"[ToiletCheck] Is correct task: {isCorrectTask}, current task: {TaskManager.Instance.CurrentTask}");
+
+        if (!isCorrectTask) return;
+
+        hasTriggered = true;
+        Debug.Log("[ToiletCheck] Starting dialogue");
+
+        // Start crying audio
+        if (cryingAudio != null)
+        {
+            cryingAudio.loop = true;
+            cryingAudio.Play();
+        }
+
+        // Set up canvas
+        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+        if (canvasComponent != null)
+        {
+            canvasComponent.gameObject.SetActive(true);
+            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+            if (group != null) group.alpha = 1f;
+        }
+
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.ShowCursorPublic();
+
+        dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+        dialogueRunner.StartDialogue(toiletDialogueNode);
     }
-
-    // Set up canvas same way NpcCustomer does
-    Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
-    if (canvasComponent != null)
-    {
-        canvasComponent.gameObject.SetActive(true);
-        canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
-        CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
-        if (group != null) group.alpha = 1f;
-    }
-
-    if (PauseManager.Instance != null)
-        PauseManager.Instance.ShowCursorPublic();
-
-    dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-    dialogueRunner.StartDialogue(toiletDialogueNode);
-}
 
     private void OnDialogueComplete()
     {
@@ -71,6 +94,13 @@ private void OnTriggerEnter(Collider other)
 
     public void OnKnockNo()
     {
+        // Stop crying when player walks away
+        if (cryingAudio != null)
+            cryingAudio.Stop();
+
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.HideCursorPublic();
+
         CoffeeShopManager.Instance?.OnToiletTaskComplete();
     }
 
@@ -88,6 +118,15 @@ private void OnTriggerEnter(Collider other)
 
         if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
         {
+            Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+            if (canvasComponent != null)
+            {
+                canvasComponent.gameObject.SetActive(true);
+                canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+                CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+                if (group != null) group.alpha = 1f;
+            }
+
             if (PauseManager.Instance != null)
                 PauseManager.Instance.ShowCursorPublic();
 
@@ -102,6 +141,10 @@ private void OnTriggerEnter(Collider other)
 
         if (PauseManager.Instance != null)
             PauseManager.Instance.HideCursorPublic();
+
+        // Stop crying after scream sequence
+        if (cryingAudio != null)
+            cryingAudio.Stop();
 
         CoffeeShopManager.Instance?.OnToiletTaskComplete();
     }

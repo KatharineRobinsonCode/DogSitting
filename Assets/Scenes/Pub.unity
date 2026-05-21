@@ -3656,7 +3656,7 @@ MonoBehaviour:
   - {fileID: 519429645}
   - {fileID: 1675751292}
   - {fileID: 1408468448}
-  - {fileID: 0}
+  - {fileID: 1353745184}
   customersBeforeTextMessage: 5
 --- !u!4 &121351328
 Transform:
