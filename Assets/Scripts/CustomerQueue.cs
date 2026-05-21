@@ -6,7 +6,7 @@ public class CustomerQueue : MonoBehaviour
     public List<NpcCustomer> customersInShop = new List<NpcCustomer>();
     
     private int customersServed = 0;
-    public int customersBeforeTextMessage = 1;
+    public int customersBeforeTextMessage = 2;
 
     // New pause flag
     private bool isPaused = false;
@@ -49,14 +49,14 @@ public class CustomerQueue : MonoBehaviour
             return;
         }
 
-        // Toilet task trigger after 3rd customer
-        if (customersServed == 3)
-        {
-            Debug.Log($"[Queue] 3rd customer served — triggering toilet check");
-            isPaused = true;
-            CoffeeShopManager.Instance?.OnThirdCustomerServed();
-            return;
-        }
+        // Toilet task trigger after 4th customer
+     if (customersServed == 4)
+{
+    Debug.Log($"[Queue] 4th customer served — triggering toilet check");
+    isPaused = true;
+    CoffeeShopManager.Instance?.OnThirdCustomerServed();
+    return;
+}
 
         CallNextCustomer();
     }
