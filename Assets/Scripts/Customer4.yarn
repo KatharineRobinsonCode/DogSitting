@@ -7,15 +7,15 @@ Customer: Hello dear!
 
 title: Customer4_Order
 ---
-Customer: Hello lovely, it's so nice to see you again. I was just saying to Carol it's been too long since you last came round!
--> {$PlayerName}: Great to see you again! How is everything?
-   Customer: Bless you, we're doing well. You know Jamie keeps me busy!
-        -> {$PlayerName}: Haha, kids can be alot! What can I get you?
-        -> {$PlayerName}: Urgh, that's why I don't want kids. What can I get you?
+Customer: Hello sweetie! Thought you should know there's a lady crying in the bathroom?
+-> {$PlayerName}: Oh, thanks for letting me know.
+   Customer: I tried to speak with her but she just kept crying...
+        -> {$PlayerName}: Don't worry I'll check on her in a sec. What would you like to order?
+        -> {$PlayerName}: You should talk to strangers. What would you like to order?
              Customer: Just 2 draft beers for me today. As tempting as those doughnuts look!
--> {$PlayerName}: What can I get you?
-    Customer: Right, right. Just 2 draft beers for me today, need my energy looking after Jamie.
+-> {$PlayerName}: Great. What would you like to drink?
+    Customer: I'm sure she's harmless... Just 2 draft beers for me today. As tempting as those doughnuts look!
     {$PlayerName}: Sure, i'm on it.
-    Customer: Thanks
+    Customer: Thanks sweetie!
 <<CompleteOrderConversation_Customer4>>
 ===

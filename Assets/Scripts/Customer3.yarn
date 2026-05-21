@@ -1,21 +1,31 @@
 ﻿title: Customer3_Waiting
 ---
-Customer: ... Are you watching me?
-{$PlayerName}: Sorry, i'll leave you alone!
+Customer: Is it illegal to vape inside?
+{$PlayerName}: Yeah.
+Customer: Urgh
 <<CompleteWaitingConversation_Customer3>>
 ===
 
 title: Customer3_Order
 ---
-Customer: Hi. Do you remember me?
--> {$PlayerName}: Of course, it's been so long! How are you?
-    Customer: I can't believe you remember me... I'm okay...
-        -> {$PlayerName}: Of course I do! Can I take your order?
-        -> {$PlayerName}: ... Are you gonna order?
-             Customer: Yes. a spirit drink. Please.
--> {$PlayerName}: No, we've never met?
-    Customer: You never noticed me, but I noticed you...
-    {$PlayerName}: ... What would you like to order?
-    Customer: Any spirit drink. If that's okay?
+Customer: Hi. Man I need a drink!
+-> {$PlayerName}: You okay?
+    Customer: There was a fight outside, some guy was being a creep.
+        -> {$PlayerName}: Is it over now?
+            Customer: Yeah, he ran off with his dog like a coward.
+        -> {$PlayerName}: How was he a creep?
+            Customer: Was talking about some weird games he was gonna play with his girl, said he was taking pictures of her...
+                -> {$PlayerName}: Urgh, hope the woman he's talking about is okay.
+                -> {$PlayerName}: What would you like to drink?
+-> {$PlayerName}: Same.
+    Customer: The guy had it coming though, was being a real creep.
+    -> {$PlayerName}: How was he a creep?
+            Customer: Was talking about some weird games he was gonna play with his girl, said he was taking pictures of her...
+                -> {$PlayerName}: Urgh, hope the woman he's talking about is okay.
+                    Customer: Just get home safe!
+                        -> {$PlayerName}: Will do, what would you like to drink?
+                -> {$PlayerName}: What would you like to drink?
+    -> {$PlayerName}: What would you like to drink?
+ Customer: Any spirit will do!
 <<CompleteOrderConversation_Customer3>>
 ===
