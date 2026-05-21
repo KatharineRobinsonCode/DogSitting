@@ -43,8 +43,9 @@ public class TaskManager : MonoBehaviour
     #endregion
 
     #region Public API - Task Management
-    public void ShowTask(string taskText)
-    {
+  public void ShowTask(string taskText)
+{
+    Debug.Log($"[TaskManager] ShowTask called: {taskText}");
         if (string.IsNullOrWhiteSpace(taskText)) return;
         currentTask = taskText;
         RefreshDisplay();

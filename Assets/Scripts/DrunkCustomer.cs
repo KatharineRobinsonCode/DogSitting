@@ -73,22 +73,24 @@ private IEnumerator CallToCounterRoutine()
 
         HideUIElements();
     }
+public void CompleteOrderConversationKick()
+{
+    wasKickedOut = true;
+    HideUIElements();
 
-    public void CompleteOrderConversationKick()
+    // Notify order manager
+    if (OrderManager.Instance != null)
     {
-        wasKickedOut = true;
-        HideUIElements();
-
-        if (TaskManager.Instance != null)
-            TaskManager.Instance.ShowTask("Serve customers");
-
-        FinishOrderAndLeave();
+        OrderManager.Instance.CustomerLeft();
+        OrderManager.Instance.HideOrder();
     }
 
-    public override string GetInteractionPrompt()
-{
-    Debug.Log($"[DrunkCustomer] hasArrived: {hasArrivedAtCounter} hasFinishedWaiting: {hasFinishedWaitingConversation} itemsReceived: {itemsReceived} itemsExpected: {itemsExpected}");
-    return base.GetInteractionPrompt();
+    // Notify queue since we're skipping the register
+    CustomerQueue queue = FindFirstObjectByType<CustomerQueue>();
+    if (queue != null)
+        queue.CustomerLeft(this);
+
+    FinishOrderAndLeave();
 }
 
     // Override arrival to switch to drunk idle instead of normal idle
@@ -99,4 +101,18 @@ private IEnumerator CallToCounterRoutine()
         if (drunkAnim != null)
             drunkAnim.SetBool("isStanding", true);
     }
+    public override void FinishOrderAndLeave()
+{
+    hasBeenServed = true;
+    hasArrivedAtCounter = false;
+    isLeaving = true;
+
+    if (agent != null)
+    {
+        agent.enabled = true;
+        agent.isStopped = false;
+        agent.speed = walkSpeed;
+        agent.SetDestination(exitPoint.position);
+    }
+}
 }

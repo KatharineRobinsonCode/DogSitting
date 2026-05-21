@@ -89,10 +89,11 @@ public void OnThirdCustomerServed()
         customerQueue?.ResumeQueue();
     }
 
-    public void OnAllCustomersServed()
-    {
-        if (allCustomersServed) return;
-        allCustomersServed = true;
+   public void OnAllCustomersServed()
+{
+    Debug.Log("[CoffeeShopManager] OnAllCustomersServed called");
+    if (allCustomersServed) return;
+    allCustomersServed = true;
 
         foreach (NpcCustomer seated in seatedCustomers)
         {
