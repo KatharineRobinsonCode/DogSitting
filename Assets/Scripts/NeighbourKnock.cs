@@ -18,6 +18,9 @@ public class NeighbourKnock : MonoBehaviour, IInteractable
     [SerializeField] private float dialogueDelay = 2f;
 
     private bool hasKnocked = false;
+    
+    [Header("After Dialogue")]
+[SerializeField] private string afterKnockNode = "";
 
     private void Start()
     {
@@ -80,7 +83,7 @@ public class NeighbourKnock : MonoBehaviour, IInteractable
 
         yield return new WaitForSeconds(1f);
 
-        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
-            dialogueRunner.StartDialogue("AfterKnock");
+    if (!string.IsNullOrEmpty(afterKnockNode) && dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+    dialogueRunner.StartDialogue(afterKnockNode);
     }
 }

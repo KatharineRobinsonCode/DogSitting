@@ -77212,6 +77212,7 @@ MonoBehaviour:
   dialogueRunner: {fileID: 465915661}
   dialogueNode: NeighbourChat
   dialogueDelay: 1
+  afterKnockNode: AfterKnock
 --- !u!1001 &1187148046
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129333,6 +129334,7 @@ MonoBehaviour:
   dialogueRunner: {fileID: 465915661}
   dialogueNode: NeighbourSilence
   dialogueDelay: 2
+  afterKnockNode: 
 --- !u!82 &1936001732
 AudioSource:
   m_ObjectHideFlags: 0
