@@ -50,8 +50,21 @@ private void Update()
         TaskManager.Instance.IsCurrentTask("Check on the customer in the toilet"))
     {
         toiletDialogueTriggered = true;
+
         if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+        {
+            // Set up canvas same way NpcCustomer does
+            Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+            if (canvasComponent != null)
+            {
+                canvasComponent.gameObject.SetActive(true);
+                canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+                CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+                if (group != null) group.alpha = 1f;
+            }
+
             dialogueRunner.StartDialogue("ToiletThought");
+        }
     }
 }
 

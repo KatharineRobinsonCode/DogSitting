@@ -1,6 +1,6 @@
 ﻿title: ToiletKnock
 ---
-{$PlayerName}: You can hear crying from inside...
+{$PlayerName}: Erm hello? You okay in there?
 -> Should I knock?
     <<OnKnockYes>>
 -> I'll leave them to it.
