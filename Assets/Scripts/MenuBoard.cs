@@ -9,7 +9,7 @@ public class MenuBoard : MonoBehaviour, IInteractable
 
     public string GetInteractionPrompt()
     {
-        return isOpen ? "" : "Press E to read menu";
+        return isOpen ? "Press E to close" : "Press E to read menu";
     }
 
     public void Interact(PlayerInteraction player)
