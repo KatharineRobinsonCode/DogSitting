@@ -1,0 +1,9 @@
+﻿title: HotguyChat
+---
+Customer: Hey, how's it going?
+-> {$PlayerName}: Better for seeing you!
+    Customer: Haha, likewise.
+-> {$PlayerName}: Yeah good, I wanna go home.
+    Customer: ...
+{$PlayerName}: Well, see you around
+===
