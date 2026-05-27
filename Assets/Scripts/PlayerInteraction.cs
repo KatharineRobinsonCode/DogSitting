@@ -222,7 +222,7 @@ public void SetHoldingBroom(bool value)
             return true;
         }
         
-        Cup cup = hit.collider.GetComponentInParent<Cup>();
+       Cup cup = hit.collider.GetComponentInParent<Cup>();
         if (cup != null && currentHeldItem == null)
         {
             promptMessage = "Press E to pick up Cup";
@@ -262,14 +262,17 @@ public void SetHoldingBroom(bool value)
             bin.Interact(this);
             return;
         }
-        
-       Cup cup = hit.collider.GetComponentInParent<Cup>();
-if (cup != null && currentHeldItem == null)
-{
-    Debug.Log("[PlayerInteraction] Picking up cup: " + cup.gameObject.name);
-    PickUpItem(cup.gameObject);
-    return;
-}
+
+        Cup cup = hit.collider.GetComponentInParent<Cup>();
+        if (cup != null && currentHeldItem == null)
+        {
+            Debug.Log("[PlayerInteraction] Picking up cup: " + Cup.GetDisplayName(cup.contents));
+            cup.OnPickedUp();
+            PickUpItem(cup.gameObject);
+            return;
+        }     
+   
+
     }
     
     #endregion
