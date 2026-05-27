@@ -1,0 +1,31 @@
+﻿title: BreathingThought
+---
+{$PlayerName}: Jeez... I need to take a breath.
+===
+
+title: WindowNPCChat
+---
+Stranger: Hey! Sorry to bother you — my car broke down back there.
+Stranger: Any chance of a lift?
+-> {$PlayerName}: Let me call the police, they can help.
+    <<CallPolice>>
+-> {$PlayerName}: Sorry, I can't. Hope you find help.
+    <<DriveOff>>
+===
+
+title: PoliceCall
+---
+Officer: Brighton police, what's your emergency?
+{$PlayerName}: Hi, I'm on the coast road — someone's car has broken down.
+Officer: Thank you for calling. We'll send someone out.
+Officer: One more thing — we've had reports of a violent individual in that area tonight. Please stay safe.
+===
+
+title: AfterPoliceCall
+---
+-> {$PlayerName}: Help is coming. They mentioned reports of someone dangerous nearby...
+    Stranger: ...Right. Thanks for letting me know.
+-> {$PlayerName}: Someone's on their way.
+    Stranger: Cheers. I appreciate it.
+<<NpcWalksAway>>
+===

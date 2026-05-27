@@ -42,4 +42,8 @@ public class FollowCar : MonoBehaviour
 
         transform.LookAt(playerCar);
     }
+    public void StopFollowing()
+{
+    isActive = false;
+}
 }
