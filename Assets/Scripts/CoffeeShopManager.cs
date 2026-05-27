@@ -24,7 +24,6 @@ private bool toiletDialogueTriggered = false;
 
     private bool hasEnteredCounter = false;
     private bool allCustomersServed = false;
-    private bool leaveDialogueTriggered = false;
     private int dirtSpotsRemaining;
 
     private void Awake()
@@ -69,20 +68,6 @@ private void Update()
             dialogueRunner.StartDialogue("ToiletThought");
         }
     }
-if (!leaveDialogueTriggered &&
-    TaskManager.Instance != null &&
-    TaskManager.Instance.IsCurrentTask("Leave pub"))
-{
-    leaveDialogueTriggered = true;
-
-    if (dialogueRunner != null)
-    {
-        if (!dialogueRunner.IsDialogueRunning)
-            StartLeavePubDialogue();
-        else
-            dialogueRunner.onDialogueComplete.AddListener(OnReadyForLeavePub);
-    }
-}
 }
 private void OnReadyForLeavePub()
 {
@@ -146,16 +131,25 @@ public void OnThirdCustomerServed()
         FeedbackManager.Instance?.ShowMessage("Shift almost over - sweep up!", FeedbackManager.MessageType.Success);
     }
 
-    public void OnDirtSpotCleaned()
-    {
-        dirtSpotsRemaining--;
+public void OnDirtSpotCleaned()
+{
+    dirtSpotsRemaining--;
 
-        if (dirtSpotsRemaining <= 0)
+    if (dirtSpotsRemaining <= 0)
+    {
+        TaskManager.Instance?.ShowTask("Leave pub");
+        FeedbackManager.Instance?.ShowMessage("All clean! Head to the door.", FeedbackManager.MessageType.Success);
+
+        // Trigger leave dialogue directly here
+        if (dialogueRunner != null)
         {
-            TaskManager.Instance?.ShowTask("Leave pub");
-            FeedbackManager.Instance?.ShowMessage("All clean! Head to the door.", FeedbackManager.MessageType.Success);
+            if (!dialogueRunner.IsDialogueRunning)
+                StartLeavePubDialogue();
+            else
+                dialogueRunner.onDialogueComplete.AddListener(OnReadyForLeavePub);
         }
     }
+}
 
     private void OnTriggerEnter(Collider other)
     {
