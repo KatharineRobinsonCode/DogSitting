@@ -77,6 +77,8 @@ private void OnReadyForLeavePub()
 
 private void StartLeavePubDialogue()
 {
+    Debug.Log("[CoffeeShopManager] StartLeavePubDialogue called");
+    
     Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
     if (canvasComponent != null)
     {
@@ -86,6 +88,7 @@ private void StartLeavePubDialogue()
         if (group != null) group.alpha = 1f;
     }
 
+    Debug.Log($"[CoffeeShopManager] Starting node: LeavePub, canvas null: {canvasComponent == null}");
     dialogueRunner.StartDialogue("LeavePub");
 }
     public void OnPlayerEnteredCounterArea()
@@ -134,19 +137,24 @@ public void OnThirdCustomerServed()
 public void OnDirtSpotCleaned()
 {
     dirtSpotsRemaining--;
+    Debug.Log($"[CoffeeShopManager] Dirt spot cleaned, remaining: {dirtSpotsRemaining}, dialogueRunner null: {dialogueRunner == null}");
 
     if (dirtSpotsRemaining <= 0)
     {
         TaskManager.Instance?.ShowTask("Leave pub");
-        FeedbackManager.Instance?.ShowMessage("All clean! Head to the door.", FeedbackManager.MessageType.Success);
 
-        // Trigger leave dialogue directly here
+        Debug.Log($"[CoffeeShopManager] Starting leave dialogue, isRunning: {dialogueRunner?.IsDialogueRunning}");
+
         if (dialogueRunner != null)
         {
             if (!dialogueRunner.IsDialogueRunning)
                 StartLeavePubDialogue();
             else
                 dialogueRunner.onDialogueComplete.AddListener(OnReadyForLeavePub);
+        }
+        else
+        {
+            Debug.LogError("[CoffeeShopManager] dialogueRunner is NULL at leave pub!");
         }
     }
 }

@@ -65388,7 +65388,6 @@ MonoBehaviour:
   - {fileID: 1056141345}
   - {fileID: 1544563648}
   cryingAudio: {fileID: 2047778357}
-  dialogueRunner: {fileID: 0}
 --- !u!4 &2047778354
 Transform:
   m_ObjectHideFlags: 0
