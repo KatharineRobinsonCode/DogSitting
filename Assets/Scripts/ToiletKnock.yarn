@@ -1,9 +1,9 @@
 ﻿title: ToiletKnock
 ---
 {$PlayerName}: Erm hello? You okay in there?
--> Should I knock?
+    ->  I should knock
     <<OnKnockYes>>
--> I'll leave them to it.
+    -> I'll leave them to it.
     {$PlayerName}: I'll be at the bar if you need me.
     <<OnKnockNo>>
 ===
