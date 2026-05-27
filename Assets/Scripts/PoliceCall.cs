@@ -15,7 +15,7 @@ public class PoliceCall : MonoBehaviour
     [SerializeField] private AudioClip muffledCallClip;
 
     [Header("Dialogue")]
-    [SerializeField] private string policeDialogueNode = "PoliceCall";
+    [SerializeField] private string policeDialogueNode = "BreathingTought";
 
     private DialogueRunner dialogueRunner;
     private System.Action onComplete;
@@ -37,9 +37,14 @@ public class PoliceCall : MonoBehaviour
     private IEnumerator PoliceCallSequence()
     {
         // Show phone panel
-        if (phonePanel != null)
-            phonePanel.SetActive(true);
-
+     if (phonePanel != null)
+    {
+        Transform parent = phonePanel.transform.parent;
+        if (parent != null)
+            parent.gameObject.SetActive(true);
+            
+        phonePanel.SetActive(true);
+    }
         if (PauseManager.Instance != null)
             PauseManager.Instance.ShowCursorPublic();
 

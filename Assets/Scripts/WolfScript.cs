@@ -28,7 +28,7 @@ public class WolfTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (hasTriggered) return;
-        if (!other.CompareTag("Player") && !other.CompareTag("PlayerCar")) return;
+        if (!other.CompareTag("Player") && !other.CompareTag("Car")) return;
 
         hasTriggered = true;
         StartCoroutine(WolfSequence());
