@@ -1,7 +1,9 @@
 ﻿title: Customer6_Waiting
 ---
-Drunk: *hic* ...you're pretty
-{$PlayerName}: ...thanks
+Drunk: *hic* ...do you believe in ghosts?
+-> {$PlayerName}: Nope.
+-> {$PlayerName}: Yeah I do
+Drunk: I saw one today *hic*
 <<CompleteWaitingConversation_Customer6>>
 ===
 
