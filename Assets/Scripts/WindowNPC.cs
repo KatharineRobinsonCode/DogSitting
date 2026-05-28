@@ -53,6 +53,7 @@ public class WindowNPC : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteraction player)
 {
+    Debug.Log($"[WindowNPC] Interact called — isActive: {isActive}, isRunning: {dialogueRunner?.IsDialogueRunning}");
     if (!isActive || dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
     SetupCanvas();
@@ -70,7 +71,7 @@ public class WindowNPC : MonoBehaviour, IInteractable
 
     private void OnCallPolice()
     {
-        Debug.Log("[WindowNPC] CallPolice received");
+        Debug.Log("[WindowNPC] OnCallPolice fired!");
         StartCoroutine(WaitThenCall());
     }
 

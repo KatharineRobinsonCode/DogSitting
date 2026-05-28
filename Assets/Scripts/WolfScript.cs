@@ -35,9 +35,12 @@ public class WolfTrigger : MonoBehaviour
     }
 
     private IEnumerator WolfSequence()
+   {
+    if (carController != null)
     {
-        // Stop car and disable follow
-        if (carController != null) carController.StopCar();
+        carController.StopCar();
+        carController.DisableControls(); // ← add this
+    }
         if (followCar != null) followCar.StopFollowing();
 
         // Play jumpscare

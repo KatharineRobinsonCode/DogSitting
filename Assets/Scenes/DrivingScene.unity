@@ -54457,7 +54457,7 @@ MonoBehaviour:
   wolfEndPoint: {fileID: 129092528}
   breathingSequence: {fileID: 12090649}
   npcTransform: {fileID: 492663322}
-  wolfSpeed: 8
+  wolfSpeed: 12
   wolfRunTrigger: Run
   jumpscareAudio: {fileID: 1317512133}
   jumpscareClip: {fileID: 8300000, guid: 5b37b4db1460446c6b140153cfe048da, type: 3}
@@ -63931,6 +63931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindowNPC
   dialogueNode: WindowNPCChat
+  afterPoliceCallNode: AfterPoliceCall
   carController: {fileID: 1076752907}
   woodsWaypoint: {fileID: 532864989}
   policeCall: {fileID: 582984121}
@@ -87326,7 +87327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8095927965497407739, guid: 2c201f6401314d44d8ae94ca75376bab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.364
+      value: 3.78
       objectReference: {fileID: 0}
     - target: {fileID: 8095927965497407739, guid: 2c201f6401314d44d8ae94ca75376bab, type: 3}
       propertyPath: m_LocalPosition.y
@@ -87334,7 +87335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8095927965497407739, guid: 2c201f6401314d44d8ae94ca75376bab, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.8815
+      value: -1.459
       objectReference: {fileID: 0}
     - target: {fileID: 8095927965497407739, guid: 2c201f6401314d44d8ae94ca75376bab, type: 3}
       propertyPath: m_LocalRotation.w
