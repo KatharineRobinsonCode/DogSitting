@@ -21,28 +21,30 @@ public class CarMouseLook : MonoBehaviour
     private void Start()
     {
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        // Lock cursor here via PauseManager not directly
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.HideCursorPublic();
     }
 
-    private void OnEnable()
+    private void OnEnable() { } // Do nothing
+
+    private void OnDisable() { } // Do nothing
+
+    private void Update()
     {
-        Debug.Log("[CarMouseLook] OnEnable fired");
-        currentPitch = 0f;
-        currentYaw = 0f;
+        if (dialogueRunner != null && dialogueRunner.IsDialogueRunning) return;
+        if (PauseManager.Instance != null && PauseManager.Instance.IsPaused()) return;
+
+        float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
+
+        currentYaw += mouseX;
+        currentPitch -= mouseY;
+
+        currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
+        if (maxYaw > 0f)
+            currentYaw = Mathf.Clamp(currentYaw, -maxYaw, maxYaw);
+
+        transform.localRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
     }
-   private void Update()
-{
-    if (dialogueRunner != null && dialogueRunner.IsDialogueRunning) return;
-
-    float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
-    float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
-
-    currentYaw += mouseX;
-    currentPitch -= mouseY;
-
-    currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
-    if (maxYaw > 0f)
-        currentYaw = Mathf.Clamp(currentYaw, -maxYaw, maxYaw);
-
-    transform.localRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
-}
 }

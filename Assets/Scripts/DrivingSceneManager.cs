@@ -126,17 +126,14 @@ public class DrivingSceneManager : MonoBehaviour
     
     #region Driving Phase
     
-   private void StartDriving()
+ private void StartDriving()
 {
-    LogDebug("[DrivingScene] Starting driving phase");
-    
     if (TaskManager.Instance != null)
         TaskManager.Instance.ShowTask("Drive to the house");
-    
+
     if (carController != null)
         carController.EnableControls();
 
-    // Lock cursor for driving
     if (PauseManager.Instance != null)
         PauseManager.Instance.HideCursorPublic();
 
