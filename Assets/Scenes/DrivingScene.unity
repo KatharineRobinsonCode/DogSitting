@@ -54891,7 +54891,7 @@ MonoBehaviour:
   wolfRunTrigger: Run
   jumpscareAudio: {fileID: 1317512133}
   jumpscareClip: {fileID: 8300000, guid: 5b37b4db1460446c6b140153cfe048da, type: 3}
-  npcOffsetFromCar: {x: -1.5, y: -0.5, z: 0.65}
+  npcOffsetFromCar: {x: -1.5, y: -0.5, z: 0.7}
 --- !u!1 &408550876
 GameObject:
   m_ObjectHideFlags: 0
@@ -64174,6 +64174,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 333775983412167443, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 44d78faa3def4324681f26dd217721cf, type: 2}
     - target: {fileID: 1588916397017422816, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -64182,6 +64186,10 @@ PrefabInstance:
       propertyPath: 'm_BlendShapeWeights.Array.data[0]'
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2690939805822222186, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 44d78faa3def4324681f26dd217721cf, type: 2}
     - target: {fileID: 2959735182018519692, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -64256,7 +64264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8
+      value: -0.658
       objectReference: {fileID: 0}
     - target: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -64272,15 +64280,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9848078
+      value: 0.9659258
       objectReference: {fileID: 0}
     - target: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.17364816
+      value: -0.2588191
       objectReference: {fileID: 0}
     - target: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -64290,6 +64298,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5898692475899808504, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 44d78faa3def4324681f26dd217721cf, type: 2}
     - target: {fileID: 6412261420819968244, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -64306,6 +64318,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: fb1b225ead2ab38409538a8323a2b4f5, type: 2}
+    - target: {fileID: 8057179251487184112, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 44d78faa3def4324681f26dd217721cf, type: 2}
     - target: {fileID: 8093900900210005527, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -114625,7 +114641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 2100000, guid: 15ff4ba6789dd814a802a627b0fe38ca, type: 2}
   m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

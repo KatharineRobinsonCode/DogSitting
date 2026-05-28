@@ -1,6 +1,6 @@
 ﻿title: BreathingThought
 ---
-{$PlayerName}: Jeez... I need to take a breath.
+{$PlayerName}: ... I'm too tired, I need to take a break.
 ===
 
 title: WindowNPCChat
@@ -15,9 +15,9 @@ Stranger: Any chance of a lift?
 
 title: PoliceCall
 ---
-Officer: Brighton police, what's your emergency?
-{$PlayerName}: Hi, I'm on the coast road — someone's car has broken down.
-Officer: Thank you for calling. We'll send someone out.
+Officer: Highgate police, what's your emergency?
+{$PlayerName}: Hi, I'm on the country road — someone's car has broken down.
+Officer: Thank you for calling. We'll send someone to your location.
 Officer: One more thing — we've had reports of a violent individual in that area tonight. Please stay safe.
 ===
 
