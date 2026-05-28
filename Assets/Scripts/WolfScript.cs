@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using System.Collections;
 
 public class WolfTrigger : MonoBehaviour
@@ -6,6 +8,7 @@ public class WolfTrigger : MonoBehaviour
     [Header("References")]
     [SerializeField] private CarController carController;
     [SerializeField] private FollowCar followCar;
+    [SerializeField] private DrivingSceneManager drivingSceneManager;
     [SerializeField] private GameObject wolfObject;
     [SerializeField] private Transform wolfEndPoint;
     [SerializeField] private BreathingSequence breathingSequence;
@@ -13,8 +16,7 @@ public class WolfTrigger : MonoBehaviour
 
     [Header("Wolf Settings")]
     [SerializeField] private float wolfSpeed = 8f;
-    [SerializeField] private string wolfRunTrigger = "Run";
-
+    private Animator wolfAnimator;
     [Header("Audio")]
     [SerializeField] private AudioSource jumpscareAudio;
     [SerializeField] private AudioClip jumpscareClip;
@@ -22,8 +24,13 @@ public class WolfTrigger : MonoBehaviour
     [Header("NPC Teleport")]
     [SerializeField] private Vector3 npcOffsetFromCar = new Vector3(-1.5f, 0f, 0f);
 
+    [Header("QTE")]
+    [SerializeField] private GameObject qtePanel;
+    [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private float qteDuration = 10f;
+
     private bool hasTriggered = false;
-    private bool wolfRunning = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -35,29 +42,59 @@ public class WolfTrigger : MonoBehaviour
     }
 
     private IEnumerator WolfSequence()
-   {
-    if (carController != null)
     {
-        carController.StopCar();
-    }
+        // Stop car and follow car
+        if (carController != null) carController.StopCar();
         if (followCar != null) followCar.StopFollowing();
 
-        // Play jumpscare
+        // Play jumpscare audio
         if (jumpscareAudio != null && jumpscareClip != null)
             jumpscareAudio.PlayOneShot(jumpscareClip);
 
-        // Activate wolf and start running
-        if (wolfObject != null)
+        // Wolf is already placed in the middle of the road in the scene
+        // Make sure it's active and visible
+if (wolfObject != null)
+{
+    wolfObject.SetActive(true);
+    wolfAnimator = wolfObject.GetComponentInChildren<Animator>();
+}
+
+        // QTE — wolf stands still while player decides
+        if (qtePanel != null) qtePanel.SetActive(true);
+        if (promptText != null) promptText.text = "PRESS SPACE";
+
+        float timeLeft = qteDuration;
+        bool succeeded = false;
+
+        while (timeLeft > 0f)
         {
-            wolfObject.SetActive(true);
-            Animator wolfAnim = wolfObject.GetComponentInChildren<Animator>();
-            if (wolfAnim != null)
-                wolfAnim.SetTrigger(wolfRunTrigger);
-            wolfRunning = true;
+            timeLeft -= Time.deltaTime;
+            if (countdownText != null)
+                countdownText.text = Mathf.CeilToInt(timeLeft).ToString();
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                succeeded = true;
+                break;
+            }
+
+            yield return null;
         }
 
-        // Wait for wolf to reach end point
-        while (wolfRunning && wolfObject != null &&
+        if (qtePanel != null) qtePanel.SetActive(false);
+
+        if (!succeeded)
+        {
+            Debug.Log("[WolfTrigger] QTE failed — triggering crash ending");
+            if (wolfObject != null) wolfObject.SetActive(false);
+            if (drivingSceneManager != null) drivingSceneManager.TriggerCrashEnding();
+            yield break;
+        }
+
+        // Success — wolf now walks off the road
+        Debug.Log("[WolfTrigger] QTE succeeded — wolf clearing road");
+        if (wolfAnimator != null) wolfAnimator.SetBool("isWalking", true);
+        while (wolfObject != null &&
                Vector3.Distance(wolfObject.transform.position, wolfEndPoint.position) > 1f)
         {
             wolfObject.transform.position = Vector3.MoveTowards(
@@ -68,7 +105,6 @@ public class WolfTrigger : MonoBehaviour
             yield return null;
         }
 
-        wolfRunning = false;
         if (wolfObject != null) wolfObject.SetActive(false);
         Debug.Log("[WolfTrigger] Wolf finished — teleporting NPC");
 
@@ -86,7 +122,6 @@ public class WolfTrigger : MonoBehaviour
         // Small beat before breathing sequence
         yield return new WaitForSeconds(0.5f);
 
-        // Start breathing sequence
         if (breathingSequence != null)
             breathingSequence.Begin();
     }
