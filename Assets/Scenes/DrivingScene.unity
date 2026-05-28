@@ -54457,7 +54457,7 @@ MonoBehaviour:
   wolfEndPoint: {fileID: 129092528}
   breathingSequence: {fileID: 12090649}
   npcTransform: {fileID: 492663322}
-  wolfSpeed: 2
+  wolfSpeed: 8
   wolfRunTrigger: Run
   jumpscareAudio: {fileID: 1317512133}
   jumpscareClip: {fileID: 8300000, guid: 5b37b4db1460446c6b140153cfe048da, type: 3}
@@ -74460,7 +74460,7 @@ MonoBehaviour:
   phoneAudio: {fileID: 1790869295}
   ringClip: {fileID: 8300000, guid: 883612bf3066f4156a768dcfb496bc48, type: 3}
   muffledCallClip: {fileID: 8300000, guid: f4b725b8e41ae47bd91d120e3f2a4299, type: 3}
-  policeDialogueNode: BreathingThought
+  policeDialogueNode: PoliceCall
 --- !u!4 &582984122
 Transform:
   m_ObjectHideFlags: 0

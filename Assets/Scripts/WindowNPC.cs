@@ -6,6 +6,7 @@ public class WindowNPC : MonoBehaviour, IInteractable
 {
     [Header("Dialogue")]
     [SerializeField] private string dialogueNode = "WindowNPCChat";
+    [SerializeField] private string afterPoliceCallNode = "AfterPoliceCall";
 
     [Header("References")]
     [SerializeField] private CarController carController;
@@ -18,6 +19,7 @@ public class WindowNPC : MonoBehaviour, IInteractable
     private DialogueRunner dialogueRunner;
     private bool isActive = false;
     private bool isWalkingAway = false;
+    private bool policeCallComplete = false;
 
     private void Start()
     {
@@ -50,17 +52,13 @@ public class WindowNPC : MonoBehaviour, IInteractable
     }
 
     public void Interact(PlayerInteraction player)
-    {
-        if (!isActive || dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
+{
+    if (!isActive || dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
-        SetupCanvas();
-
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
-
-        dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-        dialogueRunner.StartDialogue(dialogueNode);
-    }
+    SetupCanvas();
+    dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+    dialogueRunner.StartDialogue(policeCallComplete ? afterPoliceCallNode : dialogueNode);
+}
 
     private void OnDialogueComplete()
     {
@@ -70,37 +68,32 @@ public class WindowNPC : MonoBehaviour, IInteractable
             PauseManager.Instance.HideCursorPublic();
     }
 
-  private void OnCallPolice()
-{
-    Debug.Log("[WindowNPC] CallPolice received");
-    // Close current dialogue first then start police call
-    StartCoroutine(WaitThenCall());
-}
+    private void OnCallPolice()
+    {
+        Debug.Log("[WindowNPC] CallPolice received");
+        StartCoroutine(WaitThenCall());
+    }
 
-private IEnumerator WaitThenCall()
-{
-    // Wait for current dialogue to finish
-    while (dialogueRunner.IsDialogueRunning)
-        yield return null;
+    private IEnumerator WaitThenCall()
+    {
+        while (dialogueRunner.IsDialogueRunning)
+            yield return null;
 
-    if (policeCall != null)
-        policeCall.Begin(OnPoliceCallComplete);
-    else
-        Debug.LogError("[WindowNPC] PoliceCall is null!");
-}
+        if (policeCall != null)
+            policeCall.Begin(OnPoliceCallComplete);
+        else
+            Debug.LogError("[WindowNPC] PoliceCall is null!");
+    }
 
     private void OnPoliceCallComplete()
     {
-        // Resume the after police call dialogue
+        policeCallComplete = true;
+
         if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
         {
             SetupCanvas();
-
-            if (PauseManager.Instance != null)
-                PauseManager.Instance.ShowCursorPublic();
-
             dialogueRunner.onDialogueComplete.AddListener(OnAfterPoliceDialogueComplete);
-            dialogueRunner.StartDialogue("AfterPoliceCall");
+            dialogueRunner.StartDialogue(afterPoliceCallNode);
         }
     }
 
@@ -138,7 +131,6 @@ private IEnumerator WaitThenCall()
                 walkSpeed * Time.deltaTime
             );
 
-            // Face direction of travel
             Vector3 dir = (woodsWaypoint.position - transform.position).normalized;
             if (dir != Vector3.zero)
                 transform.rotation = Quaternion.Slerp(
@@ -150,7 +142,6 @@ private IEnumerator WaitThenCall()
             yield return null;
         }
 
-        // Reached woods — enable car and hide NPC
         gameObject.SetActive(false);
         EnableDriving();
     }
@@ -178,5 +169,8 @@ private IEnumerator WaitThenCall()
             CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
             if (group != null) group.alpha = 1f;
         }
+
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.ShowCursorPublic();
     }
 }
