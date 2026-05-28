@@ -39,7 +39,6 @@ public class WolfTrigger : MonoBehaviour
     if (carController != null)
     {
         carController.StopCar();
-        carController.DisableControls(); // ← add this
     }
         if (followCar != null) followCar.StopFollowing();
 
@@ -71,6 +70,7 @@ public class WolfTrigger : MonoBehaviour
 
         wolfRunning = false;
         if (wolfObject != null) wolfObject.SetActive(false);
+        Debug.Log("[WolfTrigger] Wolf finished — teleporting NPC");
 
         // Teleport NPC to car window
         if (npcTransform != null && carController != null)

@@ -99,4 +99,10 @@ public void StopCar()
     // while parked and interact with the radio
 }
     public float CurrentSpeed => currentSpeed;
+
+    public void ResumeCar()
+{
+    isStopped = false;
+    currentSpeed = 0f;
+}
 }

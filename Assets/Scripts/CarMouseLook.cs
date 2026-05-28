@@ -1,4 +1,5 @@
 using UnityEngine;
+using Yarn.Unity;
 
 public class CarMouseLook : MonoBehaviour
 {
@@ -15,34 +16,33 @@ public class CarMouseLook : MonoBehaviour
 
     private float currentPitch = 0f;
     private float currentYaw = 0f;
+    private DialogueRunner dialogueRunner;
+
+    private void Start()
+    {
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+    }
 
     private void OnEnable()
     {
         Debug.Log("[CarMouseLook] OnEnable fired");
         currentPitch = 0f;
         currentYaw = 0f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
+   private void Update()
+{
+    if (dialogueRunner != null && dialogueRunner.IsDialogueRunning) return;
 
-    private void OnDisable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
+    float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
+    float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
 
-    private void Update()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
-        
-        currentYaw   += mouseX;
-        currentPitch -= mouseY;
+    currentYaw += mouseX;
+    currentPitch -= mouseY;
 
-        currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
-        if (maxYaw > 0f)
-            currentYaw = Mathf.Clamp(currentYaw, -maxYaw, maxYaw);
+    currentPitch = Mathf.Clamp(currentPitch, minPitch, maxPitch);
+    if (maxYaw > 0f)
+        currentYaw = Mathf.Clamp(currentYaw, -maxYaw, maxYaw);
 
-        transform.localRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
-    }
+    transform.localRotation = Quaternion.Euler(currentPitch, currentYaw, 0f);
+}
 }

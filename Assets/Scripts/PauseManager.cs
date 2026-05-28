@@ -133,14 +133,16 @@ public class PauseManager : MonoBehaviour
     #endregion
     
     #region Input Handling
-    
     private void HandlePauseInput()
+{
+    if (Input.GetKeyDown(PAUSE_KEY))
     {
-        if (Input.GetKeyDown(PAUSE_KEY))
-        {
-            NavigateBack();
-        }
+        DialogueRunner runner = FindFirstObjectByType<DialogueRunner>();
+        if (runner != null && runner.IsDialogueRunning) return;
+        
+        NavigateBack();
     }
+}
     
     private void NavigateBack()
     {

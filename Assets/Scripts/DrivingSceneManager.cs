@@ -136,7 +136,10 @@ public class DrivingSceneManager : MonoBehaviour
     if (carController != null)
         carController.EnableControls();
 
-    // ADD THIS:
+    // Lock cursor for driving
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.HideCursorPublic();
+
     FollowCar followCar = FindFirstObjectByType<FollowCar>();
     followCar?.StartFollowing();
 }

@@ -51,14 +51,18 @@ public class WindowNPC : MonoBehaviour, IInteractable
         return "Press E to talk";
     }
 
-    public void Interact(PlayerInteraction player)
+   public void Interact(PlayerInteraction player)
 {
     Debug.Log($"[WindowNPC] Interact called — isActive: {isActive}, isRunning: {dialogueRunner?.IsDialogueRunning}");
     if (!isActive || dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
+    Debug.Log("[WindowNPC] Setting up canvas");
     SetupCanvas();
+    
+    Debug.Log($"[WindowNPC] Starting dialogue node: {(policeCallComplete ? afterPoliceCallNode : dialogueNode)}");
     dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
     dialogueRunner.StartDialogue(policeCallComplete ? afterPoliceCallNode : dialogueNode);
+    Debug.Log("[WindowNPC] StartDialogue called");
 }
 
     private void OnDialogueComplete()
@@ -110,11 +114,13 @@ public class WindowNPC : MonoBehaviour, IInteractable
 
     private void OnDriveOff()
     {
+        Debug.Log("[WindowNPC] OnDriveOff fired!");
         StartWalkingToWoods();
     }
 
     public void StartWalkingToWoods()
     {
+        Debug.Log("[WindowNPC] StartWalkingToWoods called!");
         isActive = false;
         isWalkingAway = true;
         StartCoroutine(WalkToWoods());
@@ -122,10 +128,14 @@ public class WindowNPC : MonoBehaviour, IInteractable
 
     private IEnumerator WalkToWoods()
     {
-        if (woodsWaypoint == null) yield break;
+    if (woodsWaypoint == null) yield break;
 
-        while (Vector3.Distance(transform.position, woodsWaypoint.position) > 0.5f)
-        {
+    Animator anim = GetComponentInChildren<Animator>();
+    if (anim != null)
+        anim.SetFloat("Speed", walkSpeed);
+
+    while (Vector3.Distance(transform.position, woodsWaypoint.position) > 0.5f)
+    {
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 woodsWaypoint.position,
@@ -140,16 +150,19 @@ public class WindowNPC : MonoBehaviour, IInteractable
                     Time.deltaTime * 5f
                 );
 
-            yield return null;
-        }
-
-        gameObject.SetActive(false);
-        EnableDriving();
+             yield return null;
     }
 
+    // Stop animation when reached
+    if (anim != null)
+        anim.SetFloat("Speed", 0f);
+
+    gameObject.SetActive(false);
+    EnableDriving();
+}
     private void EnableDriving()
     {
-        if (carController != null)
+         carController.ResumeCar(); 
             carController.EnableControls();
 
         if (TaskManager.Instance != null)
@@ -160,18 +173,18 @@ public class WindowNPC : MonoBehaviour, IInteractable
             followCar.StartFollowing();
     }
 
-    private void SetupCanvas()
+private void SetupCanvas()
+{
+    Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+    if (canvasComponent != null)
     {
-        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
-        if (canvasComponent != null)
-        {
-            canvasComponent.gameObject.SetActive(true);
-            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
-            CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
-            if (group != null) group.alpha = 1f;
-        }
-
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+        canvasComponent.gameObject.SetActive(true);
+        canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+        CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+        if (group != null) group.alpha = 1f;
     }
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.ShowCursorPublic();
+}
 }
