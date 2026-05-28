@@ -70,11 +70,24 @@ public class WindowNPC : MonoBehaviour, IInteractable
             PauseManager.Instance.HideCursorPublic();
     }
 
-    private void OnCallPolice()
-    {
-        if (policeCall != null)
-            policeCall.Begin(OnPoliceCallComplete);
-    }
+  private void OnCallPolice()
+{
+    Debug.Log("[WindowNPC] CallPolice received");
+    // Close current dialogue first then start police call
+    StartCoroutine(WaitThenCall());
+}
+
+private IEnumerator WaitThenCall()
+{
+    // Wait for current dialogue to finish
+    while (dialogueRunner.IsDialogueRunning)
+        yield return null;
+
+    if (policeCall != null)
+        policeCall.Begin(OnPoliceCallComplete);
+    else
+        Debug.LogError("[WindowNPC] PoliceCall is null!");
+}
 
     private void OnPoliceCallComplete()
     {

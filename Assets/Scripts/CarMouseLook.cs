@@ -35,9 +35,7 @@ public class CarMouseLook : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * sensitivityX;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivityY;
-        Debug.Log($"[CarMouseLook] mouseX:{mouseX} mouseY:{mouseY}"); // remove after testing
-
-
+        
         currentYaw   += mouseX;
         currentPitch -= mouseY;
 

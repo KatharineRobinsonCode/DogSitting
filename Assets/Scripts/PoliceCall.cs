@@ -34,71 +34,68 @@ public class PoliceCall : MonoBehaviour
         StartCoroutine(PoliceCallSequence());
     }
 
-    private IEnumerator PoliceCallSequence()
-    {
-        // Show phone panel
-     if (phonePanel != null)
-    {
-        Transform parent = phonePanel.transform.parent;
-        if (parent != null)
-            parent.gameObject.SetActive(true);
-            
+   private IEnumerator PoliceCallSequence()
+{
+        Debug.Log($"[PoliceCall] phonePanel null: {phonePanel == null}");
+    Debug.Log($"[PoliceCall] phonePanel name: {phonePanel?.name}");
+    
+    if (phonePanel != null)
         phonePanel.SetActive(true);
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.ShowCursorPublic();
+
+    // Play ring once
+    if (phoneAudio != null && ringClip != null)
+    {
+        phoneAudio.PlayOneShot(ringClip);
+        yield return new WaitForSeconds(ringClip.length);
     }
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
 
-        // Play ring once
-        if (phoneAudio != null && ringClip != null)
-        {
-            phoneAudio.PlayOneShot(ringClip);
-            yield return new WaitForSeconds(ringClip.length);
-        }
-
-        // Start muffled call audio looping in background
-        if (phoneAudio != null && muffledCallClip != null)
-        {
-            phoneAudio.clip = muffledCallClip;
-            phoneAudio.loop = true;
-            phoneAudio.Play();
-        }
-
-        // Start police dialogue
-        if (dialogueRunner != null)
-        {
-            Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
-            if (canvasComponent != null)
-            {
-                canvasComponent.gameObject.SetActive(true);
-                canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
-                CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
-                if (group != null) group.alpha = 1f;
-            }
-
-            bool dialogueDone = false;
-            dialogueRunner.onDialogueComplete.AddListener(() => dialogueDone = true);
-            dialogueRunner.StartDialogue(policeDialogueNode);
-
-            while (!dialogueDone) yield return null;
-
-            dialogueRunner.onDialogueComplete.RemoveListener(() => dialogueDone = true);
-        }
-
-        // Stop muffled audio
-        if (phoneAudio != null)
-        {
-            phoneAudio.loop = false;
-            phoneAudio.Stop();
-        }
-
-        // Hide phone panel
-        if (phonePanel != null)
-            phonePanel.SetActive(false);
-
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.HideCursorPublic();
-
-        // Notify WindowNPC call is done
-        onComplete?.Invoke();
+    // Start muffled call audio looping
+    if (phoneAudio != null && muffledCallClip != null)
+    {
+        phoneAudio.clip = muffledCallClip;
+        phoneAudio.loop = true;
+        phoneAudio.Play();
     }
+
+    // Start police dialogue
+    if (dialogueRunner != null)
+    {
+        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+        if (canvasComponent != null)
+        {
+            canvasComponent.gameObject.SetActive(true);
+            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+            if (group != null) group.alpha = 1f;
+        }
+
+        dialogueRunner.onDialogueComplete.AddListener(OnPoliceDialogueComplete);
+        dialogueRunner.StartDialogue(policeDialogueNode);
+    }
+}
+
+private void OnPoliceDialogueComplete()
+{
+    dialogueRunner.onDialogueComplete.RemoveListener(OnPoliceDialogueComplete);
+
+    // Stop muffled audio
+    if (phoneAudio != null)
+    {
+        phoneAudio.loop = false;
+        phoneAudio.Stop();
+    }
+
+    // Hide phone panel
+    if (phonePanel != null)
+        phonePanel.SetActive(false);
+
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.HideCursorPublic();
+
+    // Notify WindowNPC call is done
+    onComplete?.Invoke();
+}
 }
