@@ -18,8 +18,10 @@ public class WolfTrigger : MonoBehaviour
     [SerializeField] private float wolfSpeed = 8f;
     private Animator wolfAnimator;
     [Header("Audio")]
-    [SerializeField] private AudioSource jumpscareAudio;
-    [SerializeField] private AudioClip jumpscareClip;
+[SerializeField] private AudioSource jumpscareAudio;
+[SerializeField] private AudioClip jumpscareClip;
+[SerializeField] private AudioSource heartbeatAudio;
+[SerializeField] private AudioClip heartbeatClip;
 
     [Header("NPC Teleport")]
     [SerializeField] private Vector3 npcOffsetFromCar = new Vector3(-1.5f, 0f, 0f);
@@ -47,10 +49,16 @@ public class WolfTrigger : MonoBehaviour
         if (carController != null) carController.StopCar();
         if (followCar != null) followCar.StopFollowing();
 
-        // Play jumpscare audio
-        if (jumpscareAudio != null && jumpscareClip != null)
-            jumpscareAudio.PlayOneShot(jumpscareClip);
+       if (carController != null) carController.StopCar();
+if (followCar != null) followCar.StopFollowing();
 
+// Swap engine audio for heartbeat
+if (heartbeatAudio != null && heartbeatClip != null)
+{
+    heartbeatAudio.clip = heartbeatClip;
+    heartbeatAudio.loop = true;
+    heartbeatAudio.Play();
+}
         // Wolf is already placed in the middle of the road in the scene
         // Make sure it's active and visible
 if (wolfObject != null)
@@ -87,6 +95,7 @@ if (wolfObject != null)
         {
             Debug.Log("[WolfTrigger] QTE failed — triggering crash ending");
             if (wolfObject != null) wolfObject.SetActive(false);
+            if (heartbeatAudio != null) heartbeatAudio.Stop();
             if (drivingSceneManager != null) drivingSceneManager.TriggerCrashEnding();
             yield break;
         }
@@ -106,6 +115,7 @@ if (wolfObject != null)
         }
 
         if (wolfObject != null) wolfObject.SetActive(false);
+        if (heartbeatAudio != null) heartbeatAudio.Stop();
         Debug.Log("[WolfTrigger] Wolf finished — teleporting NPC");
 
         // Teleport NPC to car window
