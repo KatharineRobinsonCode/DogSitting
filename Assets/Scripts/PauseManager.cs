@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Yarn.Unity;
+
 
 /// <summary>
 /// Manages pause menu state, navigation between submenus, and game settings.
