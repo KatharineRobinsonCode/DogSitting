@@ -112,11 +112,19 @@ public class WindowNPC : MonoBehaviour, IInteractable
         StartWalkingToWoods();
     }
 
-    private void OnDriveOff()
-    {
-        Debug.Log("[WindowNPC] OnDriveOff fired!");
-        StartWalkingToWoods();
-    }
+   private void OnDriveOff()
+{
+    Debug.Log("[WindowNPC] OnDriveOff fired!");
+    StartCoroutine(WaitThenDriveOff());
+}
+
+private IEnumerator WaitThenDriveOff()
+{
+    while (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+        yield return null;
+
+    StartWalkingToWoods();
+}
 
     public void StartWalkingToWoods()
     {
