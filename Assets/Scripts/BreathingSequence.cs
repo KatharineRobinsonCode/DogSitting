@@ -15,7 +15,7 @@ public class BreathingSequence : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource knockAudio;
     [SerializeField] private AudioClip knockClip;
-    [SerializeField] private AudioSource heartbeatAudio;
+    private AudioSource heartbeatAudio;
 
 public void SetHeartbeat(AudioSource audio)
 {
