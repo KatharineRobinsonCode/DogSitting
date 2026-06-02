@@ -22,6 +22,10 @@ public class BreathingSequence : MonoBehaviour
     [Header("References")]
     [SerializeField] private WindowNPC windowNPC;
 
+    private Transform npcTransform;
+private Vector3 npcTargetPosition;
+private Transform carTransform;
+
     private DialogueRunner dialogueRunner;
     private bool waitingForE = false;
 
@@ -80,6 +84,14 @@ public class BreathingSequence : MonoBehaviour
         yield return StartCoroutine(FadeVignette(0.1f, 1f, sleepFadeTime));
 
         yield return new WaitForSeconds(sleepDuration);
+// Teleport NPC while screen is fully black — player can't see it happen
+if (npcTransform != null)
+{
+    npcTransform.position = npcTargetPosition;
+    if (carTransform != null)
+        npcTransform.LookAt(carTransform);
+    Debug.Log("[BreathingSequence] NPC teleported to window");
+}
 
         // Knock sound to wake up
         if (knockAudio != null && knockClip != null)
@@ -111,4 +123,10 @@ public class BreathingSequence : MonoBehaviour
 
         vignetteImage.color = new Color(0, 0, 0, to);
     }
+    public void SetNPCTarget(Transform npc, Vector3 targetPos, Transform car)
+{
+    npcTransform = npc;
+    npcTargetPosition = targetPos;
+    carTransform = car;
+}
 }

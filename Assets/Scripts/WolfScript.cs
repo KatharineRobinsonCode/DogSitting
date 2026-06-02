@@ -118,16 +118,17 @@ if (wolfObject != null)
         if (heartbeatAudio != null) heartbeatAudio.Stop();
         Debug.Log("[WolfTrigger] Wolf finished — teleporting NPC");
 
-        // Teleport NPC to car window
-        if (npcTransform != null && carController != null)
-        {
-            Vector3 npcPos = carController.transform.position
-                + carController.transform.right * npcOffsetFromCar.x
-                + carController.transform.up * npcOffsetFromCar.y
-                + carController.transform.forward * npcOffsetFromCar.z;
-            npcTransform.position = npcPos;
-            npcTransform.LookAt(carController.transform);
-        }
+      // Calculate target position and pass to BreathingSequence
+// NPC will teleport later while screen is black
+if (npcTransform != null && carController != null)
+{
+    Vector3 npcPos = carController.transform.position
+        + carController.transform.right * npcOffsetFromCar.x
+        + carController.transform.up * npcOffsetFromCar.y
+        + carController.transform.forward * npcOffsetFromCar.z;
+
+    breathingSequence.SetNPCTarget(npcTransform, npcPos, carController.transform);
+}
 
         // Small beat before breathing sequence
         yield return new WaitForSeconds(0.5f);

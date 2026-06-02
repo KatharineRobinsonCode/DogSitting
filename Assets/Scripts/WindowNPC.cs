@@ -134,34 +134,43 @@ private IEnumerator WaitThenDriveOff()
         StartCoroutine(WalkToWoods());
     }
 
-    private IEnumerator WalkToWoods()
+private IEnumerator WalkToWoods()
+{
+    Debug.Log("[WindowNPC] WalkToWoods started");
+    
+    if (woodsWaypoint == null)
     {
-    if (woodsWaypoint == null) yield break;
+        Debug.LogError("[WindowNPC] woodsWaypoint is NULL — EnableDriving will never be called!");
+        yield break;
+    }
 
+    Debug.Log("[WindowNPC] Walking to waypoint...");
+    
     Animator anim = GetComponentInChildren<Animator>();
     if (anim != null)
         anim.SetFloat("Speed", walkSpeed);
 
     while (Vector3.Distance(transform.position, woodsWaypoint.position) > 0.5f)
     {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                woodsWaypoint.position,
-                walkSpeed * Time.deltaTime
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            woodsWaypoint.position,
+            walkSpeed * Time.deltaTime
+        );
+
+        Vector3 dir = (woodsWaypoint.position - transform.position).normalized;
+        if (dir != Vector3.zero)
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(dir),
+                Time.deltaTime * 5f
             );
 
-            Vector3 dir = (woodsWaypoint.position - transform.position).normalized;
-            if (dir != Vector3.zero)
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(dir),
-                    Time.deltaTime * 5f
-                );
-
-             yield return null;
+        yield return null;
     }
 
-    // Stop animation when reached
+    Debug.Log("[WindowNPC] Reached waypoint — calling EnableDriving");
+    
     if (anim != null)
         anim.SetFloat("Speed", 0f);
 
