@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 /// <summary>
 /// Manages the driving scene flow including intro, driving, and transitions.
@@ -42,6 +43,13 @@ public class DrivingSceneManager : MonoBehaviour
     
     [Header("Debug")]
     [SerializeField] private bool enableDebugLogs = true;
+
+    [Header("Post-Intro Sequence")]
+[SerializeField] private AudioSource yawnAudio;
+[SerializeField] private AudioClip yawnClip;
+[SerializeField] private GameObject internalDialoguePanel;
+[SerializeField] private TextMeshProUGUI internalDialogueText;
+[SerializeField] private float internalDialogueDuration = 3f;
     
     #endregion
     
@@ -107,20 +115,39 @@ public class DrivingSceneManager : MonoBehaviour
         }
     }
     
-    private IEnumerator WaitForIntroToComplete()
+  private IEnumerator WaitForIntroToComplete()
+{
+    // Wait for intro panel to finish
+    while (introSequence != null && !introSequence.IsComplete())
     {
-        // Wait for intro to finish
-        while (introSequence != null && !introSequence.IsComplete())
-        {
-            yield return null;
-        }
-        
-        LogDebug("[DrivingScene] Intro complete");
-        
-        yield return new WaitForSeconds(delayAfterIntro);
-        
-        StartDriving();
+        yield return null;
     }
+
+    LogDebug("[DrivingScene] Intro complete");
+
+    yield return new WaitForSeconds(delayAfterIntro);
+
+    // Play yawn once
+    if (yawnAudio != null && yawnClip != null)
+        yawnAudio.PlayOneShot(yawnClip);
+
+    // Show internal dialogue
+    if (internalDialoguePanel != null)
+    {
+        internalDialoguePanel.SetActive(true);
+        if (internalDialogueText != null)
+            internalDialogueText.text = "Wow I'm tired... better hurry up and get to Brinkley.";
+    }
+
+    // Wait for player to read it
+    yield return new WaitForSeconds(internalDialogueDuration);
+
+    // Hide internal dialogue
+    if (internalDialoguePanel != null)
+        internalDialoguePanel.SetActive(false);
+
+    StartDriving();
+}
     
     #endregion
     
