@@ -5,9 +5,9 @@
 
 title: WindowNPCChat
 ---
-Stranger: Hey! Sorry to bother you — my car broke down back there.
-Stranger: Any chance of a lift?
--> {$PlayerName}: Let me call the police, they can help.
+Stranger: Hey! You okay?...
+Stranger: Look — my car broke down back there. Any chance of a lift? Looks like you need someone to keep you awake.
+-> {$PlayerName}: Let me call the police, they can help you.
     <<CallPolice>>
 -> {$PlayerName}: Sorry, I can't. Hope you find help.
     <<DriveOff>>
@@ -17,15 +17,16 @@ title: PoliceCall
 ---
 Officer: Highgate police, what's your emergency?
 {$PlayerName}: Hi, I'm on the country road — someone's car has broken down.
-Officer: Thank you for calling. We'll send someone to your location.
+Officer: Thank you for calling. We'll send someone to your phones current location.
 Officer: One more thing — we've had reports of a violent individual in that area tonight. Please stay safe.
 ===
 
 title: AfterPoliceCall
 ---
 -> {$PlayerName}: Help is coming. They mentioned reports of someone dangerous nearby...
-    Stranger: ...Right. Thanks for letting me know.
--> {$PlayerName}: Someone's on their way.
-    Stranger: Cheers. I appreciate it.
+    Stranger: ... That's scary. Maybe you should stay and keep me company?
+-> {$PlayerName}: Someone's on their way, stay here.
+    Stranger: Kinda creepy out here, wish you'd keep me company...
+    -> {$PlayerName}: ...
 <<NpcWalksAway>>
 ===
