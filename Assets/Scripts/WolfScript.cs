@@ -127,12 +127,12 @@ if (npcTransform != null && carController != null)
         + carController.transform.forward * npcOffsetFromCar.z;
 
     breathingSequence.SetNPCTarget(npcTransform, npcPos, carController.transform);
+    breathingSequence.SetHeartbeat(heartbeatAudio);
 }
 
-        // Small beat before breathing sequence
-        yield return new WaitForSeconds(0.5f);
+yield return new WaitForSeconds(0.5f);
 
-        if (breathingSequence != null)
-            breathingSequence.Begin();
+if (breathingSequence != null)
+    breathingSequence.Begin();
     }
 }

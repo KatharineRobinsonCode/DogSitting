@@ -87,7 +87,8 @@ private Transform carTransform;
         }
 
         // Fall asleep — fade to full black
-        yield return StartCoroutine(FadeVignette(0.1f, 1f, sleepFadeTime));
+yield return StartCoroutine(FadeVignette(0.1f, 1f, sleepFadeTime));
+Debug.Log($"[BreathingSequence] Attempting heartbeat stop — audio is null: {heartbeatAudio == null}");
 if (heartbeatAudio != null) heartbeatAudio.Stop();
         yield return new WaitForSeconds(sleepDuration);
 // Teleport NPC while screen is fully black — player can't see it happen
