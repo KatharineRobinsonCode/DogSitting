@@ -115,7 +115,6 @@ if (wolfObject != null)
         }
 
         if (wolfObject != null) wolfObject.SetActive(false);
-        if (heartbeatAudio != null) heartbeatAudio.Stop();
         Debug.Log("[WolfTrigger] Wolf finished — teleporting NPC");
 
       // Calculate target position and pass to BreathingSequence

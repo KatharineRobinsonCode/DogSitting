@@ -15,6 +15,12 @@ public class BreathingSequence : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource knockAudio;
     [SerializeField] private AudioClip knockClip;
+    [SerializeField] private AudioSource heartbeatAudio;
+
+public void SetHeartbeat(AudioSource audio)
+{
+    heartbeatAudio = audio;
+}
 
     [Header("Dialogue")]
     [SerializeField] private string breatheDialogueNode = "BreathingThought";
@@ -82,7 +88,7 @@ private Transform carTransform;
 
         // Fall asleep — fade to full black
         yield return StartCoroutine(FadeVignette(0.1f, 1f, sleepFadeTime));
-
+if (heartbeatAudio != null) heartbeatAudio.Stop();
         yield return new WaitForSeconds(sleepDuration);
 // Teleport NPC while screen is fully black — player can't see it happen
 if (npcTransform != null)

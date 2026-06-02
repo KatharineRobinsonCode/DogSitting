@@ -65988,7 +65988,7 @@ MonoBehaviour:
   dialogueNode: WindowNPCChat
   afterPoliceCallNode: AfterPoliceCall
   carController: {fileID: 1076752907}
-  woodsWaypoint: {fileID: 0}
+  woodsWaypoint: {fileID: 1709902321}
   policeCall: {fileID: 582984121}
   walkSpeed: 2
 --- !u!4 &492663322 stripped
@@ -207334,10 +207334,11 @@ MonoBehaviour:
   introCanvasGroup: {fileID: 1495214759}
   introText: {fileID: 741182925}
   entireIntroUI: {fileID: 469155925}
-  fullText: "[Press E to skip]\n\nYou're off to look after Brinkley, such a cute
-    dog. Carol is such a good friend, you're always happy to help. Even after a long
-    shift and a run in with your ex. \n\nDriving at night is normally pretty peaceful,
-    but today it feels strange... "
+  fullText: '[Press E to skip]
+
+
+    You wish you could just go home and sleep but
+    you need the money, just gotta get to Carol''s apartment safely... '
   typingSpeed: 0.08
   audioSource: {fileID: 469155926}
   typingSound: {fileID: 8300000, guid: 79e39c41c4c674c5bbf167c85bb904ab, type: 3}
