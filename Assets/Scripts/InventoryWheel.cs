@@ -24,16 +24,17 @@ public class InventoryWheel : MonoBehaviour
         if (wheelPanel != null) wheelPanel.SetActive(false);
         if (activeItemHUD != null) activeItemHUD.SetActive(false);
     }
+public void ToggleWheel(List<InventoryItemData> items)
+{
+    if (!isOpen && items.Count == 0) return;  // don't open if nothing to show
 
-    public void ToggleWheel(List<InventoryItemData> items)
-    {
-        isOpen = !isOpen;
+    isOpen = !isOpen;
 
-        if (isOpen)
-            OpenWheel(items);
-        else
-            CloseWheel();
-    }
+    if (isOpen)
+        OpenWheel(items);
+    else
+        CloseWheel();
+}
 
     public void RefreshIfOpen(List<InventoryItemData> items)
     {

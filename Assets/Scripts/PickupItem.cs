@@ -77,24 +77,27 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         StartCoroutine(WaitForPickupChoice());
     }
+private System.Collections.IEnumerator WaitForPickupChoice()
+{
+    // Wait two frames so the E press from dismissing dialogue doesn't bleed through
+    yield return null;
+    yield return null;
 
-    private System.Collections.IEnumerator WaitForPickupChoice()
+    while (true)
     {
-        while (true)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                PickUp();
-                yield break;
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                Leave();
-                yield break;
-            }
-            yield return null;
+            PickUp();
+            yield break;
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Leave();
+            yield break;
+        }
+        yield return null;
     }
+}
 
     private void PickUp()
     {
