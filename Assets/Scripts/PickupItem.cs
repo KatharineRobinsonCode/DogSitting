@@ -19,16 +19,21 @@ public class PickupItem : MonoBehaviour, IInteractable
     private bool hasBeenPickedUp = false;
     private bool dialogueDone = false;  // ← now a field, not a local variable
 
-    private void Start()
+   private static bool commandRegistered = false;
+
+private void Start()
+{
+    dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
+    if (dialogueRunner != null && !commandRegistered)
     {
-        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
-        if (dialogueRunner != null)
-            dialogueRunner.AddCommandHandler("PickUpItem", OnPickUpCommand);
-
-        if (pickupChoicePanel != null)
-            pickupChoicePanel.SetActive(false);
+        dialogueRunner.AddCommandHandler("PickUpItem", OnPickUpCommand);
+        commandRegistered = true;
     }
+
+    if (pickupChoicePanel != null)
+        pickupChoicePanel.SetActive(false);
+}
 
     public string GetInteractionPrompt()
     {
