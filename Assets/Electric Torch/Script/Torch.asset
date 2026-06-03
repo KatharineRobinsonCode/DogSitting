@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5f1536608ad4986872202ca49f5cb0, type: 3}
   m_Name: Torch
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
-  itemName: 
+  itemName: Torch
   icon: {fileID: 0}
   itemType: 0
-  isUsableAnywhere: 0
+  isUsableAnywhere: 1
   usePrompt: Press F to use
