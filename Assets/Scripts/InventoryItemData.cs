@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ItemType { Torch, SqueakyToy, Collar, Knife, Generic }
+public enum ItemType { Torch, SqueakyToy, Collar, Knife, DogFood, Generic }
 
 [CreateAssetMenu(fileName = "NewItem", menuName = "DogSitter/Inventory Item")]
 public class InventoryItemData : ScriptableObject

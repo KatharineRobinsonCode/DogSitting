@@ -16,20 +16,31 @@ public class FoodBowl : MonoBehaviour, IInteractable
 
     private bool isFilled = false;
 
-    public string GetInteractionPrompt()
-    {
-        return isFilled ? "" : "Press E to fill Brinkley's bowl";
-    }
+public string GetInteractionPrompt()
+{
+    if (isFilled) return "";
+    if (!InventoryManager.Instance.HasItem(ItemType.DogFood))
+        return "You need dog food first";
+    return "Press E to fill Brinkley's bowl";
+}
 
 public void Interact(PlayerInteraction player)
 {
     if (isFilled) return;
+
+    // Check player has dog food
+    if (!InventoryManager.Instance.HasItem(ItemType.DogFood))
+    {
+        FeedbackManager.Instance?.ShowMessage("You need to find dog food first", 
+            FeedbackManager.MessageType.Warning);
+        return;
+    }
+
     isFilled = true;
 
     if (bowlAudio != null && fillSound != null)
         bowlAudio.PlayOneShot(fillSound);
 
-    // Swap bowl visuals if assigned
     if (emptyBowl != null) emptyBowl.SetActive(false);
     if (fullBowl != null) fullBowl.SetActive(true);
 
