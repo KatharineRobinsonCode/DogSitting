@@ -36,23 +36,24 @@ public void ToggleWheel(List<InventoryItemData> items)
         CloseWheel();
 }
 
-    public void RefreshIfOpen(List<InventoryItemData> items)
-    {
-        if (isOpen) OpenWheel(items);
-    }
+public void RefreshIfOpen(List<InventoryItemData> items)
+{
+    if (!isOpen) return;
+    OpenWheel(items);
+}
 
-    private void OpenWheel(List<InventoryItemData> items)
-    {
-        wheelPanel.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+   private void OpenWheel(List<InventoryItemData> items)
+{
+    // Clear old slots first
+    foreach (var slot in spawnedSlots)
+        Destroy(slot);
+    spawnedSlots.Clear();
 
-        // Clear old slots
-        foreach (var slot in spawnedSlots)
-            Destroy(slot);
-        spawnedSlots.Clear();
+    wheelPanel.SetActive(true);
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
 
-        if (items.Count == 0) return;
+    if (items.Count == 0) return;
 
         // Place items in a circle
         float angleStep = 360f / items.Count;
