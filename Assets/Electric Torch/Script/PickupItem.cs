@@ -17,6 +17,7 @@ public class PickupItem : MonoBehaviour, IInteractable
     private DialogueRunner dialogueRunner;
     private bool isInspecting = false;
     private bool hasBeenPickedUp = false;
+    private bool dialogueDone = false;  // ← now a field, not a local variable
 
     private void Start()
     {
@@ -42,13 +43,12 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         isInspecting = true;
 
-        // Show internal dialogue first, then choice
         if (!string.IsNullOrEmpty(inspectDialogueNode))
         {
-            bool dialogueDone = false;
-            dialogueRunner.onDialogueComplete.AddListener(() => dialogueDone = true);
+            dialogueDone = false;  // ← reset before starting
+            dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
             dialogueRunner.StartDialogue(inspectDialogueNode);
-            StartCoroutine(WaitThenShowChoice(dialogueDone));
+            StartCoroutine(WaitThenShowChoice());
         }
         else
         {
@@ -56,12 +56,17 @@ public class PickupItem : MonoBehaviour, IInteractable
         }
     }
 
-    private System.Collections.IEnumerator WaitThenShowChoice(bool dialogueDone)
+    private void OnDialogueComplete()
+    {
+        dialogueDone = true;
+        dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
+    }
+
+    private System.Collections.IEnumerator WaitThenShowChoice()
     {
         while (!dialogueDone)
             yield return null;
 
-        dialogueRunner.onDialogueComplete.RemoveAllListeners();
         ShowPickupChoice();
     }
 
