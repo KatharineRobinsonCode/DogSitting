@@ -88,17 +88,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    private void UseSqueakyToy()
-    {
-        if (squeakyToyAudio != null && squeakyToyClip != null)
-            squeakyToyAudio.PlayOneShot(squeakyToyClip);
+   private void UseSqueakyToy()
+{
+    if (squeakyToyAudio != null && squeakyToyClip != null)
+        squeakyToyAudio.PlayOneShot(squeakyToyClip);
 
-        if (brinkley != null)
-            brinkley.ComeToPlayer();
+    if (brinkley != null)
+        brinkley.ComeToPlayer();
 
-        if (StoryFlags.Instance != null)
-            StoryFlags.Instance.SetUsedSqueakyToy();
+    if (StoryFlags.Instance != null)
+        StoryFlags.Instance.SetUsedSqueakyToy();
 
-        Debug.Log("[Inventory] Squeaky toy used — calling Brinkley");
-    }
+    Debug.Log("[Inventory] Squeaky toy used — calling Brinkley");
+}
 }
