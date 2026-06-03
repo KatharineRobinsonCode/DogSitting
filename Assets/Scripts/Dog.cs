@@ -179,5 +179,21 @@ public class Dog : MonoBehaviour, IInteractable
         if (NavMesh.SamplePosition(target.position, out hit, 3f, NavMesh.AllAreas))
             agent.SetDestination(hit.position);
     }
+    public void ComeToPlayer()
+{
+    if (agent == null || player == null) return;
+
+    isFollowing = false;
+    isMovingToTarget = true;
+
+    agent.enabled = true;
+    agent.isStopped = false;
+
+    NavMeshHit hit;
+    if (NavMesh.SamplePosition(player.position, out hit, 3f, NavMesh.AllAreas))
+        agent.SetDestination(hit.position);
+
+    Debug.Log("[Dog] ComeToPlayer called — heading to player");
+}
     
 }
