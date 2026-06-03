@@ -2583,6 +2583,27 @@ MonoBehaviour:
   pickupChoicePanel: {fileID: 965546541}
   pickupPrompt: Press E to pick up
   leavePrompt: Press L to leave
+--- !u!65 &36756294
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36756289}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.18650807, y: 0.28246796, z: 0.1865082}
+  m_Center: {x: 0, y: 0.1412338, z: -0.0000002682209}
 --- !u!1001 &38740788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58722,7 +58743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2104431291356116863, guid: 6f82177e8eac2f8479405164f9ee3e34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.669
+      value: -0.846
       objectReference: {fileID: 0}
     - target: {fileID: 2104431291356116863, guid: 6f82177e8eac2f8479405164f9ee3e34, type: 3}
       propertyPath: m_LocalPosition.y
@@ -84518,6 +84539,27 @@ MonoBehaviour:
   pickupChoicePanel: {fileID: 965546541}
   pickupPrompt: Press E to pick up
   leavePrompt: Press L to leave
+--- !u!65 &1260326036
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260326033}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1262033706
 GameObject:
   m_ObjectHideFlags: 0
@@ -119980,6 +120022,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8450469611575305033, guid: a5818ffeca710d14d96a33bd85f797f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1260326035}
+    - targetCorrespondingSourceObject: {fileID: 8450469611575305033, guid: a5818ffeca710d14d96a33bd85f797f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1260326036}
   m_SourcePrefab: {fileID: 100100000, guid: a5818ffeca710d14d96a33bd85f797f3, type: 3}
 --- !u!1001 &1740018233
 PrefabInstance:
@@ -142106,8 +142151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033ab05fed82745ff88dabeb4988ebbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PizzaBoxTrigger
-  pizzaBox: {fileID: 0}
-  doorbellAudio: {fileID: 0}
+  pizzaBox: {fileID: 284491555}
+  doorbellAudio: {fileID: 2055770710}
   doorbellClip: {fileID: 8300000, guid: 6ff54d83794c5453f97ddf1a9148d701, type: 3}
 --- !u!4 &2055946002 stripped
 Transform:
@@ -145259,7 +145304,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3718073079137909696, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       propertyPath: m_Name
-      value: SqueekyToy
+      value: SqueakyToy
       objectReference: {fileID: 0}
     - target: {fileID: 3718073079137909696, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       propertyPath: m_TagString
@@ -145267,7 +145312,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4094598244146176378, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.44
+      value: -0.475
       objectReference: {fileID: 0}
     - target: {fileID: 4094598244146176378, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       propertyPath: m_LocalPosition.y
@@ -145275,7 +145320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4094598244146176378, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.738493
+      value: 6.944
       objectReference: {fileID: 0}
     - target: {fileID: 4094598244146176378, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -145312,6 +145357,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3718073079137909696, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 36756293}
+    - targetCorrespondingSourceObject: {fileID: 3718073079137909696, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 36756294}
   m_SourcePrefab: {fileID: 100100000, guid: 510737c6a27fe0543bb5254b82157cff, type: 3}
 --- !u!1 &2127299934 stripped
 GameObject:

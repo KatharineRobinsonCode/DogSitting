@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemData
   itemName: Knife
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2016e2666ebc74260844f68f1b1efe3e, type: 3}
   itemType: 3
   isUsableAnywhere: 0
   usePrompt: Press F to use

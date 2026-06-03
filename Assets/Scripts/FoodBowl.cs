@@ -32,7 +32,7 @@ public void Interact(PlayerInteraction player)
     if (!InventoryManager.Instance.HasItem(ItemType.DogFood))
     {
         FeedbackManager.Instance?.ShowMessage("You need to find dog food first", 
-            FeedbackManager.MessageType.Warning);
+            FeedbackManager.MessageType.Info);
         return;
     }
 
