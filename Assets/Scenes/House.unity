@@ -84496,6 +84496,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5769129917905125718, guid: 3106a6f3c2fc2a547b55f8f47ff2e09c, type: 3}
   m_PrefabInstance: {fileID: 1260281489}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1260326033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8450469611575305033, guid: a5818ffeca710d14d96a33bd85f797f3, type: 3}
+  m_PrefabInstance: {fileID: 1740001215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1260326035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260326033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc3e8e1219b84fdc82d728dcb4115e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupItem
+  itemData: {fileID: 11400000, guid: 0ba2257cb6a4c4a0883da65138efe61f, type: 2}
+  inspectDialogueNode: DogFood
+  pickupChoicePanel: {fileID: 965546541}
+  pickupPrompt: Press E to pick up
+  leavePrompt: Press L to leave
 --- !u!1 &1262033706
 GameObject:
   m_ObjectHideFlags: 0
@@ -119954,7 +119976,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8450469611575305033, guid: a5818ffeca710d14d96a33bd85f797f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1260326035}
   m_SourcePrefab: {fileID: 100100000, guid: a5818ffeca710d14d96a33bd85f797f3, type: 3}
 --- !u!1001 &1740018233
 PrefabInstance:
@@ -129838,7 +129863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2104431291356116863, guid: 6f82177e8eac2f8479405164f9ee3e34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.669
+      value: -0.851
       objectReference: {fileID: 0}
     - target: {fileID: 2104431291356116863, guid: 6f82177e8eac2f8479405164f9ee3e34, type: 3}
       propertyPath: m_LocalPosition.y
