@@ -19,6 +19,8 @@ public class FoodBowl : MonoBehaviour, IInteractable
 public string GetInteractionPrompt()
 {
     if (isFilled) return "";
+    if (TaskManager.Instance != null && TaskManager.Instance.CurrentTask != "Feed Brinkley")
+        return "You should find Brinkley first";
     if (!InventoryManager.Instance.HasItem(ItemType.DogFood))
         return "You need dog food first";
     return "Press E to fill Brinkley's bowl";
@@ -28,7 +30,13 @@ public void Interact(PlayerInteraction player)
 {
     if (isFilled) return;
 
-    // Check player has dog food
+    if (TaskManager.Instance != null && TaskManager.Instance.CurrentTask != "Fill Brinkley's bowl")
+    {
+        FeedbackManager.Instance?.ShowMessage("You should find Brinkley first", 
+            FeedbackManager.MessageType.Info);
+        return;
+    }
+
     if (!InventoryManager.Instance.HasItem(ItemType.DogFood))
     {
         FeedbackManager.Instance?.ShowMessage("You need to find dog food first", 
