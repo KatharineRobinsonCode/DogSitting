@@ -222,12 +222,18 @@ public void SetHoldingBroom(bool value)
             return true;
         }
         
-       Cup cup = hit.collider.GetComponentInParent<Cup>();
-        if (cup != null && currentHeldItem == null)
-        {
-            promptMessage = "Press E to pick up Cup";
-            return true;
-        }
+    Cup cup = hit.collider.GetComponentInParent<Cup>();
+if (cup != null && currentHeldItem == null)
+{
+    switch (cup.cupType)
+    {
+        case Cup.CupType.DraftBeer:    promptMessage = "Press E to pick up Draft Cup"; break;
+        case Cup.CupType.TakeawayBeer: promptMessage = "Press E to pick up Takeaway Bottle"; break;
+        case Cup.CupType.Spirit:       promptMessage = "Press E to pick up Spirit Cup"; break;
+        default:                       promptMessage = "Press E to pick up Cup"; break;
+    }
+    return true;
+}
         
         return false;
     }
