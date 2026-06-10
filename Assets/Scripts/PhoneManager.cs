@@ -43,10 +43,7 @@ public class PhoneManager : MonoBehaviour
     public string contactName = "Bestie 🐾";
     [TextArea(3, 10)]
     public string dogSitMessage =
-        "Hey!! Are you free after your shift? \n" +
-        "I need someone to watch my dog tonight... \n" +
-        "Please please please 🐶🙏";
-
+        "Hello, are you free watch my dog tonight. \n";
     [Header("Carol Text Settings")]
     public string carolContactName = "Carol 🏠";
     [TextArea(3, 10)]
@@ -298,7 +295,7 @@ public class PhoneManager : MonoBehaviour
         ShowMessage("You: Sure! I'll be there after my shift", true);
 
         yield return new WaitForSeconds(1.2f);
-        ShowMessage("Bestie: YAYY thank you!! You're the best!!", true);
+        ShowMessage("Carol: Thanks, key will be in the plant pot outside the flat. Brinkley will be inside waiting.", true);
 
         yield return new WaitForSeconds(2f);
 
