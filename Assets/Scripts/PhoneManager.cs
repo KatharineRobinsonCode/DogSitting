@@ -292,10 +292,10 @@ public class PhoneManager : MonoBehaviour
         if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
 
         yield return new WaitForSeconds(0.8f);
-        ShowMessage("<color=#006400>Sure! I'll be there after my shift", true);
+        ShowMessage("<color=#006400><align=right>Sure! I'll be there after my shift", true);
 
         yield return new WaitForSeconds(1.2f);
-        ShowMessage("<color=#8B008B>Thanks, key will be in the plant pot outside the flat. Brinkley will be inside waiting.", true);
+        ShowMessage("<color=#8B008B><align=left>Thanks, key will be in the plant pot outside the flat. Brinkley will be inside waiting.", true);
 
         yield return new WaitForSeconds(4f);
 
