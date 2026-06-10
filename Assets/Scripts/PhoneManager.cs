@@ -132,10 +132,6 @@ public class PhoneManager : MonoBehaviour
         if (horrorPhoto != null)
         {
             airdropImage.sprite = horrorPhoto;
-            airdropImage.gameObject.SetActive(true);
-        }
-        else
-        {
             airdropImage.gameObject.SetActive(false);
         }
 
@@ -162,6 +158,8 @@ public class PhoneManager : MonoBehaviour
     {
         if (actionButtons != null)
             actionButtons.SetActive(false);
+
+ airdropImage.gameObject.SetActive(true); 
 
         float duration = 0.8f;
         float elapsed = 0;

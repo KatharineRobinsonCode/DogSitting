@@ -321,7 +321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 906576dd5b11c46b38976206ab87cb41, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b82197fe1f31c44e3a6a42f6a6a467d7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6413,7 +6413,7 @@ MonoBehaviour:
   orderPanel: {fileID: 695246729}
   orderDisplay: {fileID: 1889566199}
   customersServed: 0
-  creepyPhoto: {fileID: 21300000, guid: 05c124280764542e58b16a892913e375, type: 3}
+  creepyPhoto: {fileID: 21300000, guid: 2b5c8b060f86f4be9bfd82ceb6fb64ca, type: 3}
 --- !u!114 &207192655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33219,7 +33219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05c124280764542e58b16a892913e375, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2b5c8b060f86f4be9bfd82ceb6fb64ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
