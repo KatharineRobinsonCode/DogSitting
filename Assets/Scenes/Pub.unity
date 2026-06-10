@@ -3976,7 +3976,7 @@ MonoBehaviour:
   - {fileID: 1675751292}
   - {fileID: 1408468448}
   - {fileID: 1353745184}
-  customersBeforeTextMessage: 5
+  customersBeforeTextMessage: 1
 --- !u!4 &121351328
 Transform:
   m_ObjectHideFlags: 0
@@ -8493,7 +8493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 156, y: -428}
+  m_AnchoredPosition: {x: 130, y: -380}
   m_SizeDelta: {x: 160, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &264201337
@@ -23206,8 +23206,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 17896778}
   m_HandleRect: {fileID: 17896777}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.99999636
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -38440,7 +38440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 9017}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 9900}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!4 &1240585108 stripped
@@ -39703,6 +39703,14 @@ PrefabInstance:
       value: Takeaway Beer
       objectReference: {fileID: 0}
     - target: {fileID: 6098702633332659388, guid: 25a5b436a5e2e44d2931e5d36c17c525, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098702633332659388, guid: 25a5b436a5e2e44d2931e5d36c17c525, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098702633332659388, guid: 25a5b436a5e2e44d2931e5d36c17c525, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.536
       objectReference: {fileID: 0}
@@ -40940,7 +40948,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 2}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -42281,7 +42289,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -2, y: 5}
-  m_SizeDelta: {x: 585.95, y: 900}
+  m_SizeDelta: {x: 585.95, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1357659064
 MonoBehaviour:
@@ -42326,7 +42334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -43279,7 +43287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.025024414, y: -9067}
+  m_AnchoredPosition: {x: -0.025024414, y: -50.000977}
   m_SizeDelta: {x: -152.94, y: -9950}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1372321683
@@ -45331,7 +45339,7 @@ RectTransform:
   m_GameObject: {fileID: 1456305676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1357659063}
@@ -45341,7 +45349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.5, y: -115.3703}
+  m_AnchoredPosition: {x: 0.5, y: -80}
   m_SizeDelta: {x: -1, y: 1080}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1456305678
@@ -53011,7 +53019,7 @@ MonoBehaviour:
   nameInputField: {fileID: 0}
   variableStorage: {fileID: 0}
   menuMusic: {fileID: 0}
-  gameSceneName: CoffeeShop
+  gameSceneName: Pub
   defaultSensitivity: 2
   defaultVolume: 1
 --- !u!4 &1702012351
@@ -53524,7 +53532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -137, y: -423}
+  m_AnchoredPosition: {x: -145, y: -380}
   m_SizeDelta: {x: 160, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1733148890
