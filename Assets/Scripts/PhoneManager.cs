@@ -43,7 +43,8 @@ public class PhoneManager : MonoBehaviour
     public string contactName = "Bestie 🐾";
     [TextArea(3, 10)]
     public string dogSitMessage =
-        "Hello, are you free watch my dog tonight. \n";
+    "Hello, are you free watch my dog tonight. \n";
+    
     [Header("Carol Text Settings")]
     public string carolContactName = "Carol 🏠";
     [TextArea(3, 10)]
@@ -292,10 +293,10 @@ public class PhoneManager : MonoBehaviour
         if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
 
         yield return new WaitForSeconds(0.8f);
-        ShowMessage("You: Sure! I'll be there after my shift", true);
+        ShowMessage("Sure! I'll be there after my shift", true);
 
         yield return new WaitForSeconds(1.2f);
-        ShowMessage("Carol: Thanks, key will be in the plant pot outside the flat. Brinkley will be inside waiting.", true);
+        ShowMessage("Thanks, key will be in the plant pot outside the flat. Brinkley will be inside waiting.", true);
 
         yield return new WaitForSeconds(2f);
 
@@ -312,7 +313,7 @@ public class PhoneManager : MonoBehaviour
         ShowMessage("You: Sorry, can't tonight!", true);
 
         yield return new WaitForSeconds(1.2f);
-        ShowMessage("Bestie: Aw no worries", true);
+        ShowMessage("Hmm... no worries", true);
 
         yield return new WaitForSeconds(2f);
 
