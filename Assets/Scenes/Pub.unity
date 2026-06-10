@@ -38331,10 +38331,9 @@ MonoBehaviour:
   messageAcceptButton: {fileID: 1733148888}
   messageDeclineButton: {fileID: 263639991}
   contactName: Carol
-  dogSitMessage: "Hey! Can you watch my dog tonight? \nPlease please please"
+  dogSitMessage: Hey! Can you watch my dog tonight?
   carolContactName: Carol
-  carolCheckInMessage: "Hey! Just arrived at yours \u2014 Brinkley is safe and sound
-    \U0001F436"
+  carolCheckInMessage: "Hey! Just arrived at yours \u2014 Brinkley is safe and sound"
   pizzaOrderPanel: {fileID: 0}
   pizzaConfirmPanel: {fileID: 0}
   pizzaConfirmText: {fileID: 0}
@@ -43648,7 +43647,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 50, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

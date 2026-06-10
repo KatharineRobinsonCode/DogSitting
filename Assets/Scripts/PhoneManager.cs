@@ -44,7 +44,6 @@ public class PhoneManager : MonoBehaviour
     [TextArea(3, 10)]
     public string dogSitMessage =
     "Hello, are you free watch my dog tonight. \n";
-    
     [Header("Carol Text Settings")]
     public string carolContactName = "Carol 🏠";
     [TextArea(3, 10)]
@@ -293,12 +292,12 @@ public class PhoneManager : MonoBehaviour
         if (messageDeclineButton != null) messageDeclineButton.SetActive(false);
 
         yield return new WaitForSeconds(0.8f);
-        ShowMessage("Sure! I'll be there after my shift", true);
+        ShowMessage("<color=#90EE90>Sure! I'll be there after my shift", true);
 
         yield return new WaitForSeconds(1.2f);
         ShowMessage("Thanks, key will be in the plant pot outside the flat. Brinkley will be inside waiting.", true);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
 
         CloseTextMessage();
         onAccepted?.Invoke();
