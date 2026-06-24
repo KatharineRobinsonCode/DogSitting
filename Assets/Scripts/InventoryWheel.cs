@@ -17,7 +17,9 @@ public class InventoryWheel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI activeItemName;
     
     [Header("Slot Positions")]
-    [SerializeField] private RectTransform[] slotPositions; // drag 7 empty GameObjects in Inspectorrivate bool isOpen = false;
+    [SerializeField] private RectTransform[] slotPositions; // drag 7 empty GameObjects in Inspector
+    private bool isOpen = false;
+
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
     private void Start()
