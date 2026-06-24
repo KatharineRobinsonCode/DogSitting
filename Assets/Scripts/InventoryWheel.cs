@@ -15,8 +15,9 @@ public class InventoryWheel : MonoBehaviour
     [SerializeField] private GameObject activeItemHUD;
     [SerializeField] private Image activeItemIcon;
     [SerializeField] private TextMeshProUGUI activeItemName;
-
-    private bool isOpen = false;
+    
+    [Header("Slot Positions")]
+    [SerializeField] private RectTransform[] slotPositions; // drag 7 empty GameObjects in Inspectorrivate bool isOpen = false;
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
     private void Start()
@@ -42,9 +43,8 @@ public void RefreshIfOpen(List<InventoryItemData> items)
     OpenWheel(items);
 }
 
-   private void OpenWheel(List<InventoryItemData> items)
+ private void OpenWheel(List<InventoryItemData> items)
 {
-    // Clear old slots first
     foreach (var slot in spawnedSlots)
         Destroy(slot);
     spawnedSlots.Clear();
@@ -55,37 +55,30 @@ public void RefreshIfOpen(List<InventoryItemData> items)
 
     if (items.Count == 0) return;
 
-        // Place items in a circle
-        float angleStep = 360f / items.Count;
+    for (int i = 0; i < items.Count; i++)
+    {
+        if (i >= slotPositions.Length) break; // safety cap at 7
 
-        for (int i = 0; i < items.Count; i++)
-        {
-            float angle = i * angleStep * Mathf.Deg2Rad;
-            float x = Mathf.Sin(angle) * radius;
-            float y = Mathf.Cos(angle) * radius;
+        GameObject slot = Instantiate(itemSlotPrefab, slotsParent);
+        slot.GetComponent<RectTransform>().anchoredPosition = 
+            slotPositions[i].anchoredPosition;
 
-            GameObject slot = Instantiate(itemSlotPrefab, slotsParent);
-            slot.GetComponent<RectTransform>().anchoredPosition = new Vector2(x, y);
+        Image icon = slot.transform.Find("Icon")?.GetComponent<Image>();
+        if (icon != null && items[i].icon != null)
+            icon.sprite = items[i].icon;
 
-            // Set icon
-            Image icon = slot.transform.Find("Icon")?.GetComponent<Image>();
-            if (icon != null && items[i].icon != null)
-                icon.sprite = items[i].icon;
+        TextMeshProUGUI nameText = slot.transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
+        if (nameText != null)
+            nameText.text = items[i].itemName;
 
-            // Set name
-            TextMeshProUGUI nameText = slot.transform.Find("Name")?.GetComponent<TextMeshProUGUI>();
-            if (nameText != null)
-                nameText.text = items[i].itemName;
+        var itemData = items[i];
+        Button btn = slot.GetComponent<Button>();
+        if (btn != null)
+            btn.onClick.AddListener(() => SelectItem(itemData));
 
-            // Set click to select
-            var itemData = items[i];
-            Button btn = slot.GetComponent<Button>();
-            if (btn != null)
-                btn.onClick.AddListener(() => SelectItem(itemData));
-
-            spawnedSlots.Add(slot);
-        }
+        spawnedSlots.Add(slot);
     }
+}
 
     private void CloseWheel()
     {
