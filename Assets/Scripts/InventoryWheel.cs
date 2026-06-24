@@ -82,6 +82,7 @@ public class InventoryWheel : MonoBehaviour
     private void CloseWheel()
     {
         isOpen = false;
+        if (activeItemHUD != null) activeItemHUD.SetActive(false); 
         // PhoneManager handles canvas and cursor
         PhoneManager.Instance.CloseInventory();
     }

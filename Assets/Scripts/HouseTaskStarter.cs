@@ -26,7 +26,7 @@ public class HouseTaskStarter : MonoBehaviour
  TaskManager.Instance.SetTaskSequence(
     "Go to Carol's flat on the first floor",
     "Find Brinkley",
-    "Feed Brinkley",
+    "Fill Brinkley's bowl",
     "Text Carol",
     "Order Pizza",
     "Wait for the Pizza",

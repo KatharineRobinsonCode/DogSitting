@@ -59,6 +59,9 @@ public class PhoneManager : MonoBehaviour
     private System.Action onAccepted;
     private System.Action onDeclined;
 
+    [Header("Inventory UI")]
+public GameObject inventoryPanel;
+
     void Awake()
     {
         Instance = this;
@@ -100,10 +103,27 @@ public class PhoneManager : MonoBehaviour
         if (actionButtons != null) actionButtons.SetActive(false);
         if (pizzaOrderPanel != null) pizzaOrderPanel.SetActive(false);
         if (pizzaConfirmPanel != null) pizzaConfirmPanel.SetActive(false);
+        if (inventoryPanel != null) inventoryPanel.SetActive(false);
 
         if (PauseManager.Instance != null)
             PauseManager.Instance.HideCursorPublic();
     }
+
+    // ============================
+    // INVENTORY
+    // ============================
+
+public void OpenInventory()
+{
+    if (inventoryPanel != null) inventoryPanel.SetActive(true);
+    OpenPhone();
+}
+
+public void CloseInventory()
+{
+    if (inventoryPanel != null) inventoryPanel.SetActive(false);
+    ClosePhone();
+}
 
     // ============================
     // AIRDROP LOGIC
