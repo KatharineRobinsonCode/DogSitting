@@ -42,12 +42,13 @@ public class DrinkMachine : MonoBehaviour
 
     #region Unity Lifecycle
 
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-        if (fillingPanel != null) fillingPanel.SetActive(false);
-        if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
-    }
+  private void Start()
+{
+    audioSource = GetComponent<AudioSource>();
+    if (fillingPanel != null) fillingPanel.SetActive(false);
+    if (draftBeerFillImage != null) draftBeerFillImage.fillAmount = 0f;
+    if (spiritFillImage != null) spiritFillImage.fillAmount = 0f;
+}
 
     #endregion
 
@@ -140,8 +141,6 @@ public class DrinkMachine : MonoBehaviour
         if (draftBeerFillImage != null) draftBeerFillImage.gameObject.SetActive(false);
 if (spiritFillImage != null) spiritFillImage.gameObject.SetActive(false);
 if (fillingPanel != null) fillingPanel.SetActive(false);
-        if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
-
         if (succeeded)
         {
             Debug.Log("[DrinkMachine] QTE succeeded");
