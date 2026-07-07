@@ -19,7 +19,9 @@ public class DrinkMachine : MonoBehaviour
 
 [Header("Filling QTE UI")]
 [SerializeField] private GameObject fillingPanel;
-[SerializeField] private Image draftBeerFillImage;
+[SerializeField] private GameObject draftBeerGlass;   // ← the parent glass GO
+[SerializeField] private GameObject spiritGlass;      // ← the parent glass GO
+[SerializeField] private Image draftBeerFillImage;    // ← just the fill image
 [SerializeField] private Image spiritFillImage;
 [SerializeField] private TextMeshProUGUI instructionText;
 
@@ -86,11 +88,11 @@ public class DrinkMachine : MonoBehaviour
         ? spiritFillImage 
         : draftBeerFillImage;
 
-    // Show the right glass visual
-    if (draftBeerFillImage != null) 
-        draftBeerFillImage.gameObject.SetActive(drinkType == Cup.DrinkType.DraftBeer);
-    if (spiritFillImage != null) 
-        spiritFillImage.gameObject.SetActive(drinkType == Cup.DrinkType.Spirit);
+   // Show correct glass, hide the other
+if (draftBeerGlass != null) 
+    draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
+if (spiritGlass != null) 
+    spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
 
         // Show panel
         if (fillingPanel != null) fillingPanel.SetActive(true);
@@ -138,8 +140,8 @@ public class DrinkMachine : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
 
         // Hide panel
-        if (draftBeerFillImage != null) draftBeerFillImage.gameObject.SetActive(false);
-if (spiritFillImage != null) spiritFillImage.gameObject.SetActive(false);
+    if (draftBeerGlass != null) draftBeerGlass.SetActive(false);
+if (spiritGlass != null) spiritGlass.SetActive(false);
 if (fillingPanel != null) fillingPanel.SetActive(false);
         if (succeeded)
         {

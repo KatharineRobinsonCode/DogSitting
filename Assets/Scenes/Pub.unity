@@ -40685,6 +40685,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -40849,7 +40851,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -44517,8 +44519,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 32.928284, y: 118.805145}
-  m_SizeDelta: {x: 219.8566, y: 46.3897}
+  m_AnchoredPosition: {x: -3, y: 120.07234}
+  m_SizeDelta: {x: 436.9683, y: 43.8553}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1386823832
 MonoBehaviour:
@@ -44606,7 +44608,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 2.5343704, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -48209,7 +48211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1525200354
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49833,7 +49835,9 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   fillingPanel: {fileID: 1113449434}
-  draftBeerFillImage: {fileID: 1525200355}
+  draftBeerGlass: {fileID: 1525200353}
+  spiritGlass: {fileID: 0}
+  draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.65
@@ -57413,6 +57417,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -57779,6 +57785,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -59793,10 +59801,12 @@ MonoBehaviour:
   errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   successSound: {fileID: 0}
   failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
-  fillingPanel: {fileID: 0}
-  draftBeerFillImage: {fileID: 0}
+  fillingPanel: {fileID: 1113449434}
+  draftBeerGlass: {fileID: 1525200353}
+  spiritGlass: {fileID: 0}
+  draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
-  instructionText: {fileID: 0}
+  instructionText: {fileID: 1386823832}
   greenZoneMin: 0.65
   greenZoneMax: 0.8
 --- !u!82 &1899107164
@@ -61169,6 +61179,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -61362,8 +61374,10 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   fillingPanel: {fileID: 1113449434}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 2003892774}
   draftBeerFillImage: {fileID: 0}
-  spiritFillImage: {fileID: 2003892776}
+  spiritFillImage: {fileID: 103663509}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.65
   greenZoneMax: 0.8
@@ -63971,6 +63985,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -64488,14 +64504,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrinkMachine
   drinkType: 1
-  pourSound: {fileID: 0}
-  errorSound: {fileID: 0}
+  pourSound: {fileID: 8300000, guid: 833737e3238ce463aadeb7ae99c91665, type: 3}
+  errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   successSound: {fileID: 0}
-  failSound: {fileID: 0}
-  fillingPanel: {fileID: 0}
-  draftBeerFillImage: {fileID: 0}
+  failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
+  fillingPanel: {fileID: 1113449434}
+  draftBeerGlass: {fileID: 1525200353}
+  spiritGlass: {fileID: 0}
+  draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
-  instructionText: {fileID: 0}
+  instructionText: {fileID: 1386823832}
   greenZoneMin: 0.65
   greenZoneMax: 0.8
 --- !u!82 &2034686166
@@ -64762,6 +64780,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -67373,6 +67393,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
@@ -68938,6 +68960,8 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 0}
   fillingPanel: {fileID: 0}
+  draftBeerGlass: {fileID: 0}
+  spiritGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
