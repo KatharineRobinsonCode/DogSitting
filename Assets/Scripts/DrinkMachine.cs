@@ -17,10 +17,11 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private AudioClip successSound;
     [SerializeField] private AudioClip failSound;
 
-    [Header("Filling QTE UI")]
-    [SerializeField] private GameObject fillingPanel;
-    [SerializeField] private Image liquidFillImage;
-    [SerializeField] private TextMeshProUGUI instructionText;
+[Header("Filling QTE UI")]
+[SerializeField] private GameObject fillingPanel;
+[SerializeField] private Image draftBeerFillImage;
+[SerializeField] private Image spiritFillImage;
+[SerializeField] private TextMeshProUGUI instructionText;
 
     [Header("Fill Settings")]
     [SerializeField] private float greenZoneMin = 0.65f;
@@ -79,6 +80,17 @@ public class DrinkMachine : MonoBehaviour
     {
         isCurrentlyFilling = true;
 
+            // Pick the right fill image for this drink type
+    Image liquidFillImage = drinkType == Cup.DrinkType.Spirit 
+        ? spiritFillImage 
+        : draftBeerFillImage;
+
+    // Show the right glass visual
+    if (draftBeerFillImage != null) 
+        draftBeerFillImage.gameObject.SetActive(drinkType == Cup.DrinkType.DraftBeer);
+    if (spiritFillImage != null) 
+        spiritFillImage.gameObject.SetActive(drinkType == Cup.DrinkType.Spirit);
+
         // Show panel
         if (fillingPanel != null) fillingPanel.SetActive(true);
         if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
@@ -125,7 +137,9 @@ public class DrinkMachine : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
 
         // Hide panel
-        if (fillingPanel != null) fillingPanel.SetActive(false);
+        if (draftBeerFillImage != null) draftBeerFillImage.gameObject.SetActive(false);
+if (spiritFillImage != null) spiritFillImage.gameObject.SetActive(false);
+if (fillingPanel != null) fillingPanel.SetActive(false);
         if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
 
         if (succeeded)
