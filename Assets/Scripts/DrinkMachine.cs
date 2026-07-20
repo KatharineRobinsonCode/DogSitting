@@ -124,11 +124,12 @@ public class DrinkMachine : MonoBehaviour
                         qteComplete = true;
                     }
                 }
-                else if (Input.GetKeyUp(KeyCode.Q))
-                {
-                    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
-                    qteComplete = true;
-                }
+              else if (Input.GetKeyUp(KeyCode.Q))
+{
+    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
+    Debug.Log($"[DrinkMachine] Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
+    qteComplete = true;
+}
 
                 yield return null;
             }
