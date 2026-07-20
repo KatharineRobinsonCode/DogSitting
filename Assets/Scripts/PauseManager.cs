@@ -267,13 +267,13 @@ public void HideCursorPublic()
     /// <summary>
     /// Opens the settings submenu. Called by Settings button.
     /// </summary>
-    public void OpenSettings()
-    {
-        isInSettings = true;
-        
-        HidePanel(pausePanel);
-        ShowPanel(settingsPanel);
-    }
+  public void OpenSettings()
+{
+    isInSettings = true;
+    Debug.Log($"[PauseManager] OpenSettings — pausePanel null: {pausePanel == null}, settingsPanel null: {settingsPanel == null}");
+    HidePanel(pausePanel);
+    ShowPanel(settingsPanel);
+}
     
     /// <summary>
     /// Closes settings and returns to main pause menu.

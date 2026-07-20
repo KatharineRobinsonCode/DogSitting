@@ -35372,7 +35372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -40690,8 +40690,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1315099659
 AudioSource:
   m_ObjectHideFlags: 0
@@ -47849,7 +47849,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 90
   m_TargetDisplay: 0
 --- !u!1001 &1519314509
 PrefabInstance:
@@ -49840,8 +49840,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1569085950
 AudioSource:
   m_ObjectHideFlags: 0
@@ -50779,7 +50779,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!4 &1590500349 stripped
 Transform:
@@ -53874,7 +53874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.2, y: 7.8}
+  m_AnchoredPosition: {x: 7.2, y: 56}
   m_SizeDelta: {x: 100, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700630801
@@ -57422,8 +57422,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1836937340
 AudioSource:
   m_ObjectHideFlags: 0
@@ -57790,8 +57790,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1841277070
 AudioSource:
   m_ObjectHideFlags: 0
@@ -59807,8 +59807,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1899107164
 AudioSource:
   m_ObjectHideFlags: 0
@@ -61184,8 +61184,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1947015714
 AudioSource:
   m_ObjectHideFlags: 0
@@ -61379,8 +61379,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 103663509}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &1959078546
 AudioSource:
   m_ObjectHideFlags: 0
@@ -63990,8 +63990,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &2018125570
 AudioSource:
   m_ObjectHideFlags: 0
@@ -64514,8 +64514,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &2034686166
 AudioSource:
   m_ObjectHideFlags: 0
@@ -64785,8 +64785,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &2036446254
 AudioSource:
   m_ObjectHideFlags: 0
@@ -67398,8 +67398,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &2117214089
 AudioSource:
   m_ObjectHideFlags: 0
@@ -68965,8 +68965,8 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.8
+  greenZoneMin: 0.85
+  greenZoneMax: 1
 --- !u!82 &2144423963
 AudioSource:
   m_ObjectHideFlags: 0
