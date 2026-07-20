@@ -67,8 +67,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"[PlayerMovement] canMove:{canMove} paused:{IsPaused()} dialogueNull:{dialogueRunner == null} dialogueRunning:{dialogueRunner?.IsDialogueRunning}");
-
         if (!CanPlayerMove())
             return;
 
