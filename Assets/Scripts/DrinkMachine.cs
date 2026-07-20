@@ -17,13 +17,13 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private AudioClip successSound;
     [SerializeField] private AudioClip failSound;
 
-[Header("Filling QTE UI")]
-[SerializeField] private GameObject fillingPanel;
-[SerializeField] private GameObject draftBeerGlass;   // ← the parent glass GO
-[SerializeField] private GameObject spiritGlass;      // ← the parent glass GO
-[SerializeField] private Image draftBeerFillImage;    // ← just the fill image
-[SerializeField] private Image spiritFillImage;
-[SerializeField] private TextMeshProUGUI instructionText;
+    [Header("Filling QTE UI")]
+    [SerializeField] private GameObject fillingPanel;
+    [SerializeField] private GameObject draftBeerGlass;
+    [SerializeField] private GameObject spiritGlass;
+    [SerializeField] private Image draftBeerFillImage;
+    [SerializeField] private Image spiritFillImage;
+    [SerializeField] private TextMeshProUGUI instructionText;
 
     [Header("Fill Settings")]
     [SerializeField] private float greenZoneMin = 0.65f;
@@ -36,7 +36,6 @@ public class DrinkMachine : MonoBehaviour
     private AudioSource audioSource;
     private bool isCurrentlyFilling = false;
 
-    // Fill speeds per drink type
     private const float DRAFT_FILL_SPEED = 0.12f;
     private const float SPIRIT_FILL_SPEED = 0.45f;
 
@@ -44,13 +43,13 @@ public class DrinkMachine : MonoBehaviour
 
     #region Unity Lifecycle
 
-  private void Start()
-{
-    audioSource = GetComponent<AudioSource>();
-    if (fillingPanel != null) fillingPanel.SetActive(false);
-    if (draftBeerFillImage != null) draftBeerFillImage.fillAmount = 0f;
-    if (spiritFillImage != null) spiritFillImage.fillAmount = 0f;
-}
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (fillingPanel != null) fillingPanel.SetActive(false);
+        if (draftBeerFillImage != null) draftBeerFillImage.fillAmount = 0f;
+        if (spiritFillImage != null) spiritFillImage.fillAmount = 0f;
+    }
 
     #endregion
 
@@ -65,7 +64,6 @@ public class DrinkMachine : MonoBehaviour
         if (!ValidateCupIsEmpty(cup)) return;
         if (!ValidateCupTypeCompatibility(cup)) return;
 
-        // Takeaway beer — no QTE needed
         if (drinkType == Cup.DrinkType.TakeawayBeer)
         {
             DispenseDrink(cup);
@@ -83,83 +81,87 @@ public class DrinkMachine : MonoBehaviour
     {
         isCurrentlyFilling = true;
 
-            // Pick the right fill image for this drink type
-    Image liquidFillImage = drinkType == Cup.DrinkType.Spirit 
-        ? spiritFillImage 
-        : draftBeerFillImage;
+        Image liquidFillImage = drinkType == Cup.DrinkType.Spirit
+            ? spiritFillImage
+            : draftBeerFillImage;
 
-   // Show correct glass, hide the other
-if (draftBeerGlass != null) 
-    draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
-if (spiritGlass != null) 
-    spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
+        if (draftBeerGlass != null)
+            draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
+        if (spiritGlass != null)
+            spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
 
-        // Show panel
         if (fillingPanel != null) fillingPanel.SetActive(true);
         if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
         if (instructionText != null) instructionText.text = "Hold Q to pour — release in the green zone!";
 
         float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED : DRAFT_FILL_SPEED;
-        float currentFill = 0f;
-        bool qteComplete = false;
-        bool succeeded = false;
+        bool overallSucceeded = false;
 
-        while (!qteComplete)
+        while (!overallSucceeded)
         {
-            if (Input.GetKey(KeyCode.Q))
+            float currentFill = 0f;
+            bool qteComplete = false;
+            bool succeeded = false;
+
+            if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
+
+            while (!qteComplete)
             {
-                // Fill while Q is held
-                currentFill += fillSpeed * Time.deltaTime;
-                currentFill = Mathf.Clamp01(currentFill);
-
-                if (liquidFillImage != null)
-                    liquidFillImage.fillAmount = currentFill;
-
-                // Play pour sound if not already playing
-                if (audioSource != null && pourSound != null && !audioSource.isPlaying)
-                    audioSource.PlayOneShot(pourSound);
-
-                // Auto-fail if overfilled
-                if (currentFill >= 1f)
+                if (Input.GetKey(KeyCode.Q))
                 {
-                    succeeded = false;
+                    currentFill += fillSpeed * Time.deltaTime;
+                    currentFill = Mathf.Clamp01(currentFill);
+
+                    if (liquidFillImage != null)
+                        liquidFillImage.fillAmount = currentFill;
+
+                    if (audioSource != null && pourSound != null && !audioSource.isPlaying)
+                        audioSource.PlayOneShot(pourSound);
+
+                    if (currentFill >= 1f)
+                    {
+                        succeeded = false;
+                        qteComplete = true;
+                    }
+                }
+                else if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
                     qteComplete = true;
                 }
+
+                yield return null;
             }
-            else if (Input.GetKeyUp(KeyCode.Q))
+
+            yield return new WaitForSeconds(0.4f);
+
+            if (succeeded)
             {
-                // Released Q — check if in green zone
-                succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
-                qteComplete = true;
+                overallSucceeded = true;
             }
+            else
+            {
+                if (audioSource != null && failSound != null)
+                    audioSource.PlayOneShot(failSound);
+                ShowErrorFeedback(currentFill >= 1f
+                    ? "Too much! Try again."
+                    : "Not enough! Try again.");
 
-            yield return null;
+                if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
+                if (instructionText != null) instructionText.text = "Hold Q to pour — release in the green zone!";
+
+                yield return new WaitForSeconds(0.6f);
+            }
         }
 
-        // Brief pause so player sees where they stopped
-        yield return new WaitForSeconds(0.4f);
+        if (draftBeerGlass != null) draftBeerGlass.SetActive(false);
+        if (spiritGlass != null) spiritGlass.SetActive(false);
+        if (fillingPanel != null) fillingPanel.SetActive(false);
 
-        // Hide panel
-    if (draftBeerGlass != null) draftBeerGlass.SetActive(false);
-if (spiritGlass != null) spiritGlass.SetActive(false);
-if (fillingPanel != null) fillingPanel.SetActive(false);
-        if (succeeded)
-        {
-            Debug.Log("[DrinkMachine] QTE succeeded");
-            if (audioSource != null && successSound != null)
-                audioSource.PlayOneShot(successSound);
-            DispenseDrink(cup);
-        }
-        else
-        {
-            Debug.Log("[DrinkMachine] QTE failed — too early or overfilled");
-            if (audioSource != null && failSound != null)
-                audioSource.PlayOneShot(failSound);
-            ShowErrorFeedback(currentFill >= 1f
-                ? "Too much! Try again."
-                : "Not enough! Try again.");
-        }
+        if (audioSource != null && successSound != null)
+            audioSource.PlayOneShot(successSound);
 
+        DispenseDrink(cup);
         isCurrentlyFilling = false;
     }
 
