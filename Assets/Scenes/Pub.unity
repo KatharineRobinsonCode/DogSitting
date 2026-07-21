@@ -48050,12 +48050,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4739739371895398, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739739371895398, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.22
       objectReference: {fileID: 0}
     - target: {fileID: 4739739371895398, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.24
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 65956034372345314, guid: 6992ea63bf495df4a94d9b83dc858e03, type: 3}
       propertyPath: m_IsTrigger

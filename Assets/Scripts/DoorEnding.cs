@@ -87,8 +87,8 @@ public class DoorEnding : MonoBehaviour, IInteractable
         // Check if TaskManager says it's okay to leave
         if (TaskManager.Instance == null)
         {
-            LogDebug("[DoorEnding] TaskManager not found - allowing exit");
-            return true; // Fallback: allow if no task manager
+            LogDebug("[DoorEnding] TaskManager not found - blocking exit");
+            return false;
         }
         
         bool allowed = TaskManager.Instance.IsCurrentTask(allowedLeaveTask);
