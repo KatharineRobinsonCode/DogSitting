@@ -10,13 +10,8 @@ public class DrunkCustomer : NpcCustomer
     public string kickCommandName = "CompleteOrderConversation_Customer6_Kick";
 
     private bool wasKickedOut = false;
-     private bool isFacingPlayer = false;
     private Animator drunkAnim;
     private NavMeshAgent drunkAgent;
-
-    [Header("Look At Player")]
-[SerializeField] private Transform player;
-[SerializeField] private float turnSpeed = 7f;
 
     protected override void Start()
     {
@@ -37,22 +32,6 @@ protected override void Update()
 {
     if (isWaiting) return;
     base.Update();
-
-    if (isFacingPlayer && player != null)
-    {
-        Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = 0f;
-
-        if (direction != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                lookRotation,
-                Time.deltaTime * turnSpeed
-            );
-        }
-    }
 }
 
 protected override void RegisterAdditionalYarnCommands(DialogueRunner runner)

@@ -16,7 +16,7 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public Transform exitPoint;
     public Transform seatTarget;
     public bool shouldSitAtTable = false;
-    public float turnSpeed = 7f;
+  [SerializeField] protected float turnSpeed = 7f;
 
     // Changed from private to protected so DrunkCustomer can access
     protected NavMeshAgent agent;
