@@ -17,7 +17,6 @@ public class DrunkCustomer : NpcCustomer
     [Header("Look At Player")]
 [SerializeField] private Transform player;
 [SerializeField] private float turnSpeed = 7f;
-private bool isFacingPlayer = false;
 
     protected override void Start()
     {
