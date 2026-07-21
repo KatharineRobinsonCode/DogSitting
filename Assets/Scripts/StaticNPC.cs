@@ -14,6 +14,7 @@ public class StaticNPC : MonoBehaviour, IInteractable
 
     private DialogueRunner dialogueRunner;
     private bool isFacingPlayer = false;
+    private Quaternion originalRotation;
 
     private void Start()
     {
@@ -52,7 +53,7 @@ public class StaticNPC : MonoBehaviour, IInteractable
     public void Interact(PlayerInteraction playerInteraction)
     {
         if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
-
+        originalRotation = transform.rotation; 
         isFacingPlayer = true;
 
         Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
@@ -75,8 +76,29 @@ public class StaticNPC : MonoBehaviour, IInteractable
     {
         dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
         isFacingPlayer = false;
+        RestoreOriginalRotation();
 
         if (PauseManager.Instance != null)
             PauseManager.Instance.HideCursorPublic();
     }
+    private void RestoreOriginalRotation()
+{
+    StartCoroutine(TurnBackRoutine());
+}
+
+private IEnumerator TurnBackRoutine()
+{
+    float elapsed = 0f;
+    float duration = 0.5f;
+    Quaternion startRot = transform.rotation;
+
+    while (elapsed < duration)
+    {
+        elapsed += Time.deltaTime;
+        transform.rotation = Quaternion.Slerp(startRot, originalRotation, elapsed / duration);
+        yield return null;
+    }
+
+    transform.rotation = originalRotation;
+}
 }
