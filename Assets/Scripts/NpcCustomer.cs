@@ -165,24 +165,39 @@ public class NpcCustomer : MonoBehaviour, IInteractable
         }
     }
 }
-    public virtual string GetInteractionPrompt()
+public virtual string GetInteractionPrompt()
+{
+    if (hasArrivedAtCounter && itemsReceived < itemsExpected)
     {
-        if (hasArrivedAtCounter && itemsReceived < itemsExpected)
+        // Only show order prompt if player is behind counter
+        if (TaskManager.Instance != null && 
+            TaskManager.Instance.IsCurrentTask("Serve customers"))
             return "Press E to take order";
-
-        if (!hasArrivedAtCounter)
-            return "Press E to chat";
-
-        return "";
+        else
+            return ""; // hide prompt if not behind counter yet
     }
 
-    public void Interact(PlayerInteraction player)
+    if (!hasArrivedAtCounter)
+        return "Press E to chat";
+
+    return "";
+}
+
+   public void Interact(PlayerInteraction player)
+{
+    dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+    if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
+
+    // Block order if player hasn't gone behind counter yet
+    if (hasArrivedAtCounter && itemsReceived < itemsExpected)
     {
-        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
-        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
-            StartNpcDialogue();
+        if (TaskManager.Instance == null || 
+            !TaskManager.Instance.IsCurrentTask("Serve customers"))
+            return;
     }
+
+    StartNpcDialogue();
+}
 
     void StartNpcDialogue()
     {
