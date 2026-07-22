@@ -2910,6 +2910,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  requiresServeTaskToOrder: 0
 --- !u!195 &93261025
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -16657,6 +16658,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  requiresServeTaskToOrder: 0
 --- !u!65 &519429646
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43338,6 +43340,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  requiresServeTaskToOrder: 0
   serveCommandName: CompleteOrderConversation_Customer6_Serve
   kickCommandName: CompleteOrderConversation_Customer6_Kick
 --- !u!136 &1353745185
@@ -45488,6 +45491,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 1
   spawnPoint: {fileID: 465375195}
+  requiresServeTaskToOrder: 0
 --- !u!4 &1408468451 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5644030507746144681, guid: ce2548dbc81851b488075bf19a61322a, type: 3}
@@ -53806,6 +53810,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 1
   spawnPoint: {fileID: 465375195}
+  requiresServeTaskToOrder: 0
 --- !u!65 &1675751293
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63538,6 +63543,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  requiresServeTaskToOrder: 1
 --- !u!195 &1992710530
 NavMeshAgent:
   m_ObjectHideFlags: 0

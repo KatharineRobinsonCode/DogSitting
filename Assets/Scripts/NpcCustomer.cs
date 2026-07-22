@@ -173,12 +173,22 @@ public virtual string GetInteractionPrompt()
     {
         if (requiresServeTaskToOrder && 
             (TaskManager.Instance == null || !TaskManager.Instance.IsCurrentTask("Serve customers")))
-            return "Press E to chat";  // show chat prompt instead during pre-shift
+        {
+            // Only show chat prompt if waiting conversation hasn't happened yet
+            if (!hasFinishedWaitingConversation)
+                return "Press E to chat";
+            return "";  // already chatted, hide prompt
+        }
         return "Press E to take order";
     }
 
     if (!hasArrivedAtCounter)
-        return "Press E to chat";
+    {
+        // Only show chat prompt if waiting conversation hasn't happened yet
+        if (!hasFinishedWaitingConversation)
+            return "Press E to chat";
+        return "";
+    }
 
     return "";
 }
@@ -189,13 +199,13 @@ public void Interact(PlayerInteraction player)
     if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
     // If order is gated and task isn't serve customers, fire waiting conversation instead
-    if (hasArrivedAtCounter && requiresServeTaskToOrder &&
-        (TaskManager.Instance == null || !TaskManager.Instance.IsCurrentTask("Serve customers")))
-    {
-        if (!hasFinishedWaitingConversation)
-            StartCoroutine(StartDialogueNextFrame(waitingYarnNodeName));
-        return;
-    }
+   if (hasArrivedAtCounter && requiresServeTaskToOrder &&
+    (TaskManager.Instance == null || !TaskManager.Instance.IsCurrentTask("Serve customers")))
+{
+    if (!hasFinishedWaitingConversation)
+        StartCoroutine(StartDialogueNextFrame(waitingYarnNodeName));
+    return;
+}
 
     StartNpcDialogue();
 }
