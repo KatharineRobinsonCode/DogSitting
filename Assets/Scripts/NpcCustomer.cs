@@ -200,25 +200,28 @@ public virtual string GetInteractionPrompt()
 }
 
     void StartNpcDialogue()
+{
+    dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
+    if (dialogueRunner != null)
     {
-        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        string nodeToStart = hasArrivedAtCounter ? counterYarnNodeName : waitingYarnNodeName;
+        Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtCounter: {hasArrivedAtCounter}");
+        
+        bool nodeExists = dialogueRunner.NodeExists(nodeToStart);
+        Debug.Log($"[{name}] Node exists in runner: {nodeExists}");
 
-        if (dialogueRunner != null)
-        {
-            Debug.Log($"[{name}] Starting dialogue node: {(hasArrivedAtCounter ? counterYarnNodeName : waitingYarnNodeName)}");
+        if (dialogueCanvas != null)
+            dialogueCanvas.SetActive(true);
 
-            if (dialogueCanvas != null)
-                dialogueCanvas.SetActive(true);
-
-            isThisNPCActing = true;
-            string nodeToStart = hasArrivedAtCounter ? counterYarnNodeName : waitingYarnNodeName;
-            StartCoroutine(StartDialogueNextFrame(nodeToStart));
-        }
-        else
-        {
-            Debug.LogError($"[{name}] can't find the DialogueRunner!");
-        }
+        isThisNPCActing = true;
+        StartCoroutine(StartDialogueNextFrame(nodeToStart));
     }
+    else
+    {
+        Debug.LogError($"[{name}] can't find the DialogueRunner!");
+    }
+}
 
     IEnumerator StartDialogueNextFrame(string nodeName)
     {
