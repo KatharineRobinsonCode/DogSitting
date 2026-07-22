@@ -8,7 +8,7 @@ public class TerryManager : MonoBehaviour, IInteractable
     [SerializeField] private string dialogueNode = "TerryChat";
     [SerializeField] private float interactDistance = 3f;
     [SerializeField] private float turnSpeed = 7f;
-
+private bool hasSpoken = false;
     [Header("References")]
     [SerializeField] private Transform player;
 
@@ -53,9 +53,7 @@ public class TerryManager : MonoBehaviour, IInteractable
 
     public void Interact(PlayerInteraction playerInteraction)
     {
-            if (hasSpoken) return;
         if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
-
         isFacingPlayer = true;
 
         Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
