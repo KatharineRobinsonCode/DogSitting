@@ -167,36 +167,41 @@ public class NpcCustomer : MonoBehaviour, IInteractable
 }
 public virtual string GetInteractionPrompt()
 {
-    if (hasArrivedAtCounter && itemsReceived < itemsExpected)
-    {
-        // Only show order prompt if player is behind counter
-        if (TaskManager.Instance != null && 
-            TaskManager.Instance.IsCurrentTask("Serve customers"))
-            return "Press E to take order";
-        else
-            return ""; // hide prompt if not behind counter yet
-    }
+    if (TaskManager.Instance == null) return "";
 
-    if (!hasArrivedAtCounter)
+    // Pre-shift — player can chat
+    if (TaskManager.Instance.IsCurrentTask("Go behind the bar"))
         return "Press E to chat";
+
+    // Behind bar — player can take orders
+    if (hasArrivedAtCounter && itemsReceived < itemsExpected &&
+        TaskManager.Instance.IsCurrentTask("Serve customers"))
+        return "Press E to take order";
 
     return "";
 }
 
-   public void Interact(PlayerInteraction player)
+public void Interact(PlayerInteraction player)
 {
     dialogueRunner = FindFirstObjectByType<DialogueRunner>();
     if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
-    // Block order if player hasn't gone behind counter yet
-    if (hasArrivedAtCounter && itemsReceived < itemsExpected)
+    if (TaskManager.Instance == null) return;
+
+    // Pre-shift chat — fire waiting conversation
+    if (TaskManager.Instance.IsCurrentTask("Go behind the bar"))
     {
-        if (TaskManager.Instance == null || 
-            !TaskManager.Instance.IsCurrentTask("Serve customers"))
-            return;
+        StartNpcDialogue();
+        return;
     }
 
-    StartNpcDialogue();
+    // Behind bar — take order
+    if (hasArrivedAtCounter && itemsReceived < itemsExpected &&
+        TaskManager.Instance.IsCurrentTask("Serve customers"))
+    {
+        StartNpcDialogue();
+        return;
+    }
 }
 
     void StartNpcDialogue()
@@ -206,11 +211,7 @@ public virtual string GetInteractionPrompt()
     if (dialogueRunner != null)
     {
         string nodeToStart = hasArrivedAtCounter ? counterYarnNodeName : waitingYarnNodeName;
-        Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtCounter: {hasArrivedAtCounter}");
-        
-        bool nodeExists = dialogueRunner.NodeExists(nodeToStart);
-        Debug.Log($"[{name}] Node exists in runner: {nodeExists}");
-
+Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtCounter: {hasArrivedAtCounter}");
         if (dialogueCanvas != null)
             dialogueCanvas.SetActive(true);
 

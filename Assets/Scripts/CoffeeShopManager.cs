@@ -35,8 +35,7 @@ private bool toiletDialogueTriggered = false;
    private void Start()
 {
     dirtSpotsRemaining = totalDirtSpots;
-    TaskManager.Instance?.ShowTask("Go behind counter");
-
+    TaskManager.Instance?.ShowTask("Go behind the bar");
     if (customerQueue == null)
         customerQueue = FindFirstObjectByType<CustomerQueue>();
 
