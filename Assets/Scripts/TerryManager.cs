@@ -46,12 +46,14 @@ public class TerryManager : MonoBehaviour, IInteractable
     }
 
     public string GetInteractionPrompt()
-    {
-        return "Press E to chat";
-    }
+{
+    if (hasSpoken) return "";
+    return "Press E to chat";
+}
 
     public void Interact(PlayerInteraction playerInteraction)
     {
+            if (hasSpoken) return;
         if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
         isFacingPlayer = true;
@@ -75,6 +77,7 @@ public class TerryManager : MonoBehaviour, IInteractable
     private void OnDialogueComplete()
     {
         dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
+       hasSpoken = true;
         isFacingPlayer = false;
 
         if (PauseManager.Instance != null)

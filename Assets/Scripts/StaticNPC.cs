@@ -16,6 +16,8 @@ public class StaticNPC : MonoBehaviour, IInteractable
     private bool isFacingPlayer = false;
     private Quaternion originalRotation;
 
+    private bool hasSpoken = false;
+
     private void Start()
     {
         StartCoroutine(LateFindDialogueRunner());
@@ -45,17 +47,18 @@ public class StaticNPC : MonoBehaviour, IInteractable
         }
     }
 
-    public string GetInteractionPrompt()
-    {
-        return "Press E to chat";
-    }
+   public string GetInteractionPrompt()
+{
+    if (hasSpoken) return "";
+    return "Press E to chat";
+}
+public void Interact(PlayerInteraction playerInteraction)
+{
+    if (hasSpoken) return;
+    if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
-    public void Interact(PlayerInteraction playerInteraction)
-    {
-        if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
-        originalRotation = transform.rotation; 
-        isFacingPlayer = true;
-
+    originalRotation = transform.rotation;
+    isFacingPlayer = true;
         Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
         if (canvasComponent != null)
         {
@@ -75,6 +78,7 @@ public class StaticNPC : MonoBehaviour, IInteractable
     private void OnDialogueComplete()
     {
         dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);
+       hasSpoken = true;
         isFacingPlayer = false;
         RestoreOriginalRotation();
 
