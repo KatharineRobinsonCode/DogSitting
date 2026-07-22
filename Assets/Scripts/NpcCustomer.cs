@@ -83,6 +83,8 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public int ItemsReceived => itemsReceived;
     public int ItemsExpected => itemsExpected;
 
+[Header("Task Gating")]
+[SerializeField] private bool requiresServeTaskToOrder = false;
     // Changed to protected virtual so DrunkCustomer can override
     protected virtual void Start()
     {
@@ -167,16 +169,16 @@ public class NpcCustomer : MonoBehaviour, IInteractable
 }
 public virtual string GetInteractionPrompt()
 {
-    if (TaskManager.Instance == null) return "";
-
-    // Pre-shift — player can chat
-    if (TaskManager.Instance.IsCurrentTask("Go behind the bar"))
-        return "Press E to chat";
-
-    // Behind bar — player can take orders
-    if (hasArrivedAtCounter && itemsReceived < itemsExpected &&
-        TaskManager.Instance.IsCurrentTask("Serve customers"))
+    if (hasArrivedAtCounter && itemsReceived < itemsExpected)
+    {
+        if (requiresServeTaskToOrder && 
+            (TaskManager.Instance == null || !TaskManager.Instance.IsCurrentTask("Serve customers")))
+            return "Press E to chat";  // show chat prompt instead during pre-shift
         return "Press E to take order";
+    }
+
+    if (!hasArrivedAtCounter)
+        return "Press E to chat";
 
     return "";
 }
@@ -186,22 +188,16 @@ public void Interact(PlayerInteraction player)
     dialogueRunner = FindFirstObjectByType<DialogueRunner>();
     if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
 
-    if (TaskManager.Instance == null) return;
-
-    // Pre-shift chat — fire waiting conversation
-    if (TaskManager.Instance.IsCurrentTask("Go behind the bar"))
+    // If order is gated and task isn't serve customers, fire waiting conversation instead
+    if (hasArrivedAtCounter && requiresServeTaskToOrder &&
+        (TaskManager.Instance == null || !TaskManager.Instance.IsCurrentTask("Serve customers")))
     {
-        StartNpcDialogue();
+        if (!hasFinishedWaitingConversation)
+            StartCoroutine(StartDialogueNextFrame(waitingYarnNodeName));
         return;
     }
 
-    // Behind bar — take order
-    if (hasArrivedAtCounter && itemsReceived < itemsExpected &&
-        TaskManager.Instance.IsCurrentTask("Serve customers"))
-    {
-        StartNpcDialogue();
-        return;
-    }
+    StartNpcDialogue();
 }
 
     void StartNpcDialogue()

@@ -38958,7 +38958,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1231942060}
   - component: {fileID: 1231942059}
-  - component: {fileID: 1231942058}
+  - component: {fileID: 1231942061}
   m_Layer: 0
   m_Name: TaskManager
   m_TagString: Untagged
@@ -38966,18 +38966,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1231942058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1231942057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6834a89fa5f849ad9986732c8fc7f9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TaskManager
 --- !u!114 &1231942059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39038,6 +39026,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 432827439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1231942061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231942057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c56bd12a9b33a4a0ea21bafb9e97eb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TaskManager
+  taskPanel: {fileID: 695246729}
+  taskDisplay: {fileID: 1889566199}
+  enableDebugLogs: 0
 --- !u!1001 &1234750007
 PrefabInstance:
   m_ObjectHideFlags: 0
