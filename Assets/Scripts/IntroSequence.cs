@@ -121,18 +121,28 @@ private void Start()
     
     #region Input Handling
     
-    private void CheckForSkipInput()
+private bool waitingForDismiss = false;
+
+private void CheckForSkipInput()
+{
+    // Second E press — dismiss the panel
+    if (waitingForDismiss)
     {
-        if (typingFinished)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            return;
+            waitingForDismiss = false;
+            StopAllCoroutines();
+            StartCoroutine(FadeOutAndHide());
         }
-        
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E))
-        {
-            SkipTypewriter();
-        }
+        return;
     }
+
+    // First E press — show all text immediately
+    if (!typingFinished && Input.GetKeyDown(KeyCode.E))
+    {
+        SkipTypewriter();
+    }
+}
     
     private void SkipTypewriter()
     {
@@ -144,18 +154,24 @@ private void Start()
     
     #region Intro Sequence
     
-    private IEnumerator RunIntroSequence()
-    {
-        yield return new WaitForSeconds(initialDelay);
-        
-        yield return StartCoroutine(TypewriterEffect());
-        
-        yield return StartCoroutine(WaitBeforeFade());
-        
-        yield return StartCoroutine(FadeOut());
-        
-        HideIntroUI();
-    }
+  private IEnumerator RunIntroSequence()
+{
+    yield return new WaitForSeconds(initialDelay);
+    yield return StartCoroutine(TypewriterEffect());
+
+    // Text is fully shown — wait for E to dismiss
+    waitingForDismiss = true;
+
+    // Wait until player dismisses
+    while (waitingForDismiss)
+        yield return null;
+}
+
+private IEnumerator FadeOutAndHide()
+{
+    yield return StartCoroutine(FadeOut());
+    HideIntroUI();
+}
     
     #endregion
     

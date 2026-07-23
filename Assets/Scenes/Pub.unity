@@ -6588,6 +6588,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa92cc985a5a49a883397085e76e060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  currentRequiredItem: 
+  orderPanel: {fileID: 0}
+  orderDisplay: {fileID: 0}
+  customersServed: 0
+  creepyPhoto: {fileID: 0}
 --- !u!114 &207192655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65240,15 +65245,16 @@ MonoBehaviour:
   introCanvasGroup: {fileID: 2035840264}
   introText: {fileID: 363776751}
   entireIntroUI: {fileID: 1522297091}
-  fullText: '[Press E to skip]
+  fullText: '[Press E to skip and continue]
 
 
-    You''re finishing the final hour of your shift.
-    People are always acting weird, but today you can''t shake the sinking feeling
-    in your stomach.
+    You''re finishing the final hour
+    of your shift. People are always acting weird, but today you can''t shake the
+    sinking feeling in your stomach.
 
 
-    You know you need to make smart decisions today... '
+    You know you need to make smart decisions
+    today... '
   typingSpeed: 0.08
   audioSource: {fileID: 1522297092}
   typingSound: {fileID: 8300000, guid: 79e39c41c4c674c5bbf167c85bb904ab, type: 3}

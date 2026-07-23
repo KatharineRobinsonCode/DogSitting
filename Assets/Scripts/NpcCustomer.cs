@@ -154,11 +154,11 @@ public class NpcCustomer : MonoBehaviour, IInteractable
         {
             FaceTarget(player.position);
 
-            if (isThisNPCActing)
-            {
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
+        if (isThisNPCActing)
+{
+    Cursor.visible = true;
+    Cursor.lockState = CursorLockMode.None;
+}
         }
         else if (hasArrivedAtCounter && !isLeaving && !isHeadingToSeat && !isThisNPCActing)
         {
@@ -249,6 +249,8 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
         hasFinishedWaitingConversation = true;
         isThisNPCActing = false;
         HideUIElements();
+         Cursor.visible = false;       
+    Cursor.lockState = CursorLockMode.Locked; 
     }
 
     public void CompleteOrderConversation()
@@ -269,6 +271,8 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
             Debug.LogError($"[{name}] TaskManager.Instance is NULL! Can't update task.");
 
         HideUIElements();
+        Cursor.visible = false;           
+    Cursor.lockState = CursorLockMode.Locked; 
     }
 
     public void DeliverItem()
