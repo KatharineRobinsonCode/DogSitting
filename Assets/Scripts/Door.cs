@@ -12,30 +12,44 @@ public class Door : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        doorScript = GetComponentInChildren<opencloseDoor>();
+        doorScript = GetComponent<opencloseDoor>();
+        if (doorScript == null)
+            doorScript = GetComponentInChildren<opencloseDoor>();
+        if (doorScript == null)
+            doorScript = GetComponentInParent<opencloseDoor>();
+
         if (doorScript != null)
             doorScript.enabled = false;
     }
 
-   public string GetInteractionPrompt()
-{
-    if (isLocked) return "Press E to try door";
-    return doorScript.open ? "Press E to close door" : "Press E to open door";
-}
+    public string GetInteractionPrompt()
+    {
+        if (isLocked) return "Press E to try door";
+        if (doorScript == null) return "Press E to open door";
+        return doorScript.open ? "Press E to close door" : "Press E to open door";
+    }
 
     public void Interact(PlayerInteraction player)
     {
-        if (doorScript == null) return;
+        // Handle locked door first — no doorScript needed
+        if (isLocked)
+        {
+            if (doorAudio != null && lockedSound != null)
+            {
+                doorAudio.clip = lockedSound;
+                doorAudio.Play();
+                Debug.Log("[Door] Playing locked sound");
+            }
+            FeedbackManager.Instance?.ShowMessage("It's locked...", FeedbackManager.MessageType.Info);
+            return;
+        }
 
-      if (isLocked)
-{
-    if (doorAudio != null)
-        doorAudio.Play();
-    Debug.Log("[Door] Door is locked");
-    return;
-}
-
-        Debug.Log($"[Door] Interact called. open = {doorScript.open}");
+        // Opening/closing requires doorScript
+        if (doorScript == null)
+        {
+            Debug.LogWarning("[Door] No opencloseDoor script found — can't open/close");
+            return;
+        }
 
         if (!doorScript.open)
         {
@@ -49,15 +63,6 @@ public class Door : MonoBehaviour, IInteractable
         }
     }
 
-    public void Unlock()
-    {
-        isLocked = false;
-        Debug.Log("[Door] Door unlocked");
-    }
-
-    public void Lock()
-    {
-        isLocked = true;
-        Debug.Log("[Door] Door locked");
-    }
+    public void Unlock() { isLocked = false; }
+    public void Lock() { isLocked = true; }
 }
