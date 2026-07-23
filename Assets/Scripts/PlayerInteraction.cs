@@ -113,51 +113,50 @@ public class PlayerInteraction : MonoBehaviour
         return true;
     }
 
-    private void CheckForInteractables()
+private void CheckForInteractables()
+{
+    Ray ray = GetCenterScreenRay();
+
+    if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
     {
-        // Skip one frame after picking up broom to prevent immediate drop
-        if (justPickedUpBroom)
+        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.green);
+        UpdateUI(true, promptMessage);
+
+        if (Input.GetKeyDown(INTERACT_KEY))
+            HandleInteraction(hit);
+    }
+    else
+    {
+        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
+        UpdateUI(false, string.Empty);
+    }
+
+    // Skip drop check if we just picked up the broom this frame
+    if (justPickedUpBroom)
+    {
+        justPickedUpBroom = false;
+        return;
+    }
+
+    if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
+    {
+        Ray dropRay = GetCenterScreenRay();
+        bool hittingDirtSpot = false;
+
+        if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
         {
-            justPickedUpBroom = false;
-            return;
+            if (dropHit.collider.GetComponentInParent<DirtSpot>() != null)
+                hittingDirtSpot = true;
         }
 
-        Ray ray = GetCenterScreenRay();
-
-        if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
+        if (!hittingDirtSpot)
         {
-            Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.green);
-            UpdateUI(true, promptMessage);
-
-            if (Input.GetKeyDown(INTERACT_KEY))
-                HandleInteraction(hit);
-        }
-        else
-        {
-            Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
-            UpdateUI(false, string.Empty);
-        }
-
-        // Broom drop — fires after prompt logic so dirt spot interaction still works
-        if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
-        {
-            Ray dropRay = GetCenterScreenRay();
-            bool hittingDirtSpot = false;
-
-            if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
-            {
-                if (dropHit.collider.GetComponentInParent<DirtSpot>() != null)
-                    hittingDirtSpot = true;
-            }
-
-            if (!hittingDirtSpot)
-            {
-                Broom broom = currentHeldItem?.GetComponent<Broom>();
-                if (broom != null)
-                    broom.Drop(this);
-            }
+            Broom broom = currentHeldItem?.GetComponent<Broom>();
+            if (broom != null)
+                broom.Drop(this);
         }
     }
+}
 
     private Ray GetCenterScreenRay()
     {
