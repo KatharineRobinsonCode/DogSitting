@@ -58,7 +58,7 @@ public class DoorEnding : MonoBehaviour, IInteractable
     {
         if (CanLeave())
         {
-            return "Press E to leave cafe";
+            return "Press E to leave pub";
         }
         
         return "Press E to leave (shift incomplete)";
