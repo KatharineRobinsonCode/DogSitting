@@ -27,6 +27,15 @@ public void Drop(PlayerInteraction player)
     isPickedUp = false;
     player.SetHoldingBroom(false);
     player.DropHeldItem();
+
+    // Re-enable gravity so it falls to the floor
+    Rigidbody rb = GetComponent<Rigidbody>();
+    if (rb != null)
+    {
+        rb.isKinematic = false;
+        rb.useGravity = true;
+    }
+
     Debug.Log("[Broom] Dropped broom");
 }
 }

@@ -123,7 +123,11 @@ private void CheckForInteractables()
         UpdateUI(true, promptMessage);
 
         if (Input.GetKeyDown(INTERACT_KEY))
-            HandleInteraction(hit);
+        {
+            // If holding broom, let the drop logic below handle E press
+            if (!IsHoldingBroom)
+                HandleInteraction(hit);
+        }
     }
     else
     {
@@ -131,7 +135,6 @@ private void CheckForInteractables()
         UpdateUI(false, string.Empty);
     }
 
-    // Skip drop check if we just picked up the broom this frame
     if (justPickedUpBroom)
     {
         justPickedUpBroom = false;
@@ -146,7 +149,10 @@ private void CheckForInteractables()
         if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
         {
             if (dropHit.collider.GetComponentInParent<DirtSpot>() != null)
+            {
                 hittingDirtSpot = true;
+                dropHit.collider.GetComponentInParent<DirtSpot>().Interact(this);
+            }
         }
 
         if (!hittingDirtSpot)
@@ -157,7 +163,7 @@ private void CheckForInteractables()
         }
     }
 }
-
+  
     private Ray GetCenterScreenRay()
     {
         Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f);
