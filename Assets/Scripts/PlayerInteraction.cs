@@ -346,7 +346,7 @@ if (cup != null && currentHeldItem == null)
     
     #region Item Pickup & Holding
     
-    private void PickUpItem(GameObject item)
+    public void PickUpItem(GameObject item)
     {
         currentHeldItem = item;
         

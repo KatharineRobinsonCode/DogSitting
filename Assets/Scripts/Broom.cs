@@ -11,15 +11,15 @@ public class Broom : MonoBehaviour, IInteractable
         return "";
     }
 
-    public void Interact(PlayerInteraction player)
-    {
-        if (isPickedUp) return;
+ public void Interact(PlayerInteraction player)
+{
+    if (isPickedUp) return;
 
-        isPickedUp = true;
-        player.SetHoldingBroom(true);
-        gameObject.SetActive(false);
+    isPickedUp = true;
+    player.SetHoldingBroom(true);
+    player.PickUpItem(gameObject);  // ← attach to hold point instead of hiding
 
-        Debug.Log("[Broom] Picked up broom");
-        FeedbackManager.Instance?.ShowMessage("Broom picked up!", FeedbackManager.MessageType.Success);
-    }
+    Debug.Log("[Broom] Picked up broom");
+    FeedbackManager.Instance?.ShowMessage("Broom picked up!", FeedbackManager.MessageType.Success);
+}
 }
