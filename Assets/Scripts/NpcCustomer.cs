@@ -171,20 +171,22 @@ public virtual string GetInteractionPrompt()
 {
     if (hasArrivedAtCounter && itemsReceived < itemsExpected)
     {
+        // Order already taken — hide prompt while player makes the drink
+        if (hasFinishedOrderConversation)
+            return "";
+
         if (requiresServeTaskToOrder && 
             (TaskManager.Instance == null || !TaskManager.Instance.IsCurrentTask("Serve customers")))
         {
-            // Only show chat prompt if waiting conversation hasn't happened yet
             if (!hasFinishedWaitingConversation)
                 return "Press E to chat";
-            return "";  // already chatted, hide prompt
+            return "";
         }
         return "Press E to take order";
     }
 
     if (!hasArrivedAtCounter)
     {
-        // Only show chat prompt if waiting conversation hasn't happened yet
         if (!hasFinishedWaitingConversation)
             return "Press E to chat";
         return "";

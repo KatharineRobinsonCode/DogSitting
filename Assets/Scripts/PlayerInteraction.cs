@@ -201,26 +201,35 @@ public void SetHoldingBroom(bool value)
             return !string.IsNullOrEmpty(promptMessage);
         }
         
-        DrinkMachine machine = hit.collider.GetComponentInParent<DrinkMachine>();
-        if (machine != null)
-        {
-            promptMessage = $"Press E to use {machine.gameObject.name}";
-            return true;
-        }
-        
-        Register register = hit.collider.GetComponentInParent<Register>();
-        if (register != null)
-        {
+       DrinkMachine machine = hit.collider.GetComponentInParent<DrinkMachine>();
+if (machine != null)
+{
+    // Only show prompt if holding a compatible cup
+    if (currentHeldItem != null && currentHeldItem.GetComponent<Cup>() != null)
+        promptMessage = $"Press E to use {machine.gameObject.name}";
+    return currentHeldItem != null && currentHeldItem.GetComponent<Cup>() != null;
+}
+
+Register register = hit.collider.GetComponentInParent<Register>();
+if (register != null)
+{
+    // Only show prompt if holding a filled cup
+    if (currentHeldItem != null)
+    {
+        Cup cup = currentHeldItem.GetComponent<Cup>();
+        if (cup != null && cup.contents != Cup.DrinkType.None)
             promptMessage = "Press E to use Register";
-            return true;
-        }
-        
-        Trash bin = hit.collider.GetComponentInParent<Trash>();
-        if (bin != null)
-        {
-            promptMessage = "Press E to use Bin";
-            return true;
-        }
+        return cup != null && cup.contents != Cup.DrinkType.None;
+    }
+    return false;
+}
+     Trash bin = hit.collider.GetComponentInParent<Trash>();
+if (bin != null)
+{
+    if (currentHeldItem != null)
+        promptMessage = "Press E to use Bin";
+    return currentHeldItem != null;
+}
         
     Cup cup = hit.collider.GetComponentInParent<Cup>();
 if (cup != null && currentHeldItem == null)
