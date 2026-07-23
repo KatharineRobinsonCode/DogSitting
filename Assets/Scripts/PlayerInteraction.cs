@@ -213,13 +213,12 @@ if (machine != null)
 Register register = hit.collider.GetComponentInParent<Register>();
 if (register != null)
 {
-    // Only show prompt if holding a filled cup
     if (currentHeldItem != null)
     {
-        Cup cup = currentHeldItem.GetComponent<Cup>();
-        if (cup != null && cup.contents != Cup.DrinkType.None)
+        Cup heldCup = currentHeldItem.GetComponent<Cup>();  // ← renamed to heldCup
+        if (heldCup != null && heldCup.contents != Cup.DrinkType.None)
             promptMessage = "Press E to use Register";
-        return cup != null && cup.contents != Cup.DrinkType.None;
+        return heldCup != null && heldCup.contents != Cup.DrinkType.None;
     }
     return false;
 }
