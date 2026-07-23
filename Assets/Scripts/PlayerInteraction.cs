@@ -354,7 +354,6 @@ if (cup != null && currentHeldItem == null)
         originalItemLayer = item.layer;
         
         ConfigureItemPhysics(item);
-        SetItemLayer(item);
         AttachItemToHoldPoint(item);
     }
     
