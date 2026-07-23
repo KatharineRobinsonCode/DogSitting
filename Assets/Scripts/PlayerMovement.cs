@@ -65,14 +65,17 @@ public class PlayerMovement : MonoBehaviour
         InitializeCursor();
     }
 
-    private void Update()
-    {
-        if (!CanPlayerMove())
-            return;
+   private void Update()
+{
+    if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+        Debug.Log("[PlayerMovement] Dialogue is running — should be blocking movement");
 
-        HandleMovement();
-        HandleCameraLook();
-    }
+    if (!CanPlayerMove())
+        return;
+
+    HandleMovement();
+    HandleCameraLook();
+}
 
     #endregion
 

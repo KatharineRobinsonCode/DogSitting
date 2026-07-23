@@ -1,28 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yarn.Unity;
 
 namespace SojaExiles
-
 {
     public class MouseLook : MonoBehaviour
     {
-
         public float mouseXSensitivity = 100f;
-
         public Transform playerBody;
 
         float xRotation = 0f;
+        private DialogueRunner dialogueRunner;
 
-        // Start is called before the first frame update
         void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
+            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
         }
 
-        // Update is called once per frame
         void Update()
         {
+            // Block camera look during dialogue
+            if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+                return;
+
             float mouseX = Input.GetAxis("Mouse X") * mouseXSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseXSensitivity * Time.deltaTime;
 
