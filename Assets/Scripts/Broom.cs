@@ -22,4 +22,11 @@ public class Broom : MonoBehaviour, IInteractable
     Debug.Log("[Broom] Picked up broom");
     FeedbackManager.Instance?.ShowMessage("Broom picked up!", FeedbackManager.MessageType.Success);
 }
+public void Drop(PlayerInteraction player)
+{
+    isPickedUp = false;
+    player.SetHoldingBroom(false);
+    player.DropHeldItem();
+    Debug.Log("[Broom] Dropped broom");
+}
 }

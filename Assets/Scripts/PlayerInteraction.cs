@@ -176,6 +176,26 @@ public void SetHoldingBroom(bool value)
         Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
         UpdateUI(false, string.Empty);
     }
+    // If holding broom and E pressed with no dirt spot in range — drop it
+    if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
+    {
+        Ray dropRay = GetCenterScreenRay();
+        bool hittingDirtSpot = false;
+
+        if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
+        {
+            if (dropHit.collider.GetComponentInParent<DirtSpot>() != null)
+                hittingDirtSpot = true;
+        }
+
+        if (!hittingDirtSpot)
+        {
+            Broom broom = currentHeldItem?.GetComponent<Broom>();
+            if (broom != null)
+                broom.Drop(this);
+            return;
+        }
+    }
 }
     
     private Ray GetCenterScreenRay()
@@ -184,23 +204,35 @@ public void SetHoldingBroom(bool value)
         return Camera.main.ScreenPointToRay(screenCenter);
     }
     
-    private bool TryRaycastInteractable(Ray ray, out RaycastHit hit, out string promptMessage)
+  private bool TryRaycastInteractable(Ray ray, out RaycastHit hit, out string promptMessage)
+{
+    promptMessage = string.Empty;
+
+    if (!Physics.Raycast(ray, out hit, interactDistance, ~excludeLayers))
     {
-        promptMessage = string.Empty;
-        
-        if (!Physics.Raycast(ray, out hit, interactDistance, ~excludeLayers))
+        // Still show drop prompt if holding broom and not hitting anything
+        if (IsHoldingBroom)
         {
-            return false;
+            promptMessage = "Press E to put down broom";
+            return true;
         }
-        
-        // Check for all interactable types
+        return false;
+    }
+
+    // If holding broom, only allow dirt spot interaction
+    if (IsHoldingBroom)
+    {
         IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
-        if (interactable != null)
+        if (interactable is DirtSpot)
         {
             promptMessage = interactable.GetInteractionPrompt();
             return !string.IsNullOrEmpty(promptMessage);
         }
-        
+
+        // Not looking at dirt spot — show drop prompt
+        promptMessage = "Press E to put down broom";
+        return true;
+    }        
        DrinkMachine machine = hit.collider.GetComponentInParent<DrinkMachine>();
 if (machine != null)
 {
@@ -429,4 +461,5 @@ if (cup != null && currentHeldItem == null)
     }
     
     #endregion
+
 }
