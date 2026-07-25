@@ -2514,7 +2514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
   defaultLoadDelay: 0
-  enableDebugLogs: 0
+  enableDebugLogs: 1
 --- !u!1001 &32982467
 PrefabInstance:
   m_ObjectHideFlags: 0

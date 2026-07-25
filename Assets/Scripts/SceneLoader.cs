@@ -216,22 +216,25 @@ public class SceneLoader : MonoBehaviour
     #region Validation
     
     private bool ValidateSceneName(string sceneName)
+{
+    if (string.IsNullOrEmpty(sceneName))
     {
-        if (string.IsNullOrEmpty(sceneName))
-        {
-            Debug.LogError("[SceneLoader] Scene name is null or empty");
-            return false;
-        }
-        
-        // Check if scene exists in build settings
-        if (SceneManager.GetSceneByName(sceneName).buildIndex == -1)
-        {
-            Debug.LogError($"[SceneLoader] Scene '{sceneName}' not found in build settings");
-            return false;
-        }
-        
-        return true;
+        Debug.LogError("[SceneLoader] Scene name is null or empty");
+        return false;
     }
+
+    // Check all scenes in build settings by name
+    for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+    {
+        string path = SceneUtility.GetScenePathByIndex(i);
+        string name = System.IO.Path.GetFileNameWithoutExtension(path);
+        if (name == sceneName)
+            return true;
+    }
+
+    Debug.LogError($"[SceneLoader] Scene '{sceneName}' not found in build settings");
+    return false;
+}
     
     private bool ValidateSceneIndex(int sceneIndex)
     {
