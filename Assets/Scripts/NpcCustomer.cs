@@ -480,4 +480,11 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
         if (anim != null)
             anim.SetBool("isSitting", false);
     }
+    private void OnDestroy()
+{
+    if (dialogueRunner == null) return;
+    
+    try { dialogueRunner.RemoveCommandHandler(waitingCommandName); } catch { }
+    try { dialogueRunner.RemoveCommandHandler(orderCommandName); } catch { }
+}
 }

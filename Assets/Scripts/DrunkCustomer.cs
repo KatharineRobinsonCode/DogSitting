@@ -114,4 +114,11 @@ public void CompleteOrderConversationKick()
         agent.SetDestination(exitPoint.position);
     }
 }
+private void OnDestroy()
+{
+    if (dialogueRunner == null) return;
+    
+    try { dialogueRunner.RemoveCommandHandler(waitingCommandName); } catch { }
+    try { dialogueRunner.RemoveCommandHandler(orderCommandName); } catch { }
+}
 }
