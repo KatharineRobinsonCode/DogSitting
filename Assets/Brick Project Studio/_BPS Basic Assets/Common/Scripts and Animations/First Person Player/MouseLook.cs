@@ -13,15 +13,18 @@ namespace SojaExiles
         float xRotation = 0f;
         private DialogueRunner dialogueRunner;
 
-   void Start()
+ void Start()
 {
     Cursor.lockState = CursorLockMode.Locked;
     dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
+    float saved = PlayerPrefs.GetFloat("MouseSensitivity", -1f);
+    if (saved >= 10f && saved <= 200f)
+        mouseXSensitivity = saved;
+    // If saved value is out of range, keep Inspector value
     
-    mouseXSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", mouseXSensitivity);
     Debug.Log($"[MouseLook] Sensitivity: {mouseXSensitivity}");
 }
-
         void Update()
         {
             // Block camera look during dialogue
