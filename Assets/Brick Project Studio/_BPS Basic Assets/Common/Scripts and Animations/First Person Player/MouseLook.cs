@@ -13,11 +13,14 @@ namespace SojaExiles
         float xRotation = 0f;
         private DialogueRunner dialogueRunner;
 
-        void Start()
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-        }
+       void Start()
+{
+    Cursor.lockState = CursorLockMode.Locked;
+    dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
+    // Load saved sensitivity
+    mouseXSensitivity = PlayerPrefs.GetFloat("MouseSensitivity", mouseXSensitivity);
+}
 
         void Update()
         {

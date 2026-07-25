@@ -81,18 +81,20 @@ public class PlayerMovement : MonoBehaviour
 
     #region Initialization
 
-    private void InitializeComponents()
-    {
-        characterController = GetComponent<CharacterController>();
-        audioSource = GetComponent<AudioSource>();
-        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+  private void InitializeComponents()
+{
+    characterController = GetComponent<CharacterController>();
+    audioSource = GetComponent<AudioSource>();
+    dialogueRunner = FindFirstObjectByType<DialogueRunner>();
 
-        if (characterController == null)
-            Debug.LogError("[PlayerMovement] CharacterController component missing!");
+    // Load saved sensitivity
+    lookSpeed = PlayerPrefs.GetFloat("MouseSensitivity", lookSpeed);
 
-        if (playerCamera == null)
-            Debug.LogWarning("[PlayerMovement] Player camera not assigned!");
-    }
+    if (characterController == null)
+        Debug.LogError("[PlayerMovement] CharacterController component missing!");
+    if (playerCamera == null)
+        Debug.LogWarning("[PlayerMovement] Player camera not assigned!");
+}
 
     private void CacheBaseValues()
     {
@@ -253,6 +255,10 @@ public class PlayerMovement : MonoBehaviour
     {
         return characterController != null ? characterController.velocity : Vector3.zero;
     }
+    public void SetLookSpeed(float speed)
+{
+    lookSpeed = speed;
+}
 
     #endregion
 }
