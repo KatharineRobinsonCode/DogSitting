@@ -356,15 +356,12 @@ public void HideCursorPublic()
     /// Sets mouse sensitivity and saves to PlayerPrefs. Called by sensitivity slider.
     /// </summary>
     /// <param name="sensitivity">Sensitivity value</param>
- public void SetSensitivity(float sensitivity)
+public void SetSensitivity(float sensitivity)
 {
     PlayerPrefs.SetFloat(SENSITIVITY_PREF_KEY, sensitivity);
     PlayerPrefs.Save();
 
-    // Apply immediately to all look scripts in scene
-    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
-    if (pm != null) pm.SetLookSpeed(sensitivity);
-
+    // Only apply to MouseLook — PlayerMovement uses different scale
     SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
     if (ml != null) ml.mouseXSensitivity = sensitivity;
 }

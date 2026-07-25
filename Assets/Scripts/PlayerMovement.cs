@@ -91,9 +91,6 @@ private float footstepTimer = 0f;
     audioSource = GetComponent<AudioSource>();
     dialogueRunner = FindFirstObjectByType<DialogueRunner>();
 
-    // Load saved sensitivity
-    lookSpeed = PlayerPrefs.GetFloat("MouseSensitivity", lookSpeed);
-
     if (characterController == null)
         Debug.LogError("[PlayerMovement] CharacterController component missing!");
     if (playerCamera == null)
