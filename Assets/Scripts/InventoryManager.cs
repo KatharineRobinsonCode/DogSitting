@@ -29,14 +29,17 @@ private InventoryWheel inventoryWheel;
         LoadInventory();
     }
 
-    private void Update()
+  private void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Tab))
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-            inventoryWheel.ToggleWheel(items);
-
-        if (Input.GetKeyDown(KeyCode.F))
-            UseActiveItem();
+        Debug.Log($"[Inventory] Tab pressed — inventoryWheel null: {inventoryWheel == null}");
+        inventoryWheel?.ToggleWheel(items);
     }
+
+    if (Input.GetKeyDown(KeyCode.F))
+        UseActiveItem();
+}
 // Registration methods — called by House scene objects on Start()
 public void SetBrinkley(Dog dog) { brinkley = dog; }
 public void SetPlayerTorch(GameObject torch) { playerTorch = torch; }
