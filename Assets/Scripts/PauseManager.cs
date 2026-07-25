@@ -36,7 +36,7 @@ public class PauseManager : MonoBehaviour
     
     [Header("Default Settings")]
     [Tooltip("Default mouse sensitivity")]
-    [SerializeField] private float defaultSensitivity = 2f;
+    [SerializeField] private float defaultSensitivity = 80f;
     
     [Tooltip("Default audio volume (0-1)")]
     [SerializeField] private float defaultVolume = 1f;
@@ -125,12 +125,18 @@ public class PauseManager : MonoBehaviour
         }
     }
     
-    private void LoadSettings()
-    {
-        // Load saved sensitivity or use default
-        float savedSensitivity = PlayerPrefs.GetFloat(SENSITIVITY_PREF_KEY, defaultSensitivity);
-        AudioListener.volume = defaultVolume;
-    }
+  private void LoadSettings()
+{
+    float savedSensitivity = PlayerPrefs.GetFloat(SENSITIVITY_PREF_KEY, defaultSensitivity);
+    AudioListener.volume = PlayerPrefs.GetFloat("Volume", defaultVolume);
+    
+    // Apply sensitivity immediately
+    SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
+    if (ml != null) ml.mouseXSensitivity = savedSensitivity;
+
+    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
+    if (pm != null) pm.SetLookSpeed(savedSensitivity);
+}
     
     #endregion
     
