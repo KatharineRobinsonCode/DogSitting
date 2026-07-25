@@ -92,17 +92,17 @@ public class MainMenuManager : MonoBehaviour
     /// Starts a new game with the entered player name.
     /// Called by New Game button.
     /// </summary>
-    public void StartNewGame()
-    {
-        if (!ValidatePlayerName())
-        {
-            ShowNameRequiredWarning();
-            return;
-        }
-        
-        SavePlayerName();
-        LoadGameScene();
-    }
+   public void StartNewGame()
+{
+    if (!ValidatePlayerName()) { ShowNameRequiredWarning(); return; }
+    
+    PlayerPrefs.DeleteKey("InventoryItems");  // ← clear old inventory
+    PlayerPrefs.DeleteKey(LAST_SCENE_PREF_KEY);
+    PlayerPrefs.Save();
+    
+    SavePlayerName();
+    LoadGameScene();
+}
     
     /// <summary>
     /// Continues from the last saved scene, or starts new game if no save exists.
