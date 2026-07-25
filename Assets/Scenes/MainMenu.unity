@@ -2443,7 +2443,12 @@ MonoBehaviour:
   squeakyToyClip: {fileID: 8300000, guid: 56b6a0d15998b4ad492a183cdf0c6474, type: 3}
   brinkley: {fileID: 0}
   inventoryWheel: {fileID: 0}
-  allItems: []
+  allItems:
+  - {fileID: 11400000, guid: 0ba2257cb6a4c4a0883da65138efe61f, type: 2}
+  - {fileID: 11400000, guid: 0580b50ec4b01410ea956002ed9109cf, type: 2}
+  - {fileID: 11400000, guid: 17d48bd7d89fa4b909834c3f3e0e1abc, type: 2}
+  - {fileID: 11400000, guid: 3b5ece378dcfb41c9a2426981c872b20, type: 2}
+  - {fileID: 11400000, guid: 54250ef0a5bc541c1a81539bba9d63fd, type: 2}
 --- !u!4 &840700061
 Transform:
   m_ObjectHideFlags: 0

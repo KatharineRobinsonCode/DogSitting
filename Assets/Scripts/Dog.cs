@@ -27,6 +27,9 @@ public class Dog : MonoBehaviour, IInteractable
     {
         agent = GetComponent<NavMeshAgent>();
         if (agent != null) agent.enabled = false;
+
+            if (InventoryManager.Instance != null)
+        InventoryManager.Instance.SetBrinkley(this);
     }
 
     private void Update()

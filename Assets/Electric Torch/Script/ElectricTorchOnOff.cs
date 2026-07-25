@@ -37,19 +37,25 @@ public class ElectricTorchOnOff : MonoBehaviour
     {
 		_batteryPower = FindObjectOfType<BatteryPowerPickup>();
 	}
-    void Start()
-	{
-		GameObject _scriptControllerEmissionFade = GameObject.Find("default");
+   void Start()
+{
+    GameObject _scriptControllerEmissionFade = GameObject.Find("default");
 
-		if (_scriptControllerEmissionFade != null)
-		{
-			_emissionMaterialFade = _scriptControllerEmissionFade.GetComponent<EmissionMaterialGlassTorchFadeOut>();
-		}
-		if (_scriptControllerEmissionFade  == null) {Debug.Log("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");}
+    if (_scriptControllerEmissionFade != null)
+    {
+        _emissionMaterialFade = _scriptControllerEmissionFade.GetComponent<EmissionMaterialGlassTorchFadeOut>();
+    }
+    if (_scriptControllerEmissionFade == null)
+    {
+        Debug.Log("Cannot find 'EmissionMaterialGlassTorchFadeOut' script");
+    }
 
-		_kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
-	}
+    _kCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), onOffLightKey);
 
+    // Register with InventoryManager
+    if (InventoryManager.Instance != null)
+        InventoryManager.Instance.SetPlayerTorch(gameObject);
+}
 	void Update()
 	{
 		// detecting parse error keyboard type

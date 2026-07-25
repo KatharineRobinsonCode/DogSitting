@@ -132457,6 +132457,8 @@ MonoBehaviour:
   dialogueRunner: {fileID: 0}
   dialogueNode: NPCOutside
   interactOnce: 1
+  player: {fileID: 552239441}
+  turnSpeed: 7
 --- !u!1001 &1882208708
 PrefabInstance:
   m_ObjectHideFlags: 0
