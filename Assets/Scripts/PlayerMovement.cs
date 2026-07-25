@@ -27,9 +27,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float defaultHeight = 2f;
     [SerializeField] private float crouchHeight = 1f;
 
-    [Header("Audio")]
-    [SerializeField] private AudioClip jumpSound;
+   [Header("Audio")]
+[SerializeField] private AudioClip jumpSound;
+[SerializeField] private AudioClip[] footstepSounds;  // drag multiple clips for variety
+[SerializeField] private float footstepInterval = 0.5f;  // time between steps walking
+[SerializeField] private float runFootstepInterval = 0.3f;  // faster when running
 
+private float footstepTimer = 0f;
     #endregion
 
     #region Private Fields
@@ -129,13 +133,41 @@ public class PlayerMovement : MonoBehaviour
         return dialogueRunner != null && dialogueRunner.IsDialogueRunning;
     }
 
-    private void HandleMovement()
+   private void HandleMovement()
+{
+    UpdateMovementDirection();
+    ApplyGravityAndJump();
+    HandleCrouching();
+    ApplyMovement();
+    HandleFootsteps();
+}
+
+private void HandleFootsteps()
+{
+    // Only play when grounded and actually moving
+    bool isMoving = new Vector2(Input.GetAxis(HORIZONTAL_AXIS), 
+                                Input.GetAxis(VERTICAL_AXIS)).magnitude > 0.1f;
+
+    if (!characterController.isGrounded || !isMoving)
     {
-        UpdateMovementDirection();
-        ApplyGravityAndJump();
-        HandleCrouching();
-        ApplyMovement();
+        footstepTimer = 0f;
+        return;
     }
+
+    footstepTimer -= Time.deltaTime;
+
+    if (footstepTimer <= 0f)
+    {
+        bool isSprinting = Input.GetKey(SPRINT_KEY);
+        footstepTimer = isSprinting ? runFootstepInterval : footstepInterval;
+
+        if (footstepSounds != null && footstepSounds.Length > 0 && audioSource != null)
+        {
+            AudioClip clip = footstepSounds[Random.Range(0, footstepSounds.Length)];
+            audioSource.PlayOneShot(clip);
+        }
+    }
+}
 
     private void UpdateMovementDirection()
     {
