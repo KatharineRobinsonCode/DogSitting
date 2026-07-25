@@ -27536,6 +27536,10 @@ MonoBehaviour:
   defaultHeight: 2
   crouchHeight: 1
   jumpSound: {fileID: 0}
+  footstepSounds:
+  - {fileID: 8300000, guid: 2f64503e1ccb44047a8071bb76a80c7e, type: 3}
+  footstepInterval: 0.5
+  runFootstepInterval: 0.3
 --- !u!82 &865768116
 AudioSource:
   m_ObjectHideFlags: 0
