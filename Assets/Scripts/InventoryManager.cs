@@ -6,15 +6,15 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance { get; private set; }
 
     [Header("Torch")]
-    [SerializeField] private GameObject playerTorch;
+   private GameObject playerTorch;
 
     [Header("Squeaky Toy")]
-    [SerializeField] private AudioSource squeakyToyAudio;
-    [SerializeField] private AudioClip squeakyToyClip;
-    [SerializeField] private Dog brinkley;
+    private AudioSource squeakyToyAudio;
+    private AudioClip squeakyToyClip;
+    private Dog brinkley;
 
     [Header("UI")]
-    [SerializeField] private InventoryWheel inventoryWheel;
+    private InventoryWheel inventoryWheel;
 
     [Header("All Items (for save/load)")]
     [SerializeField] private List<InventoryItemData> allItems;

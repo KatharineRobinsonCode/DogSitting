@@ -20,10 +20,14 @@ public class InventoryWheel : MonoBehaviour
     private bool isOpen = false;
     private List<GameObject> spawnedSlots = new List<GameObject>();
 
-    private void Start()
-    {
-        if (activeItemHUD != null) activeItemHUD.SetActive(false);
-    }
+   private void Start()
+{
+    if (wheelPanel != null) wheelPanel.SetActive(false);
+    if (activeItemHUD != null) activeItemHUD.SetActive(false);
+    
+    if (InventoryManager.Instance != null)  // ← add this
+        InventoryManager.Instance.SetInventoryWheel(this);
+}
 
     public void ToggleWheel(List<InventoryItemData> items)
     {
