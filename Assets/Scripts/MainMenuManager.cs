@@ -97,6 +97,7 @@ public class MainMenuManager : MonoBehaviour
     if (!ValidatePlayerName()) { ShowNameRequiredWarning(); return; }
     
     PlayerPrefs.DeleteKey("InventoryItems");  // ← clear old inventory
+    PlayerPrefs.DeleteKey("PlayerName"); 
     PlayerPrefs.DeleteKey(LAST_SCENE_PREF_KEY);
     PlayerPrefs.Save();
     
@@ -164,27 +165,26 @@ public class MainMenuManager : MonoBehaviour
         // FeedbackManager.Instance?.ShowError("Please enter your name");
     }
     
-    private void SavePlayerName()
+  private void SavePlayerName()
+{
+    string playerName = nameInputField.text.Trim();
+    
+    PlayerPrefs.SetString("PlayerName", playerName);
+    PlayerPrefs.Save();
+
+    if (variableStorage != null)
     {
-        string playerName = nameInputField.text.Trim();
-        
-        if (variableStorage != null)
+        try
         {
-            try
-            {
-                variableStorage.SetValue(YARN_PLAYER_NAME_VARIABLE, playerName);
-                Debug.Log($"[MainMenuManager] Saved player name: {playerName}");
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"[MainMenuManager] Failed to save player name: {e.Message}");
-            }
+            variableStorage.SetValue(YARN_PLAYER_NAME_VARIABLE, playerName);
+            Debug.Log($"[MainMenuManager] Saved player name: {playerName}");
         }
-        else
+        catch (System.Exception e)
         {
-            Debug.LogWarning("[MainMenuManager] Variable storage not assigned. Name won't persist in dialogues.");
+            Debug.LogError($"[MainMenuManager] Failed to save player name: {e.Message}");
         }
     }
+}
     
     #endregion
     
@@ -195,20 +195,19 @@ public class MainMenuManager : MonoBehaviour
         return PlayerPrefs.HasKey(LAST_SCENE_PREF_KEY);
     }
     
-    private void LoadSavedGame()
-    {
-        string savedScene = PlayerPrefs.GetString(LAST_SCENE_PREF_KEY);
-        
-        if (string.IsNullOrEmpty(savedScene))
-        {
-            Debug.LogWarning("[MainMenuManager] Saved scene name is empty");
-            StartNewGame();
-            return;
-        }
-        
-        Debug.Log($"[MainMenuManager] Loading saved game: {savedScene}");
-        SceneManager.LoadScene(savedScene);
-    }
+  private void LoadSavedGame()
+{
+    string savedScene = PlayerPrefs.GetString(LAST_SCENE_PREF_KEY);
+    if (string.IsNullOrEmpty(savedScene)) { StartNewGame(); return; }
+
+    // Restore player name into Yarn variable storage
+    string savedName = PlayerPrefs.GetString("PlayerName", "");
+    if (!string.IsNullOrEmpty(savedName) && variableStorage != null)
+        variableStorage.SetValue(YARN_PLAYER_NAME_VARIABLE, savedName);
+
+    Debug.Log($"[MainMenuManager] Loading saved game: {savedScene}");
+    SceneManager.LoadScene(savedScene);
+}
     
     /// <summary>
     /// Saves the current scene as the last played scene.
