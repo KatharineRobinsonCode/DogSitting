@@ -199,7 +199,7 @@ public class MainMenuManager : MonoBehaviour
 {
     string savedScene = PlayerPrefs.GetString(LAST_SCENE_PREF_KEY);
     if (string.IsNullOrEmpty(savedScene)) { StartNewGame(); return; }
-
+Debug.Log($"[YarnVariableRestorer] PlayerPrefs PlayerName: '{PlayerPrefs.GetString("PlayerName", "NOT FOUND")}'");
     // Restore player name into Yarn variable storage
     string savedName = PlayerPrefs.GetString("PlayerName", "");
     if (!string.IsNullOrEmpty(savedName) && variableStorage != null)
