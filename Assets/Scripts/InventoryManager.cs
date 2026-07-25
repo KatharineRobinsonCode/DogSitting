@@ -5,16 +5,11 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
 
-    [Header("Torch")]
-   private GameObject playerTorch;
-
-    [Header("Squeaky Toy")]
-    private AudioSource squeakyToyAudio;
-    private AudioClip squeakyToyClip;
-    private Dog brinkley;
-
-    [Header("UI")]
-    private InventoryWheel inventoryWheel;
+  private GameObject playerTorch;
+private AudioSource squeakyToyAudio;
+[SerializeField] private AudioClip squeakyToyClip;
+private Dog brinkley;
+private InventoryWheel inventoryWheel;
 
     [Header("All Items (for save/load)")]
     [SerializeField] private List<InventoryItemData> allItems;
@@ -45,8 +40,12 @@ public class InventoryManager : MonoBehaviour
 // Registration methods — called by House scene objects on Start()
 public void SetBrinkley(Dog dog) { brinkley = dog; }
 public void SetPlayerTorch(GameObject torch) { playerTorch = torch; }
-public void SetInventoryWheel(InventoryWheel wheel) { inventoryWheel = wheel; }
-public void SetSqueakyToyAudio(AudioSource source) { squeakyToyAudio = source; }
+public void SetInventoryWheel(InventoryWheel wheel) 
+{ 
+    inventoryWheel = wheel; 
+    Debug.Log($"[Inventory] Wheel registered: {wheel != null}");
+}
+public void SetSqueakyToyAudio(AudioSource source) { squeakyToyAudio = source; } 
     public void AddItem(InventoryItemData item)
     {
         items.Add(item);
