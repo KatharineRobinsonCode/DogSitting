@@ -34,8 +34,11 @@ public class SceneLoader : MonoBehaviour
     
     #region Unity Lifecycle
     
-    private void Awake()
-    {
+  private void Awake()
+{
+    PlayerPrefs.SetString("LastScene", SceneManager.GetActiveScene().name);
+    PlayerPrefs.Save();
+    Debug.Log($"[SceneSaveHelper] Saved scene: {SceneManager.GetActiveScene().name}");
         InitializeSingleton();
     }
     

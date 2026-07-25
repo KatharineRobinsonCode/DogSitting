@@ -84644,6 +84644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 637572000}
   - component: {fileID: 637571999}
+  - component: {fileID: 637572001}
   m_Layer: 0
   m_Name: SceneSaveHelper
   m_TagString: Untagged
@@ -84684,6 +84685,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637572001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637571998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c1b959f6cd642cfac85188924ac4d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  defaultLoadDelay: 0
+  enableDebugLogs: 0
 --- !u!1 &637602666
 GameObject:
   m_ObjectHideFlags: 0
@@ -195543,7 +195558,7 @@ Avatar:
         m_X: []
     m_RootMotionSkeletonIndexArray: 
   m_TOS:
-    3005695324: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid)Down_L/EyeLid)Down_L_end
+    286733405: Wolf_Armature/Spine2/Spine1/LegBack1.L/LegBack2.L/BackFoot1.L
     2198950435: Wolf_Armature/Spine2/Spine1/tail_1/tail_2/tail_3/tail_5/tail_5_end
     619464889: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/Ear.L/Ear.L_end
     2451745809: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/jaw/tongue/tongue_end
@@ -195597,9 +195612,9 @@ Avatar:
     1006187702: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/Ear.R
     4160702982: wolf_low_LOD0
     1448197353: Wolf_Armature/Spine2/Spine1/LegBack1.L
+    3005695324: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid)Down_L/EyeLid)Down_L_end
     4255083181: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid_Up_L
     3555095590: wolf_LongFur_LOD0
-    286733405: Wolf_Armature/Spine2/Spine1/LegBack1.L/LegBack2.L/BackFoot1.L
   m_HumanDescription:
     serializedVersion: 3
     m_Human: []
