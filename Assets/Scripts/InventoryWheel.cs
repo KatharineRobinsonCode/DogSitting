@@ -30,8 +30,6 @@ public class InventoryWheel : MonoBehaviour
 }
     public void ToggleWheel(List<InventoryItemData> items)
     {
-        if (!isOpen && items.Count == 0) return;
-
         isOpen = !isOpen;
 
         if (isOpen)
@@ -46,15 +44,21 @@ public class InventoryWheel : MonoBehaviour
         OpenWheel(items);
     }
 
-    private void OpenWheel(List<InventoryItemData> items)
+ private void OpenWheel(List<InventoryItemData> items)
+{
+    foreach (var slot in spawnedSlots)
+        Destroy(slot);
+    spawnedSlots.Clear();
+
+    Debug.Log($"[InventoryWheel] OpenWheel called — PhoneManager null: {PhoneManager.Instance == null}");
+    
+    if (PhoneManager.Instance == null)
     {
-        foreach (var slot in spawnedSlots)
-            Destroy(slot);
-        spawnedSlots.Clear();
+        Debug.LogError("[InventoryWheel] PhoneManager not found — can't open inventory!");
+        return;
+    }
 
-        // PhoneManager handles canvas and cursor
-        PhoneManager.Instance.OpenInventory();
-
+    PhoneManager.Instance.OpenInventory();
         if (items.Count == 0) return;
 
         for (int i = 0; i < items.Count; i++)
