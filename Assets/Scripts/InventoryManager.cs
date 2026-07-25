@@ -42,7 +42,11 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
             UseActiveItem();
     }
-
+// Registration methods — called by House scene objects on Start()
+public void SetBrinkley(Dog dog) { brinkley = dog; }
+public void SetPlayerTorch(GameObject torch) { playerTorch = torch; }
+public void SetInventoryWheel(InventoryWheel wheel) { inventoryWheel = wheel; }
+public void SetSqueakyToyAudio(AudioSource source) { squeakyToyAudio = source; }
     public void AddItem(InventoryItemData item)
     {
         items.Add(item);

@@ -22,7 +22,6 @@ public class InventoryWheel : MonoBehaviour
 
    private void Start()
 {
-    if (wheelPanel != null) wheelPanel.SetActive(false);
     if (activeItemHUD != null) activeItemHUD.SetActive(false);
     
     if (InventoryManager.Instance != null)  // ← add this
