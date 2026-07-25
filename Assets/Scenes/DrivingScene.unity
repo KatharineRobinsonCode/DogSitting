@@ -195558,7 +195558,7 @@ Avatar:
         m_X: []
     m_RootMotionSkeletonIndexArray: 
   m_TOS:
-    4255083181: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid_Up_L
+    3005695324: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid)Down_L/EyeLid)Down_L_end
     2198950435: Wolf_Armature/Spine2/Spine1/tail_1/tail_2/tail_3/tail_5/tail_5_end
     619464889: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/Ear.L/Ear.L_end
     2451745809: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/jaw/tongue/tongue_end
@@ -195612,9 +195612,9 @@ Avatar:
     1006187702: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/Ear.R
     4160702982: wolf_low_LOD0
     1448197353: Wolf_Armature/Spine2/Spine1/LegBack1.L
+    4255083181: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid_Up_L
     3555095590: wolf_LongFur_LOD0
     286733405: Wolf_Armature/Spine2/Spine1/LegBack1.L/LegBack2.L/BackFoot1.L
-    3005695324: Wolf_Armature/Spine2/Spine4/Spine5/Neck/head/EyeLid)Down_L/EyeLid)Down_L_end
   m_HumanDescription:
     serializedVersion: 3
     m_Human: []
@@ -216042,6 +216042,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7262066351540048079, guid: 52571f68872914e24837210513edea1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1556642487}
+    - targetCorrespondingSourceObject: {fileID: 7262066351540048079, guid: 52571f68872914e24837210513edea1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1556642489}
     - targetCorrespondingSourceObject: {fileID: 3416868783655305253, guid: 52571f68872914e24837210513edea1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1556642488}
@@ -216094,6 +216097,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1556642489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556642484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe10f9dfc9b06450a8013cd21057526a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::YarnVariableRestorer
 --- !u!1 &1556662227
 GameObject:
   m_ObjectHideFlags: 0
