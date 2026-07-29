@@ -28,7 +28,7 @@ public class MainMenuManager : MonoBehaviour
     
     [Header("Default Settings")]
     [Tooltip("Default mouse sensitivity if the player hasn't changed it yet")]
-    [SerializeField] private float defaultSensitivity = 2f;
+    [SerializeField] private float defaultSensitivity = 100f;
     
     [Tooltip("Default audio volume (0 = silent, 1 = full volume)")]
     [SerializeField] private float defaultVolume = 1f;
