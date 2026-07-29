@@ -24,7 +24,7 @@ public class MainMenuManager : MonoBehaviour
     
     [Header("Scene Settings")]
     [Tooltip("The name of the first gameplay scene to load when starting a new game")]
-    [SerializeField] private string gameSceneName = "CoffeeShop";
+    [SerializeField] private string gameSceneName = "Pub";
     
     [Header("Default Settings")]
     [Tooltip("Default mouse sensitivity if the player hasn't changed it yet")]
