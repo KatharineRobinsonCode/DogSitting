@@ -21,8 +21,10 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private GameObject fillingPanel;
     [SerializeField] private GameObject draftBeerGlass;
     [SerializeField] private GameObject spiritGlass;
+    [SerializeField] private GameObject takeawayBottle; 
     [SerializeField] private Image draftBeerFillImage;
     [SerializeField] private Image spiritFillImage;
+    [SerializeField] private Image takeawayFillImage;
     [SerializeField] private TextMeshProUGUI instructionText;
 
     [Header("Fill Settings")]
@@ -64,12 +66,6 @@ public class DrinkMachine : MonoBehaviour
         if (!ValidateCupIsEmpty(cup)) return;
         if (!ValidateCupTypeCompatibility(cup)) return;
 
-        if (drinkType == Cup.DrinkType.TakeawayBeer)
-        {
-            DispenseDrink(cup);
-            return;
-        }
-
         StartCoroutine(FillingQTE(cup, player));
     }
 
@@ -88,7 +84,8 @@ public class DrinkMachine : MonoBehaviour
             draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
         if (spiritGlass != null)
             spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
-
+        if (takeawayBottle != null)
+    takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
         if (fillingPanel != null) fillingPanel.SetActive(true);
         IsFillingActive = true;
        if (player.CurrentHeldItem != null)
@@ -162,6 +159,7 @@ public class DrinkMachine : MonoBehaviour
 
         if (draftBeerGlass != null) draftBeerGlass.SetActive(false);
         if (spiritGlass != null) spiritGlass.SetActive(false);
+        if (takeawayBottle != null) takeawayBottle.SetActive(false);
         if (fillingPanel != null) fillingPanel.SetActive(false);
 
         if (audioSource != null && successSound != null)

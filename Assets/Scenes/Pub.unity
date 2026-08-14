@@ -28117,14 +28117,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508181afd37b14c089cf1b852ae1efe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerCamera: {fileID: 1982116445}
   walkSpeed: 6
   runSpeed: 12
   crouchSpeed: 3
   jumpPower: 7
   gravity: 10
-  lookSpeed: 2
-  lookXLimit: 45
   defaultHeight: 2
   crouchHeight: 1
   jumpSound: {fileID: 0}
@@ -36490,6 +36487,7 @@ RectTransform:
   m_Children:
   - {fileID: 1525200354}
   - {fileID: 2003892775}
+  - {fileID: 1169468256}
   - {fileID: 1700630800}
   - {fileID: 1386823831}
   m_Father: {fileID: 1266800504}
@@ -38151,6 +38149,82 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1169468255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1169468256}
+  - component: {fileID: 1169468258}
+  - component: {fileID: 1169468257}
+  m_Layer: 0
+  m_Name: Takeawaeybottle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1169468256
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169468255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1223206918}
+  m_Father: {fileID: 1113449435}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 4.0664, y: -30}
+  m_SizeDelta: {x: 86.2784, y: 107.59}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1169468257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169468255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: cf6fbfe64cac746aa817c424de732739, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1169468258
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169468255}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1172357508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39502,6 +39576,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4337806570961598, guid: f39c30555eb1da240b9b90f9867589f7, type: 3}
   m_PrefabInstance: {fileID: 1222684996}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1223206917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223206918}
+  - component: {fileID: 1223206920}
+  - component: {fileID: 1223206919}
+  m_Layer: 0
+  m_Name: SPIRITFill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1223206918
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223206917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.65, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1169468256}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.9336, y: 2.8311}
+  m_SizeDelta: {x: 152.8726, y: 101.9328}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1223206919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223206917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7fea1fd1bffb84bcca1d82cf15f1d4d2, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 1
+  m_FillAmount: 0
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1223206920
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223206917}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1225389936
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41872,8 +42021,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.9
   greenZoneMax: 1
@@ -51341,8 +51492,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 1525200353}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -58913,8 +59066,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -59281,8 +59436,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -61293,8 +61450,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 1525200353}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -62670,8 +62829,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.9
   greenZoneMax: 1
@@ -62865,8 +63026,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 2003892774}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 103663509}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.9
   greenZoneMax: 1
@@ -65477,8 +65640,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -66001,8 +66166,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 1525200353}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 1316195718}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -66273,8 +66440,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.9
   greenZoneMax: 1
@@ -68963,8 +69132,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -70530,8 +70701,10 @@ MonoBehaviour:
   fillingPanel: {fileID: 0}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
+  takeawayBottle: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
+  takeawayFillImage: {fileID: 0}
   instructionText: {fileID: 0}
   greenZoneMin: 0.95
   greenZoneMax: 1
