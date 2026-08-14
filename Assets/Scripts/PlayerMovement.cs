@@ -7,9 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Serialized Fields
 
-    [Header("Camera")]
-    [SerializeField] private Camera playerCamera;
-
     [Header("Movement Speeds")]
     [SerializeField] private float walkSpeed = 6f;
     [SerializeField] private float runSpeed = 12f;
@@ -19,21 +16,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpPower = 7f;
     [SerializeField] private float gravity = 10f;
 
-    [Header("Camera Look")]
-    [SerializeField] private float lookSpeed = 2f;
-    [SerializeField] private float lookXLimit = 45f;
-
     [Header("Crouch Settings")]
     [SerializeField] private float defaultHeight = 2f;
     [SerializeField] private float crouchHeight = 1f;
 
-   [Header("Audio")]
-[SerializeField] private AudioClip jumpSound;
-[SerializeField] private AudioClip[] footstepSounds;  // drag multiple clips for variety
-[SerializeField] private float footstepInterval = 0.5f;  // time between steps walking
-[SerializeField] private float runFootstepInterval = 0.3f;  // faster when running
+    [Header("Audio")]
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip[] footstepSounds;
+    [SerializeField] private float footstepInterval = 0.5f;
+    [SerializeField] private float runFootstepInterval = 0.3f;
 
-private float footstepTimer = 0f;
     #endregion
 
     #region Private Fields
@@ -43,9 +35,8 @@ private float footstepTimer = 0f;
     private DialogueRunner dialogueRunner;
 
     private Vector3 moveDirection = Vector3.zero;
-    private float rotationX = 0f;
     private bool canMove = true;
-
+    private float footstepTimer = 0f;
     private float baseWalkSpeed;
     private float baseRunSpeed;
 
@@ -55,8 +46,6 @@ private float footstepTimer = 0f;
     private const string JUMP_INPUT = "Jump";
     private const string VERTICAL_AXIS = "Vertical";
     private const string HORIZONTAL_AXIS = "Horizontal";
-    private const string MOUSE_X_AXIS = "Mouse X";
-    private const string MOUSE_Y_AXIS = "Mouse Y";
 
     #endregion
 
@@ -69,31 +58,27 @@ private float footstepTimer = 0f;
         InitializeCursor();
     }
 
-   private void Update()
-{
-    if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
-    
-    if (!CanPlayerMove())
-        return;
+    private void Update()
+    {
+        if (!CanPlayerMove())
+            return;
 
-    HandleMovement();
-}
+        HandleMovement();
+    }
 
     #endregion
 
     #region Initialization
 
-  private void InitializeComponents()
-{
-    characterController = GetComponent<CharacterController>();
-    audioSource = GetComponent<AudioSource>();
-    dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+    private void InitializeComponents()
+    {
+        characterController = GetComponent<CharacterController>();
+        audioSource = GetComponent<AudioSource>();
+        dialogueRunner = FindFirstObjectByType<DialogueRunner>();
 
-    if (characterController == null)
-        Debug.LogError("[PlayerMovement] CharacterController component missing!");
-    if (playerCamera == null)
-        Debug.LogWarning("[PlayerMovement] Player camera not assigned!");
-}
+        if (characterController == null)
+            Debug.LogError("[PlayerMovement] CharacterController component missing!");
+    }
 
     private void CacheBaseValues()
     {
@@ -129,41 +114,41 @@ private float footstepTimer = 0f;
         return dialogueRunner != null && dialogueRunner.IsDialogueRunning;
     }
 
-   private void HandleMovement()
-{
-    UpdateMovementDirection();
-    ApplyGravityAndJump();
-    HandleCrouching();
-    ApplyMovement();
-    HandleFootsteps();
-}
-
-private void HandleFootsteps()
-{
-    // Only play when grounded and actually moving
-    bool isMoving = new Vector2(Input.GetAxis(HORIZONTAL_AXIS), 
-                                Input.GetAxis(VERTICAL_AXIS)).magnitude > 0.1f;
-
-    if (!characterController.isGrounded || !isMoving)
+    private void HandleMovement()
     {
-        footstepTimer = 0f;
-        return;
+        UpdateMovementDirection();
+        ApplyGravityAndJump();
+        HandleCrouching();
+        ApplyMovement();
+        HandleFootsteps();
     }
 
-    footstepTimer -= Time.deltaTime;
-
-    if (footstepTimer <= 0f)
+    private void HandleFootsteps()
     {
-        bool isSprinting = Input.GetKey(SPRINT_KEY);
-        footstepTimer = isSprinting ? runFootstepInterval : footstepInterval;
+        bool isMoving = new Vector2(
+            Input.GetAxis(HORIZONTAL_AXIS),
+            Input.GetAxis(VERTICAL_AXIS)).magnitude > 0.1f;
 
-        if (footstepSounds != null && footstepSounds.Length > 0 && audioSource != null)
+        if (!characterController.isGrounded || !isMoving)
         {
-            AudioClip clip = footstepSounds[Random.Range(0, footstepSounds.Length)];
-            audioSource.PlayOneShot(clip);
+            footstepTimer = 0f;
+            return;
+        }
+
+        footstepTimer -= Time.deltaTime;
+
+        if (footstepTimer <= 0f)
+        {
+            bool isSprinting = Input.GetKey(SPRINT_KEY);
+            footstepTimer = isSprinting ? runFootstepInterval : footstepInterval;
+
+            if (footstepSounds != null && footstepSounds.Length > 0 && audioSource != null)
+            {
+                AudioClip clip = footstepSounds[Random.Range(0, footstepSounds.Length)];
+                audioSource.PlayOneShot(clip);
+            }
         }
     }
-}
 
     private void UpdateMovementDirection()
     {
@@ -242,31 +227,6 @@ private void HandleFootsteps()
 
     #endregion
 
-    #region Camera Look System
-
-    private void HandleCameraLook()
-    {
-        UpdateVerticalLook();
-        UpdateHorizontalLook();
-    }
-
-    private void UpdateVerticalLook()
-    {
-        if (playerCamera == null) return;
-        float mouseY = Input.GetAxis(MOUSE_Y_AXIS);
-        rotationX += -mouseY * lookSpeed;
-        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
-    }
-
-    private void UpdateHorizontalLook()
-    {
-        float mouseX = Input.GetAxis(MOUSE_X_AXIS);
-        transform.rotation *= Quaternion.Euler(0f, mouseX * lookSpeed, 0f);
-    }
-
-    #endregion
-
     #region Public API
 
     public void SetMovementEnabled(bool enabled)
@@ -283,10 +243,6 @@ private void HandleFootsteps()
     {
         return characterController != null ? characterController.velocity : Vector3.zero;
     }
-    public void SetLookSpeed(float speed)
-{
-    lookSpeed = speed;
-}
 
     #endregion
 }

@@ -110,6 +110,7 @@ public class PlayerInteraction : MonoBehaviour
         EnsureCanvasActive();
         if (Camera.main == null) return false;
         if (dialogueRunner != null && dialogueRunner.IsDialogueRunning) return false;
+        if (DrinkMachine.IsFillingActive) return false; 
         return true;
     }
 
