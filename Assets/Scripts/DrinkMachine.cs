@@ -54,7 +54,7 @@ public class DrinkMachine : MonoBehaviour
     #endregion
 
     #region Public API
-
+    public static bool IsFillingActive { get; private set; }
     public void Interact(PlayerInteraction player)
     {
         if (isCurrentlyFilling) return;
@@ -90,6 +90,7 @@ public class DrinkMachine : MonoBehaviour
             spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
 
         if (fillingPanel != null) fillingPanel.SetActive(true);
+        IsFillingActive = true;
        if (player.CurrentHeldItem != null)
 {
     foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
@@ -171,6 +172,7 @@ if (player.CurrentHeldItem != null)
     foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
         r.enabled = true;
 }
+        IsFillingActive = false; 
         DispenseDrink(cup);
         isCurrentlyFilling = false;
     }

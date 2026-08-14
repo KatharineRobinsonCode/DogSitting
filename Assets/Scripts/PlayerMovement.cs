@@ -115,6 +115,7 @@ private float footstepTimer = 0f;
     {
         if (IsPaused()) return false;
         if (IsDialogueRunning()) return false;
+        if (DrinkMachine.IsFillingActive) return false;
         return canMove;
     }
 

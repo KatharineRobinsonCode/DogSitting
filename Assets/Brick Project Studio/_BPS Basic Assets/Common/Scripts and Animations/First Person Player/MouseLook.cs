@@ -30,7 +30,7 @@ namespace SojaExiles
             // Block camera look during dialogue
             if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
                 return;
-
+            if (DrinkMachine.IsFillingActive) return;
             float mouseX = Input.GetAxis("Mouse X") * mouseXSensitivity * Time.deltaTime;
             float mouseY = Input.GetAxis("Mouse Y") * mouseXSensitivity * Time.deltaTime;
 
