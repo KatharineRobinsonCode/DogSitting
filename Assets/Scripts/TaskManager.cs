@@ -123,7 +123,7 @@ public class TaskManager : MonoBehaviour
 {
     if (taskPanel != null) taskPanel.SetActive(!string.IsNullOrEmpty(currentTask));
     if (taskDisplay != null) taskDisplay.text = !string.IsNullOrEmpty(currentTask) 
-        ? $"→ {currentTask}" 
+        ? $"{currentTask}" 
         : "";
 }
     #endregion

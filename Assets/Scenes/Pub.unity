@@ -6633,12 +6633,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 207192652}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa92cc985a5a49a883397085e76e060, type: 3}
+  m_Script: {fileID: 11500000, guid: 34abe4c5107004c80a8df35a2c685261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrderManager
   currentRequiredItem: 
-  orderPanel: {fileID: 0}
-  orderDisplay: {fileID: 0}
+  orderPanel: {fileID: 695246729}
+  orderDisplay: {fileID: 1889566199}
   customersServed: 0
   creepyPhoto: {fileID: 0}
 --- !u!114 &207192655
@@ -13494,7 +13494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &438029131
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22973,8 +22973,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -35, y: -35}
-  m_SizeDelta: {x: 250, y: 125}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &695246731
 MonoBehaviour:
@@ -22989,14 +22989,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.94181174, g: 0.95686275, b: 0.79607844, a: 0.7647059}
+  m_Color: {r: 0.94181174, g: 0.95686275, b: 0.79607844, a: 0.8862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0638665b0db924b1180b13d91aaa4822, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0461c2c5d0f84e4b87df67bcdcee976, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -60955,7 +60955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 37, y: -62}
+  m_AnchoredPosition: {x: 45, y: 0.25}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!1001 &1892870330
