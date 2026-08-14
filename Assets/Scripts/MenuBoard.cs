@@ -3,13 +3,17 @@ using UnityEngine;
 public class MenuBoard : MonoBehaviour, IInteractable
 {
     [Header("UI")]
-    [SerializeField] private GameObject menuPanel;
+    [SerializeField] private GameObject menuPanel; // drag a UI Canvas panel here, NOT this object
+
+    [Header("Prompts")]
+    [SerializeField] private string openPrompt = "Press E to read";   // customise per object in Inspector
+    [SerializeField] private string closePrompt = "Press E to close"; // customise per object in Inspector
 
     private bool isOpen = false;
 
     public string GetInteractionPrompt()
     {
-        return isOpen ? "Press E to close" : "Press E to read menu";
+        return isOpen ? closePrompt : openPrompt;
     }
 
     public void Interact(PlayerInteraction player)
