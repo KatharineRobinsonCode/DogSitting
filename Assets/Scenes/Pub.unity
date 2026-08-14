@@ -6636,6 +6636,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa92cc985a5a49a883397085e76e060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrderManager
+  currentRequiredItem: 
+  orderPanel: {fileID: 0}
+  orderDisplay: {fileID: 0}
+  customersServed: 0
+  creepyPhoto: {fileID: 0}
 --- !u!114 &207192655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22248,7 +22253,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1001 &668854169
 PrefabInstance:
@@ -35689,6 +35694,7 @@ MonoBehaviour:
   menuPanel: {fileID: 1444229625}
   openPrompt: Press E to read
   closePrompt: Press E to close
+  interactionPrompt: {fileID: 478182503}
 --- !u!222 &1085682136
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -45136,7 +45142,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1371566229
 RectTransform:
@@ -52277,7 +52283,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!4 &1590500349 stripped
 Transform:

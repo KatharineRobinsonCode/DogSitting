@@ -11,14 +11,14 @@ Customer: It's good to see you, I never heard back after my text?
 -> {$PlayerName}: Well we broke up...
     Customer: Doesn't mean we have to stop talking.
         -> {$PlayerName}: Sorry I just can't... Do you want a drink?
-        Customer: ... a whiskey. Thanks.
+            Customer: ... a whiskey. Thanks.
         -> {$PlayerName}: It does. Are you going to order?
-        Customer: ... a whiskey.
+             Customer: ... a whiskey.
 -> {$PlayerName}: I've just been super busy
     Customer: Of course! You work too hard, let's grab a drink after work?
         -> {$PlayerName}: Sorry I can't... Are you gonna order?
-        Customer: ... a whiskey.
+            Customer: ... a whiskey.
         -> {$PlayerName}: That's not a good idea. Are you going to order?
-        Customer: ... a whiskey. Thanks.
+             Customer: ... a whiskey. Thanks.
 <<CompleteOrderConversation_Customer5>>
 ===
