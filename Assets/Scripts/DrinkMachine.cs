@@ -70,15 +70,14 @@ public class DrinkMachine : MonoBehaviour
             return;
         }
 
-        StartCoroutine(FillingQTE(cup));
+        StartCoroutine(FillingQTE(cup, player));
     }
 
     #endregion
 
     #region Filling QTE
 
-    private IEnumerator FillingQTE(Cup cup)
-    {
+    private IEnumerator FillingQTE(Cup cup, PlayerInteraction player)    {
         isCurrentlyFilling = true;
 
         Image liquidFillImage = drinkType == Cup.DrinkType.Spirit
@@ -91,6 +90,11 @@ public class DrinkMachine : MonoBehaviour
             spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
 
         if (fillingPanel != null) fillingPanel.SetActive(true);
+       if (player.CurrentHeldItem != null)
+{
+    foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
+        r.enabled = false;
+}
         if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
         if (instructionText != null) instructionText.text = "Hold Q to pour";
 
@@ -149,7 +153,7 @@ public class DrinkMachine : MonoBehaviour
                     : "Not enough! Try again.");
 
                 if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
-                if (instructionText != null) instructionText.text = "Hold Q to pour — release in the green zone!";
+                if (instructionText != null) instructionText.text = "Hold Q until you're in the green zone!";
 
                 yield return new WaitForSeconds(0.6f);
             }
@@ -161,7 +165,12 @@ public class DrinkMachine : MonoBehaviour
 
         if (audioSource != null && successSound != null)
             audioSource.PlayOneShot(successSound);
-
+// Restore held item visibility
+if (player.CurrentHeldItem != null)
+{
+    foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
+        r.enabled = true;
+}
         DispenseDrink(cup);
         isCurrentlyFilling = false;
     }
