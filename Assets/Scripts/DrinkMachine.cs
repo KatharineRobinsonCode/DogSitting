@@ -92,7 +92,7 @@ public class DrinkMachine : MonoBehaviour
 
         if (fillingPanel != null) fillingPanel.SetActive(true);
         if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
-        if (instructionText != null) instructionText.text = "Hold Q to pour — release in the green zone!";
+        if (instructionText != null) instructionText.text = "Hold Q to pour";
 
         float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED : DRAFT_FILL_SPEED;
         bool overallSucceeded = false;
