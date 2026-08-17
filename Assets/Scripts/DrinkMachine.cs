@@ -21,15 +21,19 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private GameObject fillingPanel;
     [SerializeField] private GameObject draftBeerGlass;
     [SerializeField] private GameObject spiritGlass;
-    [SerializeField] private GameObject takeawayBottle; 
+    [SerializeField] private GameObject takeawayBottle;
     [SerializeField] private Image draftBeerFillImage;
     [SerializeField] private Image spiritFillImage;
-    [SerializeField] private Image takeawayFillImage;
+    [SerializeField] private Image takeawayFillImage;  // the bottle opener image
     [SerializeField] private TextMeshProUGUI instructionText;
 
     [Header("Fill Settings")]
     [SerializeField] private float greenZoneMin = 0.65f;
     [SerializeField] private float greenZoneMax = 0.80f;
+
+    [Header("Takeaway Bottle Opener Settings")]
+    [SerializeField] private float openerStartY = 150f;  // high above the cap
+    [SerializeField] private float openerEndY = 0f;      // at the cap position
 
     #endregion
 
@@ -40,6 +44,7 @@ public class DrinkMachine : MonoBehaviour
 
     private const float DRAFT_FILL_SPEED = 0.12f;
     private const float SPIRIT_FILL_SPEED = 0.45f;
+    private const float TAKEAWAY_FILL_SPEED = 0.2f;
 
     #endregion
 
@@ -56,7 +61,9 @@ public class DrinkMachine : MonoBehaviour
     #endregion
 
     #region Public API
+
     public static bool IsFillingActive { get; private set; }
+
     public void Interact(PlayerInteraction player)
     {
         if (isCurrentlyFilling) return;
@@ -73,30 +80,56 @@ public class DrinkMachine : MonoBehaviour
 
     #region Filling QTE
 
-    private IEnumerator FillingQTE(Cup cup, PlayerInteraction player)    {
+    private IEnumerator FillingQTE(Cup cup, PlayerInteraction player)
+    {
         isCurrentlyFilling = true;
+        IsFillingActive = true;
 
-        Image liquidFillImage = drinkType == Cup.DrinkType.Spirit
-            ? spiritFillImage
-            : draftBeerFillImage;
-
+        // Activate the correct glass/bottle visual
         if (draftBeerGlass != null)
             draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
         if (spiritGlass != null)
             spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
         if (takeawayBottle != null)
-    takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
-        if (fillingPanel != null) fillingPanel.SetActive(true);
-        IsFillingActive = true;
-       if (player.CurrentHeldItem != null)
-{
-    foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
-        r.enabled = false;
-}
-        if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
-        if (instructionText != null) instructionText.text = "Hold Q to pour";
+            takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
 
-        float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED : DRAFT_FILL_SPEED;
+        if (fillingPanel != null) fillingPanel.SetActive(true);
+
+        // Hide held cup during QTE
+        if (player.CurrentHeldItem != null)
+        {
+            foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
+                r.enabled = false;
+        }
+
+        // Set up fill image and opener starting position
+        Image liquidFillImage = drinkType == Cup.DrinkType.Spirit
+            ? spiritFillImage
+            : draftBeerFillImage;
+
+        bool isTakeaway = drinkType == Cup.DrinkType.TakeawayBeer;
+        RectTransform openerRect = isTakeaway && takeawayFillImage != null
+            ? takeawayFillImage.GetComponent<RectTransform>()
+            : null;
+
+        if (!isTakeaway && liquidFillImage != null)
+            liquidFillImage.fillAmount = 0f;
+
+        if (isTakeaway && openerRect != null)
+        {
+            // Start opener at the top
+            openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, openerStartY);
+            instructionText.text = "Hold Q to open bottle";
+        }
+        else
+        {
+            instructionText.text = "Hold Q to pour";
+        }
+
+        float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED
+                        : drinkType == Cup.DrinkType.TakeawayBeer ? TAKEAWAY_FILL_SPEED
+                        : DRAFT_FILL_SPEED;
+
         bool overallSucceeded = false;
 
         while (!overallSucceeded)
@@ -105,7 +138,11 @@ public class DrinkMachine : MonoBehaviour
             bool qteComplete = false;
             bool succeeded = false;
 
-            if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
+            // Reset for each attempt
+            if (!isTakeaway && liquidFillImage != null)
+                liquidFillImage.fillAmount = 0f;
+            if (isTakeaway && openerRect != null)
+                openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, openerStartY);
 
             while (!qteComplete)
             {
@@ -114,8 +151,16 @@ public class DrinkMachine : MonoBehaviour
                     currentFill += fillSpeed * Time.deltaTime;
                     currentFill = Mathf.Clamp01(currentFill);
 
-                    if (liquidFillImage != null)
+                    if (isTakeaway && openerRect != null)
+                    {
+                        // Move opener downward as Q is held
+                        float newY = Mathf.Lerp(openerStartY, openerEndY, currentFill);
+                        openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, newY);
+                    }
+                    else if (liquidFillImage != null)
+                    {
                         liquidFillImage.fillAmount = currentFill;
+                    }
 
                     if (audioSource != null && pourSound != null && !audioSource.isPlaying)
                         audioSource.PlayOneShot(pourSound);
@@ -126,12 +171,12 @@ public class DrinkMachine : MonoBehaviour
                         qteComplete = true;
                     }
                 }
-              else if (Input.GetKeyUp(KeyCode.Q))
-{
-    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
-    Debug.Log($"[DrinkMachine] Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
-    qteComplete = true;
-}
+                else if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
+                    Debug.Log($"[DrinkMachine] Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
+                    qteComplete = true;
+                }
 
                 yield return null;
             }
@@ -146,17 +191,21 @@ public class DrinkMachine : MonoBehaviour
             {
                 if (audioSource != null && failSound != null)
                     audioSource.PlayOneShot(failSound);
+
                 ShowErrorFeedback(currentFill >= 1f
-                    ? "Too much! Try again."
+                    ? "Too far! Try again."
                     : "Not enough! Try again.");
 
-                if (liquidFillImage != null) liquidFillImage.fillAmount = 0f;
-                if (instructionText != null) instructionText.text = "Hold Q until you're in the green zone!";
+                if (instructionText != null)
+                    instructionText.text = isTakeaway
+                        ? "Hold Q to open bottle"
+                        : "Hold Q until you're in the green zone!";
 
                 yield return new WaitForSeconds(0.6f);
             }
         }
 
+        // Hide everything
         if (draftBeerGlass != null) draftBeerGlass.SetActive(false);
         if (spiritGlass != null) spiritGlass.SetActive(false);
         if (takeawayBottle != null) takeawayBottle.SetActive(false);
@@ -164,13 +213,15 @@ public class DrinkMachine : MonoBehaviour
 
         if (audioSource != null && successSound != null)
             audioSource.PlayOneShot(successSound);
-// Restore held item visibility
-if (player.CurrentHeldItem != null)
-{
-    foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
-        r.enabled = true;
-}
-        IsFillingActive = false; 
+
+        // Restore held cup visibility
+        if (player.CurrentHeldItem != null)
+        {
+            foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
+                r.enabled = true;
+        }
+
+        IsFillingActive = false;
         DispenseDrink(cup);
         isCurrentlyFilling = false;
     }
@@ -241,7 +292,7 @@ if (player.CurrentHeldItem != null)
         switch (drinkType)
         {
             case Cup.DrinkType.DraftBeer:    return "Beer Glass";
-            case Cup.DrinkType.TakeawayBeer: return "Takeaway Cup";
+            case Cup.DrinkType.TakeawayBeer: return "Takeaway Bottle";
             case Cup.DrinkType.Spirit:       return "Spirit Glass";
             default: return "correct glass";
         }
