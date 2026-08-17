@@ -22,19 +22,23 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private GameObject draftBeerGlass;
     [SerializeField] private GameObject spiritGlass;
     [SerializeField] private GameObject takeawayBottle;
+    [SerializeField] private GameObject guinnessGlass; 
+    [SerializeField] private GameObject wineGlass;  
     [SerializeField] private Image draftBeerFillImage;
     [SerializeField] private Image spiritFillImage;
-    [SerializeField] private Image takeawayFillImage;  // the bottle opener image
+    [SerializeField] private Image takeawayFillImage;
+    [SerializeField] private Image guinnessFillImage;  
+    [SerializeField] private Image wineFillImage; 
     [SerializeField] private TextMeshProUGUI instructionText;
 
     [Header("Fill Settings")]
     [SerializeField] private float greenZoneMin = 0.65f;
     [SerializeField] private float greenZoneMax = 0.80f;
-    [SerializeField] private float takeawayFillSpeed = 0.2f; 
+    [SerializeField] private float takeawayFillSpeed = 0.2f;
 
     [Header("Takeaway Bottle Opener Settings")]
-    [SerializeField] private float openerStartY = 150f;  // high above the cap
-    [SerializeField] private float openerEndY = 0f;      // at the cap position
+    [SerializeField] private float openerStartY = 150f;
+    [SerializeField] private float openerEndY = 0f;
 
     #endregion
 
@@ -45,6 +49,9 @@ public class DrinkMachine : MonoBehaviour
 
     private const float DRAFT_FILL_SPEED = 0.12f;
     private const float SPIRIT_FILL_SPEED = 0.45f;
+    private const float GUINNESS_FILL_SPEED = 0.08f;  // slower — it settles
+    private const float WINE_FILL_SPEED = 0.35f;      // medium speed
+
     #endregion
 
     #region Unity Lifecycle
@@ -53,8 +60,10 @@ public class DrinkMachine : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         if (fillingPanel != null) fillingPanel.SetActive(false);
-        if (draftBeerFillImage != null) draftBeerFillImage.fillAmount = 0f;
-        if (spiritFillImage != null) spiritFillImage.fillAmount = 0f;
+        if (draftBeerFillImage != null)   draftBeerFillImage.fillAmount = 0f;
+        if (spiritFillImage != null)      spiritFillImage.fillAmount = 0f;
+        if (guinnessFillImage != null)     guinnessFillImage.fillAmount = 0f;
+        if (wineFillImage != null)        wineFillImage.fillAmount = 0f;
     }
 
     #endregion
@@ -84,13 +93,12 @@ public class DrinkMachine : MonoBehaviour
         isCurrentlyFilling = true;
         IsFillingActive = true;
 
-        // Activate the correct glass/bottle visual
-        if (draftBeerGlass != null)
-            draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
-        if (spiritGlass != null)
-            spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
-        if (takeawayBottle != null)
-            takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
+        // Activate the correct glass visual
+        if (draftBeerGlass != null)  draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
+        if (spiritGlass != null)     spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
+        if (takeawayBottle != null)  takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
+        if (guinnessGlass != null)   guinnessGlass.SetActive(drinkType == Cup.DrinkType.Guinness);
+        if (wineGlass != null)       wineGlass.SetActive(drinkType == Cup.DrinkType.Wine);
 
         if (fillingPanel != null) fillingPanel.SetActive(true);
 
@@ -101,10 +109,11 @@ public class DrinkMachine : MonoBehaviour
                 r.enabled = false;
         }
 
-        // Set up fill image and opener starting position
-        Image liquidFillImage = drinkType == Cup.DrinkType.Spirit
-            ? spiritFillImage
-            : draftBeerFillImage;
+        // Determine which fill image to use
+        Image liquidFillImage = drinkType == Cup.DrinkType.Spirit    ? spiritFillImage
+                              : drinkType == Cup.DrinkType.Guinness   ? guinnessFillImage
+                              : drinkType == Cup.DrinkType.Wine       ? wineFillImage
+                              : draftBeerFillImage;
 
         bool isTakeaway = drinkType == Cup.DrinkType.TakeawayBeer;
         RectTransform openerRect = isTakeaway && takeawayFillImage != null
@@ -116,7 +125,6 @@ public class DrinkMachine : MonoBehaviour
 
         if (isTakeaway && openerRect != null)
         {
-            // Start opener at the top
             openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, openerStartY);
             instructionText.text = "Hold Q to open bottle";
         }
@@ -125,9 +133,11 @@ public class DrinkMachine : MonoBehaviour
             instructionText.text = "Hold Q to pour";
         }
 
-       float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED
-                : drinkType == Cup.DrinkType.TakeawayBeer ? takeawayFillSpeed
-                : DRAFT_FILL_SPEED;
+        float fillSpeed = drinkType == Cup.DrinkType.Spirit     ? SPIRIT_FILL_SPEED
+                        : drinkType == Cup.DrinkType.TakeawayBeer ? takeawayFillSpeed
+                        : drinkType == Cup.DrinkType.Guinness    ? GUINNESS_FILL_SPEED
+                        : drinkType == Cup.DrinkType.Wine        ? WINE_FILL_SPEED
+                        : DRAFT_FILL_SPEED;
 
         bool overallSucceeded = false;
 
@@ -137,7 +147,6 @@ public class DrinkMachine : MonoBehaviour
             bool qteComplete = false;
             bool succeeded = false;
 
-            // Reset for each attempt
             if (!isTakeaway && liquidFillImage != null)
                 liquidFillImage.fillAmount = 0f;
             if (isTakeaway && openerRect != null)
@@ -152,7 +161,6 @@ public class DrinkMachine : MonoBehaviour
 
                     if (isTakeaway && openerRect != null)
                     {
-                        // Move opener downward as Q is held
                         float newY = Mathf.Lerp(openerStartY, openerEndY, currentFill);
                         openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, newY);
                     }
@@ -205,15 +213,16 @@ public class DrinkMachine : MonoBehaviour
         }
 
         // Hide everything
-        if (draftBeerGlass != null) draftBeerGlass.SetActive(false);
-        if (spiritGlass != null) spiritGlass.SetActive(false);
-        if (takeawayBottle != null) takeawayBottle.SetActive(false);
-        if (fillingPanel != null) fillingPanel.SetActive(false);
+        if (draftBeerGlass != null)  draftBeerGlass.SetActive(false);
+        if (spiritGlass != null)     spiritGlass.SetActive(false);
+        if (takeawayBottle != null)  takeawayBottle.SetActive(false);
+        if (guinnessGlass != null)   guinnessGlass.SetActive(false);
+        if (wineGlass != null)       wineGlass.SetActive(false);
+        if (fillingPanel != null)    fillingPanel.SetActive(false);
 
         if (audioSource != null && successSound != null)
             audioSource.PlayOneShot(successSound);
 
-        // Restore held cup visibility
         if (player.CurrentHeldItem != null)
         {
             foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
@@ -282,6 +291,8 @@ public class DrinkMachine : MonoBehaviour
             case Cup.DrinkType.DraftBeer:    return cupType == Cup.CupType.DraftBeer;
             case Cup.DrinkType.TakeawayBeer: return cupType == Cup.CupType.TakeawayBeer;
             case Cup.DrinkType.Spirit:       return cupType == Cup.CupType.Spirit;
+            case Cup.DrinkType.Guinness:     return cupType == Cup.CupType.Guinness;
+            case Cup.DrinkType.Wine:         return cupType == Cup.CupType.Wine;
             default: return false;
         }
     }
@@ -293,6 +304,8 @@ public class DrinkMachine : MonoBehaviour
             case Cup.DrinkType.DraftBeer:    return "Beer Glass";
             case Cup.DrinkType.TakeawayBeer: return "Takeaway Bottle";
             case Cup.DrinkType.Spirit:       return "Spirit Glass";
+            case Cup.DrinkType.Guinness:     return "Guinness Glass";
+            case Cup.DrinkType.Wine:         return "Wine Glass";
             default: return "correct glass";
         }
     }
