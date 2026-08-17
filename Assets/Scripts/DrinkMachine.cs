@@ -30,6 +30,7 @@ public class DrinkMachine : MonoBehaviour
     [Header("Fill Settings")]
     [SerializeField] private float greenZoneMin = 0.65f;
     [SerializeField] private float greenZoneMax = 0.80f;
+    [SerializeField] private float takeawayFillSpeed = 0.2f; 
 
     [Header("Takeaway Bottle Opener Settings")]
     [SerializeField] private float openerStartY = 150f;  // high above the cap
@@ -44,8 +45,6 @@ public class DrinkMachine : MonoBehaviour
 
     private const float DRAFT_FILL_SPEED = 0.12f;
     private const float SPIRIT_FILL_SPEED = 0.45f;
-    private const float TAKEAWAY_FILL_SPEED = 0.2f;
-
     #endregion
 
     #region Unity Lifecycle
@@ -126,9 +125,9 @@ public class DrinkMachine : MonoBehaviour
             instructionText.text = "Hold Q to pour";
         }
 
-        float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED
-                        : drinkType == Cup.DrinkType.TakeawayBeer ? TAKEAWAY_FILL_SPEED
-                        : DRAFT_FILL_SPEED;
+       float fillSpeed = drinkType == Cup.DrinkType.Spirit ? SPIRIT_FILL_SPEED
+                : drinkType == Cup.DrinkType.TakeawayBeer ? takeawayFillSpeed
+                : DRAFT_FILL_SPEED;
 
         bool overallSucceeded = false;
 
