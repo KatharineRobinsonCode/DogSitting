@@ -30,6 +30,8 @@ public class PlayerInteraction : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private GameObject currentHeldItem;
 
+    [SerializeField] private Vector3 guinnessHoldRotation = new Vector3(30, 0, 90); 
+    
     #endregion
 
     #region Private Fields
@@ -363,13 +365,18 @@ private void CheckForInteractables()
             Debug.LogWarning($"Layer '{HELD_ITEMS_LAYER}' not found.");
     }
 
-    private void AttachItemToHoldPoint(GameObject item)
-    {
-        item.transform.SetParent(holdPoint);
-        item.transform.localPosition = holdPosition;
-        item.transform.localRotation = Quaternion.Euler(holdRotation);
-    }
+ private void AttachItemToHoldPoint(GameObject item)
+{
+    item.transform.SetParent(holdPoint);
+    item.transform.localPosition = holdPosition;
 
+    // Use a different rotation for Guinness glass due to prefab baked rotation
+    Cup cup = item.GetComponent<Cup>();
+    if (cup != null && cup.cupType == Cup.CupType.Guinness)
+        item.transform.localRotation = Quaternion.Euler(guinnessHoldRotation);
+    else
+        item.transform.localRotation = Quaternion.Euler(holdRotation);
+}
     private void SetLayerRecursive(GameObject obj, int newLayer)
     {
         obj.layer = newLayer;
