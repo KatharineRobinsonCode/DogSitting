@@ -13,7 +13,7 @@ public class Cup : MonoBehaviour
     public GameObject beerModel;
     public GameObject takeawayModel;
     public GameObject spiritModel;
-    public GameObject guinniessModel;
+    public GameObject guinnessModel;
     public GameObject wineModel;
 
     private CupSpawner spawner;
