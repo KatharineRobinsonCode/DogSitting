@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 1
-  contents: 2
+  contents: 0
   beerModel: {fileID: 0}
   takeawayModel: {fileID: 455763059707396034}
   spiritModel: {fileID: 0}
