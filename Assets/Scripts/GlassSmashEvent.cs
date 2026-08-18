@@ -76,7 +76,7 @@ public class GlassSmashEvent : MonoBehaviour
         if (audioSource != null && glassSmashClip != null)
             audioSource.PlayOneShot(glassSmashClip);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         // Play crowd cheer
         if (audioSource != null && crowdCheerClip != null)
@@ -91,7 +91,7 @@ public class GlassSmashEvent : MonoBehaviour
         if (audioSource != null && sharpBreathClip != null)
             audioSource.PlayOneShot(sharpBreathClip);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
 
         // Re-enable controls before dialogue so cursor works
         if (mouseLook != null) mouseLook.enabled = true;
