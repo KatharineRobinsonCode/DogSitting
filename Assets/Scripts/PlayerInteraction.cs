@@ -120,16 +120,21 @@ private void CheckForInteractables()
 {
     Ray ray = GetCenterScreenRay();
 
-    if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
-    {
-        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.green);
-        UpdateUI(true, promptMessage);
+if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
+{
+    Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.green);
+    UpdateUI(true, promptMessage);
 
-        if (Input.GetKeyDown(INTERACT_KEY))
-        {
-                HandleInteraction(hit);
-        }
+    bool interactionHandled = false;
+    if (Input.GetKeyDown(INTERACT_KEY))
+    {
+        HandleInteraction(hit);
+        interactionHandled = true;  // ← track that they handled something
     }
+
+    // Skip broom drop if they already handled an interaction this frame
+    if (interactionHandled) return; 
+}
     else
     {
         Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
