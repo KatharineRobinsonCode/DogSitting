@@ -118,6 +118,7 @@ public class GlassSmashEvent : MonoBehaviour
 
             // Show clean up task after dialogue
             TaskManager.Instance?.ShowTask("Clean up the glass"); 
+            brokenGlass?.SetActive(true); 
         }
     }
 
