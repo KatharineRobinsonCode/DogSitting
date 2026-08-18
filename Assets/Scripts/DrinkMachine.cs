@@ -154,6 +154,8 @@ public class DrinkMachine : MonoBehaviour
 
             while (!qteComplete)
             {
+                    Debug.Log($"[DrinkMachine] Q held: {Input.GetKey(KeyCode.Q)} Q up: {Input.GetKeyUp(KeyCode.Q)}");
+
                 if (Input.GetKey(KeyCode.Q))
                 {
                     currentFill += fillSpeed * Time.deltaTime;
