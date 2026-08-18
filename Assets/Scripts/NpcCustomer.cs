@@ -369,6 +369,10 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
 
     public virtual void FinishOrderAndLeave()
     {
+          // Reset task back to serve customers while waiting for next order
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.ShowTask("Serve customers");
+        
         Debug.Log($"[{name}] FinishOrderAndLeave() called!");
         string seatName = (seatTarget != null) ? seatTarget.name : "None";
         Debug.Log($"[{name}] shouldSitAtTable={shouldSitAtTable}, seatTarget={seatName}");
