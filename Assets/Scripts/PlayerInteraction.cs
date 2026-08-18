@@ -151,7 +151,8 @@ private void CheckForInteractables()
 
         if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
         {
-            if (dropHit.collider.GetComponentInParent<DirtSpot>() != null)
+           if (dropHit.collider.GetComponentInParent<DirtSpot>() != null ||
+    dropHit.collider.GetComponentInParent<BrokenGlass>() != null)
             {
                 hittingDirtSpot = true;
                 dropHit.collider.GetComponentInParent<DirtSpot>().Interact(this);
@@ -187,18 +188,17 @@ private void CheckForInteractables()
             return false;
         }
 
-        // Broom held — only allow dirt spot interaction
-        if (IsHoldingBroom)
-        {
-            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
-            if (interactable is DirtSpot)
-            {
-                promptMessage = interactable.GetInteractionPrompt();
-                return !string.IsNullOrEmpty(promptMessage);
-            }
-            promptMessage = "Press E to put down broom";
-            return true;
-        }
+      if (IsHoldingBroom)
+{
+    IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
+    if (interactable is DirtSpot || interactable is BrokenGlass)
+    {
+        promptMessage = interactable.GetInteractionPrompt();
+        return !string.IsNullOrEmpty(promptMessage);
+    }
+    promptMessage = "Press E to put down broom";
+    return true;
+}
 
         // Normal IInteractable check
         IInteractable normalInteractable = hit.collider.GetComponentInParent<IInteractable>();

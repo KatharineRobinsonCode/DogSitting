@@ -23,6 +23,9 @@ public class GlassSmashEvent : MonoBehaviour
     [SerializeField] private float npcLookDuration = 3f;   // how long they look at smash
     [SerializeField] private float npcTurnSpeed = 5f;
 
+    [Header("Broken Glass")]
+[SerializeField] private GameObject brokenGlassProp;
+
     private DialogueRunner dialogueRunner;
     private bool hasTriggered = false;
 
@@ -73,7 +76,7 @@ public class GlassSmashEvent : MonoBehaviour
         if (audioSource != null && glassSmashClip != null)
             audioSource.PlayOneShot(glassSmashClip);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(1.5f);
 
         // Play crowd cheer
         if (audioSource != null && crowdCheerClip != null)
@@ -82,7 +85,7 @@ public class GlassSmashEvent : MonoBehaviour
         // All NPCs turn to look at smash location
         StartCoroutine(NPCsLookAtSmash());
 
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.5f);
 
         // Sharp breath
         if (audioSource != null && sharpBreathClip != null)
@@ -116,9 +119,9 @@ public class GlassSmashEvent : MonoBehaviour
             while (!dialogueDone) yield return null;
             dialogueRunner.onDialogueComplete.RemoveListener(() => dialogueDone = true);
 
-            // Show clean up task after dialogue
-            TaskManager.Instance?.ShowTask("Clean up the glass"); 
-            brokenGlass?.SetActive(true); 
+            // Show task and activate broken glass prop
+            TaskManager.Instance?.ShowTask("Clean up the glass");
+            if (brokenGlassProp != null) brokenGlassProp.SetActive(true);
         }
     }
 
