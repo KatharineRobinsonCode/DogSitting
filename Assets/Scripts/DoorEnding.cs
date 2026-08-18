@@ -109,24 +109,21 @@ public class DoorEnding : MonoBehaviour, IInteractable
     }
     
     private void LeaveAndContinue()
-    {
-        LogDebug($"[DoorEnding] Shift complete! Loading next scene: {nextSceneName}");
-        
-        // Hide task UI
-        if (TaskManager.Instance != null)
-        {
-            TaskManager.Instance.HideTask();
-        }
-        
-        // Show transition feedback
-        if (FeedbackManager.Instance != null)
-        {
-            FeedbackManager.Instance.ShowSuccess("Shift complete! Going home...");
-        }
-        
-        // Load next scene
-        LoadNextScene();
-    }
+{
+    LogDebug($"[DoorEnding] Shift complete! Loading next scene: {nextSceneName}");
+
+    // Disable interaction so prompt disappears during transition
+    PlayerInteraction pi = FindFirstObjectByType<PlayerInteraction>();
+    if (pi != null) pi.enabled = false;
+
+    if (TaskManager.Instance != null)
+        TaskManager.Instance.HideTask();
+
+    if (FeedbackManager.Instance != null)
+        FeedbackManager.Instance.ShowSuccess("Shift complete! Going home...");
+
+    LoadNextScene();
+}
     
     private void LoadNextScene()
     {

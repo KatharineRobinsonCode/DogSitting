@@ -16,23 +16,19 @@ public class DirtSpot : MonoBehaviour, IInteractable
             return "Press E to clean";
         return "";
     }
-
-    public void Interact(PlayerInteraction player)
+public void Interact(PlayerInteraction player)
+{
+    if (isCleaned) return;
+    if (!isActive) return;
+    if (!player.IsHoldingBroom)
     {
-        if (isCleaned) return;
-
-        if (!isActive) return;
-
-        if (!player.IsHoldingBroom)
-        {
-            FeedbackManager.Instance?.ShowMessage("You need a broom first!", FeedbackManager.MessageType.Error);
-            return;
-        }
-
-        isCleaned = true;
-        gameObject.SetActive(false);
-
-        Debug.Log("[DirtSpot] Cleaned a dirt spot");
-        CoffeeShopManager.Instance?.OnDirtSpotCleaned();
+        FeedbackManager.Instance?.ShowMessage("You need a broom first!", FeedbackManager.MessageType.Error);
+        return;
     }
+
+    isCleaned = true;
+    gameObject.SetActive(false);
+    Debug.Log($"[DirtSpot] Cleaned — CoffeeShopManager null: {CoffeeShopManager.Instance == null}");
+    CoffeeShopManager.Instance?.OnDirtSpotCleaned();
+}
 }
