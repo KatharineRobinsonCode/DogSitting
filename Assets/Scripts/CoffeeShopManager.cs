@@ -129,14 +129,16 @@ public void OnThirdCustomerServed()
                 spot.Activate();
         }
 
-        TaskManager.Instance?.ShowTask("Sweep the floor");
-        FeedbackManager.Instance?.ShowMessage("Shift almost over - sweep up!", FeedbackManager.MessageType.Success);
+        TaskManager.Instance?.ShowTask($"Sweep the floor (0/{totalDirtSpots})");        FeedbackManager.Instance?.ShowMessage("Shift almost over - sweep up!", FeedbackManager.MessageType.Success);
     }
 
 public void OnDirtSpotCleaned()
 {
     dirtSpotsRemaining--;
-    Debug.Log($"[CoffeeShopManager] Dirt spot cleaned, remaining: {dirtSpotsRemaining}, dialogueRunner null: {dialogueRunner == null}");
+    
+    int cleaned = totalDirtSpots - dirtSpotsRemaining;
+    
+    Debug.Log($"[CoffeeShopManager] Dirt spot cleaned, remaining: {dirtSpotsRemaining}");
 
     if (dirtSpotsRemaining <= 0)
     {
@@ -152,10 +154,11 @@ public void OnDirtSpotCleaned()
                 dialogueRunner.onDialogueComplete.AddListener(OnReadyForLeavePub);
         }
         else
-        {
-            Debug.LogError("[CoffeeShopManager] dialogueRunner is NULL at leave pub!");
-        }
+    {
+        // Update task with counter
+        TaskManager.Instance?.ShowTask($"Sweep the floor ({cleaned}/{totalDirtSpots})");
     }
+}
 }
 
     private void OnTriggerEnter(Collider other)

@@ -73175,8 +73175,8 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.62
-  greenZoneMax: 0.67
+  greenZoneMin: 0.75
+  greenZoneMax: 0.99
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0

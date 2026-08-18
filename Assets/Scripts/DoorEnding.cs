@@ -53,30 +53,41 @@ public class DoorEnding : MonoBehaviour, IInteractable
     #endregion
     
     #region IInteractable Implementation
-    
     public string GetInteractionPrompt()
+{
+    if (CanLeave())
+        return "Press E to leave pub";
+
+    // Show different prompt during sweeping
+    string currentTask = TaskManager.Instance?.CurrentTask ?? "";
+    if (currentTask.StartsWith("Sweep the floor"))
+        return "Press E to check door";
+
+    return "Press E to leave (shift incomplete)";
+}
+  public void Interact(PlayerInteraction player)
+{
+    LogDebug("[DoorEnding] Player interacted with door");
+
+    if (CanLeave())
     {
-        if (CanLeave())
-        {
-            return "Press E to leave pub";
-        }
-        
-        return "Press E to leave (shift incomplete)";
+        LeaveAndContinue();
+        return;
     }
-    
-    public void Interact(PlayerInteraction player)
+
+    // During sweeping — friendly message, no bad ending
+    string currentTask = TaskManager.Instance?.CurrentTask ?? "";
+    if (currentTask.StartsWith("Sweep the floor"))
     {
-        LogDebug("[DoorEnding] Player interacted with door");
-        
-        if (CanLeave())
-        {
-            LeaveAndContinue();
-        }
-        else
-        {
-            TriggerEarlyExitEnding();
-        }
+        FeedbackManager.Instance?.ShowMessage(
+            "Can't leave yet, gotta sweep up!", 
+            FeedbackManager.MessageType.Info);
+        return;
     }
+
+    // Any other incomplete task — trigger bad ending
+    TriggerEarlyExitEnding();
+}
     
     #endregion
     
