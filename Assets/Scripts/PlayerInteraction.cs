@@ -145,27 +145,25 @@ private void CheckForInteractables()
     }
 
     if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
+{
+    Ray dropRay = GetCenterScreenRay();
+    bool hittingDirtSpot = false;
+
+    if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
     {
-        Ray dropRay = GetCenterScreenRay();
-        bool hittingDirtSpot = false;
-
-        if (Physics.Raycast(dropRay, out RaycastHit dropHit, interactDistance, ~excludeLayers))
-        {
-           if (dropHit.collider.GetComponentInParent<DirtSpot>() != null ||
-    dropHit.collider.GetComponentInParent<BrokenGlass>() != null)
-            {
-                hittingDirtSpot = true;
-                dropHit.collider.GetComponentInParent<DirtSpot>().Interact(this);
-            }
-        }
-
-        if (!hittingDirtSpot)
-        {
-            Broom broom = currentHeldItem?.GetComponent<Broom>();
-            if (broom != null)
-                broom.Drop(this);
-        }
+        if (dropHit.collider != null &&  // ← add null check
+            (dropHit.collider.GetComponentInParent<DirtSpot>() != null ||
+             dropHit.collider.GetComponentInParent<BrokenGlass>() != null))
+            hittingDirtSpot = true;
     }
+
+    if (!hittingDirtSpot)
+    {
+        Broom broom = currentHeldItem?.GetComponent<Broom>();
+        if (broom != null)
+            broom.Drop(this);
+    }
+}
 }
   
     private Ray GetCenterScreenRay()
