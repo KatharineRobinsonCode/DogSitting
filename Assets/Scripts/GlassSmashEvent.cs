@@ -74,7 +74,7 @@ public class GlassSmashEvent : MonoBehaviour
 
         // Play glass smash
         if (audioSource != null && glassSmashClip != null)
-            audioSource.PlayOneShot(glassSmashClip);
+            audioSource.PlayOneShot(glassSmashClip, 2f); 
 
         yield return new WaitForSeconds(0.5f);
 

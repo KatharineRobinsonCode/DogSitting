@@ -28911,7 +28911,7 @@ Transform:
   m_GameObject: {fileID: 857713171}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.34, y: 0, z: 2.64}
+  m_LocalPosition: {x: -12.4279995, y: 0, z: 0.259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59511,7 +59511,7 @@ MonoBehaviour:
   playerBody: {fileID: 577574938}
   audioSource: {fileID: 1745190255}
   glassSmashClip: {fileID: 8300000, guid: f18b5fb4ddcb742fd9bf01f15b92906c, type: 3}
-  crowdCheerClip: {fileID: 8300000, guid: 5b37b4db1460446c6b140153cfe048da, type: 3}
+  crowdCheerClip: {fileID: 8300000, guid: 93af0b586dba64081a54a64fe1c7a492, type: 3}
   sharpBreathClip: {fileID: 8300000, guid: 4448668f8ac7e41479eeaa31fcc85d87, type: 3}
   yarnNode: GlassSmash
   allNPCs:
@@ -71595,7 +71595,7 @@ Transform:
   m_GameObject: {fileID: 2054033019}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.22, y: 0.003, z: 5.45}
+  m_LocalPosition: {x: -6.26, y: 0.134, z: 3.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73721,8 +73721,8 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.75
-  greenZoneMax: 0.99
+  greenZoneMin: 0.6
+  greenZoneMax: 0.7
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
