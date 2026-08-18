@@ -115,6 +115,9 @@ public class GlassSmashEvent : MonoBehaviour
 
             while (!dialogueDone) yield return null;
             dialogueRunner.onDialogueComplete.RemoveListener(() => dialogueDone = true);
+
+            // Show clean up task after dialogue
+            TaskManager.Instance?.ShowTask("Clean up the glass"); 
         }
     }
 

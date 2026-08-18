@@ -13774,6 +13774,7 @@ Transform:
   - {fileID: 2047778354}
   - {fileID: 1646912801}
   - {fileID: 1231942060}
+  - {fileID: 1745190253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &434908137
@@ -19872,6 +19873,11 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!4 &577574942 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1927095934754023318, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
+  m_PrefabInstance: {fileID: 577574936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &579201112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4289221243168480, guid: 4eed844eb907f3c408acff0834ea4a4e, type: 3}
@@ -28790,6 +28796,37 @@ MonoBehaviour:
   spiritModel: {fileID: 1856637139}
   guinnessModel: {fileID: 0}
   wineModel: {fileID: 0}
+--- !u!1 &857713171
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857713172}
+  m_Layer: 0
+  m_Name: Glass smash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &857713172
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857713171}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.26, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1699650243}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &858961875
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30207,6 +30244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerryManager
   dialogueNode: TerryChat
+  leavingDialogueNode: TerryLeaving
   interactDistance: 3
   turnSpeed: 7
   player: {fileID: 577574938}
@@ -54877,7 +54915,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4289221243168480, guid: 4eed844eb907f3c408acff0834ea4a4e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 857713172}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4eed844eb907f3c408acff0834ea4a4e, type: 3}
 --- !u!1001 &1617536677
@@ -59240,6 +59281,164 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4889035911274742, guid: a1a5ff90e1865c540bd32b9359209512, type: 3}
   m_PrefabInstance: {fileID: 1744914443}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1745190252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1745190253}
+  - component: {fileID: 1745190254}
+  - component: {fileID: 1745190255}
+  m_Layer: 0
+  m_Name: GlassSmashManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1745190253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745190252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 432827439}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745190254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745190252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3f11c73b1f64743a1f6d940d32e312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlassSmashEvent
+  smashLocation: {fileID: 857713172}
+  playerCamera: {fileID: 577574942}
+  playerBody: {fileID: 577574938}
+  audioSource: {fileID: 1745190255}
+  glassSmashClip: {fileID: 8300000, guid: f18b5fb4ddcb742fd9bf01f15b92906c, type: 3}
+  crowdCheerClip: {fileID: 0}
+  sharpBreathClip: {fileID: 8300000, guid: 4448668f8ac7e41479eeaa31fcc85d87, type: 3}
+  yarnNode: GlassSmash
+  allNPCs:
+  - {fileID: 1122173317}
+  - {fileID: 87206425}
+  - {fileID: 249100607}
+  - {fileID: 595163840}
+  - {fileID: 519429649}
+  npcLookDuration: 3
+  npcTurnSpeed: 5
+--- !u!82 &1745190255
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745190252}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1746269359
 PrefabInstance:
   m_ObjectHideFlags: 0
