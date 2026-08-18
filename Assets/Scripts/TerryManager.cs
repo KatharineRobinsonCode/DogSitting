@@ -6,6 +6,7 @@ public class TerryManager : MonoBehaviour, IInteractable
 {
     [Header("Dialogue")]
     [SerializeField] private string dialogueNode = "TerryChat";
+    [SerializeField] private string leavingDialogueNode = "TerryLeaving"; 
     [SerializeField] private float interactDistance = 3f;
     [SerializeField] private float turnSpeed = 7f;
 private bool hasSpoken = false;
@@ -45,33 +46,43 @@ private bool hasSpoken = false;
         }
     }
 
-    public string GetInteractionPrompt()
+  public string GetInteractionPrompt()
 {
+    // During leaving task — always show prompt regardless of hasSpoken
+    if (TaskManager.Instance != null && TaskManager.Instance.IsCurrentTask("Leave pub"))
+        return "Press E to say goodbye";
+
     if (hasSpoken) return "";
     return "Press E to chat";
 }
 
-    public void Interact(PlayerInteraction playerInteraction)
+   public void Interact(PlayerInteraction playerInteraction)
+{
+    if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
+
+    // Pick the right dialogue node
+    string nodeToPlay = (TaskManager.Instance != null && 
+                         TaskManager.Instance.IsCurrentTask("Leave pub"))
+        ? leavingDialogueNode
+        : dialogueNode;
+
+    isFacingPlayer = true;
+
+    Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+    if (canvasComponent != null)
     {
-        if (dialogueRunner == null || dialogueRunner.IsDialogueRunning) return;
-        isFacingPlayer = true;
-
-        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
-        if (canvasComponent != null)
-        {
-            canvasComponent.gameObject.SetActive(true);
-            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
-            CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
-            if (group != null) group.alpha = 1f;
-        }
-
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
-
-        dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
-        dialogueRunner.StartDialogue(dialogueNode);
+        canvasComponent.gameObject.SetActive(true);
+        canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+        CanvasGroup group = canvasComponent.gameObject.GetComponent<CanvasGroup>();
+        if (group != null) group.alpha = 1f;
     }
 
+    if (PauseManager.Instance != null)
+        PauseManager.Instance.ShowCursorPublic();
+
+    dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
+    dialogueRunner.StartDialogue(nodeToPlay);
+}
     private void OnDialogueComplete()
     {
         dialogueRunner.onDialogueComplete.RemoveListener(OnDialogueComplete);

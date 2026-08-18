@@ -5,3 +5,9 @@ Terry: You've only got an hour left, unless you wanna work a longer shift?...
 -> {$PlayerName}: Don't you think you should do some work?
 Terry: Get back to work.
 ===
+
+title: TerryLeaving
+---
+{$PlayerName}: I'm heading off Terry, all swept up.
+Terry: ...if you must. Be careful out there.
+===
