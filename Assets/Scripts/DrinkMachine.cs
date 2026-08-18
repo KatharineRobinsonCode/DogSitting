@@ -114,6 +114,7 @@ public class DrinkMachine : MonoBehaviour
                               : drinkType == Cup.DrinkType.Guinness   ? guinnessFillImage
                               : drinkType == Cup.DrinkType.Wine       ? wineFillImage
                               : draftBeerFillImage;
+Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidFillImage == null} currentFill updating: checking...");
 
         bool isTakeaway = drinkType == Cup.DrinkType.TakeawayBeer;
         RectTransform openerRect = isTakeaway && takeawayFillImage != null

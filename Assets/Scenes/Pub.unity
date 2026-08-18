@@ -14690,7 +14690,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1077225729501284, guid: bd3784fbbf3ab8f42bafaf44867acaa4, type: 3}
       propertyPath: m_Name
-      value: Draft Beer
+      value: Guinness Pumps
       objectReference: {fileID: 0}
     - target: {fileID: 1077225729501284, guid: bd3784fbbf3ab8f42bafaf44867acaa4, type: 3}
       propertyPath: m_TagString
@@ -15143,7 +15143,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1050573634350536, guid: d64841726954a694986c294638c56abc, type: 3}
       propertyPath: m_Name
-      value: Draft Beer
+      value: Guinness Pumps
       objectReference: {fileID: 0}
     - target: {fileID: 1050573634350536, guid: d64841726954a694986c294638c56abc, type: 3}
       propertyPath: m_TagString
@@ -39595,7 +39595,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -40599,7 +40599,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1130159444144144, guid: 3728c609ad9c607459f27f969b80b01c, type: 3}
       propertyPath: m_Name
-      value: Draft Beer
+      value: Guinness Pumps
       objectReference: {fileID: 0}
     - target: {fileID: 1130159444144144, guid: 3728c609ad9c607459f27f969b80b01c, type: 3}
       propertyPath: m_TagString
@@ -41934,7 +41934,7 @@ MonoBehaviour:
   errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   successSound: {fileID: 0}
   failSound: {fileID: 0}
-  fillingPanel: {fileID: 0}
+  fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 2003892774}
   takeawayBottle: {fileID: 0}
@@ -42212,7 +42212,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -43708,7 +43708,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1378790115824248, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
       propertyPath: m_Name
-      value: Draft Beer
+      value: Guinness Pumps
       objectReference: {fileID: 0}
     - target: {fileID: 1378790115824248, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
       propertyPath: m_TagString
@@ -47567,7 +47567,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1808277958215904, guid: 9d3926e3c47acaf43b2be9f58b752d71, type: 3}
       propertyPath: m_Name
-      value: Draft Beer
+      value: Guinness Pumps
       objectReference: {fileID: 0}
     - target: {fileID: 1808277958215904, guid: 9d3926e3c47acaf43b2be9f58b752d71, type: 3}
       propertyPath: m_TagString
@@ -60412,20 +60412,20 @@ MonoBehaviour:
   errorSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   successSound: {fileID: 0}
   failSound: {fileID: 0}
-  fillingPanel: {fileID: 0}
+  fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
-  guinnessGlass: {fileID: 0}
+  guinnessGlass: {fileID: 489096026}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
-  guinnessFillImage: {fileID: 0}
+  guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
-  instructionText: {fileID: 0}
-  greenZoneMin: 0.64
-  greenZoneMax: 1
+  instructionText: {fileID: 1386823832}
+  greenZoneMin: 0.65
+  greenZoneMax: 0.95
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
@@ -60802,7 +60802,7 @@ MonoBehaviour:
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.64
-  greenZoneMax: 1
+  greenZoneMax: 0.99
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
@@ -67152,7 +67152,7 @@ MonoBehaviour:
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.64
-  greenZoneMax: 1
+  greenZoneMax: 0.99
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
@@ -70581,7 +70581,7 @@ MonoBehaviour:
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.64
-  greenZoneMax: 1
+  greenZoneMax: 0.99
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
@@ -72171,7 +72171,7 @@ MonoBehaviour:
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.64
-  greenZoneMax: 1
+  greenZoneMax: 0.99
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
