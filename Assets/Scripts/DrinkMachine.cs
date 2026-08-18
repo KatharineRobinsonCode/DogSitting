@@ -49,8 +49,8 @@ public class DrinkMachine : MonoBehaviour
 
     private const float DRAFT_FILL_SPEED = 0.12f;
     private const float SPIRIT_FILL_SPEED = 0.45f;
-    private const float GUINNESS_FILL_SPEED = 0.08f;  // slower — it settles
-    private const float WINE_FILL_SPEED = 0.35f;      // medium speed
+    private const float GUINNESS_FILL_SPEED = 0.08f;
+    private const float WINE_FILL_SPEED = 0.35f;
 
     #endregion
 
@@ -178,12 +178,12 @@ public class DrinkMachine : MonoBehaviour
                         qteComplete = true;
                     }
                 }
-                else if (Input.GetKeyUp(KeyCode.Q))
-                {
-                    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
-                    Debug.Log($"[DrinkMachine] Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
-                    qteComplete = true;
-                }
+            else if (Input.GetKeyUp(KeyCode.Q))
+{
+    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
+    Debug.Log($"[DrinkMachine] {drinkType} — Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
+    qteComplete = true;
+}
 
                 yield return null;
             }

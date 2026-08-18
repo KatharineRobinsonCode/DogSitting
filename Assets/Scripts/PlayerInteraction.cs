@@ -245,6 +245,8 @@ private void CheckForInteractables()
                 case Cup.CupType.DraftBeer:    promptMessage = "Press E to pick up Draft Cup"; break;
                 case Cup.CupType.TakeawayBeer: promptMessage = "Press E to pick up Takeaway Bottle"; break;
                 case Cup.CupType.Spirit:       promptMessage = "Press E to pick up Spirit Cup"; break;
+                case Cup.CupType.Guinness: promptMessage = "Press E to pick up Guinness Glass"; break;
+                case Cup.CupType.Wine:     promptMessage = "Press E to pick up Wine Glass"; break;
                 default:                       promptMessage = "Press E to pick up Cup"; break;
             }
             return true;

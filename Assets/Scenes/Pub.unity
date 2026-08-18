@@ -15704,7 +15704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &489096027
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19163,6 +19163,7 @@ MonoBehaviour:
   holdPosition: {x: 0.4, y: -0.4, z: 0.7}
   holdRotation: {x: 30, y: 0, z: 0}
   currentHeldItem: {fileID: 0}
+  guinnessHoldRotation: {x: 270, y: 0, z: 0}
 --- !u!114 &577574941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24147,7 +24148,7 @@ MonoBehaviour:
   beerModel: {fileID: 0}
   takeawayModel: {fileID: 0}
   spiritModel: {fileID: 0}
-  guinnessModel: {fileID: 0}
+  guinnessModel: {fileID: 767308245}
   wineModel: {fileID: 0}
 --- !u!1001 &726619460
 PrefabInstance:
@@ -25510,7 +25511,7 @@ MonoBehaviour:
   beerModel: {fileID: 0}
   takeawayModel: {fileID: 0}
   spiritModel: {fileID: 0}
-  guinnessModel: {fileID: 0}
+  guinnessModel: {fileID: 767308245}
   wineModel: {fileID: 0}
 --- !u!4 &767308250 stripped
 Transform:
@@ -56662,7 +56663,7 @@ MonoBehaviour:
   beerModel: {fileID: 0}
   takeawayModel: {fileID: 0}
   spiritModel: {fileID: 0}
-  guinnessModel: {fileID: 0}
+  guinnessModel: {fileID: 767308245}
   wineModel: {fileID: 0}
 --- !u!4 &1714331350 stripped
 Transform:
@@ -60383,9 +60384,9 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 0}
-  greenZoneMin: 0.95
+  greenZoneMin: 0.64
   greenZoneMax: 1
-  takeawayFillSpeed: 0.2
+  takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1836937340
@@ -60760,9 +60761,9 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.95
+  greenZoneMin: 0.64
   greenZoneMax: 1
-  takeawayFillSpeed: 0.2
+  takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1841277070
@@ -67110,9 +67111,9 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.95
+  greenZoneMin: 0.64
   greenZoneMax: 1
-  takeawayFillSpeed: 0.2
+  takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2018125570
@@ -67295,7 +67296,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -70539,9 +70540,9 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.95
+  greenZoneMin: 0.64
   greenZoneMax: 1
-  takeawayFillSpeed: 0.2
+  takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2117214089
@@ -72129,9 +72130,9 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.95
+  greenZoneMin: 0.64
   greenZoneMax: 1
-  takeawayFillSpeed: 0.2
+  takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2144423963
