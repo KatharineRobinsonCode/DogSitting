@@ -155,12 +155,11 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
 
             while (!qteComplete)
             {
-                    Debug.Log($"[DrinkMachine] Q held: {Input.GetKey(KeyCode.Q)} Q up: {Input.GetKeyUp(KeyCode.Q)}");
-
                 if (Input.GetKey(KeyCode.Q))
                 {
                     currentFill += fillSpeed * Time.deltaTime;
                     currentFill = Mathf.Clamp01(currentFill);
+                    Debug.Log($"[DrinkMachine] {drinkType} — filling: {currentFill:F3}");  
 
                     if (isTakeaway && openerRect != null)
                     {
@@ -182,13 +181,13 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
                     }
                 }
             else if (Input.GetKeyUp(KeyCode.Q))
-{
+    {
     succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
     Debug.Log($"[DrinkMachine] {drinkType} — Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
     qteComplete = true;
-}
+    }
 
-                yield return null;
+            yield return null;
             }
 
             yield return new WaitForSeconds(0.4f);
