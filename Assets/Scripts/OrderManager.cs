@@ -55,22 +55,18 @@ public class OrderManager : MonoBehaviour
     public void CustomerLeft()
     {
         customersServed++;
+    
         if (customersServed == 3)
-            TriggerHorrorEvent();
+        TriggerHorrorEvent();
+
     }
 
-    void TriggerHorrorEvent()
-    {
-        Debug.Log("OrderManager: Attempting to trigger AirDrop...");
-        
-        if (PhoneManager.Instance != null)
-        {
-            Debug.Log("OrderManager: PhoneManager found! Sending data...");
-            PhoneManager.Instance.ReceiveAirdrop("AirDrop: 'I LIKE YOUR SHIRT.'", creepyPhoto);
-        }
-        else
-        {
-            Debug.LogError("OrderManager: PhoneManager.Instance is NULL!");
-        }
-    }
+  void TriggerHorrorEvent()
+{
+    GlassSmashEvent glassSmash = FindFirstObjectByType<GlassSmashEvent>();
+    if (glassSmash != null)
+        glassSmash.TriggerGlassSmash();
+    else
+        Debug.LogError("[OrderManager] GlassSmashEvent not found!");
+}
 }
