@@ -72,10 +72,10 @@ public class DrinkMachine : MonoBehaviour
 
     public static bool IsFillingActive { get; private set; }
 
-    public void Interact(PlayerInteraction player)
+   public void Interact(PlayerInteraction player)
     {
+        Debug.Log($"[DrinkMachine] Interact called — drinkType: {drinkType} isCurrentlyFilling: {isCurrentlyFilling}");
         if (isCurrentlyFilling) return;
-
         if (!ValidatePlayerHoldingItem(player)) return;
         if (!ValidateItemIsCup(player, out Cup cup)) return;
         if (!ValidateCupIsEmpty(cup)) return;
