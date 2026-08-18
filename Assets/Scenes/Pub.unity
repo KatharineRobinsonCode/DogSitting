@@ -73722,7 +73722,7 @@ MonoBehaviour:
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.6
-  greenZoneMax: 0.7
+  greenZoneMax: 0.75
   takeawayFillSpeed: 0.4
   openerStartY: 150
   openerEndY: 0

@@ -127,8 +127,6 @@ private void CheckForInteractables()
 
         if (Input.GetKeyDown(INTERACT_KEY))
         {
-            // If holding broom, let the drop logic below handle E press
-            if (!IsHoldingBroom)
                 HandleInteraction(hit);
         }
     }
