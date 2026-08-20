@@ -261,6 +261,9 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
 // When holding broom, only allow BrokenGlass and DirtSpot
     if (IsHoldingBroom)
     {
+          // Guard against empty raycast hit
+        if (hit.collider == null) return;
+
         BrokenGlass glass = hit.collider.GetComponentInParent<BrokenGlass>();
         if (glass != null)
         {
