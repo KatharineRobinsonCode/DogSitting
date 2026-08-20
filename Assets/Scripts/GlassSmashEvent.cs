@@ -88,7 +88,6 @@ private IEnumerator GlassSmashSequence()
         if (dirToPlayer != Vector3.zero)
             fleeingFigure.transform.rotation = Quaternion.LookRotation(dirToPlayer);
     }
-
     // NPCs all turn to look
     StartCoroutine(NPCsLookAtSmash());
 
@@ -180,6 +179,19 @@ private IEnumerator ZoomOut()
         playerCam.fieldOfView = Mathf.Lerp(startFOV, normalFOV, elapsed / duration);
         yield return null;
     }
+}
+private void LookAt(Vector3 targetPosition)
+{
+    if (playerCamera == null || playerBody == null) return;
+
+    Vector3 direction = (targetPosition - playerCamera.position).normalized;
+
+    Vector3 flatDirection = new Vector3(direction.x, 0f, direction.z);
+    if (flatDirection != Vector3.zero)
+        playerBody.rotation = Quaternion.LookRotation(flatDirection);
+
+    float verticalAngle = Mathf.Asin(Mathf.Clamp(direction.y, -1f, 1f)) * Mathf.Rad2Deg;
+    playerCamera.localRotation = Quaternion.Euler(-verticalAngle, 0f, 0f);
 }
     private IEnumerator NPCsLookAtSmash()
     {
