@@ -128,7 +128,7 @@ private IEnumerator GlassSmashSequence()
         LookAt(doorLookTarget.position);
     StartCoroutine(ZoomOut());
 
-    yield return new WaitForSeconds(1.5f);  // linger on empty door
+    yield return new WaitForSeconds(0.5f);  // linger on empty door
 
     // Restore controls before dialogue
     if (mouseLook != null) mouseLook.enabled = true;
