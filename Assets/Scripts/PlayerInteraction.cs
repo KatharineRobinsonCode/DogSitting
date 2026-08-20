@@ -127,10 +127,10 @@ if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
 
     bool interactionHandled = false;
     if (Input.GetKeyDown(INTERACT_KEY))
-    {
-        HandleInteraction(hit);
-        interactionHandled = true;  // ← track that they handled something
-    }
+  {
+    bool interactionHandled = HandleInteraction(hit);  // ← return bool from HandleInteraction
+    if (interactionHandled) return;
+}
 
     // Skip broom drop if they already handled an interaction this frame
     if (interactionHandled) return; 
@@ -256,67 +256,43 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         return false;
     }
 
-    private void HandleInteraction(RaycastHit hit)
-    {
-// When holding broom, only allow BrokenGlass and DirtSpot
+   private bool HandleInteraction(RaycastHit hit)
+{
     if (IsHoldingBroom)
     {
-          // Guard against empty raycast hit
-        if (hit.collider == null) return;
+        if (hit.collider == null) return false;  // ← return false, not void
 
         BrokenGlass glass = hit.collider.GetComponentInParent<BrokenGlass>();
-        if (glass != null)
-        {
-            glass.Interact(this);
-            return;
-        }
+        if (glass != null) { glass.Interact(this); return true; }
 
         DirtSpot dirt = hit.collider.GetComponentInParent<DirtSpot>();
-        if (dirt != null)
-        {
-            dirt.Interact(this);
-            return;
-        }
-        return;
+        if (dirt != null) { dirt.Interact(this); return true; }
+
+        return false;  // ← holding broom but nothing to interact with
     }
 
-        IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
-        if (interactable != null)
-        {
-            interactable.Interact(this);
-            return;
-        }
+    IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
+    if (interactable != null) { interactable.Interact(this); return true; }
 
-        DrinkMachine machine = hit.collider.GetComponentInParent<DrinkMachine>();
-        if (machine != null)
-        {
-            machine.Interact(this);
-            return;
-        }
+    DrinkMachine machine = hit.collider.GetComponentInParent<DrinkMachine>();
+    if (machine != null) { machine.Interact(this); return true; }
 
-        Register register = hit.collider.GetComponentInParent<Register>();
-        if (register != null)
-        {
-            register.Interact(this);
-            return;
-        }
+    Register register = hit.collider.GetComponentInParent<Register>();
+    if (register != null) { register.Interact(this); return true; }
 
-        Trash bin = hit.collider.GetComponentInParent<Trash>();
-        if (bin != null)
-        {
-            bin.Interact(this);
-            return;
-        }
+    Trash bin = hit.collider.GetComponentInParent<Trash>();
+    if (bin != null) { bin.Interact(this); return true; }
 
-        Cup cup = hit.collider.GetComponentInParent<Cup>();
-        if (cup != null && currentHeldItem == null)
-        {
-            Debug.Log("[PlayerInteraction] Picking up cup: " + Cup.GetDisplayName(cup.contents));
-            cup.OnPickedUp();
-            PickUpItem(cup.gameObject);
-            return;
-        }
+    Cup cup = hit.collider.GetComponentInParent<Cup>();
+    if (cup != null && currentHeldItem == null)
+    {
+        cup.OnPickedUp();
+        PickUpItem(cup.gameObject);
+        return true;
     }
+
+    return false;
+}
 
     #endregion
 
