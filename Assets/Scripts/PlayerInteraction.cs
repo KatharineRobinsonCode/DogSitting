@@ -262,9 +262,6 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
     {
         if (hit.collider == null) return false;  // ← return false, not void
 
-        BrokenGlass glass = hit.collider.GetComponentInParent<BrokenGlass>();
-        if (glass != null) { glass.Interact(this); return true; }
-
         DirtSpot dirt = hit.collider.GetComponentInParent<DirtSpot>();
         if (dirt != null) { dirt.Interact(this); return true; }
 
