@@ -71,23 +71,24 @@ private IEnumerator GlassSmashSequence()
     if (audioSource != null && sharpBreathClip != null)
         audioSource.PlayOneShot(sharpBreathClip);
 
-    // Cut camera to face smash location instantly and zoom in
+    // Activate figure BEFORE cutting camera so he's already there when we look
+    if (fleeingFigure != null)
+    {
+    fleeingFigure.transform.position = figureSpawnPoint.position;
+    fleeingFigure.SetActive(true);
+
+    Vector3 dirToPlayer = (playerBody.position - fleeingFigure.transform.position).normalized;
+    dirToPlayer.y = 0f;
+    if (dirToPlayer != Vector3.zero)
+        fleeingFigure.transform.rotation = Quaternion.LookRotation(dirToPlayer);
+    }
+
+    yield return null; // one frame for him to fully activate
+
+    // NOW cut camera to face him
     LookAt(smashLocation.position);
     StartCoroutine(ZoomIn());
 
-    yield return new WaitForSeconds(0.8f);
-
-    // Activate figure — eye contact begins
-    if (fleeingFigure != null)
-    {
-        fleeingFigure.transform.position = figureSpawnPoint.position;
-        fleeingFigure.SetActive(true);
-
-        Vector3 dirToPlayer = (playerBody.position - fleeingFigure.transform.position).normalized;
-        dirToPlayer.y = 0f;
-        if (dirToPlayer != Vector3.zero)
-            fleeingFigure.transform.rotation = Quaternion.LookRotation(dirToPlayer);
-    }
     // NPCs all turn to look
     StartCoroutine(NPCsLookAtSmash());
 
