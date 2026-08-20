@@ -125,21 +125,17 @@ if (TryRaycastInteractable(ray, out RaycastHit hit, out string promptMessage))
     Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.green);
     UpdateUI(true, promptMessage);
 
-    bool interactionHandled = false;
     if (Input.GetKeyDown(INTERACT_KEY))
-  {
-    bool interactionHandled = HandleInteraction(hit);  // ← return bool from HandleInteraction
-    if (interactionHandled) return;
-}
-
-    // Skip broom drop if they already handled an interaction this frame
-    if (interactionHandled) return; 
-}
-    else
     {
-        Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
-        UpdateUI(false, string.Empty);
+        bool interactionHandled = HandleInteraction(hit);
+        if (interactionHandled) return;
     }
+}
+else
+{
+    Debug.DrawRay(ray.origin, ray.direction * interactDistance, Color.red);
+    UpdateUI(false, string.Empty);
+}
 
     if (justPickedUpBroom)
     {
