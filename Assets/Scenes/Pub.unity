@@ -19969,6 +19969,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1927095934754023318, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
   m_PrefabInstance: {fileID: 577574936}
   m_PrefabAsset: {fileID: 0}
+--- !u!20 &577574947 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1927095934754023313, guid: a9b081014bad86f4a80b60284279d21b, type: 3}
+  m_PrefabInstance: {fileID: 577574936}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &579201112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4289221243168480, guid: 4eed844eb907f3c408acff0834ea4a4e, type: 3}
@@ -59535,6 +59540,10 @@ MonoBehaviour:
   npcLookDuration: 3
   npcTurnSpeed: 5
   brokenGlassProp: {fileID: 2054033019}
+  playerCam: {fileID: 577574947}
+  normalFOV: 60
+  zoomFOV: 45
+  zoomSpeed: 3
 --- !u!82 &1745190255
 AudioSource:
   m_ObjectHideFlags: 0

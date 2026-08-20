@@ -57,132 +57,103 @@ public class GlassSmashEvent : MonoBehaviour
         hasTriggered = true;
         StartCoroutine(GlassSmashSequence());
     }
+private IEnumerator GlassSmashSequence()
+{
+    // Disable player controls
+    var mouseLook = playerCamera.GetComponent<SojaExiles.MouseLook>();
+    var playerMovement = playerBody.GetComponent<PlayerMovement>();
+    if (mouseLook != null) mouseLook.enabled = false;
+    if (playerMovement != null) playerMovement.SetMovementEnabled(false);
 
-    private IEnumerator GlassSmashSequence()
+    // Play glass smash AND gasp simultaneously
+    if (audioSource != null && glassSmashClip != null)
+        audioSource.PlayOneShot(glassSmashClip, 2f);
+    if (audioSource != null && sharpBreathClip != null)
+        audioSource.PlayOneShot(sharpBreathClip);
+
+    // Cut camera to face smash location instantly and zoom in
+    LookAt(smashLocation.position);
+    StartCoroutine(ZoomIn());
+
+    yield return new WaitForSeconds(0.8f);
+
+    // Activate figure — eye contact begins
+    if (fleeingFigure != null)
     {
-        // Disable player controls
-        var mouseLook = playerCamera.GetComponent<SojaExiles.MouseLook>();
-        var playerMovement = playerBody.GetComponent<PlayerMovement>();
-        if (mouseLook != null) mouseLook.enabled = false;
-        if (playerMovement != null) playerMovement.SetMovementEnabled(false);
+        fleeingFigure.transform.position = figureSpawnPoint.position;
+        fleeingFigure.SetActive(true);
 
-        // Play glass smash
-        if (audioSource != null && glassSmashClip != null)
-            audioSource.PlayOneShot(glassSmashClip, 2f);
-
-        // Cut camera to face smash location instantly
-        LookAt(smashLocation.position);
-        StartCoroutine(ZoomIn());
-
-yield return new WaitForSeconds(0.3f);
-
-        // Gasp immediately after smash — before eye contact
-if (audioSource != null && sharpBreathClip != null)
-    audioSource.PlayOneShot(sharpBreathClip);
-
-yield return new WaitForSeconds(0.5f);
-
-        // Activate figure — eye contact begins
-        if (fleeingFigure != null)
-        {
-            fleeingFigure.transform.position = figureSpawnPoint.position;
-            fleeingFigure.SetActive(true);
-
-            // Face the player
-            Vector3 dirToPlayer = (playerBody.position - fleeingFigure.transform.position).normalized;
-            dirToPlayer.y = 0f;
-            if (dirToPlayer != Vector3.zero)
-                fleeingFigure.transform.rotation = Quaternion.LookRotation(dirToPlayer);
-        }
-
-        // NPCs all turn to look
-        StartCoroutine(NPCsLookAtSmash());
-
-        // Eye contact moment — just silence and looking
-        yield return new WaitForSeconds(eyeContactDuration);
-
-        // Figure starts walking to the door via NavMesh
-        NavMeshAgent agent = fleeingFigure?.GetComponent<NavMeshAgent>();
-        Animator figureAnim = fleeingFigure?.GetComponentInChildren<Animator>();
-
-        if (agent != null && doorPosition != null)
-        {
-            agent.enabled = true;
-            agent.speed = figureWalkSpeed;
-            agent.SetDestination(doorPosition.position);
-
-            if (figureAnim != null)
-                figureAnim.SetBool("isWalking", true);
-
-            // Wait until he's close to the door then vanish
-            while (fleeingFigure != null &&
-                   Vector3.Distance(fleeingFigure.transform.position, doorPosition.position) > figureVanishDistance)
-            {
-                yield return null;
-            }
-        }
-
-        // Vanish at the door
-        if (fleeingFigure != null) fleeingFigure.SetActive(false);
-
-        // Cut camera to look at empty door
-        if (doorLookTarget != null)
-            LookAt(doorLookTarget.position);
-            StartCoroutine(ZoomOut());
-            
-        yield return new WaitForSeconds(0.8f);
-
-        // Sharp breath
-        if (audioSource != null && sharpBreathClip != null)
-            audioSource.PlayOneShot(sharpBreathClip);
-
-        yield return new WaitForSeconds(0.8f);
-
-        // Restore controls before dialogue
-        if (mouseLook != null) mouseLook.enabled = true;
-        if (playerMovement != null) playerMovement.SetMovementEnabled(true);
-        if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
-
-        // Fire dialogue
-        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
-        {
-            Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
-            if (canvasComponent != null)
-            {
-                canvasComponent.gameObject.SetActive(true);
-                canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
-                CanvasGroup group = canvasComponent.GetComponent<CanvasGroup>();
-                if (group != null) group.alpha = 1f;
-            }
-
-            bool dialogueDone = false;
-            dialogueRunner.onDialogueComplete.AddListener(() => dialogueDone = true);
-            dialogueRunner.StartDialogue(yarnNode);
-            while (!dialogueDone) yield return null;
-            dialogueRunner.onDialogueComplete.RemoveListener(() => dialogueDone = true);
-        }
-
-        // Show task and activate broken glass
-        TaskManager.Instance?.ShowTask("Clean up the glass");
-        if (brokenGlassProp != null) brokenGlassProp.SetActive(true);
+        Vector3 dirToPlayer = (playerBody.position - fleeingFigure.transform.position).normalized;
+        dirToPlayer.y = 0f;
+        if (dirToPlayer != Vector3.zero)
+            fleeingFigure.transform.rotation = Quaternion.LookRotation(dirToPlayer);
     }
 
-    private void LookAt(Vector3 targetPosition)
+    // NPCs all turn to look
+    StartCoroutine(NPCsLookAtSmash());
+
+    // Eye contact moment — silence and tension
+    yield return new WaitForSeconds(eyeContactDuration);
+
+    // Figure starts walking to the door via NavMesh
+    NavMeshAgent agent = fleeingFigure?.GetComponent<NavMeshAgent>();
+    Animator figureAnim = fleeingFigure?.GetComponentInChildren<Animator>();
+
+    if (agent != null && doorPosition != null)
     {
-        if (playerCamera == null || playerBody == null) return;
+        agent.enabled = true;
+        agent.speed = figureWalkSpeed;
+        agent.SetDestination(doorPosition.position);
 
-        Vector3 direction = (targetPosition - playerCamera.position).normalized;
+        if (figureAnim != null)
+            figureAnim.SetBool("isWalking", true);
 
-        // Rotate player body horizontally
-        Vector3 flatDirection = new Vector3(direction.x, 0f, direction.z);
-        if (flatDirection != Vector3.zero)
-            playerBody.rotation = Quaternion.LookRotation(flatDirection);
-
-        // Rotate camera vertically
-        float verticalAngle = Mathf.Asin(Mathf.Clamp(direction.y, -1f, 1f)) * Mathf.Rad2Deg;
-        playerCamera.localRotation = Quaternion.Euler(-verticalAngle, 0f, 0f);
+        // Wait until he's close to the door then vanish
+        while (fleeingFigure != null &&
+               Vector3.Distance(fleeingFigure.transform.position, doorPosition.position) > figureVanishDistance)
+        {
+            yield return null;
+        }
     }
 
+    // Vanish at the door
+    if (fleeingFigure != null) fleeingFigure.SetActive(false);
+
+    // Cut camera to look at empty door and zoom back out
+    if (doorLookTarget != null)
+        LookAt(doorLookTarget.position);
+    StartCoroutine(ZoomOut());
+
+    yield return new WaitForSeconds(1.5f);  // linger on empty door
+
+    // Restore controls before dialogue
+    if (mouseLook != null) mouseLook.enabled = true;
+    if (playerMovement != null) playerMovement.SetMovementEnabled(true);
+    if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
+
+    // Fire dialogue
+    if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+    {
+        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+        if (canvasComponent != null)
+        {
+            canvasComponent.gameObject.SetActive(true);
+            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasGroup group = canvasComponent.GetComponent<CanvasGroup>();
+            if (group != null) group.alpha = 1f;
+        }
+
+        bool dialogueDone = false;
+        dialogueRunner.onDialogueComplete.AddListener(() => dialogueDone = true);
+        dialogueRunner.StartDialogue(yarnNode);
+        while (!dialogueDone) yield return null;
+        dialogueRunner.onDialogueComplete.RemoveListener(() => dialogueDone = true);
+    }
+
+    // Show task and activate broken glass
+    TaskManager.Instance?.ShowTask("Clean up the glass");
+    if (brokenGlassProp != null) brokenGlassProp.SetActive(true);
+}
 private IEnumerator ZoomIn()
 {
     float elapsed = 0f;
