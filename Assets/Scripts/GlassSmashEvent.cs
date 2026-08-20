@@ -106,7 +106,8 @@ private IEnumerator GlassSmashSequence()
         agent.SetDestination(doorPosition.position);
 
         if (figureAnim != null)
-            figureAnim.SetBool("isWalking", true);
+         if (figureAnim != null)
+    figureAnim.SetFloat("Speed", 2f);  // any value between 0.1 and 4 triggers walking
 
         // Wait until he's close to the door then vanish
         while (fleeingFigure != null &&
@@ -117,8 +118,11 @@ private IEnumerator GlassSmashSequence()
     }
 
     // Vanish at the door
-    if (fleeingFigure != null) fleeingFigure.SetActive(false);
-
+    {
+    if (figureAnim != null)
+        figureAnim.SetFloat("Speed", 0f);
+    fleeingFigure.SetActive(false);
+}
     // Cut camera to look at empty door and zoom back out
     if (doorLookTarget != null)
         LookAt(doorLookTarget.position);
