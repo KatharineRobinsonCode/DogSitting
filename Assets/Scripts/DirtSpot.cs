@@ -4,7 +4,7 @@ public class DirtSpot : MonoBehaviour, IInteractable
 {
     private bool isCleaned = false;
     private bool isActive = false; // Only cleanable after shift ends
-
+    [SerializeField] private bool isBathroomSpot = false; 
     public void Activate()
     {
         isActive = true;
@@ -25,7 +25,7 @@ public void Interact(PlayerInteraction player)
         FeedbackManager.Instance?.ShowMessage("You need a broom first!", FeedbackManager.MessageType.Error);
         return;
     }
-    
+
  isCleaned = true;
     gameObject.SetActive(false);
 

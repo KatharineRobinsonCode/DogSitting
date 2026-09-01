@@ -11,3 +11,35 @@ title: TerryLeaving
 {$PlayerName}: I'm heading off Terry, all swept up.
 Terry: ...if you must. Be careful out there.
 ===
+
+title: LockedInBathroom
+---
+{$PlayerName}: Wait... what? Did someone lock me in?
+===
+
+title: TerryArrivalNoBang
+---
+Terry: What are you doing in there?
+===
+
+title: TerryArrivalBang
+---
+Terry: Be quiet! Jeez...
+Terry: What on earth are you doing?
+===
+
+title: TerryArrivalManyBangs
+---
+Terry: WILL YOU STOP THAT BANGING.
+Terry: What is wrong with you?
+===
+
+title: TerryGoodbye
+---
+Terry: Finish cleaning and head home. I'll be in my office.
+===
+
+title: DeepBreath
+---
+{$PlayerName}: ...okay. Just finish up and go.
+===
