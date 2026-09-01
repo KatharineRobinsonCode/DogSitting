@@ -88,4 +88,52 @@ private void LookAt(Vector3 targetPosition)
     float verticalAngle = Mathf.Asin(Mathf.Clamp(direction.y, -1f, 1f)) * Mathf.Rad2Deg;
     playerCamera.localRotation = Quaternion.Euler(-verticalAngle, 0f, 0f);
 }
+private IEnumerator GlassSmashSequence()
+{
+    var mouseLook = playerCamera.GetComponent<SojaExiles.MouseLook>();
+    var playerMovement = playerBody.GetComponent<PlayerMovement>();
+    if (mouseLook != null) mouseLook.enabled = false;
+    if (playerMovement != null) playerMovement.SetMovementEnabled(false);
+
+    if (audioSource != null && glassSmashClip != null)
+        audioSource.PlayOneShot(glassSmashClip, 2f);
+    if (audioSource != null && sharpBreathClip != null)
+        audioSource.PlayOneShot(sharpBreathClip);
+
+    LookAt(smashLocation.position);
+    StartCoroutine(ZoomIn());
+
+    yield return new WaitForSeconds(2f);
+
+    if (doorLookTarget != null)
+        LookAt(doorLookTarget.position);
+    StartCoroutine(ZoomOut());
+
+    yield return new WaitForSeconds(0.8f);
+
+    if (mouseLook != null) mouseLook.enabled = true;
+    if (playerMovement != null) playerMovement.SetMovementEnabled(true);
+    if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
+
+    if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
+    {
+        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+        if (canvasComponent != null)
+        {
+            canvasComponent.gameObject.SetActive(true);
+            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasGroup group = canvasComponent.GetComponent<CanvasGroup>();
+            if (group != null) group.alpha = 1f;
+        }
+
+        bool dialogueDone = false;
+        dialogueRunner.onDialogueComplete.AddListener(() => dialogueDone = true);
+        dialogueRunner.StartDialogue(yarnNode);
+        while (!dialogueDone) yield return null;
+        dialogueRunner.onDialogueComplete.RemoveListener(() => dialogueDone = true);
+    }
+
+    TaskManager.Instance?.ShowTask("Clean up the glass");
+    if (brokenGlassProp != null) brokenGlassProp.SetActive(true);
+}
 }
