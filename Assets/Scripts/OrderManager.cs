@@ -55,18 +55,6 @@ public class OrderManager : MonoBehaviour
     public void CustomerLeft()
     {
         customersServed++;
-    
-        if (customersServed == 3)
-        TriggerHorrorEvent();
 
     }
-
-  void TriggerHorrorEvent()
-{
-    GlassSmashEvent glassSmash = FindFirstObjectByType<GlassSmashEvent>();
-    if (glassSmash != null)
-        glassSmash.TriggerGlassSmash();
-    else
-        Debug.LogError("[OrderManager] GlassSmashEvent not found!");
-}
 }
