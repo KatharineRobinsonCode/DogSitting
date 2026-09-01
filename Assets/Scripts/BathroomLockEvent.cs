@@ -221,28 +221,28 @@ PhoneManager.Instance?.SendTerryLockedText(onSent: () => StartCoroutine(WaitForT
         CoffeeShopManager.Instance?.OnBathroomCleaningComplete();
     }
 
-    private IEnumerator TerryWalksToOffice()
+ private IEnumerator TerryWalksToOffice()
+{
+    if (terryNPC == null || terryOfficeTarget == null) yield break;
+
+    UnityEngine.AI.NavMeshAgent agent = terryNPC.GetComponent<UnityEngine.AI.NavMeshAgent>();
+    Animator anim = terryNPC.GetComponentInChildren<Animator>();
+
+    if (agent != null)
     {
-        if (terryNPC == null || terryOfficeTarget == null) yield break;
+        agent.speed = terryWalkSpeed;
+        agent.SetDestination(terryOfficeTarget.position);
+        if (anim != null) anim.SetFloat("Speed", 1f);
 
-        UnityEngine.AI.NavMeshAgent agent = terryNPC.GetComponent<UnityEngine.AI.NavMeshAgent>();
-        Animator anim = terryNPC.GetComponentInChildren<Animator>();
+        while (Vector3.Distance(terryNPC.transform.position, terryOfficeTarget.position) > 0.5f)
+            yield return null;
 
-        if (agent != null)
-        {
-            agent.speed = terryWalkSpeed;
-            agent.SetDestination(terryOfficeTarget.position);
-            if (anim != null) anim.SetFloat("Speed", 1f);
-
-            while (Vector3.Distance(terryNPC.transform.position, terryOfficeTarget.position) > 0.5f)
-                yield return null;
-
-            if (anim != null) anim.SetFloat("Speed", 0f);
-        }
-
-        // Hide Terry once he's "in" the office
-        terryNPC.SetActive(false);
+        if (anim != null) anim.SetFloat("Speed", 0f);
     }
+
+    // Don't deactivate — Terry stays in his chair
+    // Later: trigger tip/payment system based on orders served correctly
+}
 
     private IEnumerator PlayDialogue(string nodeName)
     {
