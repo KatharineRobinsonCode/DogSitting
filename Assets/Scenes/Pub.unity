@@ -41800,6 +41800,8 @@ MonoBehaviour:
   dogSitMessage: Hey! Can you watch my dog tonight?
   carolContactName: Carol
   carolCheckInMessage: "Hey! Just arrived at yours \u2014 Brinkley is safe and sound"
+  terryContactName: "Terry \U0001F454"
+  terryLockedMessage: Terry I'm locked in the bathroom, can you help?
   pizzaOrderPanel: {fileID: 0}
   pizzaConfirmPanel: {fileID: 0}
   pizzaConfirmText: {fileID: 0}
@@ -41833,7 +41835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
   taskPanel: {fileID: 695246729}
   taskDisplay: {fileID: 1889566199}
-  enableDebugLogs: 0
+  enableDebugLogs: 1
 --- !u!1001 &1234750007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68951,6 +68953,8 @@ MonoBehaviour:
   baseWaitTime: 30
   timeReductionPerBang: 5
   terryWalkSpeed: 2
+  pubMusicSource: {fileID: 948483225}
+  pubChatterSource: {fileID: 2012709750}
 --- !u!82 &1990126488
 AudioSource:
   m_ObjectHideFlags: 0

@@ -55,6 +55,12 @@ public string terryContactName = "Terry 👔";
 public string terryLockedMessage = "Terry I'm locked in the bathroom, can you help?";
 public System.Action onTerrySent;
 
+[Header("Terry Text Panel")]
+public GameObject terryTextPanel;
+public TextMeshProUGUI terryContactNameText;
+public TextMeshProUGUI terryMessageText;
+public GameObject terrySendButton;
+
     [Header("Pizza Order UI")]
     public GameObject pizzaOrderPanel;
     public GameObject pizzaConfirmPanel;
@@ -363,33 +369,15 @@ public void SendTerryLockedText(System.Action onSent = null)
 
     StopAllCoroutines();
 
-    if (airdropImage != null)
-    {
-        airdropImage.gameObject.SetActive(false);
-        airdropImage.transform.localScale = originalImageScale;
-        airdropImage.transform.localPosition = originalImagePos;
-    }
-
-    if (actionButtons != null) actionButtons.SetActive(false);
-    if (playerDialogueText != null)
-    {
-        playerDialogueText.text = "";
-        playerDialogueText.gameObject.SetActive(false);
-    }
-
-    if (textMessagePanel != null) textMessagePanel.SetActive(true);
-    if (contactNameText != null) contactNameText.text = terryContactName;
-    if (messageText != null) messageText.text = terryLockedMessage;
-    if (messageAcceptButton != null) messageAcceptButton.SetActive(true);  // Send button
-    if (messageDeclineButton != null) messageDeclineButton.SetActive(false); // No decline
+    // Use Terry panel not the PawSitters one
+    if (textMessagePanel != null) textMessagePanel.SetActive(false);
+    if (terryTextPanel != null) terryTextPanel.SetActive(true);
+    if (terryContactNameText != null) terryContactNameText.text = "Terry 👔";
+    if (terryMessageText != null) terryMessageText.text = terryLockedMessage;
+    if (terrySendButton != null) terrySendButton.SetActive(true);
 
     OpenPhone();
-
-    // Rename accept button to "Send"
-    TextMeshProUGUI acceptText = messageAcceptButton?.GetComponentInChildren<TextMeshProUGUI>();
-    if (acceptText != null) acceptText.text = "Send";
 }
-
 public void OnTerrySendPressed()
 {
     StartCoroutine(HandleTerrySent());
@@ -564,6 +552,8 @@ IEnumerator HandleTerrySent()
             if (endingText != null)
                 endingText.text = declineEndingMessage;
         }
+        
+        if (terryTextPanel != null) terryTextPanel.SetActive(false);
 
         Time.timeScale = 0f;
         Cursor.visible = true;
