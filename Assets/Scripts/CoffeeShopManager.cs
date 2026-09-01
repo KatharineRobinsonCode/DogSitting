@@ -26,6 +26,10 @@ private bool toiletDialogueTriggered = false;
     private bool allCustomersServed = false;
     private int dirtSpotsRemaining;
 
+    [Header("Last Call")]
+[SerializeField] private AudioSource lastCallAudio;
+[SerializeField] private AudioClip lastCallClip;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -111,27 +115,38 @@ public void OnThirdCustomerServed()
         customerQueue?.ResumeQueue();
     }
 
-   public void OnAllCustomersServed()
+  public void OnAllCustomersServed()
 {
     Debug.Log("[CoffeeShopManager] OnAllCustomersServed called");
     if (allCustomersServed) return;
     allCustomersServed = true;
 
-        foreach (NpcCustomer seated in seatedCustomers)
-        {
-            if (seated != null)
-                seated.ForceLeave();
-        }
-
-        foreach (DirtSpot spot in dirtSpots)
-        {
-            if (spot != null)
-                spot.Activate();
-        }
-
-        TaskManager.Instance?.ShowTask($"Sweep the floor (0/{totalDirtSpots})");        FeedbackManager.Instance?.ShowMessage("Shift almost over - sweep up!", FeedbackManager.MessageType.Success);
+    // Force all seated customers to leave
+    foreach (NpcCustomer seated in seatedCustomers)
+    {
+        if (seated != null)
+            seated.ForceLeave();
     }
 
+    // Play last call bell immediately
+    if (lastCallAudio != null && lastCallClip != null)
+        lastCallAudio.PlayOneShot(lastCallClip);
+
+    // New task — clean bathroom first
+    TaskManager.Instance?.ShowTask("Clean bathroom");
+    FeedbackManager.Instance?.ShowMessage("Last orders! Clean the bathroom before you go.", FeedbackManager.MessageType.Success);
+}
+public void OnBathroomCleaningComplete()
+{
+    // Now activate the pub dirt spots
+    foreach (DirtSpot spot in dirtSpots)
+    {
+        if (spot != null)
+            spot.Activate();
+    }
+
+    TaskManager.Instance?.ShowTask($"Sweep the floor (0/{totalDirtSpots})");
+}
 public void OnDirtSpotCleaned()
 {
     dirtSpotsRemaining--;

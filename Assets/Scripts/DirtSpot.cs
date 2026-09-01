@@ -25,10 +25,13 @@ public void Interact(PlayerInteraction player)
         FeedbackManager.Instance?.ShowMessage("You need a broom first!", FeedbackManager.MessageType.Error);
         return;
     }
-
-    isCleaned = true;
+    
+ isCleaned = true;
     gameObject.SetActive(false);
-    Debug.Log($"[DirtSpot] Cleaned — CoffeeShopManager null: {CoffeeShopManager.Instance == null}");
-    CoffeeShopManager.Instance?.OnDirtSpotCleaned();
+
+    if (isBathroomSpot)
+        BathroomLockEvent.Instance?.OnBathroomSpotCleaned();
+    else
+        CoffeeShopManager.Instance?.OnDirtSpotCleaned();
 }
 }
