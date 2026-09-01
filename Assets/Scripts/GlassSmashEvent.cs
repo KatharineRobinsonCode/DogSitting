@@ -40,9 +40,6 @@ public class GlassSmashEvent : MonoBehaviour
     private void Start()
     {
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
-        // Make sure figure starts hidden
-        if (fleeingFigure != null) fleeingFigure.SetActive(false);
     }
 
     public void TriggerGlassSmash()
