@@ -150,11 +150,15 @@ public void OnBathroomCleaningComplete()
 public void OnDirtSpotCleaned()
 {
     dirtSpotsRemaining--;
-    
     int cleaned = totalDirtSpots - dirtSpotsRemaining;
+    Debug.Log($"[CoffeeShopManager] Pub dirt spot cleaned: {cleaned}/{totalDirtSpots}");
     
-    Debug.Log($"[CoffeeShopManager] Dirt spot cleaned, remaining: {dirtSpotsRemaining}");
-
+    if (cleaned == 2)
+    {
+        Debug.Log("[CoffeeShopManager] Triggering glass smash!");
+        GlassSmashEvent glassSmash = FindFirstObjectByType<GlassSmashEvent>();
+        if (glassSmash != null) glassSmash.TriggerGlassSmash();
+    }
     if (dirtSpotsRemaining <= 0)
     {
         TaskManager.Instance?.ShowTask("Leave pub");
