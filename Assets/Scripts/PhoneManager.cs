@@ -49,6 +49,12 @@ public class PhoneManager : MonoBehaviour
     [TextArea(3, 10)]
     public string carolCheckInMessage = "Hey! Just arrived at yours — Brinkley is safe and sound 🐶";
 
+[Header("Terry Text Settings")]
+public string terryContactName = "Terry 👔";
+[TextArea(3, 10)]
+public string terryLockedMessage = "Terry I'm locked in the bathroom, can you help?";
+public System.Action onTerrySent;
+
     [Header("Pizza Order UI")]
     public GameObject pizzaOrderPanel;
     public GameObject pizzaConfirmPanel;
@@ -347,7 +353,63 @@ public void CloseInventory()
 
         ClosePhone();
     }
+// ============================
+// TERRY LOCKED IN BATHROOM
+// ============================
 
+public void SendTerryLockedText(System.Action onSent = null)
+{
+    onTerrySent = onSent;
+
+    StopAllCoroutines();
+
+    if (airdropImage != null)
+    {
+        airdropImage.gameObject.SetActive(false);
+        airdropImage.transform.localScale = originalImageScale;
+        airdropImage.transform.localPosition = originalImagePos;
+    }
+
+    if (actionButtons != null) actionButtons.SetActive(false);
+    if (playerDialogueText != null)
+    {
+        playerDialogueText.text = "";
+        playerDialogueText.gameObject.SetActive(false);
+    }
+
+    if (textMessagePanel != null) textMessagePanel.SetActive(true);
+    if (contactNameText != null) contactNameText.text = terryContactName;
+    if (messageText != null) messageText.text = terryLockedMessage;
+    if (messageAcceptButton != null) messageAcceptButton.SetActive(true);  // Send button
+    if (messageDeclineButton != null) messageDeclineButton.SetActive(false); // No decline
+
+    OpenPhone();
+
+    // Rename accept button to "Send"
+    TextMeshProUGUI acceptText = messageAcceptButton?.GetComponentInChildren<TextMeshProUGUI>();
+    if (acceptText != null) acceptText.text = "Send";
+}
+
+public void OnTerrySendPressed()
+{
+    StartCoroutine(HandleTerrySent());
+}
+
+IEnumerator HandleTerrySent()
+{
+    if (messageAcceptButton != null) messageAcceptButton.SetActive(false);
+
+    yield return new WaitForSeconds(0.5f);
+
+    ShowMessage("<color=#006400><align=right>Terry I'm locked in the bathroom, can you help?", true);
+
+    yield return new WaitForSeconds(1f);
+
+    if (textMessagePanel != null) textMessagePanel.SetActive(false);
+    ClosePhone();
+
+    onTerrySent?.Invoke();
+}
     // ============================
     // CAROL CHECK-IN
     // ============================

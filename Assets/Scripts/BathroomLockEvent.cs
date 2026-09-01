@@ -42,6 +42,10 @@ public class BathroomLockEvent : MonoBehaviour, IInteractable
     [Header("Terry Movement")]
     [SerializeField] private float terryWalkSpeed = 2f;
 
+    [Header("Pub Audio to Stop")]
+    [SerializeField] private AudioSource pubMusicSource;
+    [SerializeField] private AudioSource pubChatterSource;
+
     private DialogueRunner dialogueRunner;
     private bool isLocked = false;
     private bool terryHasArrived = false;
@@ -97,6 +101,9 @@ public class BathroomLockEvent : MonoBehaviour, IInteractable
 
     private IEnumerator LockSequence()
     {
+        if (pubMusicSource != null) pubMusicSource.Stop();
+if (pubChatterSource != null) pubChatterSource.Stop();
+
         isLocked = true;
         waitTimeRemaining = baseWaitTime;
 
@@ -121,14 +128,9 @@ public class BathroomLockEvent : MonoBehaviour, IInteractable
         // Locked dialogue
         yield return StartCoroutine(PlayDialogue(lockedDialogueNode));
 
-        // Task: text Terry
-        TaskManager.Instance?.ShowTask("Text Terry");
-
-        // Show phone text panel
-        PhoneManager.Instance?.ReceiveTextMessage(
-            onAccept: () => StartCoroutine(WaitForTerry()),
-            onDecline: () => StartCoroutine(WaitForTerry())
-        );
+      // Task: text Terry
+TaskManager.Instance?.ShowTask("Text Terry");
+PhoneManager.Instance?.SendTerryLockedText(onSent: () => StartCoroutine(WaitForTerry()));
     }
 
     private IEnumerator WaitForTerry()
