@@ -19,7 +19,6 @@ public class BathroomLockEvent : MonoBehaviour, IInteractable
     [SerializeField] private DirtSpot[] bathroomDirtSpots;
     [SerializeField] private int totalBathroomSpots = 3;
 
-    [Header("Audio")]
    [Header("Audio")]
 [SerializeField] private AudioSource audioSource;        // creepy ambience
 [SerializeField] private AudioSource footstepsSource;    // separate source for footsteps
@@ -30,6 +29,8 @@ public class BathroomLockEvent : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip doorBangClip;
     [SerializeField] private AudioClip terryOpenDoorClip;
 
+[Header("Door")]
+[SerializeField] private Transform doorPosition;  // empty GameObject at bathroom door threshold
     [Header("Dialogue")]
     [SerializeField] private string lockedDialogueNode = "LockedInBathroom";
     [SerializeField] private string terryArrivalNoBangNode = "TerryArrivalNoBang";
