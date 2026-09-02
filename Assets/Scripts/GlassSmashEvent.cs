@@ -95,26 +95,37 @@ private IEnumerator GlassSmashSequence()
     if (mouseLook != null) mouseLook.enabled = false;
     if (playerMovement != null) playerMovement.SetMovementEnabled(false);
 
+    // Glass smash plays — player doesn't look yet
     if (audioSource != null && glassSmashClip != null)
         audioSource.PlayOneShot(glassSmashClip, 2f);
+
+    yield return new WaitForSeconds(1f);  // pause — what was that?
+
+    // Gasp
     if (audioSource != null && sharpBreathClip != null)
         audioSource.PlayOneShot(sharpBreathClip);
 
+    yield return new WaitForSeconds(1f);  // pause — then turn to look
+
+    // NOW cut camera to smash location and zoom in
     LookAt(smashLocation.position);
     StartCoroutine(ZoomIn());
 
     yield return new WaitForSeconds(2f);
 
+    // Cut to door and zoom out
     if (doorLookTarget != null)
         LookAt(doorLookTarget.position);
     StartCoroutine(ZoomOut());
 
     yield return new WaitForSeconds(0.8f);
 
+    // Restore controls
     if (mouseLook != null) mouseLook.enabled = true;
     if (playerMovement != null) playerMovement.SetMovementEnabled(true);
     if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
 
+    // Fire dialogue
     if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
     {
         Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);

@@ -2377,15 +2377,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.16
+      value: -4.126
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.81
+      value: 1.327
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.132
+      value: 6.023
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4863,7 +4863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.162
+      value: -4.139
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4949,8 +4949,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.02566608, y: 0.012409344, z: 0.05213952}
+  m_Center: {x: 0.0066759354, y: -0.00018603461, z: 0.01713775}
 --- !u!114 &152981167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7846,7 +7846,7 @@ PrefabInstance:
       addedObject: {fileID: 235787056}
     - targetCorrespondingSourceObject: {fileID: 1518096522518024, guid: 7f2c5162d34ca294b96a3f5380eff5ca, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 235787057}
+      addedObject: {fileID: 235787060}
   m_SourcePrefab: {fileID: 100100000, guid: 7f2c5162d34ca294b96a3f5380eff5ca, type: 3}
 --- !u!4 &235787053 stripped
 Transform:
@@ -7879,7 +7879,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.12239461, y: 0.3368902, z: 0.12317534}
   m_Center: {x: 9.153937e-13, y: 0.1684451, z: 0.00030358147}
---- !u!114 &235787057
+--- !u!114 &235787060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7888,10 +7888,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 235787054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d82b171c889341e19d88f0dda453778, type: 3}
+  m_Script: {fileID: 11500000, guid: 30ab4943e140843a58523f19e69dd79f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
-  isBathroomSpot: 1
+  m_EditorClassIdentifier: Assembly-CSharp::BathroomCleanable
+  promptText: Press E to clean up
 --- !u!4 &236327670 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4287593536530058, guid: fc4dab7a983580a4e9fceea2ff739fdc, type: 3}
@@ -12638,8 +12638,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.023429645, y: 0.012409344, z: 0.060451232}
+  m_Center: {x: 0.005557718, y: -0.0001860346, z: 0.021293607}
 --- !u!114 &367784759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13349,12 +13349,11 @@ GameObject:
   - component: {fileID: 399237980}
   - component: {fileID: 399237985}
   - component: {fileID: 399237984}
-  - component: {fileID: 399237983}
   - component: {fileID: 399237982}
   - component: {fileID: 399237981}
   m_Layer: 0
-  m_Name: draft beer cups (1)
-  m_TagString: Interactable
+  m_Name: GuinnezCupsSign
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13403,27 +13402,6 @@ MonoBehaviour:
   openPrompt: Press E to read
   closePrompt: Press E to close
   interactionPrompt: {fileID: 478182503}
---- !u!65 &399237983
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 399237979}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &399237984
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16067,8 +16045,8 @@ GameObject:
   - component: {fileID: 478087954}
   - component: {fileID: 478087958}
   - component: {fileID: 478087957}
-  - component: {fileID: 478087956}
   - component: {fileID: 478087955}
+  - component: {fileID: 478087959}
   m_Layer: 0
   m_Name: BathroomDirtSpot
   m_TagString: Interactable
@@ -16112,19 +16090,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.0000002, z: 0.5}
   m_Center: {x: 0, y: 0.00000086503644, z: -0.50629836}
---- !u!114 &478087956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478087953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d82b171c889341e19d88f0dda453778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
-  isBathroomSpot: 1
 --- !u!23 &478087957
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16182,6 +16147,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478087953}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &478087959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478087953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30ab4943e140843a58523f19e69dd79f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BathroomCleanable
+  promptText: Press E to clean up
 --- !u!1 &478182503
 GameObject:
   m_ObjectHideFlags: 0
@@ -17801,13 +17779,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 507468419}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.33, y: 0.7, z: 6.028}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -4.095, y: 0.791, z: 6.317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 70254003}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 0}
 --- !u!114 &507468421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25638,8 +25616,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.019603917, y: 0.012409344, z: 0.060880512}
+  m_Center: {x: 0.003644853, y: -0.0001860346, z: 0.021508245}
 --- !u!114 &723286039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26923,7 +26901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.184
+      value: -4.105
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26931,7 +26909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.347
+      value: 6.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalRotation.w
@@ -27004,8 +26982,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.05882357, y: 0.012409344, z: 0.056412935}
+  m_Center: {x: 0.023254676, y: -0.00018603461, z: 0.019274464}
 --- !u!114 &767308247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32756,7 +32734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_Name
-      value: beerglass (4)
+      value: GuinnezGlass
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_TagString
@@ -32802,8 +32780,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.012495052, y: 0.02172361, z: 0.048378166}
+  m_Center: {x: 0.00009042344, y: 0.004471097, z: 0.015257065}
 --- !u!114 &951159199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34777,7 +34755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_Name
-      value: beerglass (3)
+      value: GuinnezGlass
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_TagString
@@ -34823,8 +34801,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.012495052, y: 0.021393366, z: 0.05743411}
+  m_Center: {x: 0.00009042344, y: 0.004305978, z: 0.019785045}
 --- !u!114 &998114783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48419,7 +48397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.178
+      value: -4.137
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.y
@@ -48427,7 +48405,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.7869997
+      value: 5.759
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48505,8 +48483,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.029857075, y: 0.012409344, z: 0.06567589}
+  m_Center: {x: 0.008771433, y: -0.00018603461, z: 0.02390593}
 --- !u!114 &1385434437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59763,7 +59741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.2
+      value: -4.138
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.y
@@ -60130,7 +60108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.162
+      value: -4.13
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.y
@@ -60138,7 +60116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.975
+      value: 5.967
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalRotation.w
@@ -60170,7 +60148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_Name
-      value: beerglass (7)
+      value: GuinnezGlass
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_TagString
@@ -60216,8 +60194,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012495048, y: 0.012409344, z: 0.038921487}
-  m_Center: {x: 0.000090423506, y: -0.00018603468, z: 0.010528717}
+  m_Size: {x: 0.06033501, y: 0.012409344, z: 0.051031925}
+  m_Center: {x: 0.024010396, y: -0.0001860346, z: 0.016583959}
 --- !u!114 &1725803860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69722,9 +69700,9 @@ MonoBehaviour:
   - {fileID: 1373711438}
   - {fileID: 325508878}
   bathroomDirtSpots:
-  - {fileID: 478087956}
-  - {fileID: 2118717799}
-  - {fileID: 235787057}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   totalBathroomSpots: 3
   audioSource: {fileID: 1990126488}
   footstepsSource: {fileID: 467551563}
@@ -75031,8 +75009,8 @@ GameObject:
   - component: {fileID: 2118717795}
   - component: {fileID: 2118717798}
   - component: {fileID: 2118717797}
-  - component: {fileID: 2118717799}
   - component: {fileID: 2118717796}
+  - component: {fileID: 2118717799}
   m_Layer: 0
   m_Name: BathroomDirtSpot2
   m_TagString: Interactable
@@ -75142,10 +75120,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2118717794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d82b171c889341e19d88f0dda453778, type: 3}
+  m_Script: {fileID: 11500000, guid: 30ab4943e140843a58523f19e69dd79f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
-  isBathroomSpot: 1
+  m_EditorClassIdentifier: Assembly-CSharp::BathroomCleanable
+  promptText: Press E to clean up
 --- !u!4 &2119267689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4211114790560604, guid: bf4b000c5858eed4999d303f0b7277fa, type: 3}
