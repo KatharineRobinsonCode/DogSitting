@@ -184,7 +184,12 @@ PhoneManager.Instance?.SendTerryLockedText(onSent: () => StartCoroutine(WaitForT
 
     private IEnumerator TerryArrivesSequence()
     {
+        // Make sure Terry is visible
+if (terryNPC != null) terryNPC.SetActive(true);
+
         terryHasArrived = true;
+
+        Debug.Log($"[BathroomLock] Terry position: {terryNPC.transform.position} — door position: {doorPosition.position}");
 
         // Loud door sound
         if (audioSource != null && terryOpenDoorClip != null)
