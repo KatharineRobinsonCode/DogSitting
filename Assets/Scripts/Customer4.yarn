@@ -12,9 +12,9 @@ Customer: Hello sweetie! Thought you should know there's a lady crying in the ba
    Customer: I tried to speak with her but she just kept crying...
         -> {$PlayerName}: Don't worry I'll check on her in a sec. What would you like to order?
         -> {$PlayerName}: You shouldn't talk to strangers. What would you like to order?
-        Customer: Just 2 draft beers for me today.
+        Customer: Just a draft beer and a guinnez for me today.
 -> {$PlayerName}: Great. What would you like to drink?
-    Customer: I'm sure she's harmless... Just 2 draft beers for me today.
+    Customer: I'm sure she's harmless... A draft beer and a guinnez for me today.
     {$PlayerName}: Sure, i'm on it.
     Customer: Thanks sweetie!
 <<CompleteOrderConversation_Customer4>>

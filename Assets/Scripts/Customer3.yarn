@@ -26,6 +26,6 @@ Customer: Hi. Man I need a drink!
                         -> {$PlayerName}: Will do, what would you like to drink?
                 -> {$PlayerName}: What would you like to drink?
     -> {$PlayerName}: What would you like to drink?
- Customer: Any spirit will do!
+ Customer: Wine will do!
 <<CompleteOrderConversation_Customer3>>
 ===
