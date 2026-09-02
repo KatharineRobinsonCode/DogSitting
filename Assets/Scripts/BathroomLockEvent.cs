@@ -20,11 +20,13 @@ public class BathroomLockEvent : MonoBehaviour, IInteractable
     [SerializeField] private int totalBathroomSpots = 3;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip doorSlamClip;
-    [SerializeField] private AudioClip doorLockClip;
-    [SerializeField] private AudioClip creepyAmbienceClip;
-    [SerializeField] private AudioClip footstepsClip;
+   [Header("Audio")]
+[SerializeField] private AudioSource audioSource;        // creepy ambience
+[SerializeField] private AudioSource footstepsSource;    // separate source for footsteps
+[SerializeField] private AudioClip doorSlamClip;
+[SerializeField] private AudioClip doorLockClip;
+[SerializeField] private AudioClip creepyAmbienceClip;
+[SerializeField] private AudioClip footstepsClip;
     [SerializeField] private AudioClip doorBangClip;
     [SerializeField] private AudioClip terryOpenDoorClip;
 
@@ -134,30 +136,48 @@ PhoneManager.Instance?.SendTerryLockedText(onSent: () => StartCoroutine(WaitForT
     }
 
     private IEnumerator WaitForTerry()
+{
+    TaskManager.Instance?.ShowTask("Wait for Terry...");
+    waitingForTerry = true;
+
+    // Start creepy ambience
+    if (audioSource != null && creepyAmbienceClip != null)
     {
-        TaskManager.Instance?.ShowTask("Wait for Terry...");
-        waitingForTerry = true;
-
-        // Start creepy ambience
-        if (audioSource != null && creepyAmbienceClip != null)
-        {
-            audioSource.clip = creepyAmbienceClip;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
-
-        // Countdown — reduced by bangs
-        while (waitTimeRemaining > 0f)
-        {
-            waitTimeRemaining -= Time.deltaTime;
-            yield return null;
-        }
-
-        waitingForTerry = false;
-        audioSource.Stop();
-
-        yield return StartCoroutine(TerryArrivesSequence());
+        audioSource.clip = creepyAmbienceClip;
+        audioSource.loop = true;
+        audioSource.Play();
     }
+
+    // Start footsteps quietly — escalate as time runs out
+    if (footstepsSource != null && footstepsClip != null)
+    {
+        footstepsSource.clip = footstepsClip;
+        footstepsSource.loop = true;
+        footstepsSource.volume = 0f;
+        footstepsSource.Play();
+    }
+
+    // Countdown — reduced by bangs
+    while (waitTimeRemaining > 0f)
+    {
+        waitTimeRemaining -= Time.deltaTime;
+
+        // Escalate footstep volume as timer counts down
+        if (footstepsSource != null)
+        {
+            float progress = 1f - (waitTimeRemaining / baseWaitTime);
+            footstepsSource.volume = Mathf.Lerp(0f, 1f, progress);
+        }
+
+        yield return null;
+    }
+
+    waitingForTerry = false;
+    audioSource.Stop();
+    if (footstepsSource != null) footstepsSource.Stop();
+
+    yield return StartCoroutine(TerryArrivesSequence());
+}
 
     // IInteractable — door banging
     public string GetInteractionPrompt()
