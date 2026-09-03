@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Cup : MonoBehaviour
 {
-    public enum CupType { DraftBeer, TakeawayBeer, Spirit, Guinness, Wine }
-    public enum DrinkType { None, DraftBeer, TakeawayBeer, Spirit, Guinness, Wine }
+    public enum CupType { DraftBeer, TakeawayBeer, Spirit, Guinnez, Wine }
+    public enum DrinkType { None, DraftBeer, TakeawayBeer, Spirit, Guinnez, Wine }
 
     [Header("Cup Configuration")]
     public CupType cupType;
@@ -35,7 +35,7 @@ public class Cup : MonoBehaviour
         if (beerModel != null)     beerModel.SetActive(contents == DrinkType.DraftBeer);
         if (takeawayModel != null) takeawayModel.SetActive(contents == DrinkType.TakeawayBeer);
         if (spiritModel != null)   spiritModel.SetActive(contents == DrinkType.Spirit);
-        if (guinnessModel != null) guinnessModel.SetActive(contents == DrinkType.Guinness);
+        if (guinnessModel != null) guinnessModel.SetActive(contents == DrinkType.Guinnez);
         if (wineModel != null)     wineModel.SetActive(contents == DrinkType.Wine);
     }
 
@@ -46,7 +46,7 @@ public class Cup : MonoBehaviour
             case DrinkType.DraftBeer:   return "Draft Beer";
             case DrinkType.TakeawayBeer: return "Takeaway Beer";
             case DrinkType.Spirit:      return "Spirit";
-            case DrinkType.Guinness:    return "Guinness";
+            case DrinkType.Guinnez:    return "Guinnez";
             case DrinkType.Wine:        return "Wine";
             default: return "None";
         }
