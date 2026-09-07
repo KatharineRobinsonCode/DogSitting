@@ -146,6 +146,7 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
                 if (resultText != null) resultText.text = "Caught it!";
                 currentCatchWindow -= catchWindowReduction;
                 currentCatchWindow = Mathf.Max(currentCatchWindow, 10f);
+                UpdateMatStack();
             }
             else
             {
@@ -170,7 +171,12 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
         if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
         isPlaying = false;
     }
-
+private void UpdateMatStack()
+{
+    if (matImage == null || matStackSprites == null || matStackSprites.Length == 0) return;
+    int index = Mathf.Clamp(score, 0, matStackSprites.Length - 1);
+    matImage.sprite = matStackSprites[index];
+}
     private IEnumerator AnimateFlip()
     {
         if (matImage == null) yield break;
