@@ -242,7 +242,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
                 case Cup.CupType.DraftBeer:    promptMessage = "Press E to pick up Draft Cup"; break;
                 case Cup.CupType.TakeawayBeer: promptMessage = "Press E to pick up Takeaway Bottle"; break;
                 case Cup.CupType.Spirit:       promptMessage = "Press E to pick up Spirit Cup"; break;
-                case Cup.CupType.Guinness: promptMessage = "Press E to pick up Guinness Glass"; break;
+                case Cup.CupType.Guinnez: promptMessage = "Press E to pick up Guinnez Glass"; break;
                 case Cup.CupType.Wine:     promptMessage = "Press E to pick up Wine Glass"; break;
                 default:                       promptMessage = "Press E to pick up Cup"; break;
             }
@@ -364,9 +364,9 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
     item.transform.SetParent(holdPoint);
     item.transform.localPosition = holdPosition;
 
-    // Use a different rotation for Guinness glass due to prefab baked rotation
+    // Use a different rotation for Guinnez glass due to prefab baked rotation
     Cup cup = item.GetComponent<Cup>();
-    if (cup != null && cup.cupType == Cup.CupType.Guinness)
+    if (cup != null && cup.cupType == Cup.CupType.Guinnez)
         item.transform.localRotation = Quaternion.Euler(guinnessHoldRotation);
     else
         item.transform.localRotation = Quaternion.Euler(holdRotation);

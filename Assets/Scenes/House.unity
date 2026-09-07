@@ -7527,6 +7527,7 @@ MonoBehaviour:
   menuPanel: {fileID: 1573674101}
   openPrompt: Press E to read notices
   closePrompt: Press E to close notices
+  interactionPrompt: {fileID: 0}
 --- !u!1001 &114016318
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34362,6 +34363,261 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1017606091530846216, guid: c5be39b879c83f54d9bbfebe68c809be, type: 3}
   m_PrefabInstance: {fileID: 485120064}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &485172032
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1579607583}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.575
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.68
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.442
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.7660444
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6427877
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 280
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_Name
+      value: New Brinkley
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 74ce639ec800d514ab6a8dfb87022f14, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 485172039}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 485172038}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 485172037}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 485172036}
+  m_SourcePrefab: {fileID: 100100000, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+--- !u!4 &485172033 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+  m_PrefabInstance: {fileID: 485172032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &485172034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+  m_PrefabInstance: {fileID: 485172032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &485172035 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1280f1ad51746d949ae51083a0aac948, type: 3}
+  m_PrefabInstance: {fileID: 485172032}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &485172036
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485172034}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!65 &485172037
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485172034}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &485172038
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485172034}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: f1c66683164c6431ca61a8468a9877b1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &485172039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485172034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4d5cac33dd014b0ea61273acd037f47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dog
+  dogName: Brinkley
+  dogAnimator: {fileID: 485172035}
+  dogAudio: {fileID: 485172038}
+  petSound: {fileID: 8300000, guid: f1c66683164c6431ca61a8468a9877b1, type: 3}
+  player: {fileID: 1003168245}
+  followDistance: 2
+  lookTarget: {fileID: 1136710384}
 --- !u!1001 &485262672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68062,14 +68318,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508181afd37b14c089cf1b852ae1efe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerCamera: {fileID: 0}
   walkSpeed: 6
   runSpeed: 12
   crouchSpeed: 3
   jumpPower: 7
   gravity: 10
-  lookSpeed: 2
-  lookXLimit: 45
   defaultHeight: 2
   crouchHeight: 1
   jumpSound: {fileID: 0}
@@ -68202,6 +68455,7 @@ MonoBehaviour:
   holdPosition: {x: 0.4, y: -0.4, z: 0.7}
   holdRotation: {x: 30, y: 0, z: 0}
   currentHeldItem: {fileID: 0}
+  guinnessHoldRotation: {x: 30, y: 0, z: 90}
 --- !u!114 &1003168250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78502,6 +78756,12 @@ MonoBehaviour:
     my dog tonight... \nPlease please please"
   carolContactName: "Bestie \U0001F43E"
   carolCheckInMessage: 
+  terryContactName: "Terry \U0001F454"
+  terryLockedMessage: Terry I'm locked in the bathroom, can you help?
+  terryTextPanel: {fileID: 0}
+  terryContactNameText: {fileID: 0}
+  terryMessageText: {fileID: 0}
+  terrySendButton: {fileID: 0}
   pizzaOrderPanel: {fileID: 1702390972}
   pizzaConfirmPanel: {fileID: 1778061282}
   pizzaConfirmText: {fileID: 947291429}
@@ -95017,6 +95277,7 @@ MonoBehaviour:
   menuPanel: {fileID: 316530345}
   openPrompt: Press E to read poster
   closePrompt: Press E to close poster
+  interactionPrompt: {fileID: 0}
 --- !u!65 &1387619641
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110156,6 +110417,7 @@ Transform:
   - {fileID: 2127210186}
   - {fileID: 1740001216}
   - {fileID: 1618730628}
+  - {fileID: 485172033}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1581112980
@@ -113879,11 +114141,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
       propertyPath: m_Name
-      value: Brinkley
+      value: OldBrinkley
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d7ecb0eca1df2497a87105f3bae142ce, type: 3}
       propertyPath: m_TagString
@@ -137427,6 +137689,7 @@ MonoBehaviour:
   menuPanel: {fileID: 1640680766}
   openPrompt: Press E to read poster
   closePrompt: Press E to close poster
+  interactionPrompt: {fileID: 0}
 --- !u!1001 &1947307552
 PrefabInstance:
   m_ObjectHideFlags: 0
