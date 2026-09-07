@@ -107,6 +107,8 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
                 else
                 {
                     matY -= matSpeed * Time.deltaTime;
+                        Debug.Log($"[FlipGame] matY: {matY:F1} — handY: {handRect.anchoredPosition.y:F1} — window: {handRect.anchoredPosition.y - currentCatchWindow/2f:F1} to {handRect.anchoredPosition.y + currentCatchWindow/2f:F1}");
+
 
                     // Only allow catch on the way down
                     if (Input.GetKeyDown(KeyCode.Q))
@@ -114,12 +116,15 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
                         float handY = handRect.anchoredPosition.y;
                         float halfWindow = currentCatchWindow / 2f;
                         caught = matY >= handY - halfWindow && matY <= handY + halfWindow;
+                                Debug.Log($"[FlipGame] Q pressed! matY: {matY:F1} handY: {handY:F1} halfWindow: {halfWindow:F1} caught: {caught}");
+
                         qteComplete = true;
                     }
 
                     // Missed — fell all the way back down
                     if (matY <= matStartY)
                     {
+                        Debug.Log($"[FlipGame] Mat hit bottom — missed. matY: {matY:F1} matStartY: {matStartY:F1}");
                         matY = matStartY;
                         qteComplete = true;
                         caught = false;

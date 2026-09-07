@@ -22309,18 +22309,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeerMatFlipGame
   gamePanel: {fileID: 1328409651}
-  matStackImage: {fileID: 1186700435}
-  catchBar: {fileID: 1186700435}
-  greenZoneRect: {fileID: 1914782801}
+  matImage: {fileID: 1186700435}
+  handRect: {fileID: 1914782801}
   scoreText: {fileID: 1241042125}
   instructionText: {fileID: 304314260}
   resultText: {fileID: 1311494019}
-  matStackSprites: []
-  barRiseSpeed: 0.4
-  greenZoneSize: 0.25
-  greenZoneReduction: 0.02
-  greenZoneMin: 0.05
-  barHeight: 300
+  matStartY: -156
+  matPeakY: 150
+  matBaseSpeed: 400
+  speedIncreasePerCatch: 25
+  catchWindowSize: 60
+  catchWindowReduction: 5
   audioSource: {fileID: 618404942}
   flipClip: {fileID: 8300000, guid: d24d01379fbd04a058f38b91bde06a83, type: 3}
   catchClip: {fileID: 8300000, guid: 86ffde951a54445e3889bf502d3b7d6c, type: 3}
@@ -40825,7 +40824,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186700433}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -40835,7 +40834,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: -156}
+  m_AnchoredPosition: {x: 35, y: -156}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186700435
@@ -44737,7 +44736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 40, y: -140}
+  m_AnchoredPosition: {x: 40, y: 0}
   m_SizeDelta: {x: 542.6943, y: 32.855}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1311494019
@@ -44769,8 +44768,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278512639
-  m_fontColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -46177,8 +46176,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1186700434}
   - {fileID: 1914782801}
+  - {fileID: 1186700434}
   - {fileID: 304314259}
   - {fileID: 1241042124}
   - {fileID: 1311494018}
@@ -68105,7 +68104,7 @@ GameObject:
   - component: {fileID: 1914782803}
   - component: {fileID: 1914782802}
   m_Layer: 0
-  m_Name: GreenZone
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68120,15 +68119,15 @@ RectTransform:
   m_GameObject: {fileID: 1914782800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 5, z: 1}
+  m_LocalScale: {x: 2, y: 30, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1328409652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: -213}
-  m_SizeDelta: {x: 113.8682, y: 65.5914}
+  m_AnchoredPosition: {x: -38.904, y: -179}
+  m_SizeDelta: {x: 108.9, y: 6.8215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1914782802
 MonoBehaviour:
@@ -68150,7 +68149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 011bc7f1580cb47c6945c3351368db5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 51eec1bfbd8af4a7dbe0b3982d95a48a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
