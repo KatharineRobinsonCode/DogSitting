@@ -4,7 +4,12 @@ public class StoryFlags : MonoBehaviour
 {
     public static StoryFlags Instance { get; private set; }
 
-    // Add more flags as the story grows
+   public int BeerMatFlipScore { get; private set; }
+public int BeerMatStackScore { get; private set; }
+
+public void SetBeerMatFlipScore(int score) => BeerMatFlipScore = score;
+public void SetBeerMatStackScore(int score) => BeerMatStackScore = score;
+
     public bool TalkedToNeighbour { get; private set; }
     public bool HasKnife { get; private set; }
     public bool UsedSqueakyToy { get; private set; }
