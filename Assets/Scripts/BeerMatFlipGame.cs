@@ -180,24 +180,24 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
         return barValue >= greenMin && barValue <= greenMax;
     }
 
-    private IEnumerator AnimateFlip()
+   private IEnumerator AnimateFlip()
+{
+    if (matStackImage == null) yield break;
+
+    float elapsed = 0f;
+    float duration = 0.25f;
+
+    while (elapsed < duration)
     {
-        if (matStackImage == null) yield break;
-
-        float elapsed = 0f;
-        float duration = 0.25f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            float scaleX = Mathf.Abs(Mathf.Cos(t * Mathf.PI));
-            matStackImage.transform.localScale = new Vector3(scaleX, 1f, 1f);
-            yield return null;
-        }
-
-        matStackImage.transform.localScale = Vector3.one;
+        elapsed += Time.deltaTime;
+        float t = elapsed / duration;
+        float scaleY = Mathf.Abs(Mathf.Cos(t * Mathf.PI));
+        matStackImage.transform.localScale = new Vector3(1f, scaleY, 1f);
+        yield return null;
     }
+
+    matStackImage.transform.localScale = Vector3.one;
+}
 
     private void UpdateMatStack()
     {
