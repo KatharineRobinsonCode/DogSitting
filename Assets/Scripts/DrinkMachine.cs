@@ -97,7 +97,7 @@ public class DrinkMachine : MonoBehaviour
         if (draftBeerGlass != null)  draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
         if (spiritGlass != null)     spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
         if (takeawayBottle != null)  takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
-        if (guinnessGlass != null)   guinnessGlass.SetActive(drinkType == Cup.DrinkType.Guinness);
+        if (guinnessGlass != null)   guinnessGlass.SetActive(drinkType == Cup.DrinkType.Guinnez);
         if (wineGlass != null)       wineGlass.SetActive(drinkType == Cup.DrinkType.Wine);
 
         if (fillingPanel != null) fillingPanel.SetActive(true);
@@ -111,7 +111,7 @@ public class DrinkMachine : MonoBehaviour
 
         // Determine which fill image to use
         Image liquidFillImage = drinkType == Cup.DrinkType.Spirit    ? spiritFillImage
-                              : drinkType == Cup.DrinkType.Guinness   ? guinnessFillImage
+                              : drinkType == Cup.DrinkType.Guinnez   ? guinnessFillImage
                               : drinkType == Cup.DrinkType.Wine       ? wineFillImage
                               : draftBeerFillImage;
 Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidFillImage == null} currentFill updating: checking...");
@@ -136,7 +136,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
 
         float fillSpeed = drinkType == Cup.DrinkType.Spirit     ? SPIRIT_FILL_SPEED
                         : drinkType == Cup.DrinkType.TakeawayBeer ? takeawayFillSpeed
-                        : drinkType == Cup.DrinkType.Guinness    ? GUINNESS_FILL_SPEED
+                        : drinkType == Cup.DrinkType.Guinnez    ? GUINNESS_FILL_SPEED
                         : drinkType == Cup.DrinkType.Wine        ? WINE_FILL_SPEED
                         : DRAFT_FILL_SPEED;
 
@@ -293,7 +293,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
             case Cup.DrinkType.DraftBeer:    return cupType == Cup.CupType.DraftBeer;
             case Cup.DrinkType.TakeawayBeer: return cupType == Cup.CupType.TakeawayBeer;
             case Cup.DrinkType.Spirit:       return cupType == Cup.CupType.Spirit;
-            case Cup.DrinkType.Guinness:     return cupType == Cup.CupType.Guinness;
+            case Cup.DrinkType.Guinnez:     return cupType == Cup.CupType.Guinnez;
             case Cup.DrinkType.Wine:         return cupType == Cup.CupType.Wine;
             default: return false;
         }
@@ -306,7 +306,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
             case Cup.DrinkType.DraftBeer:    return "Beer Glass";
             case Cup.DrinkType.TakeawayBeer: return "Takeaway Bottle";
             case Cup.DrinkType.Spirit:       return "Spirit Glass";
-            case Cup.DrinkType.Guinness:     return "Guinness Glass";
+            case Cup.DrinkType.Guinnez:     return "Guinnez Glass";
             case Cup.DrinkType.Wine:         return "Wine Glass";
             default: return "correct glass";
         }
