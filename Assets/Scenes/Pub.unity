@@ -22324,6 +22324,10 @@ MonoBehaviour:
   flipClip: {fileID: 8300000, guid: d24d01379fbd04a058f38b91bde06a83, type: 3}
   catchClip: {fileID: 8300000, guid: 86ffde951a54445e3889bf502d3b7d6c, type: 3}
   missClip: {fileID: 8300000, guid: 88e6b1c75bfa0422ab069069dfd25801, type: 3}
+  matStackSprites:
+  - {fileID: 21300000, guid: d7d01b119cbd54d1e88bbf7318496ab9, type: 3}
+  - {fileID: 21300000, guid: da45c46c9edd746b0afeefa9dcb68c9c, type: 3}
+  - {fileID: 21300000, guid: 695ae40c04d2f453b8c74a1d21353f74, type: 3}
 --- !u!65 &618404939
 BoxCollider:
   m_ObjectHideFlags: 0

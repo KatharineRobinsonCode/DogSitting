@@ -27,6 +27,8 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip catchClip;
     [SerializeField] private AudioClip missClip;
 
+[Header("Mat Sprites")]
+[SerializeField] private Sprite[] matStackSprites;
     private int score = 0;
     private bool isPlaying = false;
     private float currentCatchWindow;
