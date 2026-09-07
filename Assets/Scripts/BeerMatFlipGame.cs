@@ -54,124 +54,135 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
         StartCoroutine(PlayGame());
     }
 
-    private IEnumerator PlayGame()
+private IEnumerator PlayGame()
+{
+    isPlaying = true;
+    score = 0;
+    currentGreenZoneSize = greenZoneSize;
+
+    if (gamePanel != null) gamePanel.SetActive(true);
+    if (PauseManager.Instance != null) PauseManager.Instance.ShowCursorPublic();
+
+    if (scoreText != null) scoreText.text = "Mats: 0";
+    if (resultText != null) resultText.text = "";
+
+    // Green zone is a fixed band in the middle-upper area of the panel
+    float panelHeight = 400f;           // height of your panel in pixels
+    float greenZoneCentre = 280f;       // Y position of green zone from bottom
+    float matStartY = -panelHeight / 2f + 30f;  // mat starts near bottom
+    float matPeakY = panelHeight / 2f - 30f;    // mat goes near top
+
+    UpdateGreenZoneVisual(greenZoneCentre, panelHeight);
+
+    bool gameOver = false;
+
+    while (!gameOver && score < 10)
     {
-        isPlaying = true;
-        score = 0;
-        currentGreenZoneSize = greenZoneSize;
+        if (catchBar != null)
+            catchBar.rectTransform.anchoredPosition = new Vector2(0f, matStartY);
 
-        if (gamePanel != null) gamePanel.SetActive(true);
-        if (PauseManager.Instance != null) PauseManager.Instance.ShowCursorPublic();
-
-        UpdateMatStack();
-        UpdateGreenZone();
-
-        if (scoreText != null) scoreText.text = "Mats: 0";
         if (resultText != null) resultText.text = "";
+        if (instructionText != null) instructionText.text = "Press E to flip!";
 
-        bool gameOver = false;
+        // Wait for E
+        while (!Input.GetKeyDown(KeyCode.E))
+            yield return null;
 
-        while (!gameOver && score < 10)
+        if (audioSource != null && flipClip != null)
+            audioSource.PlayOneShot(flipClip);
+
+        if (instructionText != null) instructionText.text = "Press Q to catch when it lands!";
+        float matY = matStartY;
+        float matSpeed = 400f + (score * 20f);  // gets faster each mat
+        bool going = true;                       // true = rising, false = falling
+        bool caught = false;
+        bool qteComplete = false;
+
+        // Flip animation runs once as it launches
+        StartCoroutine(AnimateFlip());
+
+        while (!qteComplete)
         {
-            if (catchBar != null) catchBar.fillAmount = 0f;
-            if (resultText != null) resultText.text = "";
-            if (instructionText != null) instructionText.text = "Press E to flip!";
-
-            // Wait for E to flip
-            while (!Input.GetKeyDown(KeyCode.E))
-                yield return null;
-
-            // Flip sound
-            if (audioSource != null && flipClip != null)
-                audioSource.PlayOneShot(flipClip);
-
-            if (instructionText != null) instructionText.text = "Press Q to catch!";
-
-            float barValue = 0f;
-            bool qteComplete = false;
-            bool caught = false;
-
-            // Rise
-            while (barValue < 1f && !qteComplete)
+            // Move mat up then down
+            if (going)
             {
-                barValue += barRiseSpeed * Time.deltaTime;
-                barValue = Mathf.Clamp01(barValue);
-                if (catchBar != null) catchBar.fillAmount = barValue;
-
-                if (Input.GetKeyDown(KeyCode.Q))
+                matY += matSpeed * Time.deltaTime;
+                if (matY >= matPeakY)
                 {
-                    caught = CheckGreenZone(barValue);
-                    qteComplete = true;
+                    matY = matPeakY;
+                    going = false;
+                    StartCoroutine(AnimateFlip()); // flip again at peak
                 }
-
-                yield return null;
-            }
-
-            // Fall back down if not caught on the way up
-            if (!qteComplete)
-            {
-                while (barValue > 0f && !qteComplete)
-                {
-                    barValue -= barRiseSpeed * Time.deltaTime;
-                    barValue = Mathf.Clamp(barValue, 0f, 1f);
-                    if (catchBar != null) catchBar.fillAmount = barValue;
-
-                    if (Input.GetKeyDown(KeyCode.Q))
-                    {
-                        caught = CheckGreenZone(barValue);
-                        qteComplete = true;
-                    }
-
-                    yield return null;
-                }
-            }
-
-            // Fell all the way down without catching
-            if (!qteComplete) caught = false;
-
-            // Animate flip
-            yield return StartCoroutine(AnimateFlip());
-
-            if (caught)
-            {
-                score++;
-                if (audioSource != null && catchClip != null)
-                    audioSource.PlayOneShot(catchClip);
-                if (scoreText != null) scoreText.text = $"Mats: {score}";
-                if (resultText != null) resultText.text = score == 10 ? "PERFECT!" : "Nice catch!";
-
-                // Shrink green zone for next mat
-                currentGreenZoneSize -= greenZoneReduction;
-                currentGreenZoneSize = Mathf.Max(currentGreenZoneSize, greenZoneMin);
-                UpdateMatStack();
-                UpdateGreenZone();
             }
             else
             {
-                if (audioSource != null && missClip != null)
-                    audioSource.PlayOneShot(missClip);
-                if (resultText != null) resultText.text = "Dropped it!";
-                gameOver = true;
+                matY -= matSpeed * Time.deltaTime;
+                if (matY <= matStartY)
+                {
+                    matY = matStartY;
+                    qteComplete = true;
+                    caught = false; // fell all the way — missed
+                }
             }
 
-            yield return new WaitForSeconds(0.8f);
+            // Move the mat image
+            if (catchBar != null)
+                catchBar.rectTransform.anchoredPosition = new Vector2(0f, matY);
+
+         // Check Q press — only on the way DOWN
+if (!going && Input.GetKeyDown(KeyCode.Q))
+{
+    float matPosY = catchBar.rectTransform.anchoredPosition.y;
+    float greenY = greenZoneRect.anchoredPosition.y;
+    float halfGreen = greenZoneRect.sizeDelta.y / 2f;
+    caught = matPosY >= greenY - halfGreen && matPosY <= greenY + halfGreen;
+    qteComplete = true;
+}
+
+            yield return null;
         }
 
-        // Final result
-        LastScore = score;
-        StoryFlags.Instance?.SetBeerMatFlipScore(score);
+        if (caught)
+        {
+            score++;
+            if (audioSource != null && catchClip != null)
+                audioSource.PlayOneShot(catchClip);
+            if (scoreText != null) scoreText.text = $"Mats: {score}";
+            if (resultText != null) resultText.text = "Caught it!";
+            currentGreenZoneSize -= greenZoneReduction * panelHeight;
+            currentGreenZoneSize = Mathf.Max(currentGreenZoneSize, greenZoneMin * panelHeight);
+            UpdateGreenZoneVisual(greenZoneCentre, panelHeight);
+        }
+        else
+        {
+            if (audioSource != null && missClip != null)
+                audioSource.PlayOneShot(missClip);
+            if (resultText != null) resultText.text = "Dropped it!";
+            gameOver = true;
+        }
 
-        if (resultText != null)
-            resultText.text = score >= 10
-                ? "INCREDIBLE! 10 mats!"
-                : $"Final score: {score} mat{(score == 1 ? "" : "s")}!";
-
-        yield return new WaitForSeconds(2.5f);
-
-        if (gamePanel != null) gamePanel.SetActive(false);
-        if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
-        isPlaying = false;
+        yield return new WaitForSeconds(0.8f);
     }
+
+    LastScore = score;
+    StoryFlags.Instance?.SetBeerMatFlipScore(score);
+
+    if (resultText != null)
+        resultText.text = score >= 10 ? "INCREDIBLE! 10 mats!" : $"Final score: {score}!";
+
+    yield return new WaitForSeconds(2.5f);
+
+    if (gamePanel != null) gamePanel.SetActive(false);
+    if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
+    isPlaying = false;
+}
+
+private void UpdateGreenZoneVisual(float centre, float panelHeight)
+{
+    if (greenZoneRect == null) return;
+    greenZoneRect.anchoredPosition = new Vector2(0f, centre - panelHeight / 2f);
+    greenZoneRect.sizeDelta = new Vector2(greenZoneRect.sizeDelta.x, currentGreenZoneSize);
+}
 
     private bool CheckGreenZone(float barValue)
     {
