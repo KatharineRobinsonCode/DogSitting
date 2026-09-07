@@ -7,21 +7,22 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
 {
     [Header("UI")]
     [SerializeField] private GameObject gamePanel;
-    [SerializeField] private Image matStackImage;        // shows the stack of mats
-    [SerializeField] private Image catchBar;             // the rising bar
-    [SerializeField] private Image greenZone;            // the catch zone
+    [SerializeField] private Image matStackImage;
+    [SerializeField] private Image catchBar;
+    [SerializeField] private RectTransform greenZoneRect;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI instructionText;
     [SerializeField] private TextMeshProUGUI resultText;
 
     [Header("Mat Sprites")]
-    [SerializeField] private Sprite[] matStackSprites;   // 1 mat, 2 mats etc up to 10
+    [SerializeField] private Sprite[] matStackSprites;
 
     [Header("Settings")]
-    [SerializeField] private float barRiseSpeed = 0.4f;
-    [SerializeField] private float catchWindowStart = 0.3f;   // green zone size starts here
-    [SerializeField] private float catchWindowReduction = 0.03f; // shrinks per mat
-    [SerializeField] private float flipDuration = 0.3f;        // time to animate flip
+    [SerializeField] private float barRiseSpeed = 0.5f;
+    [SerializeField] private float greenZoneSize = 0.25f;
+    [SerializeField] private float greenZoneReduction = 0.02f;
+    [SerializeField] private float greenZoneMin = 0.05f;
+    [SerializeField] private float barHeight = 300f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource audioSource;
@@ -31,9 +32,8 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
 
     private int score = 0;
     private bool isPlaying = false;
-    private bool isFlipping = false;
-    private float barValue = 0f;
-    private float currentCatchWindow;
+    private float currentGreenZoneSize;
+    private float greenZonePosition = 0.65f;
 
     public static int LastScore = 0;
 
@@ -58,8 +58,7 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
     {
         isPlaying = true;
         score = 0;
-        currentCatchWindow = catchWindowStart;
-        barValue = 0f;
+        currentGreenZoneSize = greenZoneSize;
 
         if (gamePanel != null) gamePanel.SetActive(true);
         if (PauseManager.Instance != null) PauseManager.Instance.ShowCursorPublic();
@@ -67,50 +66,71 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
         UpdateMatStack();
         UpdateGreenZone();
 
-        if (instructionText != null)
-            instructionText.text = "Hold Q to build height — release to flip!";
-        if (resultText != null) resultText.text = "";
         if (scoreText != null) scoreText.text = "Mats: 0";
+        if (resultText != null) resultText.text = "";
 
         bool gameOver = false;
 
         while (!gameOver && score < 10)
         {
-            barValue = 0f;
+            if (catchBar != null) catchBar.fillAmount = 0f;
+            if (resultText != null) resultText.text = "";
+            if (instructionText != null) instructionText.text = "Press E to flip!";
+
+            // Wait for E to flip
+            while (!Input.GetKeyDown(KeyCode.E))
+                yield return null;
+
+            // Flip sound
+            if (audioSource != null && flipClip != null)
+                audioSource.PlayOneShot(flipClip);
+
+            if (instructionText != null) instructionText.text = "Press Q to catch!";
+
+            float barValue = 0f;
+            bool qteComplete = false;
             bool caught = false;
-            bool flipping = false;
 
-            // Wait for Q hold
-            while (!flipping)
+            // Rise
+            while (barValue < 1f && !qteComplete)
             {
-                if (Input.GetKey(KeyCode.Q))
-                {
-                    barValue += barRiseSpeed * Time.deltaTime;
-                    barValue = Mathf.Clamp01(barValue);
+                barValue += barRiseSpeed * Time.deltaTime;
+                barValue = Mathf.Clamp01(barValue);
+                if (catchBar != null) catchBar.fillAmount = barValue;
 
-                    if (catchBar != null) catchBar.fillAmount = barValue;
-
-                    // Auto fail if bar maxes out
-                    if (barValue >= 1f)
-                    {
-                        flipping = true;
-                        caught = false;
-                    }
-                }
-                else if (Input.GetKeyUp(KeyCode.Q) && barValue > 0f)
+                if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    flipping = true;
-                    // Check if in green zone
-                    float greenMin = greenZone.rectTransform.anchoredPosition.y / 300f;
-                    float greenMax = greenMin + currentCatchWindow;
-                    caught = barValue >= greenMin && barValue <= greenMax;
+                    caught = CheckGreenZone(barValue);
+                    qteComplete = true;
                 }
 
                 yield return null;
             }
 
+            // Fall back down if not caught on the way up
+            if (!qteComplete)
+            {
+                while (barValue > 0f && !qteComplete)
+                {
+                    barValue -= barRiseSpeed * Time.deltaTime;
+                    barValue = Mathf.Clamp(barValue, 0f, 1f);
+                    if (catchBar != null) catchBar.fillAmount = barValue;
+
+                    if (Input.GetKeyDown(KeyCode.Q))
+                    {
+                        caught = CheckGreenZone(barValue);
+                        qteComplete = true;
+                    }
+
+                    yield return null;
+                }
+            }
+
+            // Fell all the way down without catching
+            if (!qteComplete) caught = false;
+
             // Animate flip
-            yield return StartCoroutine(AnimateFlip(caught));
+            yield return StartCoroutine(AnimateFlip());
 
             if (caught)
             {
@@ -118,9 +138,11 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
                 if (audioSource != null && catchClip != null)
                     audioSource.PlayOneShot(catchClip);
                 if (scoreText != null) scoreText.text = $"Mats: {score}";
-                if (resultText != null) resultText.text = "Nice catch!";
-                currentCatchWindow -= catchWindowReduction;
-                currentCatchWindow = Mathf.Max(currentCatchWindow, 0.05f);
+                if (resultText != null) resultText.text = score == 10 ? "PERFECT!" : "Nice catch!";
+
+                // Shrink green zone for next mat
+                currentGreenZoneSize -= greenZoneReduction;
+                currentGreenZoneSize = Mathf.Max(currentGreenZoneSize, greenZoneMin);
                 UpdateMatStack();
                 UpdateGreenZone();
             }
@@ -132,56 +154,68 @@ public class BeerMatFlipGame : MonoBehaviour, IInteractable
                 gameOver = true;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
         }
 
-        // Game over
+        // Final result
         LastScore = score;
         StoryFlags.Instance?.SetBeerMatFlipScore(score);
 
         if (resultText != null)
-            resultText.text = score >= 10 ? "PERFECT! 10 mats!" : $"Final score: {score} mats!";
+            resultText.text = score >= 10
+                ? "INCREDIBLE! 10 mats!"
+                : $"Final score: {score} mat{(score == 1 ? "" : "s")}!";
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
 
         if (gamePanel != null) gamePanel.SetActive(false);
         if (PauseManager.Instance != null) PauseManager.Instance.HideCursorPublic();
         isPlaying = false;
     }
 
-    private IEnumerator AnimateFlip(bool success)
+    private bool CheckGreenZone(float barValue)
     {
-        if (audioSource != null && flipClip != null)
-            audioSource.PlayOneShot(flipClip);
+        float greenMin = greenZonePosition - currentGreenZoneSize / 2f;
+        float greenMax = greenZonePosition + currentGreenZoneSize / 2f;
+        return barValue >= greenMin && barValue <= greenMax;
+    }
 
-        // Squash and stretch on X to simulate flip
-        if (matStackImage != null)
+    private IEnumerator AnimateFlip()
+    {
+        if (matStackImage == null) yield break;
+
+        float elapsed = 0f;
+        float duration = 0.25f;
+
+        while (elapsed < duration)
         {
-            float elapsed = 0f;
-            while (elapsed < flipDuration)
-            {
-                elapsed += Time.deltaTime;
-                float t = elapsed / flipDuration;
-                float scaleX = Mathf.Abs(Mathf.Cos(t * Mathf.PI));
-                matStackImage.transform.localScale = new Vector3(scaleX, 1f, 1f);
-                yield return null;
-            }
-            matStackImage.transform.localScale = Vector3.one;
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            float scaleX = Mathf.Abs(Mathf.Cos(t * Mathf.PI));
+            matStackImage.transform.localScale = new Vector3(scaleX, 1f, 1f);
+            yield return null;
         }
+
+        matStackImage.transform.localScale = Vector3.one;
     }
 
     private void UpdateMatStack()
     {
-        if (matStackImage == null || matStackSprites == null) return;
+        if (matStackImage == null || matStackSprites == null || matStackSprites.Length == 0) return;
         int index = Mathf.Clamp(score, 0, matStackSprites.Length - 1);
         matStackImage.sprite = matStackSprites[index];
     }
 
     private void UpdateGreenZone()
     {
-        if (greenZone == null) return;
-        // Shrink green zone height as score increases
-        RectTransform rt = greenZone.rectTransform;
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, currentCatchWindow * 300f);
+        if (greenZoneRect == null) return;
+        greenZoneRect.sizeDelta = new Vector2(
+            greenZoneRect.sizeDelta.x,
+            currentGreenZoneSize * barHeight
+        );
+        greenZoneRect.anchoredPosition = new Vector2(
+            greenZoneRect.anchoredPosition.x,
+            greenZonePosition * barHeight - barHeight / 2f
+        );
     }
 }
