@@ -3061,6 +3061,9 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  triggerZoomOnRun: 0
+  zoomFOV: 45
+  normalFOV: 60
   requiresServeTaskToOrder: 0
 --- !u!195 &93261025
 NavMeshAgent:
@@ -18749,6 +18752,9 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  triggerZoomOnRun: 0
+  zoomFOV: 45
+  normalFOV: 60
   requiresServeTaskToOrder: 0
 --- !u!65 &519429646
 BoxCollider:
@@ -47824,6 +47830,9 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  triggerZoomOnRun: 0
+  zoomFOV: 45
+  normalFOV: 60
   requiresServeTaskToOrder: 0
   serveCommandName: CompleteOrderConversation_Customer6_Serve
   kickCommandName: CompleteOrderConversation_Customer6_Kick
@@ -50316,6 +50325,9 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 1
   spawnPoint: {fileID: 465375195}
+  triggerZoomOnRun: 0
+  zoomFOV: 45
+  normalFOV: 60
   requiresServeTaskToOrder: 0
 --- !u!4 &1408468451 stripped
 Transform:
@@ -54055,7 +54067,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1925, y: 1085}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -60081,6 +60093,9 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 1
   spawnPoint: {fileID: 465375195}
+  triggerZoomOnRun: 0
+  zoomFOV: 45
+  normalFOV: 60
   requiresServeTaskToOrder: 0
 --- !u!65 &1675751293
 BoxCollider:
@@ -71813,6 +71828,9 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
+  triggerZoomOnRun: 0
+  zoomFOV: 45
+  normalFOV: 60
   requiresServeTaskToOrder: 1
 --- !u!195 &1992710530
 NavMeshAgent:

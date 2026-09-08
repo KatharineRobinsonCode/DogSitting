@@ -77,7 +77,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
         previousMatWidth = matWidth;
 
         if (tierText != null) tierText.text = $"Tier: 0/{totalTiers}";
-        if (instructionText != null) instructionText.text = "Press E to drop the mat!";
+        if (instructionText != null) instructionText.text = "Press SPACE to drop the mat!";
         if (resultText != null) resultText.text = "";
 
         // Play each tier
@@ -109,7 +109,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
 
                 slidingRT.anchoredPosition = new Vector2(xPos, yPos);
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.Space))
                     dropped = true;
 
                 yield return null;
