@@ -93,6 +93,8 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
             float direction = 1f;
             slidingRT.anchoredPosition = new Vector2(xPos, yPos);
 
+            Debug.Log($"[StackGame] Tier {tier} — sliding mat created at x:{xPos:F1} y:{yPos:F1} width:{currentMatWidth:F1}");
+
             bool dropped = false;
 
             // Slide until dropped
