@@ -83,6 +83,11 @@ public class NpcCustomer : MonoBehaviour, IInteractable
     public int ItemsReceived => itemsReceived;
     public int ItemsExpected => itemsExpected;
 
+[Header("Jump Scare Zoom")]
+[SerializeField] private bool triggerZoomOnRun = false;
+[SerializeField] private float zoomFOV = 45f;
+[SerializeField] private float normalFOV = 60f;
+
 [Header("Task Gating")]
 [SerializeField] private bool requiresServeTaskToOrder = false;
     // Changed to protected virtual so DrunkCustomer can override
@@ -455,7 +460,61 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
 
         if (audioSource != null && scaryRunSound != null)
             audioSource.PlayOneShot(scaryRunSound);
+
+        // Auto zoom for jump scare — only on NPCs with triggerZoomOnRun ticked
+        if (triggerZoomOnRun)
+        StartCoroutine(JumpScareZoom());
+
     }
+
+    private IEnumerator JumpScareZoom()
+{
+    Camera cam = Camera.main;
+    if (cam == null) yield break;
+
+    SojaExiles.MouseLook ml = cam.GetComponent<SojaExiles.MouseLook>();
+    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
+
+    // Disable controls briefly
+    if (ml != null) ml.enabled = false;
+    if (pm != null) pm.SetMovementEnabled(false);
+
+    // Face the NPC
+    Transform playerBody = pm?.transform;
+    if (playerBody != null)
+    {
+        Vector3 dir = (transform.position - cam.transform.position).normalized;
+        Vector3 flatDir = new Vector3(dir.x, 0f, dir.z);
+        if (flatDir != Vector3.zero)
+            playerBody.rotation = Quaternion.LookRotation(flatDir);
+    }
+
+    // Zoom in
+    float elapsed = 0f;
+    float startFOV = cam.fieldOfView;
+    while (elapsed < 0.3f)
+    {
+        elapsed += Time.deltaTime;
+        cam.fieldOfView = Mathf.Lerp(startFOV, zoomFOV, elapsed / 0.3f);
+        yield return null;
+    }
+
+    yield return new WaitForSeconds(0.5f);
+
+    // Zoom back out
+    elapsed = 0f;
+    startFOV = cam.fieldOfView;
+    while (elapsed < 0.3f)
+    {
+        elapsed += Time.deltaTime;
+        cam.fieldOfView = Mathf.Lerp(startFOV, normalFOV, elapsed / 0.3f);
+        yield return null;
+    }
+
+    // Restore controls
+    if (ml != null) ml.enabled = true;
+    if (pm != null) pm.SetMovementEnabled(true);
+}
 
     public void SetNPCVisibility(bool isVisible)
     {
