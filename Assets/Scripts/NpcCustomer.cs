@@ -87,6 +87,7 @@ public class NpcCustomer : MonoBehaviour, IInteractable
 [SerializeField] private bool triggerZoomOnRun = false;
 [SerializeField] private float zoomFOV = 45f;
 [SerializeField] private float normalFOV = 60f;
+[SerializeField] private Transform faceTarget;
 
 [Header("Task Gating")]
 [SerializeField] private bool requiresServeTaskToOrder = false;
@@ -467,7 +468,7 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
 
     }
 
-    private IEnumerator JumpScareZoom()
+   private IEnumerator JumpScareZoom()
 {
     Camera cam = Camera.main;
     if (cam == null) yield break;
@@ -475,18 +476,27 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
     SojaExiles.MouseLook ml = cam.GetComponent<SojaExiles.MouseLook>();
     PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
 
-    // Disable controls briefly
     if (ml != null) ml.enabled = false;
     if (pm != null) pm.SetMovementEnabled(false);
 
-    // Face the NPC
+    // Look at face target if assigned, otherwise look at NPC root
+    Vector3 lookTarget = faceTarget != null 
+        ? faceTarget.position 
+        : transform.position + Vector3.up * 1.6f; // default head height
+
     Transform playerBody = pm?.transform;
     if (playerBody != null)
     {
-        Vector3 dir = (transform.position - cam.transform.position).normalized;
+        Vector3 dir = (lookTarget - cam.transform.position).normalized;
+        
+        // Rotate body horizontally
         Vector3 flatDir = new Vector3(dir.x, 0f, dir.z);
         if (flatDir != Vector3.zero)
             playerBody.rotation = Quaternion.LookRotation(flatDir);
+
+        // Rotate camera vertically to look up/down at face
+        float verticalAngle = Mathf.Asin(Mathf.Clamp(dir.y, -1f, 1f)) * Mathf.Rad2Deg;
+        cam.transform.localRotation = Quaternion.Euler(-verticalAngle, 0f, 0f);
     }
 
     // Zoom in
@@ -511,7 +521,6 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
         yield return null;
     }
 
-    // Restore controls
     if (ml != null) ml.enabled = true;
     if (pm != null) pm.SetMovementEnabled(true);
 }
