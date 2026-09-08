@@ -84,6 +84,13 @@ private void Start()
         return;
     }
 
+    // Freeze player during intro
+    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
+    if (pm != null) pm.SetMovementEnabled(false);
+    
+    SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
+    if (ml != null) ml.enabled = false;
+
     InitializeCursor();
     InitializeUI();
     StartCoroutine(RunIntroSequence());
@@ -294,13 +301,18 @@ private IEnumerator FadeOutAndHide()
         introCanvasGroup.alpha = FADE_END_ALPHA;
     }
     
-    private void HideIntroUI()
-    {
-        if (entireIntroUI != null)
-        {
-            entireIntroUI.SetActive(false);
-        }
-    }
+  private void HideIntroUI()
+{
+    if (entireIntroUI != null)
+        entireIntroUI.SetActive(false);
+
+    // Restore player control
+    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
+    if (pm != null) pm.SetMovementEnabled(true);
+
+    SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
+    if (ml != null) ml.enabled = true;
+}
     
     #endregion
     
