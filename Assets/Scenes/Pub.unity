@@ -3061,7 +3061,7 @@ MonoBehaviour:
   audioDelay: 0.5
   hideUntilCalled: 0
   spawnPoint: {fileID: 0}
-  triggerZoomOnRun: 0
+  triggerZoomOnRun: 1
   zoomFOV: 45
   normalFOV: 60
   requiresServeTaskToOrder: 0
@@ -3419,7 +3419,7 @@ GameObject:
   - component: {fileID: 103663508}
   - component: {fileID: 103663510}
   - component: {fileID: 103663509}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SPIRITFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6667,7 +6667,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 695246730}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1278936710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -10004,7 +10004,7 @@ GameObject:
   - component: {fileID: 304314259}
   - component: {fileID: 304314261}
   - component: {fileID: 304314260}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InstructionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11124,7 +11124,7 @@ GameObject:
   - component: {fileID: 321388954}
   - component: {fileID: 321388956}
   - component: {fileID: 321388955}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11851,7 +11851,7 @@ GameObject:
   - component: {fileID: 338139627}
   - component: {fileID: 338139629}
   - component: {fileID: 338139628}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RESULT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17154,7 +17154,7 @@ GameObject:
   - component: {fileID: 489096027}
   - component: {fileID: 489096029}
   - component: {fileID: 489096028}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GUINNESSGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24387,7 +24387,7 @@ GameObject:
   - component: {fileID: 669256666}
   - component: {fileID: 669256668}
   - component: {fileID: 669256667}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WINEFILL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24875,7 +24875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -11, y: -12}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &695246731
@@ -26441,7 +26441,7 @@ GameObject:
   - component: {fileID: 731234401}
   - component: {fileID: 731234403}
   - component: {fileID: 731234402}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InstructionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32626,7 +32626,7 @@ GameObject:
   - component: {fileID: 936780358}
   - component: {fileID: 936780357}
   - component: {fileID: 936780356}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BeerMatFlipCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37058,7 +37058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1052267450}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StackingArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38559,7 +38559,7 @@ GameObject:
   - component: {fileID: 1113449435}
   - component: {fileID: 1113449437}
   - component: {fileID: 1113449436}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FillingPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40524,7 +40524,7 @@ GameObject:
   - component: {fileID: 1169468256}
   - component: {fileID: 1169468258}
   - component: {fileID: 1169468257}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Takeawaybottle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41194,7 +41194,7 @@ GameObject:
   - component: {fileID: 1186700434}
   - component: {fileID: 1186700436}
   - component: {fileID: 1186700435}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FlipMat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42476,7 +42476,7 @@ GameObject:
   - component: {fileID: 1223206918}
   - component: {fileID: 1223206920}
   - component: {fileID: 1223206919}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bottle Opener
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42691,7 +42691,7 @@ GameObject:
   - component: {fileID: 1227530220}
   - component: {fileID: 1227530222}
   - component: {fileID: 1227530221}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BeerMatFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43164,7 +43164,7 @@ GameObject:
   - component: {fileID: 1241042124}
   - component: {fileID: 1241042126}
   - component: {fileID: 1241042125}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43605,7 +43605,7 @@ GameObject:
   - component: {fileID: 1266800507}
   - component: {fileID: 1266800506}
   - component: {fileID: 1266800505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FillingCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43904,7 +43904,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1278936710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43920,10 +43920,11 @@ Transform:
   m_GameObject: {fileID: 1278936709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.91539, y: 1.67049, z: 4.62095}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 207192653}
   - {fileID: 1761539676}
   - {fileID: 831400262}
   - {fileID: 1522297096}
@@ -45098,7 +45099,7 @@ GameObject:
   - component: {fileID: 1311494018}
   - component: {fileID: 1311494020}
   - component: {fileID: 1311494019}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RESULT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45677,7 +45678,7 @@ GameObject:
   - component: {fileID: 1316195717}
   - component: {fileID: 1316195719}
   - component: {fileID: 1316195718}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DraftBeerFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46542,7 +46543,7 @@ GameObject:
   - component: {fileID: 1328409652}
   - component: {fileID: 1328409654}
   - component: {fileID: 1328409653}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FlipPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49780,7 +49781,7 @@ GameObject:
   - component: {fileID: 1386823831}
   - component: {fileID: 1386823833}
   - component: {fileID: 1386823832}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: InstructionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53310,7 +53311,7 @@ MonoBehaviour:
   matSlideSpeed: 150
   matWidth: 200
   matHeight: 40
-  matSpacing: 50
+  matSpacing: 1
   totalTiers: 3
   audioSource: {fileID: 0}
   placeSoundClip: {fileID: 0}
@@ -54068,7 +54069,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1925, y: 1085}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -54130,7 +54131,7 @@ GameObject:
   - component: {fileID: 1525200354}
   - component: {fileID: 1525200356}
   - component: {fileID: 1525200355}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: DraftBeerGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60562,7 +60563,7 @@ GameObject:
   - component: {fileID: 1687545709}
   - component: {fileID: 1687545711}
   - component: {fileID: 1687545710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: WINEGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60845,7 +60846,7 @@ GameObject:
   - component: {fileID: 1700630800}
   - component: {fileID: 1700630802}
   - component: {fileID: 1700630801}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GreenZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67347,7 +67348,7 @@ GameObject:
   - component: {fileID: 1886329159}
   - component: {fileID: 1886329158}
   - component: {fileID: 1886329157}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BeerMatStackCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68599,7 +68600,7 @@ GameObject:
   - component: {fileID: 1914782801}
   - component: {fileID: 1914782803}
   - component: {fileID: 1914782802}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70278,7 +70279,7 @@ GameObject:
   - component: {fileID: 1971077453}
   - component: {fileID: 1971077455}
   - component: {fileID: 1971077454}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StackPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70318,7 +70319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9858491, b: 0.9858491, a: 0.5803922}
+  m_Color: {r: 1, g: 0.9858491, b: 0.9858491, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -72138,7 +72139,7 @@ GameObject:
   - component: {fileID: 2003892775}
   - component: {fileID: 2003892777}
   - component: {fileID: 2003892776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SpiritGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72975,7 +72976,7 @@ GameObject:
   - component: {fileID: 2018296082}
   - component: {fileID: 2018296084}
   - component: {fileID: 2018296083}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GUINNESSFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79079,7 +79080,6 @@ SceneRoots:
   - {fileID: 2012709749}
   - {fileID: 948483224}
   - {fileID: 577574936}
-  - {fileID: 207192653}
   - {fileID: 1702012351}
   - {fileID: 1310120397}
   - {fileID: 1491578877}

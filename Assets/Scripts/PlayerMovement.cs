@@ -101,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsPaused()) return false;
         if (IsDialogueRunning()) return false;
         if (DrinkMachine.IsFillingActive) return false;
+        if (BeerMatStackGame.IsPlaying) return false;
         return canMove;
     }
 

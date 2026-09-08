@@ -31,6 +31,8 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
 
     public static int LastScore = 0;
 
+    public static bool IsPlaying { get; private set; }
+
     private void Start()
     {
         if (gamePanel != null) gamePanel.SetActive(false);
@@ -53,8 +55,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
     private IEnumerator PlayGame()
     {
          Debug.Log($"[StackGame] PlayGame started — gamePanel null: {gamePanel == null} stackArea null: {stackArea == null} matPrefabUI null: {matPrefabUI == null}");
-        isPlaying = true;
-
+        BeerMatStackGame.IsPlaying = true;
         if (gamePanel != null) gamePanel.SetActive(true);
         if (PauseManager.Instance != null) PauseManager.Instance.ShowCursorPublic();
 
@@ -187,6 +188,6 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
 
         // Reset speed for replay
         matSlideSpeed -= 30f * totalTiers;
-        isPlaying = false;
+         BeerMatStackGame.IsPlaying = false;
     }
 }
