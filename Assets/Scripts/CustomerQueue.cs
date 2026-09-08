@@ -119,91 +119,89 @@ public class CustomerQueue : MonoBehaviour
         CoffeeShopManager.Instance?.OnAllCustomersServed();
     }
 
-    private IEnumerator TriggerBeerMatGame()
+   private IEnumerator TriggerBeerMatGame()
+{
+    isPaused = true;
+
+    var mouseLook = playerCamera?.GetComponent<SojaExiles.MouseLook>();
+    var playerMovement = playerBody?.GetComponent<PlayerMovement>();
+    if (mouseLook != null) mouseLook.enabled = false;
+    if (playerMovement != null) playerMovement.SetMovementEnabled(false);
+
+    yield return new WaitForSeconds(0.5f);
+
+    // Internal monologue FIRST — before looking anywhere
+    if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
     {
-        // Pause queue while game plays out
-        isPaused = true;
-
-        // Disable player controls
-        var mouseLook = playerCamera?.GetComponent<SojaExiles.MouseLook>();
-        var playerMovement = playerBody?.GetComponent<PlayerMovement>();
-        if (mouseLook != null) mouseLook.enabled = false;
-        if (playerMovement != null) playerMovement.SetMovementEnabled(false);
-
-        yield return new WaitForSeconds(1f);
-
-        // Cut camera to beer mat pile
-        if (beerMatPileLocation != null && playerCamera != null)
+        Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
+        if (canvasComponent != null)
         {
-            Vector3 direction = (beerMatPileLocation.position - playerCamera.position).normalized;
-            Vector3 flatDir = new Vector3(direction.x, 0f, direction.z);
-            if (flatDir != Vector3.zero)
-                playerBody.rotation = Quaternion.LookRotation(flatDir);
-            float vertAngle = Mathf.Asin(Mathf.Clamp(direction.y, -1f, 1f)) * Mathf.Rad2Deg;
-            playerCamera.localRotation = Quaternion.Euler(-vertAngle, 0f, 0f);
+            canvasComponent.gameObject.SetActive(true);
+            canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
+            CanvasGroup group = canvasComponent.GetComponent<CanvasGroup>();
+            if (group != null) group.alpha = 1f;
         }
 
-        // Zoom in
-        if (playerCam != null)
-        {
-            float elapsed = 0f;
-            float start = playerCam.fieldOfView;
-            while (elapsed < 0.5f)
-            {
-                elapsed += Time.deltaTime;
-                playerCam.fieldOfView = Mathf.Lerp(start, zoomFOV, elapsed / 0.5f);
-                yield return null;
-            }
-        }
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.ShowCursorPublic();
 
-        yield return new WaitForSeconds(0.8f);
+        bool done = false;
+        dialogueRunner.onDialogueComplete.AddListener(() => done = true);
+        dialogueRunner.StartDialogue(beerMatMonologueNode);
+        while (!done) yield return null;
+        dialogueRunner.onDialogueComplete.RemoveListener(() => done = true);
 
-        // Restore controls
-        if (mouseLook != null) mouseLook.enabled = true;
-        if (playerMovement != null) playerMovement.SetMovementEnabled(true);
-
-        // Zoom back out
-        if (playerCam != null)
-        {
-            float elapsed = 0f;
-            float start = playerCam.fieldOfView;
-            while (elapsed < 0.5f)
-            {
-                elapsed += Time.deltaTime;
-                playerCam.fieldOfView = Mathf.Lerp(start, normalFOV, elapsed / 0.5f);
-                yield return null;
-            }
-        }
-
-        // Internal monologue
-        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
-        {
-            Canvas canvasComponent = dialogueRunner.GetComponentInChildren<Canvas>(true);
-            if (canvasComponent != null)
-            {
-                canvasComponent.gameObject.SetActive(true);
-                canvasComponent.renderMode = RenderMode.ScreenSpaceOverlay;
-                CanvasGroup group = canvasComponent.GetComponent<CanvasGroup>();
-                if (group != null) group.alpha = 1f;
-            }
-
-            if (PauseManager.Instance != null)
-                PauseManager.Instance.ShowCursorPublic();
-
-            bool done = false;
-            dialogueRunner.onDialogueComplete.AddListener(() => done = true);
-            dialogueRunner.StartDialogue(beerMatMonologueNode);
-            while (!done) yield return null;
-            dialogueRunner.onDialogueComplete.RemoveListener(() => done = true);
-
-            if (PauseManager.Instance != null)
-                PauseManager.Instance.HideCursorPublic();
-        }
-
-        // Set task
-        TaskManager.Instance?.ShowTask("Play a game with the beer mats");
-        isPaused = false;
+        if (PauseManager.Instance != null)
+            PauseManager.Instance.HideCursorPublic();
     }
+
+    // THEN cut camera to beer mat pile and zoom
+    if (beerMatPileLocation != null && playerCamera != null)
+    {
+        Vector3 direction = (beerMatPileLocation.position - playerCamera.position).normalized;
+        Vector3 flatDir = new Vector3(direction.x, 0f, direction.z);
+        if (flatDir != Vector3.zero)
+            playerBody.rotation = Quaternion.LookRotation(flatDir);
+        float vertAngle = Mathf.Asin(Mathf.Clamp(direction.y, -1f, 1f)) * Mathf.Rad2Deg;
+        playerCamera.localRotation = Quaternion.Euler(-vertAngle, 0f, 0f);
+    }
+
+    // Zoom in
+    if (playerCam != null)
+    {
+        float elapsed = 0f;
+        float start = playerCam.fieldOfView;
+        while (elapsed < 0.5f)
+        {
+            elapsed += Time.deltaTime;
+            playerCam.fieldOfView = Mathf.Lerp(start, zoomFOV, elapsed / 0.5f);
+            yield return null;
+        }
+    }
+
+    yield return new WaitForSeconds(0.8f);
+
+    // Restore controls
+    if (mouseLook != null) mouseLook.enabled = true;
+    if (playerMovement != null) playerMovement.SetMovementEnabled(true);
+
+    // Zoom back out
+    if (playerCam != null)
+    {
+        float elapsed = 0f;
+        float start = playerCam.fieldOfView;
+        while (elapsed < 0.5f)
+        {
+            elapsed += Time.deltaTime;
+            playerCam.fieldOfView = Mathf.Lerp(start, normalFOV, elapsed / 0.5f);
+            yield return null;
+        }
+    }
+
+    // Set task
+    TaskManager.Instance?.ShowTask("Play a game with the beer mats");
+    isPaused = false;
+}
 
     public void ResumeQueue()
     {
