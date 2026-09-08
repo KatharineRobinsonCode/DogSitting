@@ -52,6 +52,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
 
     private IEnumerator PlayGame()
     {
+         Debug.Log($"[StackGame] PlayGame started — gamePanel null: {gamePanel == null} stackArea null: {stackArea == null} matPrefabUI null: {matPrefabUI == null}");
         isPlaying = true;
 
         if (gamePanel != null) gamePanel.SetActive(true);
