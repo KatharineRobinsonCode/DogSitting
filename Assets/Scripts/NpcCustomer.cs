@@ -489,14 +489,15 @@ Debug.Log($"[{name}] Attempting to start node: '{nodeToStart}' — hasArrivedAtC
     {
         Vector3 dir = (lookTarget - cam.transform.position).normalized;
         
-        // Rotate body horizontally
-        Vector3 flatDir = new Vector3(dir.x, 0f, dir.z);
-        if (flatDir != Vector3.zero)
-            playerBody.rotation = Quaternion.LookRotation(flatDir);
+       // Rotate body horizontally
+Vector3 flatDir = new Vector3(dir.x, 0f, dir.z);
+if (flatDir != Vector3.zero)
+    playerBody.rotation = Quaternion.LookRotation(flatDir);
 
-        // Rotate camera vertically to look up/down at face
-        float verticalAngle = Mathf.Asin(Mathf.Clamp(dir.y, -1f, 1f)) * Mathf.Rad2Deg;
-        cam.transform.localRotation = Quaternion.Euler(-verticalAngle, 0f, 0f);
+// Set MouseLook's vertical angle directly
+float verticalAngle = Mathf.Asin(Mathf.Clamp(dir.y, -1f, 1f)) * Mathf.Rad2Deg;
+if (ml != null)
+    ml.LookAtVerticalAngle(verticalAngle);
     }
 
     // Zoom in

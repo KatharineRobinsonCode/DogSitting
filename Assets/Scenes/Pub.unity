@@ -3093,6 +3093,7 @@ MonoBehaviour:
   triggerZoomOnRun: 1
   zoomFOV: 45
   normalFOV: 60
+  faceTarget: {fileID: 1220650225}
   requiresServeTaskToOrder: 0
 --- !u!195 &93261025
 NavMeshAgent:
@@ -18784,6 +18785,7 @@ MonoBehaviour:
   triggerZoomOnRun: 0
   zoomFOV: 45
   normalFOV: 60
+  faceTarget: {fileID: 0}
   requiresServeTaskToOrder: 0
 --- !u!65 &519429646
 BoxCollider:
@@ -42479,6 +42481,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4550193093163072, guid: 5c527b1183b2c6046b018f08a983ffca, type: 3}
   m_PrefabInstance: {fileID: 1217598973}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1220650225 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8740753854676143432, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
+  m_PrefabInstance: {fileID: 93261019}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1222179453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47947,6 +47954,7 @@ MonoBehaviour:
   triggerZoomOnRun: 0
   zoomFOV: 45
   normalFOV: 60
+  faceTarget: {fileID: 0}
   requiresServeTaskToOrder: 0
   serveCommandName: CompleteOrderConversation_Customer6_Serve
   kickCommandName: CompleteOrderConversation_Customer6_Kick
@@ -50442,6 +50450,7 @@ MonoBehaviour:
   triggerZoomOnRun: 0
   zoomFOV: 45
   normalFOV: 60
+  faceTarget: {fileID: 0}
   requiresServeTaskToOrder: 0
 --- !u!4 &1408468451 stripped
 Transform:
@@ -60216,6 +60225,7 @@ MonoBehaviour:
   triggerZoomOnRun: 0
   zoomFOV: 45
   normalFOV: 60
+  faceTarget: {fileID: 0}
   requiresServeTaskToOrder: 0
 --- !u!65 &1675751293
 BoxCollider:
@@ -71951,6 +71961,7 @@ MonoBehaviour:
   triggerZoomOnRun: 0
   zoomFOV: 45
   normalFOV: 60
+  faceTarget: {fileID: 0}
   requiresServeTaskToOrder: 1
 --- !u!195 &1992710530
 NavMeshAgent:
