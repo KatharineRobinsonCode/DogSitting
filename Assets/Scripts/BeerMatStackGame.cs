@@ -17,6 +17,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
 
     [Header("Mat Prefab")]
     [SerializeField] private GameObject matPrefabUI;
+[SerializeField] private GameObject archPrefabUI; 
     [SerializeField] private float matWidth = 40f;
     [SerializeField] private float matHeight = 120f;
     [SerializeField] private float flatMatWidth = 160f;
@@ -133,8 +134,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
         float archWidth = pairGap + withinPairGap * 2f;
 
         _lastRoundSuccess = false;
-        yield return StartCoroutine(SlidingMatRound(archWidth, flatMatHeight, archY, archTargetX, slideSpeed + speedIncrease * 2f));
-        if (!_lastRoundSuccess)
+        yield return StartCoroutine(SlidingMatRound(archWidth, flatMatHeight, archY, archTargetX, slideSpeed + speedIncrease * 2f, archPrefabUI));        if (!_lastRoundSuccess)
         {
             yield return StartCoroutine(FailSequence());
             yield break;
@@ -149,6 +149,7 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
 
         if (resultText != null) resultText.text = "Perfect stack! 🍺";
         if (tierText != null) tierText.text = "";
+        if (instructionText != null) instructionText.text = "";
 
         gameCompleted = true;
         TaskManager.Instance?.ShowTask("Serve customers");
@@ -159,18 +160,20 @@ public class BeerMatStackGame : MonoBehaviour, IInteractable
         EndGame();
     }
 
-    private void SpawnUpright(float x, float baseY)
-    {
-        GameObject mat = Instantiate(matPrefabUI, stackArea);
-        RectTransform rt = mat.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(matWidth, matHeight);
-        rt.anchoredPosition = new Vector2(x, baseY + matHeight / 2f);
-        spawnedMats.Add(mat);
-    }
+ private void SpawnUpright(float x, float baseY)
+{
+    GameObject mat = Instantiate(matPrefabUI, stackArea);
+    RectTransform rt = mat.GetComponent<RectTransform>();
+    rt.sizeDelta = new Vector2(matWidth, matHeight);
+    rt.anchoredPosition = new Vector2(x, baseY + matHeight / 2f);
+    rt.rotation = Quaternion.Euler(0f, 0f, 90f);  // ← rotate upright
+    spawnedMats.Add(mat);
+}
 
-    private IEnumerator SlidingMatRound(float width, float height, float yPos, float targetX, float speed)
-    {
-        GameObject mat = Instantiate(matPrefabUI, stackArea);
+  private IEnumerator SlidingMatRound(float width, float height, float yPos, float targetX, float speed, GameObject prefabOverride = null)
+{
+    GameObject prefab = prefabOverride != null ? prefabOverride : matPrefabUI;
+    GameObject mat = Instantiate(prefab, stackArea);
         RectTransform rt = mat.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(width, height);
 
