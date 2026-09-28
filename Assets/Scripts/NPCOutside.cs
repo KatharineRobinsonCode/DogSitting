@@ -55,8 +55,9 @@ public class NPCOutside : MonoBehaviour, IInteractable
         isFacingPlayer = true;
         hasInteracted = true;
 
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+        // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
         dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         dialogueRunner.StartDialogue(dialogueNode);

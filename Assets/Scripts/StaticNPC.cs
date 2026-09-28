@@ -68,8 +68,9 @@ public void Interact(PlayerInteraction playerInteraction)
             if (group != null) group.alpha = 1f;
         }
 
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+         // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
         dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         dialogueRunner.StartDialogue(dialogueNode);

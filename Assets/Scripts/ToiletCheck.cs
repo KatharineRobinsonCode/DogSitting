@@ -72,8 +72,9 @@ public class ToiletCheck : MonoBehaviour
             if (group != null) group.alpha = 1f;
         }
 
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+        // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
         dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
         dialogueRunner.StartDialogue(toiletDialogueNode);
@@ -127,8 +128,9 @@ public class ToiletCheck : MonoBehaviour
                 if (group != null) group.alpha = 1f;
             }
 
-            if (PauseManager.Instance != null)
-                PauseManager.Instance.ShowCursorPublic();
+             // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
             dialogueRunner.onDialogueComplete.AddListener(OnAfterScreamDialogueComplete);
             dialogueRunner.StartDialogue("ToiletAfterScream");

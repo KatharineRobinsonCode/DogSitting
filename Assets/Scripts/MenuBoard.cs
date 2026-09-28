@@ -43,8 +43,9 @@ private void Update()
         if (menuPanel != null)
             menuPanel.SetActive(true);
 
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+    // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
     }
 
     private void CloseMenu()

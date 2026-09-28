@@ -283,8 +283,9 @@ if (terryNPC != null) terryNPC.SetActive(true);
             if (group != null) group.alpha = 1f;
         }
 
-        if (PauseManager.Instance != null)
-            PauseManager.Instance.ShowCursorPublic();
+      // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
         bool done = false;
         dialogueRunner.onDialogueComplete.AddListener(() => done = true);

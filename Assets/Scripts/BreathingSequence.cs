@@ -62,8 +62,9 @@ private Transform carTransform;
                 if (group != null) group.alpha = 1f;
             }
 
-            if (PauseManager.Instance != null)
-                PauseManager.Instance.ShowCursorPublic();
+        // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
             bool dialogueDone = false;
             dialogueRunner.onDialogueComplete.AddListener(() => dialogueDone = true);

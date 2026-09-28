@@ -56,8 +56,9 @@ public class NeighbourKnock : MonoBehaviour, IInteractable
 
         if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
         {
-            if (PauseManager.Instance != null)
-                PauseManager.Instance.ShowCursorPublic();
+            // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 
             dialogueRunner.onDialogueComplete.AddListener(OnDialogueComplete);
             dialogueRunner.StartDialogue(dialogueNode);

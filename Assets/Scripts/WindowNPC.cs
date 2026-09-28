@@ -201,7 +201,8 @@ private void SetupCanvas()
         if (group != null) group.alpha = 1f;
     }
 
-    if (PauseManager.Instance != null)
-        PauseManager.Instance.ShowCursorPublic();
+    // Keyboard-only dialogue: keep the cursor hidden and locked
+    // if (PauseManager.Instance != null)
+    //     PauseManager.Instance.ShowCursorPublic();
 }
 }
