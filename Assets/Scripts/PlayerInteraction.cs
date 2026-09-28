@@ -220,7 +220,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
             {
                 Cup heldCup = currentHeldItem.GetComponent<Cup>();
                 if (heldCup != null && heldCup.contents != Cup.DrinkType.None)
-                    promptMessage = "[E] to use Register";
+                    promptMessage = "[E] - Register";
                 return heldCup != null && heldCup.contents != Cup.DrinkType.None;
             }
             return false;
@@ -230,7 +230,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         if (bin != null)
         {
             if (currentHeldItem != null)
-                promptMessage = "[E] to bin";
+                promptMessage = "[E] - Bin";
             return currentHeldItem != null;
         }
 
@@ -239,12 +239,12 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         {
             switch (cup.cupType)
             {
-                case Cup.CupType.DraftBeer:    promptMessage = "[E] to pick up Draft Cup"; break;
-                case Cup.CupType.TakeawayBeer: promptMessage = "[E] to pick up Takeaway Bottle"; break;
-                case Cup.CupType.Spirit:       promptMessage = "[E] to pick up Spirit Cup"; break;
-                case Cup.CupType.Guinnez: promptMessage = "[E] to pick up Guinnez Glass"; break;
-                case Cup.CupType.Wine:     promptMessage = "[E] to pick up Wine Glass"; break;
-                default:                       promptMessage = "[E] to pick up Cup"; break;
+                case Cup.CupType.DraftBeer:    promptMessage = "[E] - Draft Glass"; break;
+                case Cup.CupType.TakeawayBeer: promptMessage = "[E] - Takeaway Bottle"; break;
+                case Cup.CupType.Spirit:       promptMessage = "[E] - Spirit Glass"; break;
+                case Cup.CupType.Guinnez: promptMessage = "[E] - Guinnez Glass"; break;
+                case Cup.CupType.Wine:     promptMessage = "[E] - Wine Glass"; break;
+                default:                       promptMessage = "[E] - Cup"; break;
             }
             return true;
         }
