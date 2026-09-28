@@ -179,7 +179,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         {
             if (IsHoldingBroom)
             {
-                promptMessage = "Press E to put down broom";
+                promptMessage = "[E] Put down";
                 return true;
             }
             return false;
@@ -193,7 +193,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         promptMessage = interactable.GetInteractionPrompt();
         return !string.IsNullOrEmpty(promptMessage);
     }
-    promptMessage = "Press E to put down broom";
+    promptMessage = "[E] Put down";
     return true;
 }
 
@@ -209,7 +209,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         if (machine != null)
         {
             if (currentHeldItem != null && currentHeldItem.GetComponent<Cup>() != null)
-                promptMessage = $"Press E to use {machine.gameObject.name}";
+                promptMessage = $"[E] to use {machine.gameObject.name}";
             return currentHeldItem != null && currentHeldItem.GetComponent<Cup>() != null;
         }
 
@@ -220,7 +220,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
             {
                 Cup heldCup = currentHeldItem.GetComponent<Cup>();
                 if (heldCup != null && heldCup.contents != Cup.DrinkType.None)
-                    promptMessage = "Press E to use Register";
+                    promptMessage = "[E] to use Register";
                 return heldCup != null && heldCup.contents != Cup.DrinkType.None;
             }
             return false;
@@ -230,7 +230,7 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         if (bin != null)
         {
             if (currentHeldItem != null)
-                promptMessage = "Press E to use Bin";
+                promptMessage = "[E] to bin";
             return currentHeldItem != null;
         }
 
@@ -239,12 +239,12 @@ if (IsHoldingBroom && Input.GetKeyDown(INTERACT_KEY))
         {
             switch (cup.cupType)
             {
-                case Cup.CupType.DraftBeer:    promptMessage = "Press E to pick up Draft Cup"; break;
-                case Cup.CupType.TakeawayBeer: promptMessage = "Press E to pick up Takeaway Bottle"; break;
-                case Cup.CupType.Spirit:       promptMessage = "Press E to pick up Spirit Cup"; break;
-                case Cup.CupType.Guinnez: promptMessage = "Press E to pick up Guinnez Glass"; break;
-                case Cup.CupType.Wine:     promptMessage = "Press E to pick up Wine Glass"; break;
-                default:                       promptMessage = "Press E to pick up Cup"; break;
+                case Cup.CupType.DraftBeer:    promptMessage = "[E] to pick up Draft Cup"; break;
+                case Cup.CupType.TakeawayBeer: promptMessage = "[E] to pick up Takeaway Bottle"; break;
+                case Cup.CupType.Spirit:       promptMessage = "[E] to pick up Spirit Cup"; break;
+                case Cup.CupType.Guinnez: promptMessage = "[E] to pick up Guinnez Glass"; break;
+                case Cup.CupType.Wine:     promptMessage = "[E] to pick up Wine Glass"; break;
+                default:                       promptMessage = "[E] to pick up Cup"; break;
             }
             return true;
         }
