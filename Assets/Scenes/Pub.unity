@@ -2925,7 +2925,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5682633802629659838, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1220418957}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5014500871186048516, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
       insertIndex: -1
@@ -3114,7 +3117,7 @@ MonoBehaviour:
   triggerZoomOnRun: 1
   zoomFOV: 45
   normalFOV: 60
-  faceTarget: {fileID: 1220650225}
+  faceTarget: {fileID: 1220418957}
   requiresServeTaskToOrder: 0
 --- !u!195 &93261025
 NavMeshAgent:
@@ -16920,8 +16923,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 18.259888, y: -31}
-  m_SizeDelta: {x: -494.1717, y: 115.2598}
+  m_AnchoredPosition: {x: 3.3608093, y: -31}
+  m_SizeDelta: {x: -130.1164, y: 115.2598}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &488210112
 CanvasRenderer:
@@ -16953,8 +16956,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
-  m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16978,13 +16981,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 2
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -21078,9 +21081,9 @@ MonoBehaviour:
   feedbackText: {fileID: 488210113}
   feedbackPanel: {fileID: 1064935600}
   displayDuration: 2
-  successColor: {r: 0, g: 1, b: 1, a: 1}
+  successColor: {r: 1, g: 1, b: 1, a: 1}
   errorColor: {r: 1, g: 0, b: 0, a: 1}
-  infoColor: {r: 0, g: 1, b: 1, a: 1}
+  infoColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &586180812
 Transform:
   m_ObjectHideFlags: 0
@@ -37553,7 +37556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 1}
+  m_Color: {r: 0.1, g: 0.1, b: 0.1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -42518,11 +42521,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4550193093163072, guid: 5c527b1183b2c6046b018f08a983ffca, type: 3}
   m_PrefabInstance: {fileID: 1217598973}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1220650225 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8740753854676143432, guid: cca7ca7fef4016648a7396ddd83e4967, type: 3}
-  m_PrefabInstance: {fileID: 93261019}
+--- !u!1 &1220418956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220418957}
+  m_Layer: 0
+  m_Name: LOOK HERE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220418957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220418956}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.806, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 93261031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1222179453
 PrefabInstance:
   m_ObjectHideFlags: 0

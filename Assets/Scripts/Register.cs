@@ -87,7 +87,7 @@ private bool ValidatePlayerHoldingItem(PlayerInteraction player)
         return true;
     }
     
-    ShowFeedback("I need to hold a drink first!", FeedbackManager.MessageType.Error);
+    ShowFeedback("I need to hold a drink first...", FeedbackManager.MessageType.Error);
     return false;
 }
 
@@ -97,13 +97,13 @@ private bool ValidateCupContents(PlayerInteraction player, out Cup cup)
     
     if (cup == null)
     {
-        ShowFeedback("That's not a cup!", FeedbackManager.MessageType.Error);
+        ShowFeedback("That's not a cup...", FeedbackManager.MessageType.Error);
         return false;
     }
     
     if (cup.contents == Cup.DrinkType.None)
     {
-        ShowFeedback("This cup is empty!", FeedbackManager.MessageType.Error);
+        ShowFeedback("This cup is empty...", FeedbackManager.MessageType.Error);
         return false;
     }
     
@@ -226,7 +226,7 @@ private void ShowPartialOrderFeedback()
 {
     int remaining = currentCustomer.ItemsExpected - currentCustomer.ItemsReceived;  // ✅ FIXED - Using properties
     ShowFeedback(
-        $"Nice! {remaining} left to serve.", 
+        $"Okay {remaining} left.", 
         FeedbackManager.MessageType.Success
     );
 }
@@ -247,14 +247,6 @@ private void PlayErrorSound()
     {
         audioSource.PlayOneShot(errorSound);
     }
-}
-
-private void ShowWrongDrinkFeedback(string expectedOrder)
-{
-    ShowFeedback(
-        $"Wrong Drink! They want {expectedOrder}", 
-        FeedbackManager.MessageType.Error
-    );
 }
 
 #endregion
