@@ -16427,9 +16427,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueKeyboardNav
   normalColor: {r: 0, g: 0, b: 0, a: 0.5}
-  highlightColor: {r: 1, g: 0.8, b: 0, a: 0.8}
+  highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   normalTextColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightTextColor: {r: 0, g: 0, b: 0, a: 1}
+  highlightTextColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &478087953
 GameObject:
   m_ObjectHideFlags: 0
@@ -72747,7 +72747,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012709748}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
