@@ -31,6 +31,9 @@ public class FeedbackManager : MonoBehaviour
     [Tooltip("Text component for displaying feedback messages")]
     [SerializeField] private TextMeshProUGUI feedbackText;
     
+    [Tooltip("Optional background panel behind the text (shown/hidden with the message)")]
+    [SerializeField] private GameObject feedbackPanel;
+    
     [Header("Display Settings")]
     [Tooltip("How long messages stay on screen (seconds)")]
     [SerializeField] private float displayDuration = 2f;
@@ -124,6 +127,11 @@ public class FeedbackManager : MonoBehaviour
             feedbackText.text = string.Empty;
             feedbackText.gameObject.SetActive(false);
         }
+        
+        if (feedbackPanel != null)
+        {
+            feedbackPanel.SetActive(false);
+        }
     }
     
     #endregion
@@ -206,6 +214,12 @@ public class FeedbackManager : MonoBehaviour
     
     private void ShowMessageUI(string message)
     {
+        // Panel first, so a text object nested inside it can become visible
+        if (feedbackPanel != null)
+        {
+            feedbackPanel.SetActive(true);
+        }
+        
         feedbackText.text = message;
         feedbackText.gameObject.SetActive(true);
     }
@@ -214,6 +228,11 @@ public class FeedbackManager : MonoBehaviour
     {
         feedbackText.gameObject.SetActive(false);
         feedbackText.text = string.Empty;
+        
+        if (feedbackPanel != null)
+        {
+            feedbackPanel.SetActive(false);
+        }
     }
     
     #endregion
