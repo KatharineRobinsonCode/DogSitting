@@ -279,7 +279,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     private void DispenseDrink(Cup cup)
     {
         cup.Fill(drinkType);
-        ShowSuccessFeedback();
+        //ShowSuccessFeedback();
     }
 
     #endregion
@@ -325,13 +325,6 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     #endregion
 
     #region Feedback
-
-    private void ShowSuccessFeedback()
-    {
-        FeedbackManager.Instance?.ShowMessage(
-            $"Cool, i've filled cup with {Cup.GetDisplayName(drinkType)}",
-            FeedbackManager.MessageType.Success);
-    }
 
     private void ShowErrorFeedback(string message)
     {
