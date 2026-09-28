@@ -32,14 +32,14 @@ public void Interact(PlayerInteraction player)
 
     if (TaskManager.Instance != null && TaskManager.Instance.CurrentTask != "Fill Brinkley's bowl")
     {
-        FeedbackManager.Instance?.ShowMessage("You should find Brinkley first", 
+        FeedbackManager.Instance?.ShowMessage("I should find Brinkley first", 
             FeedbackManager.MessageType.Info);
         return;
     }
 
     if (!InventoryManager.Instance.HasItem(ItemType.DogFood))
     {
-        FeedbackManager.Instance?.ShowMessage("You need to find dog food first", 
+        FeedbackManager.Instance?.ShowMessage("I need to find dog food first", 
             FeedbackManager.MessageType.Info);
         return;
     }

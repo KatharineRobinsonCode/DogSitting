@@ -80,7 +80,7 @@ public class DoorEnding : MonoBehaviour, IInteractable
     if (currentTask.StartsWith("Sweep the floor"))
     {
         FeedbackManager.Instance?.ShowMessage(
-            "Can't leave yet, gotta sweep up!", 
+            "Can't leave yet, gotta sweep up.", 
             FeedbackManager.MessageType.Info);
         return;
     }
@@ -120,7 +120,7 @@ public class DoorEnding : MonoBehaviour, IInteractable
         TaskManager.Instance.HideTask();
 
     if (FeedbackManager.Instance != null)
-        FeedbackManager.Instance.ShowSuccess("Shift complete! Going home...");
+        FeedbackManager.Instance.ShowSuccess("Finally done here, let's find Brinkley.");
 
     LoadNextScene();
 }

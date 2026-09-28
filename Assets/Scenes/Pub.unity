@@ -9243,9 +9243,9 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_fontStyle: 2
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -21077,7 +21077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FeedbackManager
   feedbackText: {fileID: 270935983}
   displayDuration: 2
-  successColor: {r: 0, g: 1, b: 0, a: 1}
+  successColor: {r: 0.1, g: 0.1, b: 0.1, a: 1}
   errorColor: {r: 1, g: 0, b: 0, a: 1}
   infoColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &586180812
@@ -39323,20 +39323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b81bab405194f9fa1d42ec9220f5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntroSequence
-  introCanvasGroup: {fileID: 0}
-  introText: {fileID: 0}
-  entireIntroUI: {fileID: 0}
-  fullText: Nearly done working your shift at the pub.
-  typingSpeed: 0.1
-  audioSource: {fileID: 0}
-  typingSound: {fileID: 0}
-  typingSoundInterval: 0.03
-  typingPitchMin: 1.1
-  typingPitchMax: 1.4
-  fadeDuration: 2
-  stayVisibleTime: 2
-  initialDelay: 0.4
-  skipMinimumWait: 0.5
   introYarnNode: PubIntro
 --- !u!1 &1135332735
 GameObject:

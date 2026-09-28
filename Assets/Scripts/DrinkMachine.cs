@@ -202,8 +202,8 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
                     audioSource.PlayOneShot(failSound);
 
                 ShowErrorFeedback(currentFill >= 1f
-                    ? "Too far! Try again."
-                    : "Not enough! Try again.");
+                    ? "Oops too much... Let's try that again."
+                    : "Okay that's not enough... Let's try that again.");
 
                 if (instructionText != null)
                     instructionText.text = isTakeaway
@@ -243,7 +243,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     private bool ValidatePlayerHoldingItem(PlayerInteraction player)
     {
         if (player.CurrentHeldItem != null) return true;
-        ShowErrorFeedback("You need to hold a cup first!");
+        ShowErrorFeedback("Holding a cup first might be smart...");
         return false;
     }
 
@@ -251,14 +251,14 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     {
         cup = player.CurrentHeldItem.GetComponent<Cup>();
         if (cup != null) return true;
-        ShowErrorFeedback("That's not a cup!");
+        ShowErrorFeedback("That's not gonna work...");
         return false;
     }
 
     private bool ValidateCupIsEmpty(Cup cup)
     {
         if (cup.contents == Cup.DrinkType.None) return true;
-        ShowErrorFeedback("This cup is already full!");
+        ShowErrorFeedback("I've already filled the cup...");
         PlayErrorSound();
         return false;
     }
@@ -267,7 +267,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     {
         if (IsCupCompatibleWithDrink(cup.cupType, drinkType)) return true;
         string correctCupName = GetRequiredCupTypeName(drinkType);
-        ShowErrorFeedback($"Wrong cup! Use a {correctCupName} for {drinkType}!");
+        ShowErrorFeedback($"Wrong cup... I need to use a {correctCupName} for {drinkType}!");
         PlayErrorSound();
         return false;
     }
@@ -329,7 +329,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     private void ShowSuccessFeedback()
     {
         FeedbackManager.Instance?.ShowMessage(
-            $"Filled cup with {Cup.GetDisplayName(drinkType)}",
+            $"Cool, i've filled cup with {Cup.GetDisplayName(drinkType)}",
             FeedbackManager.MessageType.Success);
     }
 

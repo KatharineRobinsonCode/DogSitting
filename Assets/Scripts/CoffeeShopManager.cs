@@ -99,7 +99,7 @@ private void StartLeavePubDialogue()
         if (hasEnteredCounter) return;
         hasEnteredCounter = true;
 
-        FeedbackManager.Instance?.ShowMessage("Ready to serve customers!", FeedbackManager.MessageType.Success);
+        FeedbackManager.Instance?.ShowMessage("Okay, let's serve customers.", FeedbackManager.MessageType.Success);
         TaskManager.Instance?.ShowTask("Serve customers");
     }
 
@@ -134,7 +134,7 @@ public void OnThirdCustomerServed()
 
     // New task — clean bathroom first
     TaskManager.Instance?.ShowTask("Clean bathroom");
-    FeedbackManager.Instance?.ShowMessage("Last orders! Clean the bathroom before you go.", FeedbackManager.MessageType.Success);
+    FeedbackManager.Instance?.ShowMessage("Last orders! Urgh I should clean the bathroom before I go.", FeedbackManager.MessageType.Success);
 }
 public void OnBathroomCleaningComplete()
 {

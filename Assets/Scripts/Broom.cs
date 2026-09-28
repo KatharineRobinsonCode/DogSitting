@@ -20,7 +20,7 @@ public class Broom : MonoBehaviour, IInteractable
     player.PickUpItem(gameObject);  // ← attach to hold point instead of hiding
 
     Debug.Log("[Broom] Picked up broom");
-    FeedbackManager.Instance?.ShowMessage("Broom picked up!", FeedbackManager.MessageType.Success);
+    FeedbackManager.Instance?.ShowMessage("Okay, i've got the Broom", FeedbackManager.MessageType.Success);
 }
 public void Drop(PlayerInteraction player)
 {

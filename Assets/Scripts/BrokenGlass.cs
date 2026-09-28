@@ -14,7 +14,7 @@ public class BrokenGlass : MonoBehaviour, IInteractable
     
     if (!player.IsHoldingBroom)
     {
-        FeedbackManager.Instance?.ShowMessage("You need a broom!", FeedbackManager.MessageType.Info);
+        FeedbackManager.Instance?.ShowMessage("I need a broom...", FeedbackManager.MessageType.Info);
         return;
     }
 

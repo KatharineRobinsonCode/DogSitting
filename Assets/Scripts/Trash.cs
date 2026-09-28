@@ -111,7 +111,7 @@ public class Trash : MonoBehaviour
     private void ShowDiscardFeedback()
     {
         FeedbackManager.Instance?.ShowMessage(
-            "Drink discarded", 
+            "Goodbye!", 
             FeedbackManager.MessageType.Info
         );
     }
@@ -119,7 +119,7 @@ public class Trash : MonoBehaviour
     private void ShowNotHoldingFeedback()
     {
         FeedbackManager.Instance?.ShowMessage(
-            "You're not holding anything!", 
+            "I'm not holding anything...", 
             FeedbackManager.MessageType.Error
         );
     }

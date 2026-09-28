@@ -22,7 +22,7 @@ public void Interact(PlayerInteraction player)
     if (!isActive) return;
     if (!player.IsHoldingBroom)
     {
-        FeedbackManager.Instance?.ShowMessage("You need a broom first!", FeedbackManager.MessageType.Error);
+        FeedbackManager.Instance?.ShowMessage("I need a broom.", FeedbackManager.MessageType.Error);
         return;
     }
 

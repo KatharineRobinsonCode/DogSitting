@@ -87,7 +87,7 @@ private bool ValidatePlayerHoldingItem(PlayerInteraction player)
         return true;
     }
     
-    ShowFeedback("You need to hold a drink first!", FeedbackManager.MessageType.Error);
+    ShowFeedback("I need to hold a drink first!", FeedbackManager.MessageType.Error);
     return false;
 }
 
@@ -198,7 +198,6 @@ private void CompleteOrder()
     
     NotifyQueueManager();
     ClearCurrentCustomer();
-    ShowOrderCompleteFeedback();
 }
 
 private void NotifyQueueManager()
@@ -227,14 +226,9 @@ private void ShowPartialOrderFeedback()
 {
     int remaining = currentCustomer.ItemsExpected - currentCustomer.ItemsReceived;  // ✅ FIXED - Using properties
     ShowFeedback(
-        $"Nice! {remaining} more item(s) to serve.", 
+        $"Nice! {remaining} left to serve.", 
         FeedbackManager.MessageType.Success
     );
-}
-
-private void ShowOrderCompleteFeedback()
-{
-    ShowFeedback("Order Complete!", FeedbackManager.MessageType.Success);
 }
 
 #endregion
