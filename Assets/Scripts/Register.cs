@@ -238,7 +238,6 @@ private void ShowPartialOrderFeedback()
 private void HandleWrongDrink(string expectedOrder)
 {
     PlayErrorSound();
-    ShowWrongDrinkFeedback(expectedOrder);
 }
 
 private void PlayErrorSound()
