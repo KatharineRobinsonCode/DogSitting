@@ -16,23 +16,21 @@ public class DialogueKeyboardNav : MonoBehaviour
     private int selectedIndex = 0;
     private bool optionsActive = false;
     private DialogueRunner dialogueRunner;
+    private OptionsListView optionsListView;
 
     private void Start()
     {
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-        if (dialogueRunner != null)
-            dialogueRunner.onNodeStart.AddListener(OnNodeStart);
-    }
-
-    private void OnNodeStart(string nodeName)
-    {
-        // Reset selection when new node starts
-        selectedIndex = 0;
-        optionsActive = false;
+        optionsListView = FindFirstObjectByType<OptionsListView>();
     }
 
     private void Update()
     {
+        if (dialogueRunner == null || !dialogueRunner.IsDialogueRunning) return;
+
+        // Scan for active option buttons each frame when dialogue is running
+        RefreshOptionButtons();
+
         if (!optionsActive || optionButtons.Count == 0) return;
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
@@ -54,18 +52,31 @@ public class DialogueKeyboardNav : MonoBehaviour
         }
     }
 
-    public void SetOptions(List<Button> buttons)
+    private void RefreshOptionButtons()
     {
-        optionButtons = buttons;
-        selectedIndex = 0;
-        optionsActive = buttons.Count > 0;
-        UpdateHighlight();
-    }
+        // Find all active interactable buttons in the options list view
+        List<Button> found = new List<Button>();
 
-    public void ClearOptions()
-    {
-        optionButtons.Clear();
-        optionsActive = false;
+        if (optionsListView != null)
+        {
+            Button[] buttons = optionsListView.GetComponentsInChildren<Button>(false);
+            foreach (Button b in buttons)
+            {
+                if (b.gameObject.activeInHierarchy && b.interactable)
+                    found.Add(b);
+            }
+        }
+
+        // Only update if button count changed
+        if (found.Count != optionButtons.Count)
+        {
+            optionButtons = found;
+            selectedIndex = 0;
+            optionsActive = found.Count > 0;
+
+            if (optionsActive)
+                UpdateHighlight();
+        }
     }
 
     private void UpdateHighlight()
@@ -82,10 +93,23 @@ public class DialogueKeyboardNav : MonoBehaviour
             if (bg != null) bg.color = isSelected ? highlightColor : normalColor;
             if (text != null) text.color = isSelected ? highlightTextColor : normalTextColor;
 
-            // Scale slightly for extra visual feedback
             optionButtons[i].transform.localScale = isSelected
                 ? Vector3.one * 1.05f
                 : Vector3.one;
         }
+    }
+
+    public void SetOptions(List<Button> buttons)
+    {
+        optionButtons = buttons;
+        selectedIndex = 0;
+        optionsActive = buttons.Count > 0;
+        UpdateHighlight();
+    }
+
+    public void ClearOptions()
+    {
+        optionButtons.Clear();
+        optionsActive = false;
     }
 }
