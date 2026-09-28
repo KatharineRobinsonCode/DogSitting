@@ -1,387 +1,130 @@
 using UnityEngine;
 using System.Collections;
-using TMPro;
 using Yarn.Unity;
 
 /// <summary>
-/// Manages the intro sequence with typewriter text effect and audio.
-/// Displays opening text that can be skipped by the player.
+/// Runs the pub intro as internal-monologue dialogue (Yarn Spinner).
+/// Freezes the player while the node plays, then restores control when it ends.
 /// </summary>
 public class IntroSequence : MonoBehaviour
 {
     #region Serialized Fields
-    
-    [Header("UI References")]
-    [Tooltip("Canvas group for fading the entire intro")]
-    [SerializeField] private CanvasGroup introCanvasGroup;
-    
-    [Tooltip("Text component for typewriter effect")]
-    [SerializeField] private TextMeshProUGUI introText;
-    
-    [Tooltip("Parent GameObject containing all intro UI")]
-    [SerializeField] private GameObject entireIntroUI;
-    
-    [Header("Content")]
-    [TextArea(3, 10)]
-    [Tooltip("Text to display with typewriter effect")]
-    [SerializeField] private string fullText = "The coffee shop is quiet today...";
-    
-    [Header("Typewriter Settings")]
-    [Tooltip("Delay between each character appearing (seconds)")]
-    [SerializeField] private float typingSpeed = 0.10f;
-    
-    [Header("Audio")]
-    [SerializeField] private AudioSource audioSource;
-    
-    [Tooltip("Typing sound effect")]
-    [SerializeField] private AudioClip typingSound;
-    
-    [Tooltip("Delay between typing sound plays (seconds)")]
-    [SerializeField] private float typingSoundInterval = 0.03f;
-    
-    [Tooltip("Minimum pitch variation for typing sounds")]
-    [SerializeField] private float typingPitchMin = 1.1f;
-    
-    [Tooltip("Maximum pitch variation for typing sounds")]
-    [SerializeField] private float typingPitchMax = 1.4f;
-    
-    [Header("Fade Settings")]
-    [Tooltip("Duration of fade out animation (seconds)")]
-    [SerializeField] private float fadeDuration = 2.0f;
-    
-    [Tooltip("How long text stays on screen before fading (seconds)")]
-    [SerializeField] private float stayVisibleTime = 2.0f;
-    
-    [Tooltip("Initial delay before text starts appearing (seconds)")]
-    [SerializeField] private float initialDelay = 0.4f;
-    
-    [Tooltip("Minimum time before fade when skipped (seconds)")]
-    [SerializeField] private float skipMinimumWait = 0.5f;
 
     [Header("Dialogue")]
-[SerializeField] private string introYarnNode = "PubIntro";
-private DialogueRunner runner;
-    
+    [Tooltip("Yarn node that contains the intro monologue")]
+    [SerializeField] private string introYarnNode = "PubIntro";
+
     #endregion
-    
+
     #region Private Fields
-    
-    private bool isSkipping = false;
-    private bool typingFinished = false;
-    private float nextTypingSoundTime = 0f;
-    
-    // Constants
-    private const float AUDIO_SAFETY_OFFSET = 0.1f;
-    private const float FADE_START_ALPHA = 1f;
-    private const float FADE_END_ALPHA = 0f;
-    
+
+    private DialogueRunner runner;
+    private bool isComplete = false;
+
     #endregion
-    
+
     #region Unity Lifecycle
-    
-private void Start()
-{
-    Debug.Log("[IntroSequence] Start called, isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
-    
-    if (HouseSceneState.isReturningFromMiniGame)
+
+    private void Start()
     {
-        HideIntroUI();
-        return;
+        Debug.Log("[IntroSequence] Start called, isReturningFromMiniGame: " + HouseSceneState.isReturningFromMiniGame);
+
+        if (HouseSceneState.isReturningFromMiniGame)
+        {
+            EndIntro();
+            return;
+        }
+
+        // Freeze player during intro
+        PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
+        if (pm != null) pm.SetMovementEnabled(false);
+
+        SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
+        if (ml != null) ml.enabled = false;
+
+        InitializeCursor();
+        StartCoroutine(StartIntroDialogue());
     }
 
-    // Freeze player during intro
-    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
-    if (pm != null) pm.SetMovementEnabled(false);
-    
-    SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
-    if (ml != null) ml.enabled = false;
-
-    InitializeCursor();
-
-    // Old typewriter panel is no longer used - dialogue handles the intro now
-    if (entireIntroUI != null) entireIntroUI.SetActive(false);
-
-    StartCoroutine(StartIntroDialogue());
-}
-
-private IEnumerator StartIntroDialogue()
-{
-    yield return null;  // let the runner settle, same as the NPCs do
-
-    runner = FindFirstObjectByType<DialogueRunner>();
-    if (runner == null)
-    {
-        Debug.LogError("[IntroSequence] No DialogueRunner found");
-        HideIntroUI();   // don't leave the player frozen
-        yield break;
-    }
-
-    // Make sure the dialogue UI is visible
-    Canvas dialogueCanvas = runner.GetComponentInChildren<Canvas>(true);
-    if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
-
-    runner.onDialogueComplete.AddListener(OnIntroDialogueComplete);
-    runner.StartDialogue(introYarnNode);
-}
-
-private void OnIntroDialogueComplete()
-{
-    runner.onDialogueComplete.RemoveListener(OnIntroDialogueComplete);
-    HideIntroUI();   // restores PlayerMovement + MouseLook
-}
-    
-    private void Update()
-    {
-
-    }
-    
     #endregion
-    
+
     #region Initialization
-    
+
     private void InitializeCursor()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-    
-    private void InitializeUI()
-    {
-        if (introText != null)
-        {
-            introText.text = string.Empty;
-        }
-        
-        if (introCanvasGroup != null)
-        {
-            introCanvasGroup.alpha = FADE_START_ALPHA;
-        }
-    }
-    
+
     #endregion
-    
-    #region Input Handling
-    
-private bool waitingForDismiss = false;
 
-private void CheckForSkipInput()
-{
-    // Second E press — dismiss the panel
-    if (waitingForDismiss)
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            waitingForDismiss = false;
-            StopAllCoroutines();
-            StartCoroutine(FadeOutAndHide());
-        }
-        return;
-    }
+    #region Intro Dialogue
 
-    // First E press — show all text immediately
-    if (!typingFinished && Input.GetKeyDown(KeyCode.E))
+    private IEnumerator StartIntroDialogue()
     {
-        SkipTypewriter();
-    }
-}
-    
-    private void SkipTypewriter()
-    {
-        isSkipping = true;
-        StopTypingSound();
-    }
-    
-    #endregion
-    
-    #region Intro Sequence
-    
-  private IEnumerator RunIntroSequence()
-{
-    yield return new WaitForSeconds(initialDelay);
-    yield return StartCoroutine(TypewriterEffect());
+        yield return null;  // let the runner settle, same as the NPCs do
 
-    // Text is fully shown — wait for E to dismiss
-    waitingForDismiss = true;
-
-    // Wait until player dismisses
-    while (waitingForDismiss)
-        yield return null;
-}
-
-private IEnumerator FadeOutAndHide()
-{
-    yield return StartCoroutine(FadeOut());
-    HideIntroUI();
-}
-    
-    #endregion
-    
-    #region Typewriter Effect
-    
-    private IEnumerator TypewriterEffect()
-    {
-        PrepareTypewriter();
-        
-        foreach (char letter in fullText)
+        runner = FindFirstObjectByType<DialogueRunner>();
+        if (runner == null)
         {
-            DisplayCharacter(letter);
-            
-            if (!isSkipping)
-            {
-                yield return new WaitForSecondsRealtime(typingSpeed);
-                PlayTypingSoundIfReady();
-            }
-        }
-        
-        FinishTypewriter();
-    }
-    
-    private void PrepareTypewriter()
-    {
-        nextTypingSoundTime = Time.unscaledTime;
-    }
-    
-    private void DisplayCharacter(char letter)
-    {
-        if (introText != null)
-        {
-            introText.text += letter;
-        }
-    }
-    
-    private void PlayTypingSoundIfReady()
-    {
-        if (!CanPlayTypingSound())
-        {
-            return;
-        }
-        
-        if (Time.unscaledTime >= nextTypingSoundTime)
-        {
-            PlayTypingSound();
-            nextTypingSoundTime = Time.unscaledTime + typingSoundInterval;
-        }
-    }
-    
-    private bool CanPlayTypingSound()
-    {
-        return audioSource != null && 
-               typingSound != null && 
-               !isSkipping;
-    }
-    
-    private void PlayTypingSound()
-    {
-        audioSource.Stop();
-        audioSource.time = GetRandomSoundStartTime();
-        audioSource.pitch = GetRandomPitch();
-        audioSource.Play();
-    }
-    
-    private float GetRandomSoundStartTime()
-    {
-        float maxTime = typingSound.length - AUDIO_SAFETY_OFFSET;
-        return Random.Range(0f, Mathf.Max(0f, maxTime));
-    }
-    
-    private float GetRandomPitch()
-    {
-        return Random.Range(typingPitchMin, typingPitchMax);
-    }
-    
-    private void FinishTypewriter()
-    {
-        typingFinished = true;
-        StopTypingSound();
-    }
-    
-    private void StopTypingSound()
-    {
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-        }
-    }
-    
-    #endregion
-    
-    #region Wait and Fade
-    
-    private IEnumerator WaitBeforeFade()
-    {
-        float waitTime = isSkipping ? skipMinimumWait : stayVisibleTime;
-        yield return new WaitForSecondsRealtime(waitTime);
-    }
-    
-    private IEnumerator FadeOut()
-    {
-        if (introCanvasGroup == null)
-        {
+            Debug.LogError("[IntroSequence] No DialogueRunner found");
+            EndIntro();   // don't leave the player frozen
             yield break;
         }
-        
-        float elapsedTime = 0f;
-        
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.unscaledDeltaTime;
-            float progress = elapsedTime / fadeDuration;
-            
-            introCanvasGroup.alpha = Mathf.Lerp(FADE_START_ALPHA, FADE_END_ALPHA, progress);
-            
-            yield return null;
-        }
-        
-        introCanvasGroup.alpha = FADE_END_ALPHA;
+
+        // Make sure the dialogue UI is visible
+        Canvas dialogueCanvas = runner.GetComponentInChildren<Canvas>(true);
+        if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
+
+        runner.onDialogueComplete.AddListener(OnIntroDialogueComplete);
+        runner.StartDialogue(introYarnNode);
     }
-    
-  private void HideIntroUI()
-{
-    if (entireIntroUI != null)
-        entireIntroUI.SetActive(false);
 
-    // Restore player control
-    PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
-    if (pm != null) pm.SetMovementEnabled(true);
+    private void OnIntroDialogueComplete()
+    {
+        runner.onDialogueComplete.RemoveListener(OnIntroDialogueComplete);
+        EndIntro();
+    }
 
-    SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
-    if (ml != null) ml.enabled = true;
-}
-    
+    private void EndIntro()
+    {
+        isComplete = true;
+
+        // Restore player control
+        PlayerMovement pm = FindFirstObjectByType<PlayerMovement>();
+        if (pm != null) pm.SetMovementEnabled(true);
+
+        SojaExiles.MouseLook ml = FindFirstObjectByType<SojaExiles.MouseLook>();
+        if (ml != null) ml.enabled = true;
+    }
+
     #endregion
-    
+
     #region Public Utility Methods
-    
+
     /// <summary>
-    /// Immediately completes and hides the intro sequence.
+    /// Immediately stops the intro dialogue and gives control back to the player.
     /// </summary>
     public void ForceSkip()
     {
         StopAllCoroutines();
-        
-        isSkipping = true;
-        typingFinished = true;
-        
-        if (introText != null)
+
+        if (runner != null)
         {
-            introText.text = fullText;
+            runner.onDialogueComplete.RemoveListener(OnIntroDialogueComplete);
+            if (runner.IsDialogueRunning) runner.Stop();
         }
-        
-        if (introCanvasGroup != null)
-        {
-            introCanvasGroup.alpha = FADE_END_ALPHA;
-        }
-        
-        HideIntroUI();
+
+        EndIntro();
     }
-    
+
     /// <summary>
     /// Check if the intro sequence has finished.
     /// </summary>
     public bool IsComplete()
     {
-        return typingFinished && (entireIntroUI == null || !entireIntroUI.activeSelf);
+        return isComplete;
     }
-    
+
     #endregion
 }
