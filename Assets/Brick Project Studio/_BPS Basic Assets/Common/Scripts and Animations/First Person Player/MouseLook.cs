@@ -16,6 +16,7 @@ namespace SojaExiles
  void Start()
 {
     Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = false;
     dialogueRunner = FindFirstObjectByType<DialogueRunner>();
 
     float saved = PlayerPrefs.GetFloat("MouseSensitivity", -1f);
