@@ -16,12 +16,10 @@ public class DialogueKeyboardNav : MonoBehaviour
     private int selectedIndex = 0;
     private bool optionsActive = false;
     private DialogueRunner dialogueRunner;
-    private OptionsListView optionsListView;
 
     private void Start()
     {
         dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-        optionsListView = FindFirstObjectByType<OptionsListView>();
     }
 
     private void Update()
@@ -52,32 +50,31 @@ public class DialogueKeyboardNav : MonoBehaviour
         }
     }
 
-    private void RefreshOptionButtons()
+   private void RefreshOptionButtons()
+{
+    List<Button> found = new List<Button>();
+
+    // Find all active interactable buttons in the dialogue canvas
+    Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+    foreach (Canvas canvas in canvases)
     {
-        // Find all active interactable buttons in the options list view
-        List<Button> found = new List<Button>();
-
-        if (optionsListView != null)
+        if (!canvas.gameObject.activeInHierarchy) continue;
+        Button[] buttons = canvas.GetComponentsInChildren<Button>(false);
+        foreach (Button b in buttons)
         {
-            Button[] buttons = optionsListView.GetComponentsInChildren<Button>(false);
-            foreach (Button b in buttons)
-            {
-                if (b.gameObject.activeInHierarchy && b.interactable)
-                    found.Add(b);
-            }
-        }
-
-        // Only update if button count changed
-        if (found.Count != optionButtons.Count)
-        {
-            optionButtons = found;
-            selectedIndex = 0;
-            optionsActive = found.Count > 0;
-
-            if (optionsActive)
-                UpdateHighlight();
+            if (b.gameObject.activeInHierarchy && b.interactable)
+                found.Add(b);
         }
     }
+
+    if (found.Count != optionButtons.Count)
+    {
+        optionButtons = found;
+        selectedIndex = 0;
+        optionsActive = found.Count > 0;
+        if (optionsActive) UpdateHighlight();
+    }
+}
 
     private void UpdateHighlight()
     {
