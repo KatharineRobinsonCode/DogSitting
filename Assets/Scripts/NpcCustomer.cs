@@ -160,11 +160,12 @@ public class NpcCustomer : MonoBehaviour, IInteractable
         {
             FaceTarget(player.position);
 
-        if (isThisNPCActing)
-{
-    Cursor.visible = true;
-    Cursor.lockState = CursorLockMode.None;
-}
+    // Keyboard-only dialogue: keep the cursor hidden and locked
+// if (isThisNPCActing)
+// {
+//     Cursor.visible = true;
+//     Cursor.lockState = CursorLockMode.None;
+// }
         }
         else if (hasArrivedAtCounter && !isLeaving && !isHeadingToSeat && !isThisNPCActing)
         {
