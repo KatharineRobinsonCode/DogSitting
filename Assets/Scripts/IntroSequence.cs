@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using Yarn.Unity;
 
 /// <summary>
 /// Manages the intro sequence with typewriter text effect and audio.
@@ -56,6 +57,10 @@ public class IntroSequence : MonoBehaviour
     
     [Tooltip("Minimum time before fade when skipped (seconds)")]
     [SerializeField] private float skipMinimumWait = 0.5f;
+
+    [Header("Dialogue")]
+[SerializeField] private string introYarnNode = "PubIntro";
+private DialogueRunner runner;
     
     #endregion
     
@@ -92,13 +97,42 @@ private void Start()
     if (ml != null) ml.enabled = false;
 
     InitializeCursor();
-    InitializeUI();
-    StartCoroutine(RunIntroSequence());
+
+    // Old typewriter panel is no longer used - dialogue handles the intro now
+    if (entireIntroUI != null) entireIntroUI.SetActive(false);
+
+    StartCoroutine(StartIntroDialogue());
+}
+
+private IEnumerator StartIntroDialogue()
+{
+    yield return null;  // let the runner settle, same as the NPCs do
+
+    runner = FindFirstObjectByType<DialogueRunner>();
+    if (runner == null)
+    {
+        Debug.LogError("[IntroSequence] No DialogueRunner found");
+        HideIntroUI();   // don't leave the player frozen
+        yield break;
+    }
+
+    // Make sure the dialogue UI is visible
+    Canvas dialogueCanvas = runner.GetComponentInChildren<Canvas>(true);
+    if (dialogueCanvas != null) dialogueCanvas.gameObject.SetActive(true);
+
+    runner.onDialogueComplete.AddListener(OnIntroDialogueComplete);
+    runner.StartDialogue(introYarnNode);
+}
+
+private void OnIntroDialogueComplete()
+{
+    runner.onDialogueComplete.RemoveListener(OnIntroDialogueComplete);
+    HideIntroUI();   // restores PlayerMovement + MouseLook
 }
     
     private void Update()
     {
-        CheckForSkipInput();
+
     }
     
     #endregion
