@@ -36,6 +36,12 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private float greenZoneMax = 0.80f;
     [SerializeField] private float takeawayFillSpeed = 0.2f;
 
+    [Header("3D Pour")]
+    [Tooltip("How full the glass LOOKS at the top of the green zone (1 = brim). 0.9 leaves room for foam.")]
+    [SerializeField, Range(0.3f, 1f)] private float goodPourLevel = 0.9f;
+    [Tooltip("Draw the green target band on the glass")]
+    [SerializeField] private bool showTargetLine = true;
+
     [Header("Takeaway Bottle Opener Settings")]
     [SerializeField] private float openerStartY = 150f;
     [SerializeField] private float openerEndY = 0f;
@@ -88,50 +94,42 @@ public class DrinkMachine : MonoBehaviour
 
     #region Filling QTE
 
+    // Maps the logic value (0..1, green zone etc.) to how full the glass LOOKS.
+    // Top of the green zone = goodPourLevel, so a correct pour looks like a proper pint.
+    private float VisualFill(float logicFill)
+    {
+        float top = Mathf.Max(greenZoneMax, 0.01f);
+        return Mathf.Clamp01(logicFill / top * goodPourLevel);
+    }
+
     private IEnumerator FillingQTE(Cup cup, PlayerInteraction player)
     {
         isCurrentlyFilling = true;
         IsFillingActive = true;
 
-        // Activate the correct glass visual
-        if (draftBeerGlass != null)  draftBeerGlass.SetActive(drinkType == Cup.DrinkType.DraftBeer);
-        if (spiritGlass != null)     spiritGlass.SetActive(drinkType == Cup.DrinkType.Spirit);
-        if (takeawayBottle != null)  takeawayBottle.SetActive(drinkType == Cup.DrinkType.TakeawayBeer);
-        if (guinnessGlass != null)   guinnessGlass.SetActive(drinkType == Cup.DrinkType.Guinnez);
-        if (wineGlass != null)       wineGlass.SetActive(drinkType == Cup.DrinkType.Wine);
-
-        if (fillingPanel != null) fillingPanel.SetActive(true);
-
-        // Hide held cup during QTE
-        if (player.CurrentHeldItem != null)
-        {
-            foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
-                r.enabled = false;
-        }
-
-        // Determine which fill image to use
-        Image liquidFillImage = drinkType == Cup.DrinkType.Spirit    ? spiritFillImage
-                              : drinkType == Cup.DrinkType.Guinnez   ? guinnessFillImage
-                              : drinkType == Cup.DrinkType.Wine       ? wineFillImage
-                              : draftBeerFillImage;
-Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidFillImage == null} currentFill updating: checking...");
-
         bool isTakeaway = drinkType == Cup.DrinkType.TakeawayBeer;
-        RectTransform openerRect = isTakeaway && takeawayFillImage != null
-            ? takeawayFillImage.GetComponent<RectTransform>()
-            : null;
+        RectTransform openerRect = null;
 
-        if (!isTakeaway && liquidFillImage != null)
-            liquidFillImage.fillAmount = 0f;
-
-        if (isTakeaway && openerRect != null)
+        if (isTakeaway)
         {
-            openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, openerStartY);
-            instructionText.text = "Hold Q to open bottle";
+            // Bottle opener still uses the old UI (no liquid to show)
+            if (fillingPanel != null)   fillingPanel.SetActive(true);
+            if (takeawayBottle != null) takeawayBottle.SetActive(true);
+            if (takeawayFillImage != null) openerRect = takeawayFillImage.GetComponent<RectTransform>();
+
+            if (player.CurrentHeldItem != null)
+                foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
+                    r.enabled = false;
+
+            if (instructionText != null) instructionText.text = "Hold Q to open bottle";
         }
         else
         {
-            instructionText.text = "Hold Q to pour";
+            // 3D pour: the real held glass fills up, no panels
+            cup.PreviewFill(drinkType, 0f);
+            if (showTargetLine)
+                cup.ShowTargetBand(VisualFill(greenZoneMin), VisualFill(greenZoneMax));
+            ShowInfoFeedback("Hold Q to pour");
         }
 
         float fillSpeed = drinkType == Cup.DrinkType.Spirit     ? SPIRIT_FILL_SPEED
@@ -141,6 +139,7 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
                         : DRAFT_FILL_SPEED;
 
         bool overallSucceeded = false;
+        float finalFill = 0f;
 
         while (!overallSucceeded)
         {
@@ -148,10 +147,10 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
             bool qteComplete = false;
             bool succeeded = false;
 
-            if (!isTakeaway && liquidFillImage != null)
-                liquidFillImage.fillAmount = 0f;
             if (isTakeaway && openerRect != null)
                 openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, openerStartY);
+            else if (!isTakeaway)
+                cup.PreviewFill(drinkType, 0f);
 
             while (!qteComplete)
             {
@@ -159,16 +158,15 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
                 {
                     currentFill += fillSpeed * Time.deltaTime;
                     currentFill = Mathf.Clamp01(currentFill);
-                    Debug.Log($"[DrinkMachine] {drinkType} — filling: {currentFill:F3}");  
 
                     if (isTakeaway && openerRect != null)
                     {
                         float newY = Mathf.Lerp(openerStartY, openerEndY, currentFill);
                         openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, newY);
                     }
-                    else if (liquidFillImage != null)
+                    else if (!isTakeaway)
                     {
-                        liquidFillImage.fillAmount = currentFill;
+                        cup.PreviewFill(drinkType, VisualFill(currentFill));
                     }
 
                     if (audioSource != null && pourSound != null && !audioSource.isPlaying)
@@ -180,20 +178,21 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
                         qteComplete = true;
                     }
                 }
-            else if (Input.GetKeyUp(KeyCode.Q))
-    {
-    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
-    Debug.Log($"[DrinkMachine] {drinkType} — Released at {currentFill} — greenZone: {greenZoneMin} to {greenZoneMax} — succeeded: {succeeded}");
-    qteComplete = true;
-    }
+                else if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
+                    Debug.Log($"[DrinkMachine] {drinkType} - released at {currentFill:F3} - green zone {greenZoneMin} to {greenZoneMax} - succeeded: {succeeded}");
+                    qteComplete = true;
+                }
 
-            yield return null;
+                yield return null;
             }
 
             yield return new WaitForSeconds(0.4f);
 
             if (succeeded)
             {
+                finalFill = currentFill;
                 overallSucceeded = true;
             }
             else
@@ -205,34 +204,42 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
                     ? "Oops too much... Let's try that again."
                     : "Okay that's not enough... Let's try that again.");
 
-                if (instructionText != null)
-                    instructionText.text = isTakeaway
-                        ? "Hold Q to open bottle"
-                        : "Hold Q until you're in the green zone!";
+                if (instructionText != null && isTakeaway)
+                    instructionText.text = "Hold Q to open bottle";
+
+                // Drain the glass so the retry starts empty
+                if (!isTakeaway)
+                {
+                    float from = VisualFill(currentFill);
+                    for (float t = 0f; t < 0.3f; t += Time.deltaTime)
+                    {
+                        cup.PreviewFill(drinkType, Mathf.Lerp(from, 0f, t / 0.3f));
+                        yield return null;
+                    }
+                    cup.PreviewFill(drinkType, 0f);
+                }
 
                 yield return new WaitForSeconds(0.6f);
             }
         }
 
-        // Hide everything
-        if (draftBeerGlass != null)  draftBeerGlass.SetActive(false);
-        if (spiritGlass != null)     spiritGlass.SetActive(false);
-        if (takeawayBottle != null)  takeawayBottle.SetActive(false);
-        if (guinnessGlass != null)   guinnessGlass.SetActive(false);
-        if (wineGlass != null)       wineGlass.SetActive(false);
-        if (fillingPanel != null)    fillingPanel.SetActive(false);
+        // Clean up
+        cup.HideTargetBand();
+
+        if (isTakeaway)
+        {
+            if (takeawayBottle != null) takeawayBottle.SetActive(false);
+            if (fillingPanel != null)   fillingPanel.SetActive(false);
+            if (player.CurrentHeldItem != null)
+                foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
+                    r.enabled = true;
+        }
 
         if (audioSource != null && successSound != null)
             audioSource.PlayOneShot(successSound);
 
-        if (player.CurrentHeldItem != null)
-        {
-            foreach (Renderer r in player.CurrentHeldItem.GetComponentsInChildren<Renderer>())
-                r.enabled = true;
-        }
-
         IsFillingActive = false;
-        DispenseDrink(cup);
+        cup.Fill(drinkType, isTakeaway ? 1f : VisualFill(finalFill));
         isCurrentlyFilling = false;
     }
 
@@ -325,6 +332,13 @@ Debug.Log($"[DrinkMachine] drinkType: {drinkType} liquidFillImage null: {liquidF
     #endregion
 
     #region Feedback
+
+    private void ShowInfoFeedback(string message)
+    {
+        FeedbackManager.Instance?.ShowMessage(
+            message,
+            FeedbackManager.MessageType.Info);
+    }
 
     private void ShowErrorFeedback(string message)
     {
