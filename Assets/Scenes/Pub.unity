@@ -9776,6 +9776,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4605120658750172, guid: 52a4efcaee04ba9469e2d8f54e1d565a, type: 3}
   m_PrefabInstance: {fileID: 1324368266}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &290730501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 290730502}
+  m_Layer: 0
+  m_Name: PourView_Guinness
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &290730502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290730501}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.00000005960465, z: 2.1316284e-14, w: 1}
+  m_LocalPosition: {x: 0.2739184, y: 0.2829951, z: -1.0457382}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 705000658}
+  m_Father: {fileID: 2018125568}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &298550990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25460,6 +25492,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4726224451964564, guid: 69483161ab33be74c91b8f9e7ec33526, type: 3}
   m_PrefabInstance: {fileID: 704673974}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &705000657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705000658}
+  m_Layer: 0
+  m_Name: PourCup_Guinness
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &705000658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705000657}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.232, y: -0.435, z: 0.612}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 290730502}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &706125120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1043395894556588, guid: 0cfb313620d7b0d48b98a8a77f4e43d4, type: 3}
@@ -45566,6 +45629,8 @@ MonoBehaviour:
   greenZoneMin: 0.9
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -47693,7 +47758,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4483922264215526, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 290730502}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1378790115824248, guid: 46473c538cf42c444939f93fbed302ac, type: 3}
       insertIndex: -1
@@ -56166,6 +56234,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -59292,6 +59362,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -65496,7 +65568,9 @@ MonoBehaviour:
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
-  takeawayFillSpeed: 1
+  takeawayFillSpeed: 5
+  pourViewPoint: {fileID: 290730502}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
@@ -65875,7 +65949,9 @@ MonoBehaviour:
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
-  takeawayFillSpeed: 1
+  takeawayFillSpeed: 5
+  pourViewPoint: {fileID: 290730502}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
@@ -68191,6 +68267,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -69859,6 +69937,8 @@ MonoBehaviour:
   greenZoneMin: 0.9
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -72974,7 +73054,9 @@ MonoBehaviour:
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
-  takeawayFillSpeed: 1
+  takeawayFillSpeed: 5
+  pourViewPoint: {fileID: 290730502}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
@@ -73716,6 +73798,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -73875,6 +73959,8 @@ MonoBehaviour:
   greenZoneMin: 0.9
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -76592,7 +76678,9 @@ MonoBehaviour:
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
-  takeawayFillSpeed: 1
+  takeawayFillSpeed: 5
+  pourViewPoint: {fileID: 290730502}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
@@ -77308,6 +77396,8 @@ MonoBehaviour:
   greenZoneMin: 0.6
   greenZoneMax: 0.75
   takeawayFillSpeed: 0.4
+  pourViewPoint: {fileID: 0}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
   openerStartY: 150
@@ -78452,7 +78542,9 @@ MonoBehaviour:
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
-  takeawayFillSpeed: 1
+  takeawayFillSpeed: 5
+  pourViewPoint: {fileID: 290730502}
+  cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150

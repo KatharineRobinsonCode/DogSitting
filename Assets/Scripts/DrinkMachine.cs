@@ -39,6 +39,11 @@ public class DrinkMachine : MonoBehaviour
     [Header("Pour Camera")]
     [Tooltip("Empty object marking where the camera sits and looks while pouring at THIS pump. Leave empty to not lock the view.")]
     [SerializeField] private Transform pourViewPoint;
+    [Tooltip("Optional empty object marking where the glass should appear while pouring. Best made as a child of the Pour View Point.")]
+    [SerializeField] private Transform pourCupPoint;
+    [Tooltip("Used only if Pour Cup Point is empty: glass position relative to the Pour View Point")]
+    [SerializeField] private Vector3 fallbackCupOffset = new Vector3(0f, -0.12f, 0.45f);
+    [SerializeField] private Vector3 fallbackCupEuler = Vector3.zero;
     [SerializeField] private float cameraMoveTime = 0.35f;
 
     [Header("3D Pour")]
@@ -107,17 +112,23 @@ public class DrinkMachine : MonoBehaviour
         return Mathf.Clamp01(logicFill / top * goodPourLevel);
     }
 
-    private IEnumerator MoveCamera(Transform camT, Vector3 toPos, Quaternion toRot)
+    private IEnumerator MoveView(Transform camT, Vector3 camPos, Quaternion camRot,
+                              Transform cupT, Vector3 cupPos, Quaternion cupRot)
     {
-        Vector3 fromPos = camT.position;
-        Quaternion fromRot = camT.rotation;
+        Vector3 camFromPos = camT.position;
+        Quaternion camFromRot = camT.rotation;
+        Vector3 cupFromPos = cupT.position;
+        Quaternion cupFromRot = cupT.rotation;
+
         for (float t = 0f; t < cameraMoveTime; t += Time.deltaTime)
         {
             float k = Mathf.SmoothStep(0f, 1f, t / cameraMoveTime);
-            camT.SetPositionAndRotation(Vector3.Lerp(fromPos, toPos, k), Quaternion.Slerp(fromRot, toRot, k));
+            camT.SetPositionAndRotation(Vector3.Lerp(camFromPos, camPos, k), Quaternion.Slerp(camFromRot, camRot, k));
+            cupT.SetPositionAndRotation(Vector3.Lerp(cupFromPos, cupPos, k), Quaternion.Slerp(cupFromRot, cupRot, k));
             yield return null;
         }
-        camT.SetPositionAndRotation(toPos, toRot);
+        camT.SetPositionAndRotation(camPos, camRot);
+        cupT.SetPositionAndRotation(cupPos, cupRot);
     }
 
     private IEnumerator FillingQTE(Cup cup, PlayerInteraction player)
@@ -134,12 +145,31 @@ public class DrinkMachine : MonoBehaviour
         Vector3 savedCamPos = Vector3.zero;
         Quaternion savedCamRot = Quaternion.identity;
         bool viewLocked = pourViewPoint != null && cam != null;
+
+        // Remember where the glass was so it can go back afterwards
+        Transform cupT = cup.transform;
+        Transform cupOrigParent = cupT.parent;
+        Vector3 cupOrigLocalPos = cupT.localPosition;
+        Quaternion cupOrigLocalRot = cupT.localRotation;
+        Vector3 cupOrigLocalScale = cupT.localScale;
+        Vector3 cupOrigWorldPos = cupT.position;
+        Quaternion cupOrigWorldRot = cupT.rotation;
+
         if (viewLocked)
         {
             savedCamPos = cam.transform.position;
             savedCamRot = cam.transform.rotation;
             if (mouseLook != null) mouseLook.enabled = false;
-            yield return MoveCamera(cam.transform, pourViewPoint.position, pourViewPoint.rotation);
+
+            // Bring the glass into the pour view so it is always in frame
+            Vector3 cupTargetPos = pourCupPoint != null ? pourCupPoint.position
+                                 : pourViewPoint.TransformPoint(fallbackCupOffset);
+            Quaternion cupTargetRot = pourCupPoint != null ? pourCupPoint.rotation
+                                    : pourViewPoint.rotation * Quaternion.Euler(fallbackCupEuler);
+            cupT.SetParent(pourCupPoint != null ? pourCupPoint : pourViewPoint, true);
+
+            yield return MoveView(cam.transform, pourViewPoint.position, pourViewPoint.rotation,
+                                  cupT, cupTargetPos, cupTargetRot);
         }
 
         if (isTakeaway)
@@ -277,7 +307,15 @@ public class DrinkMachine : MonoBehaviour
 
         if (viewLocked)
         {
-            yield return MoveCamera(cam.transform, savedCamPos, savedCamRot);
+            yield return MoveView(cam.transform, savedCamPos, savedCamRot,
+                                  cupT, cupOrigWorldPos, cupOrigWorldRot);
+
+            // Hand the glass back to the player
+            cupT.SetParent(cupOrigParent, true);
+            cupT.localPosition = cupOrigLocalPos;
+            cupT.localRotation = cupOrigLocalRot;
+            cupT.localScale = cupOrigLocalScale;
+
             if (mouseLook != null) mouseLook.enabled = true;
         }
 
