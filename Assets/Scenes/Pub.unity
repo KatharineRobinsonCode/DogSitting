@@ -37472,7 +37472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -4.562622, y: 71}
+  m_AnchoredPosition: {x: -4.5625, y: 71}
   m_SizeDelta: {x: -1042.1404, y: 135.5769}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1064935602
@@ -45566,6 +45566,8 @@ MonoBehaviour:
   greenZoneMin: 0.9
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1315099659
@@ -48196,6 +48198,14 @@ PrefabInstance:
     - target: {fileID: 3347435483248186642, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
+      propertyPath: bandWidth
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
+      propertyPath: bandRadiusScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -56156,6 +56166,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1569085950
@@ -59280,6 +59292,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1663038519
@@ -65472,7 +65486,7 @@ MonoBehaviour:
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
-  guinnessGlass: {fileID: 489096026}
+  guinnessGlass: {fileID: 1355843632}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
@@ -65480,9 +65494,11 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.65
-  greenZoneMax: 0.95
-  takeawayFillSpeed: 0.4
+  greenZoneMin: 0.1
+  greenZoneMax: 0.2
+  takeawayFillSpeed: 0.05
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1836937340
@@ -65849,7 +65865,7 @@ MonoBehaviour:
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
-  guinnessGlass: {fileID: 489096026}
+  guinnessGlass: {fileID: 1355843632}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
@@ -65857,9 +65873,11 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.64
-  greenZoneMax: 0.99
-  takeawayFillSpeed: 0.4
+  greenZoneMin: 0.1
+  greenZoneMax: 0.2
+  takeawayFillSpeed: 0.05
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1841277070
@@ -68173,6 +68191,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1899107164
@@ -69839,6 +69859,8 @@ MonoBehaviour:
   greenZoneMin: 0.9
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &1947015714
@@ -72942,7 +72964,7 @@ MonoBehaviour:
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
-  guinnessGlass: {fileID: 489096026}
+  guinnessGlass: {fileID: 1355843632}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
@@ -72950,9 +72972,11 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.64
-  greenZoneMax: 0.99
-  takeawayFillSpeed: 0.4
+  greenZoneMin: 0.1
+  greenZoneMax: 0.2
+  takeawayFillSpeed: 0.05
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2018125570
@@ -73692,6 +73716,8 @@ MonoBehaviour:
   greenZoneMin: 0.95
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2034686166
@@ -73849,6 +73875,8 @@ MonoBehaviour:
   greenZoneMin: 0.9
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2036446254
@@ -76554,7 +76582,7 @@ MonoBehaviour:
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
-  guinnessGlass: {fileID: 489096026}
+  guinnessGlass: {fileID: 1355843632}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
@@ -76562,9 +76590,11 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.64
-  greenZoneMax: 0.99
-  takeawayFillSpeed: 0.4
+  greenZoneMin: 0.1
+  greenZoneMax: 0.2
+  takeawayFillSpeed: 0.05
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2117214089
@@ -77278,6 +77308,8 @@ MonoBehaviour:
   greenZoneMin: 0.6
   greenZoneMax: 0.75
   takeawayFillSpeed: 0.4
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2126203385
@@ -78410,7 +78442,7 @@ MonoBehaviour:
   draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
-  guinnessGlass: {fileID: 489096026}
+  guinnessGlass: {fileID: 1355843632}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
@@ -78418,9 +78450,11 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.64
-  greenZoneMax: 0.99
-  takeawayFillSpeed: 0.4
+  greenZoneMin: 0.1
+  greenZoneMax: 0.2
+  takeawayFillSpeed: 0.05
+  goodPourLevel: 0.9
+  showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
 --- !u!82 &2144423963

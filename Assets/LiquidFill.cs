@@ -10,10 +10,15 @@ public class LiquidFill : MonoBehaviour
     [SerializeField] private Renderer liquidRenderer;
     [SerializeField] private float emptyHeight = -1.0f;
     [SerializeField] private float fullHeight  = 2.8f;
+    [Tooltip("The glass's world scale when Empty/Full Height were tuned (the test scene had it at 100). The heights shrink/grow with the glass so a smaller held glass still fills correctly.")]
+    [SerializeField] private float heightsTunedAtScale = 100f;
 
     [Header("Target band (pour minigame)")]
     [SerializeField] private Color bandColor = new Color(0.2f, 1f, 0.3f, 1f);
-    [SerializeField] private float bandWidth = 0.01f;
+    [Tooltip("Ring thickness, in the same units as the heights above (scales with the glass)")]
+    [SerializeField] private float bandWidth = 0.08f;
+    [Tooltip("0 = work it out from the liquid mesh. Set a number (world units) to force the ring size.")]
+    [SerializeField] private float bandRadiusOverride = 0f;
     [Tooltip("Ring size relative to the liquid mesh. Raise if the ring sits inside the glass.")]
     [SerializeField] private float bandRadiusScale = 1.15f;
 
@@ -48,8 +53,11 @@ public class LiquidFill : MonoBehaviour
 
     private float HeightFor(float fill01)
     {
-        return transform.position.y + Mathf.Lerp(emptyHeight, fullHeight, fill01);
+        return transform.position.y + Mathf.Lerp(emptyHeight, fullHeight, fill01) * ScaleFactor;
     }
+
+    // 1 when the glass is the size the heights were tuned at
+    private float ScaleFactor => Mathf.Abs(transform.lossyScale.x) / Mathf.Max(heightsTunedAtScale, 0.0001f);
 
     private void Apply()
     {
@@ -88,7 +96,9 @@ public class LiquidFill : MonoBehaviour
         lr.loop = true;
         lr.positionCount = RingPoints;
         lr.startWidth = lr.endWidth = bandWidth;
-        lr.material = new Material(Shader.Find("Sprites/Default"));
+        Shader sh = Shader.Find("Sprites/Default");
+        if (sh == null) sh = Shader.Find("Universal Render Pipeline/Unlit");
+        lr.material = new Material(sh);
         lr.startColor = lr.endColor = bandColor;
         lr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         lr.receiveShadows = false;
@@ -97,10 +107,23 @@ public class LiquidFill : MonoBehaviour
 
     private void UpdateBand()
     {
-        Bounds b = liquidRenderer.bounds;
-        float radius = Mathf.Max(b.extents.x, b.extents.z) * bandRadiusScale;
-        SetRing(bandMin, b.center, radius, HeightFor(bandMinFill));
-        SetRing(bandMax, b.center, radius, HeightFor(bandMaxFill));
+        // Use the mesh bounds (works even while the liquid renderer is disabled at 0 fill)
+        Vector3 center = liquidRenderer.transform.position;
+        float radius = bandRadiusOverride;
+        MeshFilter mf = liquidRenderer.GetComponent<MeshFilter>();
+        if (mf != null && mf.sharedMesh != null)
+        {
+            Bounds mb = mf.sharedMesh.bounds;
+            center = liquidRenderer.transform.TransformPoint(mb.center);
+            Vector3 sc = liquidRenderer.transform.lossyScale;
+            if (radius <= 0f)
+                radius = Mathf.Max(mb.extents.x * Mathf.Abs(sc.x), mb.extents.z * Mathf.Abs(sc.z)) * bandRadiusScale;
+        }
+        if (radius <= 0f) radius = 0.1f;
+        bandMin.startWidth = bandMin.endWidth = bandWidth * ScaleFactor;
+        bandMax.startWidth = bandMax.endWidth = bandWidth * ScaleFactor;
+        SetRing(bandMin, center, radius, HeightFor(bandMinFill));
+        SetRing(bandMax, center, radius, HeightFor(bandMaxFill));
     }
 
     private void SetRing(LineRenderer lr, Vector3 center, float radius, float y)
