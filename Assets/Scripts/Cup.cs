@@ -17,11 +17,15 @@ public class Cup : MonoBehaviour
     public GameObject wineModel;
 
     private CupSpawner spawner;
+    private LiquidFill liquidFill;
 
     private void Start()
     {
         spawner = GetComponentInParent<CupSpawner>();
+        liquidFill = GetComponent<LiquidFill>();
         UpdateVisuals();
+        if (liquidFill != null)
+    liquidFill.SetFill(contents == DrinkType.None ? 0f : 1f);
     }
 
     public void Fill(DrinkType drink)
