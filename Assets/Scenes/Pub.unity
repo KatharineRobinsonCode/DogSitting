@@ -25516,13 +25516,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705000657}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.232, y: -0.435, z: 0.612}
+  m_LocalRotation: {x: 0.7071001, y: -0.0030853006, z: -0.0030853006, w: -0.7071001}
+  m_LocalPosition: {x: -0.232, y: -0.25, z: 0.612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 290730502}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0.5, z: 0}
 --- !u!1 &706125120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1043395894556588, guid: 0cfb313620d7b0d48b98a8a77f4e43d4, type: 3}
@@ -45630,6 +45630,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -48272,9 +48275,17 @@ PrefabInstance:
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
+      propertyPath: foamHeight
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
       propertyPath: bandRadiusScale
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4485398357175709309, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c76a86c4d889a404581b2897b46fccd6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -56235,6 +56246,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -59363,6 +59377,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -65570,6 +65587,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 5
   pourViewPoint: {fileID: 290730502}
+  pourCupPoint: {fileID: 705000658}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
@@ -65951,6 +65971,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 5
   pourViewPoint: {fileID: 290730502}
+  pourCupPoint: {fileID: 705000658}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
@@ -68268,6 +68291,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -69938,6 +69964,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -73056,6 +73085,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 5
   pourViewPoint: {fileID: 290730502}
+  pourCupPoint: {fileID: 705000658}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
@@ -73799,6 +73831,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.4
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -73960,6 +73995,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -76680,6 +76718,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 5
   pourViewPoint: {fileID: 290730502}
+  pourCupPoint: {fileID: 705000658}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1
@@ -77397,6 +77438,9 @@ MonoBehaviour:
   greenZoneMax: 0.75
   takeawayFillSpeed: 0.4
   pourViewPoint: {fileID: 0}
+  pourCupPoint: {fileID: 0}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.9
   showTargetLine: 1
@@ -78544,6 +78588,9 @@ MonoBehaviour:
   greenZoneMax: 1
   takeawayFillSpeed: 5
   pourViewPoint: {fileID: 290730502}
+  pourCupPoint: {fileID: 705000658}
+  fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
+  fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
   goodPourLevel: 0.965
   showTargetLine: 1

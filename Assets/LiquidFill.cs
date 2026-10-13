@@ -18,6 +18,20 @@ public class LiquidFill : MonoBehaviour
     [SerializeField] private float foamHeight = 0.25f;
     private static readonly int FoamHeightId = Shader.PropertyToID("_FoamHeight");
 
+    [Header("Foam cap (fills the open top of the glass)")]
+    [SerializeField] private bool useCap = true;
+    [Tooltip("Match this to the Foam Color on the liquid material")]
+    [SerializeField] private Color capColor = new Color(0.96f, 0.92f, 0.82f, 1f);
+    [Tooltip("Shrink or grow the cap if it pokes through the glass or leaves a gap")]
+    [SerializeField] private float capRadiusScale = 0.97f;
+
+    private GameObject capGO;
+    private Transform capT;
+    private Vector3[] meshVerts;
+    private Vector3 meshCentreLocal;
+    private float capRadius;
+    private float lastCapFill = -1f;
+
     [Header("Target band (pour minigame)")]
     [SerializeField] private Color bandColor = new Color(0.2f, 1f, 0.3f, 1f);
     [Tooltip("Ring thickness, in the same units as the heights above (scales with the glass)")]
@@ -52,8 +66,114 @@ public class LiquidFill : MonoBehaviour
 
     private void LateUpdate()
     {
+        bool liquidShowing = liquidRenderer.enabled && liquidRenderer.gameObject.activeInHierarchy;
         if (liquidRenderer.enabled) Apply();
+        UpdateCap(liquidShowing);
         if (bandVisible) UpdateBand();
+    }
+
+    private void OnDisable()
+    {
+        if (capGO != null) capGO.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (capGO != null) Destroy(capGO);
+    }
+
+    // ---- Foam cap ----
+
+    private void UpdateCap(bool show)
+    {
+        if (!useCap || !show)
+        {
+            if (capGO != null) capGO.SetActive(false);
+            return;
+        }
+
+        if (capGO == null && !BuildCap()) return;
+
+        // Re-measure the glass width at the surface whenever the fill changes
+        if (Mathf.Abs(currentFill - lastCapFill) > 0.001f)
+        {
+            lastCapFill = currentFill;
+            RecalculateCapRadius();
+        }
+
+        Vector3 centre = liquidRenderer.transform.TransformPoint(meshCentreLocal);
+        capT.position = new Vector3(centre.x, HeightFor(currentFill), centre.z);
+        capT.localScale = new Vector3(capRadius, 1f, capRadius);
+        capGO.SetActive(true);
+    }
+
+    private bool BuildCap()
+    {
+        MeshFilter mf = liquidRenderer.GetComponent<MeshFilter>();
+        if (mf == null || mf.sharedMesh == null) return false;
+
+        meshVerts = mf.sharedMesh.vertices;
+        meshCentreLocal = mf.sharedMesh.bounds.center;
+
+        // Flat disc, radius 1, facing up
+        const int seg = 40;
+        Vector3[] v = new Vector3[seg + 1];
+        Vector3[] n = new Vector3[seg + 1];
+        int[] tris = new int[seg * 3];
+        v[0] = Vector3.zero;
+        for (int i = 0; i < seg; i++)
+        {
+            float a = i / (float)seg * Mathf.PI * 2f;
+            v[i + 1] = new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a));
+        }
+        for (int i = 0; i < n.Length; i++) n[i] = Vector3.up;
+        for (int i = 0; i < seg; i++)
+        {
+            tris[i * 3]     = 0;
+            tris[i * 3 + 1] = (i + 1) % seg + 1;
+            tris[i * 3 + 2] = i + 1;
+        }
+        Mesh disc = new Mesh { name = "LiquidCapDisc", vertices = v, normals = n, triangles = tris };
+
+        capGO = new GameObject("LiquidCap");   // not parented: the glass's scale would distort it
+        capT = capGO.transform;
+        capGO.AddComponent<MeshFilter>().sharedMesh = disc;
+        MeshRenderer mr = capGO.AddComponent<MeshRenderer>();
+
+        Shader sh = Shader.Find("Universal Render Pipeline/Unlit");
+        if (sh == null) sh = Shader.Find("Sprites/Default");
+        Material m = new Material(sh);
+        m.color = capColor;
+        if (m.HasProperty("_BaseColor")) m.SetColor("_BaseColor", capColor);
+        if (m.HasProperty("_Cull")) m.SetFloat("_Cull", 0f);   // visible from both sides
+        mr.sharedMaterial = m;
+        mr.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        mr.receiveShadows = false;
+        return true;
+    }
+
+    private void RecalculateCapRadius()
+    {
+        Transform t = liquidRenderer.transform;
+        Vector3 centre = t.TransformPoint(meshCentreLocal);
+        float surfaceY = HeightFor(currentFill);
+        float tol = Mathf.Abs(fullHeight - emptyHeight) * ScaleFactor * 0.04f;
+
+        float best = 0f;
+        for (int i = 0; i < meshVerts.Length; i++)
+        {
+            Vector3 w = t.TransformPoint(meshVerts[i]);
+            if (Mathf.Abs(w.y - surfaceY) > tol) continue;
+            float d = new Vector2(w.x - centre.x, w.z - centre.z).magnitude;
+            if (d > best) best = d;
+        }
+
+        if (best <= 0f)   // nothing near the surface: fall back to the overall width
+        {
+            Bounds b = liquidRenderer.bounds;
+            best = Mathf.Max(b.extents.x, b.extents.z);
+        }
+        capRadius = best * capRadiusScale;
     }
 
     private float HeightFor(float fill01)
