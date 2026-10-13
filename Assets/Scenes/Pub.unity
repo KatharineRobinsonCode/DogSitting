@@ -25516,13 +25516,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705000657}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071001, y: -0.0030853006, z: -0.0030853006, w: -0.7071001}
+  m_LocalRotation: {x: 0.707104, y: -0.0019746015, z: -0.0019746015, w: -0.707104}
   m_LocalPosition: {x: -0.232, y: -0.25, z: 0.612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 290730502}
-  m_LocalEulerAnglesHint: {x: 270, y: 0.5, z: 0}
+  m_LocalEulerAnglesHint: {x: 270, y: 0.3, z: 0.02}
 --- !u!1 &706125120 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1043395894556588, guid: 0cfb313620d7b0d48b98a8a77f4e43d4, type: 3}
@@ -48279,6 +48279,14 @@ PrefabInstance:
       value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
+      propertyPath: fullHeight
+      value: 2.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
+      propertyPath: capRadiusScale
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
       propertyPath: bandRadiusScale
       value: 0.5
       objectReference: {fileID: 0}
@@ -65591,7 +65599,7 @@ MonoBehaviour:
   fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
   fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
-  goodPourLevel: 0.965
+  goodPourLevel: 1
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -65975,7 +65983,7 @@ MonoBehaviour:
   fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
   fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
-  goodPourLevel: 0.965
+  goodPourLevel: 1
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -73089,7 +73097,7 @@ MonoBehaviour:
   fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
   fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
-  goodPourLevel: 0.965
+  goodPourLevel: 1
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -76722,7 +76730,7 @@ MonoBehaviour:
   fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
   fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
-  goodPourLevel: 0.965
+  goodPourLevel: 1
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -78592,7 +78600,7 @@ MonoBehaviour:
   fallbackCupOffset: {x: 0, y: -0.12, z: 0.45}
   fallbackCupEuler: {x: 0, y: 0, z: 0}
   cameraMoveTime: 0.35
-  goodPourLevel: 0.965
+  goodPourLevel: 1
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0

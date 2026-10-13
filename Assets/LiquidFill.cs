@@ -25,6 +25,9 @@ public class LiquidFill : MonoBehaviour
     [Tooltip("Shrink or grow the cap if it pokes through the glass or leaves a gap")]
     [SerializeField] private float capRadiusScale = 0.97f;
 
+    [Tooltip("Only used if the mesh can't be read (Read/Write off): cap width when the glass is nearly empty, as a fraction of its full width")]
+    [SerializeField, Range(0.1f, 1f)] private float emptyWidthRatio = 0.6f;
+
     private GameObject capGO;
     private Transform capT;
     private Vector3[] meshVerts;
@@ -112,8 +115,16 @@ public class LiquidFill : MonoBehaviour
         MeshFilter mf = liquidRenderer.GetComponent<MeshFilter>();
         if (mf == null || mf.sharedMesh == null) return false;
 
-        meshVerts = mf.sharedMesh.vertices;
         meshCentreLocal = mf.sharedMesh.bounds.center;
+        if (mf.sharedMesh.isReadable)
+        {
+            meshVerts = mf.sharedMesh.vertices;
+        }
+        else
+        {
+            meshVerts = null;
+            Debug.LogWarning("[LiquidFill] Mesh '" + mf.sharedMesh.name + "' isn't readable, so the foam cap can't follow the glass shape. Tick Read/Write on the model's import settings for a better fit.", this);
+        }
 
         // Flat disc, radius 1, facing up
         const int seg = 40;
@@ -154,6 +165,14 @@ public class LiquidFill : MonoBehaviour
 
     private void RecalculateCapRadius()
     {
+        if (meshVerts == null)   // can't read the mesh: simple taper from narrow (bottom) to full width (top)
+        {
+            Bounds bb = liquidRenderer.bounds;
+            float fullR = Mathf.Max(bb.extents.x, bb.extents.z);
+            capRadius = fullR * Mathf.Lerp(emptyWidthRatio, 1f, currentFill) * capRadiusScale;
+            return;
+        }
+
         Transform t = liquidRenderer.transform;
         Vector3 centre = t.TransformPoint(meshCentreLocal);
         float surfaceY = HeightFor(currentFill);
