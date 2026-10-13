@@ -13,6 +13,11 @@ public class LiquidFill : MonoBehaviour
     [Tooltip("The glass's world scale when Empty/Full Height were tuned (the test scene had it at 100). The heights shrink/grow with the glass so a smaller held glass still fills correctly.")]
     [SerializeField] private float heightsTunedAtScale = 100f;
 
+    [Header("Foam")]
+    [Tooltip("Foam thickness at the top of the liquid, in the same units as the heights (scales with the glass). Needs the _FoamHeight property in the shader graph.")]
+    [SerializeField] private float foamHeight = 0.25f;
+    private static readonly int FoamHeightId = Shader.PropertyToID("_FoamHeight");
+
     [Header("Target band (pour minigame)")]
     [SerializeField] private Color bandColor = new Color(0.2f, 1f, 0.3f, 1f);
     [Tooltip("Ring thickness, in the same units as the heights above (scales with the glass)")]
@@ -63,6 +68,7 @@ public class LiquidFill : MonoBehaviour
     {
         liquidRenderer.GetPropertyBlock(block);
         block.SetFloat(FillLevelId, HeightFor(currentFill));
+        block.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
         liquidRenderer.SetPropertyBlock(block);
     }
 

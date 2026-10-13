@@ -20715,8 +20715,8 @@ MonoBehaviour:
   pulseSpeed: 10
   pulseIntensity: 0.1
   holdPoint: {fileID: 1859535699}
-  holdPosition: {x: 0.4, y: -0.4, z: 0.7}
-  holdRotation: {x: 30, y: 0, z: 0}
+  holdPosition: {x: 0.4, y: -0.2, z: 0.7}
+  holdRotation: {x: 30, y: 0.5, z: 0}
   currentHeldItem: {fileID: 0}
   guinnessHoldRotation: {x: 270, y: 0, z: 0}
 --- !u!114 &577574941
@@ -48205,7 +48205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3982852054275924304, guid: d50e1b34c4aff4ec99dcc4d9cc221d03, type: 3}
       propertyPath: bandRadiusScale
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -65494,10 +65494,10 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.1
-  greenZoneMax: 0.2
-  takeawayFillSpeed: 0.05
-  goodPourLevel: 0.9
+  greenZoneMin: 0.95
+  greenZoneMax: 1
+  takeawayFillSpeed: 1
+  goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -65873,10 +65873,10 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.1
-  greenZoneMax: 0.2
-  takeawayFillSpeed: 0.05
-  goodPourLevel: 0.9
+  greenZoneMin: 0.95
+  greenZoneMax: 1
+  takeawayFillSpeed: 1
+  goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -72972,10 +72972,10 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.1
-  greenZoneMax: 0.2
-  takeawayFillSpeed: 0.05
-  goodPourLevel: 0.9
+  greenZoneMin: 0.95
+  greenZoneMax: 1
+  takeawayFillSpeed: 1
+  goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -76590,10 +76590,10 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.1
-  greenZoneMax: 0.2
-  takeawayFillSpeed: 0.05
-  goodPourLevel: 0.9
+  greenZoneMin: 0.95
+  greenZoneMax: 1
+  takeawayFillSpeed: 1
+  goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0
@@ -78450,10 +78450,10 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 2018296083}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.1
-  greenZoneMax: 0.2
-  takeawayFillSpeed: 0.05
-  goodPourLevel: 0.9
+  greenZoneMin: 0.95
+  greenZoneMax: 1
+  takeawayFillSpeed: 1
+  goodPourLevel: 0.965
   showTargetLine: 1
   openerStartY: 150
   openerEndY: 0

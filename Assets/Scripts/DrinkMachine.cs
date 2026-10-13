@@ -36,6 +36,11 @@ public class DrinkMachine : MonoBehaviour
     [SerializeField] private float greenZoneMax = 0.80f;
     [SerializeField] private float takeawayFillSpeed = 0.2f;
 
+    [Header("Pour Camera")]
+    [Tooltip("Empty object marking where the camera sits and looks while pouring at THIS pump. Leave empty to not lock the view.")]
+    [SerializeField] private Transform pourViewPoint;
+    [SerializeField] private float cameraMoveTime = 0.35f;
+
     [Header("3D Pour")]
     [Tooltip("How full the glass LOOKS at the top of the green zone (1 = brim). 0.9 leaves room for foam.")]
     [SerializeField, Range(0.3f, 1f)] private float goodPourLevel = 0.9f;
@@ -102,6 +107,19 @@ public class DrinkMachine : MonoBehaviour
         return Mathf.Clamp01(logicFill / top * goodPourLevel);
     }
 
+    private IEnumerator MoveCamera(Transform camT, Vector3 toPos, Quaternion toRot)
+    {
+        Vector3 fromPos = camT.position;
+        Quaternion fromRot = camT.rotation;
+        for (float t = 0f; t < cameraMoveTime; t += Time.deltaTime)
+        {
+            float k = Mathf.SmoothStep(0f, 1f, t / cameraMoveTime);
+            camT.SetPositionAndRotation(Vector3.Lerp(fromPos, toPos, k), Quaternion.Slerp(fromRot, toRot, k));
+            yield return null;
+        }
+        camT.SetPositionAndRotation(toPos, toRot);
+    }
+
     private IEnumerator FillingQTE(Cup cup, PlayerInteraction player)
     {
         isCurrentlyFilling = true;
@@ -109,6 +127,20 @@ public class DrinkMachine : MonoBehaviour
 
         bool isTakeaway = drinkType == Cup.DrinkType.TakeawayBeer;
         RectTransform openerRect = null;
+
+        // Lock the view to this pump's pour position
+        Camera cam = Camera.main;
+        SojaExiles.MouseLook mouseLook = FindFirstObjectByType<SojaExiles.MouseLook>();
+        Vector3 savedCamPos = Vector3.zero;
+        Quaternion savedCamRot = Quaternion.identity;
+        bool viewLocked = pourViewPoint != null && cam != null;
+        if (viewLocked)
+        {
+            savedCamPos = cam.transform.position;
+            savedCamRot = cam.transform.rotation;
+            if (mouseLook != null) mouseLook.enabled = false;
+            yield return MoveCamera(cam.transform, pourViewPoint.position, pourViewPoint.rotation);
+        }
 
         if (isTakeaway)
         {
@@ -146,6 +178,10 @@ public class DrinkMachine : MonoBehaviour
             float currentFill = 0f;
             bool qteComplete = false;
             bool succeeded = false;
+            bool wasHolding = false;
+
+            // Don't start a new attempt until Q has been let go from the last one
+            while (Input.GetKey(KeyCode.Q)) yield return null;
 
             if (isTakeaway && openerRect != null)
                 openerRect.anchoredPosition = new Vector2(openerRect.anchoredPosition.x, openerStartY);
@@ -156,6 +192,7 @@ public class DrinkMachine : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Q))
                 {
+                    wasHolding = true;
                     currentFill += fillSpeed * Time.deltaTime;
                     currentFill = Mathf.Clamp01(currentFill);
 
@@ -178,7 +215,7 @@ public class DrinkMachine : MonoBehaviour
                         qteComplete = true;
                     }
                 }
-                else if (Input.GetKeyUp(KeyCode.Q))
+                else if (wasHolding)   // Q was held and has now been released
                 {
                     succeeded = currentFill >= greenZoneMin && currentFill <= greenZoneMax;
                     Debug.Log($"[DrinkMachine] {drinkType} - released at {currentFill:F3} - green zone {greenZoneMin} to {greenZoneMax} - succeeded: {succeeded}");
@@ -237,6 +274,12 @@ public class DrinkMachine : MonoBehaviour
 
         if (audioSource != null && successSound != null)
             audioSource.PlayOneShot(successSound);
+
+        if (viewLocked)
+        {
+            yield return MoveCamera(cam.transform, savedCamPos, savedCamRot);
+            if (mouseLook != null) mouseLook.enabled = true;
+        }
 
         IsFillingActive = false;
         cup.Fill(drinkType, isTakeaway ? 1f : VisualFill(finalFill));
