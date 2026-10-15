@@ -314,6 +314,19 @@ public class LiquidFill : MonoBehaviour
         block.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
         liquidRenderer.SetPropertyBlock(block);
 
+        // Also write straight onto this glass's own material copy (most reliable route)
+        Material mat = liquidRenderer.material;
+        if (!checkedProps)
+        {
+            checkedProps = true;
+            CheckProp(mat, "_FillLevel");
+            CheckProp(mat, "_BottomLevel");
+            CheckProp(mat, "_FoamHeight");
+        }
+        if (mat.HasProperty(FillLevelId))   mat.SetFloat(FillLevelId, HeightFor(currentFill));
+        if (mat.HasProperty(BottomLevelId)) mat.SetFloat(BottomLevelId, HeightFor(0f) - 0.0005f);
+        if (mat.HasProperty(FoamHeightId))  mat.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
+
         if (debugLog && Time.unscaledTime > nextDebugTime)
         {
             nextDebugTime = Time.unscaledTime + 0.5f;
@@ -323,6 +336,14 @@ public class LiquidFill : MonoBehaviour
                       $"foam={foamHeight * ScaleFactor:F3} lossyScale={liquidRenderer.transform.lossyScale} " +
                       $"mat={liquidRenderer.sharedMaterial.name} shader={liquidRenderer.sharedMaterial.shader.name}", this);
         }
+    }
+
+    private bool checkedProps;
+    private void CheckProp(Material m, string prop)
+    {
+        if (!m.HasProperty(prop))
+            Debug.LogError($"[LiquidFill] Material '{m.name}' (shader '{m.shader.name}') has NO property called '{prop}'. " +
+                           "In the Shader Graph, select that property in the Blackboard and set its Reference to exactly '" + prop + "', make sure Exposed is ticked, then Save Asset.", this);
     }
 
     [Header("Debug")]

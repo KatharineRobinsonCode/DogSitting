@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LiquidFill
   liquidRenderer: {fileID: 5391713795028486587}
   autoHeightsFromMesh: 1
-  bowlStartFraction: 0
+  bowlStartFraction: 0.4
   emptyHeight: -1
   fullHeight: 2.8
   heightsTunedAtScale: 100
@@ -292,7 +292,7 @@ MonoBehaviour:
   fullHeight: 2.8
   heightsTunedAtScale: 100
   foamHeight: 0
-  useCap: 1
+  useCap: 0
   capColor: {r: 0.5450981, g: 0, b: 0, a: 1}
   capRadiusScale: 0.97
   emptyWidthRatio: 0.6
@@ -300,4 +300,4 @@ MonoBehaviour:
   bandWidth: 0.08
   bandRadiusOverride: 0
   bandRadiusScale: 1.15
-  debugLog: 0
+  debugLog: 1
