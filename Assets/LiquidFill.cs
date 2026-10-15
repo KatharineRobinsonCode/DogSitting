@@ -8,6 +8,13 @@ using UnityEngine;
 public class LiquidFill : MonoBehaviour
 {
     [SerializeField] private Renderer liquidRenderer;
+    [Tooltip("Recommended. 0 = bottom of the liquid mesh, 1 = top of the liquid mesh. Ignores the Empty/Full Height numbers below.")]
+    [SerializeField] private bool autoHeightsFromMesh = true;
+    [Tooltip("For stemmed glasses: where the bowl starts, as a fraction of the mesh height from the bottom (0 = bottom of mesh). Liquid below this height is hidden, and 'empty' sits here. Needs the _BottomLevel property in the shader graph.")]
+    [SerializeField, Range(0f, 0.9f)] private float bowlStartFraction = 0f;
+    private static readonly int BottomLevelId = Shader.PropertyToID("_BottomLevel");
+
+    [Header("Manual heights (only used if Auto Heights is off)")]
     [SerializeField] private float emptyHeight = -1.0f;
     [SerializeField] private float fullHeight  = 2.8f;
     [Tooltip("The glass's world scale when Empty/Full Height were tuned (the test scene had it at 100). The heights shrink/grow with the glass so a smaller held glass still fills correctly.")]
@@ -176,7 +183,7 @@ public class LiquidFill : MonoBehaviour
         Transform t = liquidRenderer.transform;
         Vector3 centre = t.TransformPoint(meshCentreLocal);
         float surfaceY = HeightFor(currentFill);
-        float tol = Mathf.Abs(fullHeight - emptyHeight) * ScaleFactor * 0.04f;
+        float tol = HeightSpan() * 0.04f;
 
         float best = 0f;
         for (int i = 0; i < meshVerts.Length; i++)
@@ -195,9 +202,43 @@ public class LiquidFill : MonoBehaviour
         capRadius = best * capRadiusScale;
     }
 
+    private MeshFilter liquidMF;
+
+    // World-space bottom and top of the liquid mesh (works even while the renderer is disabled)
+    private bool TryGetMeshHeights(out float lo, out float hi)
+    {
+        lo = hi = 0f;
+        if (liquidRenderer == null) return false;
+        if (liquidMF == null) liquidMF = liquidRenderer.GetComponent<MeshFilter>();
+        if (liquidMF == null || liquidMF.sharedMesh == null) return false;
+
+        Bounds b = liquidMF.sharedMesh.bounds;
+        Transform t = liquidRenderer.transform;
+        float minY = float.MaxValue, maxY = float.MinValue;
+        for (int i = 0; i < 8; i++)
+        {
+            Vector3 corner = b.center + Vector3.Scale(b.extents,
+                new Vector3((i & 1) == 0 ? -1f : 1f, (i & 2) == 0 ? -1f : 1f, (i & 4) == 0 ? -1f : 1f));
+            float y = t.TransformPoint(corner).y;
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+        }
+        lo = minY;
+        hi = maxY;
+        return true;
+    }
+
     private float HeightFor(float fill01)
     {
+        if (autoHeightsFromMesh && TryGetMeshHeights(out float lo, out float hi))
+            return Mathf.Lerp(lo + (hi - lo) * bowlStartFraction, hi, fill01);
         return transform.position.y + Mathf.Lerp(emptyHeight, fullHeight, fill01) * ScaleFactor;
+    }
+
+    private float HeightSpan()
+    {
+        if (autoHeightsFromMesh && TryGetMeshHeights(out float lo, out float hi)) return (hi - lo) * (1f - bowlStartFraction);
+        return Mathf.Abs(fullHeight - emptyHeight) * ScaleFactor;
     }
 
     // 1 when the glass is the size the heights were tuned at
@@ -207,6 +248,7 @@ public class LiquidFill : MonoBehaviour
     {
         liquidRenderer.GetPropertyBlock(block);
         block.SetFloat(FillLevelId, HeightFor(currentFill));
+        block.SetFloat(BottomLevelId, HeightFor(0f) - 0.0005f);
         block.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
         liquidRenderer.SetPropertyBlock(block);
     }

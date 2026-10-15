@@ -3445,81 +3445,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
---- !u!1 &103663507
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 103663508}
-  - component: {fileID: 103663510}
-  - component: {fileID: 103663509}
-  m_Layer: 5
-  m_Name: SPIRITFill
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &103663508
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103663507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2003892775}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.9336, y: 2.8311}
-  m_SizeDelta: {x: 152.8726, y: 101.9328}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &103663509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103663507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7fea1fd1bffb84bcca1d82cf15f1d4d2, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 1
-  m_FillAmount: 0
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &103663510
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 103663507}
-  m_CullTransparentMesh: 1
 --- !u!1001 &104595713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17086,82 +17011,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4987117175998976, guid: 70622e6a13e9da3499ad313979aa6b07, type: 3}
   m_PrefabInstance: {fileID: 488595099}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &489096026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 489096027}
-  - component: {fileID: 489096029}
-  - component: {fileID: 489096028}
-  m_Layer: 5
-  m_Name: GUINNESSGlass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &489096027
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489096026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2018296082}
-  m_Father: {fileID: 1113449435}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 18.299997, y: -15.4332}
-  m_SizeDelta: {x: 98.5907, y: 98.9316}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &489096028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489096026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d84e69afb950248688926553bbb21b05, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &489096029
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489096026}
-  m_CullTransparentMesh: 1
 --- !u!4 &491119909 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4804144566688002, guid: bc017a7d3e39c6d4f8ac111599e2ddda, type: 3}
@@ -24287,81 +24136,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
---- !u!1 &669256665
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 669256666}
-  - component: {fileID: 669256668}
-  - component: {fileID: 669256667}
-  m_Layer: 5
-  m_Name: WINEFILL
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &669256666
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669256665}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1687545709}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00049146, y: -0.000051975}
-  m_SizeDelta: {x: 132.74, y: 107.59}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &669256667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669256665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ba117edaef8a46449b9cec4438fb1ac, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 1
-  m_FillAmount: 0
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &669256668
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 669256665}
-  m_CullTransparentMesh: 1
 --- !u!1001 &671656705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38683,10 +38457,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1525200354}
-  - {fileID: 489096027}
-  - {fileID: 2003892775}
-  - {fileID: 1687545709}
   - {fileID: 1169468256}
   - {fileID: 1700630800}
   - {fileID: 1386823831}
@@ -45616,12 +45386,12 @@ MonoBehaviour:
   failSound: {fileID: 0}
   fillingPanel: {fileID: 1113449434}
   draftBeerGlass: {fileID: 0}
-  spiritGlass: {fileID: 2003892774}
+  spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
   guinnessGlass: {fileID: 0}
   wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
-  spiritFillImage: {fileID: 103663509}
+  spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
   guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
@@ -45837,81 +45607,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1316195716
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1316195717}
-  - component: {fileID: 1316195719}
-  - component: {fileID: 1316195718}
-  m_Layer: 5
-  m_Name: DraftBeerFill
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1316195717
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316195716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1525200354}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1316195718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316195716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0158dd986c54949f1b5723fc5b31cb47, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 1
-  m_FillAmount: 0
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1316195719
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1316195716}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1317402982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54254,82 +53949,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4475082425233180, guid: 8f483b10ea0887f4cbe354791aa74e45, type: 3}
   m_PrefabInstance: {fileID: 1381503988}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1525200353
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1525200354}
-  - component: {fileID: 1525200356}
-  - component: {fileID: 1525200355}
-  m_Layer: 5
-  m_Name: DraftBeerGlass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1525200354
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525200353}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1316195717}
-  m_Father: {fileID: 1113449435}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -27}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1525200355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525200353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: aaae31dc5303a485bab8aad4e24242dd, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1525200356
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1525200353}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1526023580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56239,12 +55858,12 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   fillingPanel: {fileID: 1113449434}
-  draftBeerGlass: {fileID: 1525200353}
+  draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
   guinnessGlass: {fileID: 0}
   wineGlass: {fileID: 0}
-  draftBeerFillImage: {fileID: 1316195718}
+  draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
   guinnessFillImage: {fileID: 0}
@@ -59374,12 +58993,12 @@ MonoBehaviour:
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
   guinnessGlass: {fileID: 0}
-  wineGlass: {fileID: 1687545708}
+  wineGlass: {fileID: 0}
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
   guinnessFillImage: {fileID: 0}
-  wineFillImage: {fileID: 669256667}
+  wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
   greenZoneMax: 1
@@ -60684,82 +60303,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4550193093163072, guid: 5c527b1183b2c6046b018f08a983ffca, type: 3}
   m_PrefabInstance: {fileID: 1686772767}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1687545708
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1687545709}
-  - component: {fileID: 1687545711}
-  - component: {fileID: 1687545710}
-  m_Layer: 5
-  m_Name: WINEGlass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1687545709
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687545708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 669256666}
-  m_Father: {fileID: 1113449435}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.0664, y: -30}
-  m_SizeDelta: {x: 86.2784, y: 107.59}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1687545710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687545708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 09e57483f125d4c4b8781a2f6a288cde, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1687545711
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1687545708}
-  m_CullTransparentMesh: 1
 --- !u!1001 &1687647924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65588,7 +65131,7 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
-  guinnessFillImage: {fileID: 2018296083}
+  guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
@@ -65972,7 +65515,7 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
-  guinnessFillImage: {fileID: 2018296083}
+  guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
@@ -68284,12 +67827,12 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   fillingPanel: {fileID: 1113449434}
-  draftBeerGlass: {fileID: 1525200353}
+  draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
   guinnessGlass: {fileID: 0}
   wineGlass: {fileID: 0}
-  draftBeerFillImage: {fileID: 1316195718}
+  draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
   guinnessFillImage: {fileID: 0}
@@ -72375,82 +71918,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!1 &2003892774
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2003892775}
-  - component: {fileID: 2003892777}
-  - component: {fileID: 2003892776}
-  m_Layer: 5
-  m_Name: SpiritGlass
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &2003892775
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003892774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 103663508}
-  m_Father: {fileID: 1113449435}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.0664, y: -30}
-  m_SizeDelta: {x: 86.2784, y: 107.59}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2003892776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003892774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cf6fbfe64cac746aa817c424de732739, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2003892777
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003892774}
-  m_CullTransparentMesh: 1
 --- !u!1001 &2005119787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -73086,7 +72553,7 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
-  guinnessFillImage: {fileID: 2018296083}
+  guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
@@ -73219,81 +72686,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2018296081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2018296082}
-  - component: {fileID: 2018296084}
-  - component: {fileID: 2018296083}
-  m_Layer: 5
-  m_Name: GUINNESSFill
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2018296082
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018296081}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.65, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 489096027}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.8, y: -0.1}
-  m_SizeDelta: {x: 126.3303, y: 85.4832}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2018296083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018296081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 311e770996aaa4e4885281764108b56c, type: 3}
-  m_Type: 3
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 1
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &2018296084
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2018296081}
-  m_CullTransparentMesh: 1
 --- !u!1 &2019603722
 GameObject:
   m_ObjectHideFlags: 0
@@ -73824,12 +73216,12 @@ MonoBehaviour:
   successSound: {fileID: 0}
   failSound: {fileID: 8300000, guid: 0b86080b08a674b19a47403885b22144, type: 3}
   fillingPanel: {fileID: 1113449434}
-  draftBeerGlass: {fileID: 1525200353}
+  draftBeerGlass: {fileID: 0}
   spiritGlass: {fileID: 0}
   takeawayBottle: {fileID: 0}
   guinnessGlass: {fileID: 0}
   wineGlass: {fileID: 0}
-  draftBeerFillImage: {fileID: 1316195718}
+  draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
   guinnessFillImage: {fileID: 0}
@@ -76719,7 +76111,7 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
-  guinnessFillImage: {fileID: 2018296083}
+  guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
@@ -78589,7 +77981,7 @@ MonoBehaviour:
   draftBeerFillImage: {fileID: 0}
   spiritFillImage: {fileID: 0}
   takeawayFillImage: {fileID: 0}
-  guinnessFillImage: {fileID: 2018296083}
+  guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
   greenZoneMin: 0.95
