@@ -38,7 +38,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BottomLevel: 1.135
+    - _BottomLevel: 1.13
     - _FillLevel: 1.2
     - _FoamHeight: 0
     - _QueueControl: 0
