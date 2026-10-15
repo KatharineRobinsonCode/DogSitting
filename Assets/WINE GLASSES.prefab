@@ -110,7 +110,7 @@ MonoBehaviour:
   takeawayModel: {fileID: 0}
   spiritModel: {fileID: 0}
   guinnessModel: {fileID: 0}
-  wineModel: {fileID: 0}
+  wineModel: {fileID: 1228622803410851814}
 --- !u!114 &2729850725883692819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5db192fe3589480db56ab703007b7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiquidFill
-  liquidRenderer: {fileID: 0}
+  liquidRenderer: {fileID: 5391713795028486587}
   autoHeightsFromMesh: 1
   bowlStartFraction: 0
   emptyHeight: -1
@@ -138,6 +138,7 @@ MonoBehaviour:
   bandWidth: 0.08
   bandRadiusOverride: 0
   bandRadiusScale: 1.15
+  debugLog: 0
 --- !u!1 &3632916409674030091
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,3 +300,4 @@ MonoBehaviour:
   bandWidth: 0.08
   bandRadiusOverride: 0
   bandRadiusScale: 1.15
+  debugLog: 0
