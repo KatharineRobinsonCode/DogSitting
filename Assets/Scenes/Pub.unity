@@ -9089,6 +9089,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1486965847927503616, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+      propertyPath: wineModel
+      value: 
+      objectReference: {fileID: 415780514}
     - target: {fileID: 2729850725883692819, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
       propertyPath: useCap
       value: 1
@@ -9146,11 +9150,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5702494936836937001, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
-      propertyPath: capRadiusScale
-      value: 0.8
+      propertyPath: useCap
+      value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1486965847927503616, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+    - target: {fileID: 5702494936836937001, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+      propertyPath: capRadiusScale
+      value: 0.97
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -12289,6 +12296,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4289221243168480, guid: 4eed844eb907f3c408acff0834ea4a4e, type: 3}
   m_PrefabInstance: {fileID: 858961875}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &351180787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1228622803410851814, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+  m_PrefabInstance: {fileID: 1131044676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &351180788 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5391713795028486587, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
@@ -14189,6 +14201,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcdcc8bf9fb381e4d9fcdc2c74b12f12, type: 3}
+--- !u!1 &415780514 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1228622803410851814, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+  m_PrefabInstance: {fileID: 271407158}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &415780515 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5391713795028486587, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
@@ -18035,7 +18052,7 @@ Transform:
   m_GameObject: {fileID: 507468419}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 3.213, y: 1.135, z: 6.843}
+  m_LocalPosition: {x: 3.213, y: 1.135, z: 6.917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39213,6 +39230,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1486965847927503616, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+      propertyPath: wineModel
+      value: 
+      objectReference: {fileID: 351180787}
     - target: {fileID: 2729850725883692819, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
       propertyPath: useCap
       value: 1
@@ -39270,8 +39291,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5702494936836937001, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+      propertyPath: useCap
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702494936836937001, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
       propertyPath: capRadiusScale
-      value: 0.8
+      value: 0.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50226,7 +50251,7 @@ Transform:
   m_GameObject: {fileID: 1405233083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.429, y: 1.107, z: 6.924}
+  m_LocalPosition: {x: 3.429, y: 1.107, z: 6.951}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59104,7 +59129,7 @@ MonoBehaviour:
   guinnessFillImage: {fileID: 0}
   wineFillImage: {fileID: 0}
   instructionText: {fileID: 1386823832}
-  greenZoneMin: 0.9
+  greenZoneMin: 0.92
   greenZoneMax: 1
   takeawayFillSpeed: 0.2
   pourViewPoint: {fileID: 89573938}
@@ -62837,6 +62862,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4736932379915202, guid: 98344f49f5dd6664682c8de7ae674afc, type: 3}
   m_PrefabInstance: {fileID: 1764811803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1766324467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1228622803410851814, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+  m_PrefabInstance: {fileID: 1930924625}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &1766324468 stripped
 MeshRenderer:
@@ -69043,6 +69073,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1486965847927503616, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+      propertyPath: wineModel
+      value: 
+      objectReference: {fileID: 1766324467}
     - target: {fileID: 2729850725883692819, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
       propertyPath: useCap
       value: 1
@@ -69100,8 +69134,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5702494936836937001, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+      propertyPath: useCap
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702494936836937001, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
       propertyPath: capRadiusScale
-      value: 0.8
+      value: 0.97
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -313,7 +313,21 @@ public class LiquidFill : MonoBehaviour
         block.SetFloat(BottomLevelId, HeightFor(0f) - 0.0005f);
         block.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
         liquidRenderer.SetPropertyBlock(block);
+
+        if (debugLog && Time.unscaledTime > nextDebugTime)
+        {
+            nextDebugTime = Time.unscaledTime + 0.5f;
+            TryGetMeshHeights(out float dlo, out float dhi);
+            Debug.Log($"[LiquidFill DEBUG] {name}: fill={currentFill:F2} meshBottom={dlo:F3} meshTop={dhi:F3} " +
+                      $"bottomLevel={HeightFor(0f) - 0.0005f:F3} fillLevel={HeightFor(currentFill):F3} " +
+                      $"foam={foamHeight * ScaleFactor:F3} lossyScale={liquidRenderer.transform.lossyScale} " +
+                      $"mat={liquidRenderer.sharedMaterial.name} shader={liquidRenderer.sharedMaterial.shader.name}", this);
+        }
     }
+
+    [Header("Debug")]
+    [SerializeField] private bool debugLog = false;
+    private float nextDebugTime;
 
     // ---- Target band ----
 
