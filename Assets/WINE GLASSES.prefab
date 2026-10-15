@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 1228622803410851814}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0007, y: 0.014, z: 0}
-  m_LocalScale: {x: 0.8966632, y: 0.82541114, z: 1}
+  m_LocalPosition: {x: 0.00025, y: 0.01118, z: 0}
+  m_LocalScale: {x: 0.8885753, y: 0.8469544, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5030291316072165988}
@@ -124,6 +124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiquidFill
   liquidRenderer: {fileID: 0}
+  autoHeightsFromMesh: 1
+  bowlStartFraction: 0
   emptyHeight: -1
   fullHeight: 2.8
   heightsTunedAtScale: 100
@@ -166,8 +168,8 @@ Transform:
   m_GameObject: {fileID: 3632916409674030091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.329, y: 1.087, z: 6.794}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.329, y: 1.09328, z: 6.794}
+  m_LocalScale: {x: 1, y: 0.95215, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5488965220522597002}
@@ -269,7 +271,7 @@ MonoBehaviour:
   takeawayModel: {fileID: 0}
   spiritModel: {fileID: 0}
   guinnessModel: {fileID: 0}
-  wineModel: {fileID: 0}
+  wineModel: {fileID: 1228622803410851814}
 --- !u!114 &5702494936836937001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,11 +285,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiquidFill
   liquidRenderer: {fileID: 5391713795028486587}
+  autoHeightsFromMesh: 1
+  bowlStartFraction: 0.4
   emptyHeight: -1
   fullHeight: 2.8
   heightsTunedAtScale: 100
   foamHeight: 0
-  useCap: 0
+  useCap: 1
   capColor: {r: 0.5450981, g: 0, b: 0, a: 1}
   capRadiusScale: 0.97
   emptyWidthRatio: 0.6

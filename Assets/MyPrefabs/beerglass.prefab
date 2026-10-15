@@ -99,8 +99,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalScale.y
-      value: 100
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,8 +183,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiquidFill
   liquidRenderer: {fileID: 2256482458729367606}
+  autoHeightsFromMesh: 1
+  bowlStartFraction: 0
   emptyHeight: -1
   fullHeight: 2.8
+  heightsTunedAtScale: 100
+  foamHeight: 0.25
+  useCap: 1
+  capColor: {r: 0.96, g: 0.92, b: 0.82, a: 1}
+  capRadiusScale: 0.97
+  emptyWidthRatio: 0.6
+  bandColor: {r: 0.2, g: 1, b: 0.3, a: 1}
+  bandWidth: 0.08
+  bandRadiusOverride: 0
+  bandRadiusScale: 1.15
 --- !u!4 &3347435483248186642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f2498a902eff4c5281020237afed163, type: 3}
