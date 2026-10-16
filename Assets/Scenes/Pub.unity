@@ -3664,7 +3664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4891709492945042, guid: 1b8e6d7d17e093042a53923a8f5c0a9a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4891709492945042, guid: 1b8e6d7d17e093042a53923a8f5c0a9a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -20806,7 +20806,7 @@ MonoBehaviour:
   pulseIntensity: 0.1
   holdPoint: {fileID: 1859535699}
   holdPosition: {x: 0.4, y: -0.2, z: 0.7}
-  holdRotation: {x: 30, y: 0.5, z: 0}
+  holdRotation: {x: 0, y: 0.5, z: 0}
   currentHeldItem: {fileID: 0}
   guinnessHoldRotation: {x: 270, y: 0, z: 0}
 --- !u!114 &577574941
@@ -36009,6 +36009,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2448990762965963873, guid: 7d47c677b9ad6450284a6fe24f3efaad, type: 3}
+      propertyPath: foamHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3300610110905667640, guid: 7d47c677b9ad6450284a6fe24f3efaad, type: 3}
       propertyPath: m_Name
       value: Draft Beer Cups
@@ -73153,7 +73157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4334506045429294, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.307
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4334506045429294, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -73745,7 +73749,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4334506045429294, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.849
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4334506045429294, guid: 41577f0c8ccfab441bcf4894ce0456e3, type: 3}
       propertyPath: m_LocalPosition.y
