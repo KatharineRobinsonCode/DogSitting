@@ -9189,7 +9189,9 @@ PrefabInstance:
       propertyPath: bandRadiusScale
       value: 1.15
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1486965847927503616, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
+    - {fileID: 2729850725883692819, guid: d6e3adb993ce64ea384a8dc1deb45e79, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
