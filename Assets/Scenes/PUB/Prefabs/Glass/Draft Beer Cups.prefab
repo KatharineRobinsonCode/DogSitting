@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 113979684367708873}
   - component: {fileID: 904073534680625148}
   - component: {fileID: 6608236472597578442}
+  - component: {fileID: 2448990762965963873}
   m_Layer: 0
   m_Name: Draft Beer Cups
   m_TagString: Interactable
@@ -156,11 +157,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Cup
   cupType: 0
   contents: 0
-  beerModel: {fileID: 0}
+  beerModel: {fileID: 8796764623965749884}
   takeawayModel: {fileID: 0}
   spiritModel: {fileID: 0}
   guinnessModel: {fileID: 0}
   wineModel: {fileID: 0}
+--- !u!114 &2448990762965963873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300610110905667640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5db192fe3589480db56ab703007b7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LiquidFill
+  liquidRenderer: {fileID: 8564151383548844772}
+  autoHeightsFromMesh: 1
+  bowlStartFraction: 0
+  emptyHeight: -1
+  fullHeight: 2.8
+  heightsTunedAtScale: 100
+  foamHeight: 0.25
+  useCap: 1
+  capColor: {r: 0.96, g: 0.92, b: 0.82, a: 1}
+  capRadiusScale: 0.97
+  bodyRadiusLimit: 0
+  emptyWidthRatio: 0.6
+  bandColor: {r: 0.2, g: 1, b: 0.3, a: 1}
+  bandWidth: 0.08
+  bandRadiusOverride: 0
+  bandRadiusScale: 1.15
+  debugLog: 0
 --- !u!1 &8796764623965749884
 GameObject:
   m_ObjectHideFlags: 0

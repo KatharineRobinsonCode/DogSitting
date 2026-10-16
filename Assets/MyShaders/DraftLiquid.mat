@@ -41,6 +41,7 @@ Material:
     - _BottomLevel: 0
     - _FillLevel: 1.1
     - _FoamHeight: 0
+    - _MaxRadius: 1000
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
