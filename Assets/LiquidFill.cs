@@ -32,15 +32,26 @@ public class LiquidFill : MonoBehaviour
     [Tooltip("Shrink or grow the cap if it pokes through the glass or leaves a gap")]
     [SerializeField] private float capRadiusScale = 0.97f;
 
+    [Header("Hide handle (mugs)")]
+    [Tooltip("0 = off. Hides any part of the liquid mesh further than this from the glass's middle, so a mug's handle isn't filled. In the mesh's own units (before scaling). Needs the _MaxRadius property in the shader graph. Also trims the foam cap.")]
+    [SerializeField] private float bodyRadiusLimit = 0f;
+    private static readonly int MaxRadiusId = Shader.PropertyToID("_MaxRadius");
+
     [Tooltip("Only used if the mesh can't be read (Read/Write off): cap width when the glass is nearly empty, as a fraction of its full width")]
     [SerializeField, Range(0.1f, 1f)] private float emptyWidthRatio = 0.6f;
 
+    private const int CapSectors = 48;
     private GameObject capGO;
-    private Transform capT;
+    private Mesh capMesh;
+    private Vector3[] capVerts;
+    private float[] sectorRadius = new float[CapSectors];
+    private Vector3 capCentreOffset;       // cross-section centre relative to the liquid object
     private Vector3[] meshVerts;
-    private Vector3 meshCentreLocal;
-    private float capRadius;
-    private float lastCapFill = -1f;
+    private int[] meshTris;
+    private Vector3[] worldVerts;
+    private readonly System.Collections.Generic.List<Vector3> slicePoints = new System.Collections.Generic.List<Vector3>();
+    private float lastCapFill = -999f;
+    private Quaternion lastCapRot = Quaternion.identity;
 
     [Header("Target band (pour minigame)")]
     [SerializeField] private Color bandColor = new Color(0.2f, 1f, 0.3f, 1f);
@@ -90,9 +101,12 @@ public class LiquidFill : MonoBehaviour
     private void OnDestroy()
     {
         if (capGO != null) Destroy(capGO);
+        if (capMesh != null) Destroy(capMesh);
     }
 
     // ---- Foam cap ----
+    // The cap is the exact cross-section of the liquid mesh at the liquid surface, so it
+    // follows the glass shape, the taper, and any tilt of the glass.
 
     private void UpdateCap(bool show)
     {
@@ -104,16 +118,28 @@ public class LiquidFill : MonoBehaviour
 
         if (capGO == null && !BuildCap()) return;
 
-        // Re-measure the glass width at the surface whenever the fill changes
-        if (Mathf.Abs(currentFill - lastCapFill) > 0.001f)
+        Transform t = liquidRenderer.transform;
+        bool moved = Mathf.Abs(currentFill - lastCapFill) > 0.0005f
+                  || Quaternion.Angle(t.rotation, lastCapRot) > 0.05f;
+        if (moved)
         {
             lastCapFill = currentFill;
-            RecalculateCapRadius();
+            lastCapRot = t.rotation;
+            RecalculateCapShape();
         }
 
-        Vector3 centre = liquidRenderer.transform.TransformPoint(meshCentreLocal);
-        capT.position = new Vector3(centre.x, HeightFor(currentFill), centre.z);
-        capT.localScale = new Vector3(capRadius, 1f, capRadius);
+        // Rebuild the disc in world space (cheap: ~50 vertices)
+        float y = HeightFor(currentFill);
+        Vector3 centre = t.position + capCentreOffset;
+        capVerts[0] = new Vector3(centre.x, y, centre.z);
+        for (int i = 0; i < CapSectors; i++)
+        {
+            float a = (i + 0.5f) / CapSectors * Mathf.PI * 2f - Mathf.PI;
+            float r = sectorRadius[i] * capRadiusScale;
+            capVerts[i + 1] = new Vector3(centre.x + Mathf.Cos(a) * r, y, centre.z + Mathf.Sin(a) * r);
+        }
+        capMesh.vertices = capVerts;
+        capMesh.RecalculateBounds();
         capGO.SetActive(true);
     }
 
@@ -122,10 +148,11 @@ public class LiquidFill : MonoBehaviour
         MeshFilter mf = liquidRenderer.GetComponent<MeshFilter>();
         if (mf == null || mf.sharedMesh == null) return false;
 
-        meshCentreLocal = mf.sharedMesh.bounds.center;
         if (mf.sharedMesh.isReadable)
         {
             meshVerts = mf.sharedMesh.vertices;
+            meshTris = mf.sharedMesh.triangles;
+            worldVerts = new Vector3[meshVerts.Length];
         }
         else
         {
@@ -133,29 +160,25 @@ public class LiquidFill : MonoBehaviour
             Debug.LogWarning("[LiquidFill] Mesh '" + mf.sharedMesh.name + "' isn't readable, so the foam cap can't follow the glass shape. Tick Read/Write on the model's import settings for a better fit.", this);
         }
 
-        // Flat disc, radius 1, facing up
-        const int seg = 40;
-        Vector3[] v = new Vector3[seg + 1];
-        Vector3[] n = new Vector3[seg + 1];
-        int[] tris = new int[seg * 3];
-        v[0] = Vector3.zero;
-        for (int i = 0; i < seg; i++)
-        {
-            float a = i / (float)seg * Mathf.PI * 2f;
-            v[i + 1] = new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a));
-        }
+        // Flat fan of triangles: centre vertex + one vertex per sector
+        capVerts = new Vector3[CapSectors + 1];
+        Vector3[] n = new Vector3[CapSectors + 1];
+        int[] tris = new int[CapSectors * 3];
         for (int i = 0; i < n.Length; i++) n[i] = Vector3.up;
-        for (int i = 0; i < seg; i++)
+        for (int i = 0; i < CapSectors; i++)
         {
             tris[i * 3]     = 0;
-            tris[i * 3 + 1] = (i + 1) % seg + 1;
+            tris[i * 3 + 1] = (i + 1) % CapSectors + 1;
             tris[i * 3 + 2] = i + 1;
         }
-        Mesh disc = new Mesh { name = "LiquidCapDisc", vertices = v, normals = n, triangles = tris };
+        capMesh = new Mesh { name = "LiquidCapMesh" };
+        capMesh.MarkDynamic();
+        capMesh.vertices = capVerts;
+        capMesh.normals = n;
+        capMesh.triangles = tris;
 
-        capGO = new GameObject("LiquidCap");   // not parented: the glass's scale would distort it
-        capT = capGO.transform;
-        capGO.AddComponent<MeshFilter>().sharedMesh = disc;
+        capGO = new GameObject("LiquidCap");   // lives at the world origin, vertices are in world space
+        capGO.AddComponent<MeshFilter>().sharedMesh = capMesh;
         MeshRenderer mr = capGO.AddComponent<MeshRenderer>();
 
         Shader sh = Shader.Find("Universal Render Pipeline/Unlit");
@@ -170,36 +193,90 @@ public class LiquidFill : MonoBehaviour
         return true;
     }
 
-    private void RecalculateCapRadius()
+    private void RecalculateCapShape()
     {
-        if (meshVerts == null)   // can't read the mesh: simple taper from narrow (bottom) to full width (top)
+        Transform t = liquidRenderer.transform;
+
+        if (meshVerts == null || !SliceMesh(t))
         {
+            // Fallback: a circle from the overall width, narrower when nearly empty
             Bounds bb = liquidRenderer.bounds;
             float fullR = Mathf.Max(bb.extents.x, bb.extents.z);
-            capRadius = fullR * Mathf.Lerp(emptyWidthRatio, 1f, currentFill) * capRadiusScale;
-            return;
+            float r = fullR * Mathf.Lerp(emptyWidthRatio, 1f, currentFill);
+            for (int i = 0; i < CapSectors; i++) sectorRadius[i] = r;
+            capCentreOffset = new Vector3(bb.center.x - t.position.x, 0f, bb.center.z - t.position.z);
         }
+    }
 
-        Transform t = liquidRenderer.transform;
-        Vector3 centre = t.TransformPoint(meshCentreLocal);
-        float surfaceY = HeightFor(currentFill);
-        float tol = HeightSpan() * 0.04f;
+    // Cuts the liquid mesh with the horizontal plane at the surface and measures the outline
+    private bool SliceMesh(Transform t)
+    {
+        float y = HeightFor(currentFill);
+        Matrix4x4 m = t.localToWorldMatrix;
+        for (int i = 0; i < meshVerts.Length; i++) worldVerts[i] = m.MultiplyPoint3x4(meshVerts[i]);
 
-        float best = 0f;
-        for (int i = 0; i < meshVerts.Length; i++)
+        slicePoints.Clear();
+        for (int i = 0; i < meshTris.Length; i += 3)
         {
-            Vector3 w = t.TransformPoint(meshVerts[i]);
-            if (Mathf.Abs(w.y - surfaceY) > tol) continue;
-            float d = new Vector2(w.x - centre.x, w.z - centre.z).magnitude;
-            if (d > best) best = d;
+            Vector3 a = worldVerts[meshTris[i]];
+            Vector3 b = worldVerts[meshTris[i + 1]];
+            Vector3 c = worldVerts[meshTris[i + 2]];
+            AddCrossing(a, b, y);
+            AddCrossing(b, c, y);
+            AddCrossing(c, a, y);
         }
 
-        if (best <= 0f)   // nothing near the surface: fall back to the overall width
+        // Ignore points out on the handle
+        if (bodyRadiusLimit > 0f)
         {
-            Bounds b = liquidRenderer.bounds;
-            best = Mathf.Max(b.extents.x, b.extents.z);
+            for (int i = slicePoints.Count - 1; i >= 0; i--)
+            {
+                Vector3 lp = t.InverseTransformPoint(slicePoints[i]);
+                if (lp.x * lp.x + lp.z * lp.z > bodyRadiusLimit * bodyRadiusLimit) slicePoints.RemoveAt(i);
+            }
         }
-        capRadius = best * capRadiusScale;
+        if (slicePoints.Count < 3) return false;
+
+        // Centre of the outline
+        Vector3 sum = Vector3.zero;
+        for (int i = 0; i < slicePoints.Count; i++) sum += slicePoints[i];
+        Vector3 centre = sum / slicePoints.Count;
+
+        // Furthest point in each direction
+        for (int i = 0; i < CapSectors; i++) sectorRadius[i] = 0f;
+        for (int i = 0; i < slicePoints.Count; i++)
+        {
+            float dx = slicePoints[i].x - centre.x;
+            float dz = slicePoints[i].z - centre.z;
+            float ang = Mathf.Atan2(dz, dx);
+            int s = Mathf.Clamp((int)((ang + Mathf.PI) / (Mathf.PI * 2f) * CapSectors), 0, CapSectors - 1);
+            float d = Mathf.Sqrt(dx * dx + dz * dz);
+            if (d > sectorRadius[s]) sectorRadius[s] = d;
+        }
+
+        // Fill any empty sectors from their neighbours
+        for (int pass = 0; pass < 3; pass++)
+        {
+            for (int i = 0; i < CapSectors; i++)
+            {
+                if (sectorRadius[i] > 0f) continue;
+                float p = sectorRadius[(i + CapSectors - 1) % CapSectors];
+                float n = sectorRadius[(i + 1) % CapSectors];
+                if (p > 0f && n > 0f) sectorRadius[i] = (p + n) * 0.5f;
+                else if (p > 0f) sectorRadius[i] = p;
+                else if (n > 0f) sectorRadius[i] = n;
+            }
+        }
+
+        capCentreOffset = new Vector3(centre.x - t.position.x, 0f, centre.z - t.position.z);
+        return true;
+    }
+
+    private void AddCrossing(Vector3 p, Vector3 q, float y)
+    {
+        if ((p.y - y) * (q.y - y) >= 0f) return;
+        float k = (y - p.y) / (q.y - p.y);
+        slicePoints.Add(Vector3.Lerp(p, q, k));
     }
 
     private MeshFilter liquidMF;
@@ -250,8 +327,45 @@ public class LiquidFill : MonoBehaviour
         block.SetFloat(FillLevelId, HeightFor(currentFill));
         block.SetFloat(BottomLevelId, HeightFor(0f) - 0.0005f);
         block.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
+        block.SetFloat(MaxRadiusId, bodyRadiusLimit > 0f ? bodyRadiusLimit : 100000f);
         liquidRenderer.SetPropertyBlock(block);
+
+        // Also write straight onto this glass's own material copy (most reliable route)
+        Material mat = liquidRenderer.material;
+        if (!checkedProps)
+        {
+            checkedProps = true;
+            CheckProp(mat, "_FillLevel");
+            CheckProp(mat, "_BottomLevel");
+            CheckProp(mat, "_FoamHeight");
+        }
+        if (mat.HasProperty(FillLevelId))   mat.SetFloat(FillLevelId, HeightFor(currentFill));
+        if (mat.HasProperty(BottomLevelId)) mat.SetFloat(BottomLevelId, HeightFor(0f) - 0.0005f);
+        if (mat.HasProperty(FoamHeightId))  mat.SetFloat(FoamHeightId, foamHeight * ScaleFactor);
+        if (mat.HasProperty(MaxRadiusId))   mat.SetFloat(MaxRadiusId, bodyRadiusLimit > 0f ? bodyRadiusLimit : 100000f);
+
+        if (debugLog && Time.unscaledTime > nextDebugTime)
+        {
+            nextDebugTime = Time.unscaledTime + 0.5f;
+            TryGetMeshHeights(out float dlo, out float dhi);
+            Debug.Log($"[LiquidFill DEBUG] {name}: fill={currentFill:F2} meshBottom={dlo:F3} meshTop={dhi:F3} " +
+                      $"bottomLevel={HeightFor(0f) - 0.0005f:F3} fillLevel={HeightFor(currentFill):F3} " +
+                      $"foam={foamHeight * ScaleFactor:F3} lossyScale={liquidRenderer.transform.lossyScale} " +
+                      $"mat={liquidRenderer.sharedMaterial.name} shader={liquidRenderer.sharedMaterial.shader.name}", this);
+        }
     }
+
+    private bool checkedProps;
+    private void CheckProp(Material m, string prop)
+    {
+        if (!m.HasProperty(prop))
+            Debug.LogError($"[LiquidFill] Material '{m.name}' (shader '{m.shader.name}') has NO property called '{prop}'. " +
+                           "In the Shader Graph, select that property in the Blackboard and set its Reference to exactly '" + prop + "', make sure Exposed is ticked, then Save Asset.", this);
+    }
+
+    [Header("Debug")]
+    [SerializeField] private bool debugLog = false;
+    private float nextDebugTime;
 
     // ---- Target band ----
 
