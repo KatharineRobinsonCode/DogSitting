@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// Drives the shader-graph liquid height on a glass, and can draw a green
-/// target band (two rings) around the glass for the pour minigame.
+/// OKAY SO this drives the shader-graph liquid height on a glass, and can draw a green
+/// target band (two rings) around the glass for a pour minigame.
 /// Put on the same object as Cup.
 /// </summary>
 public class LiquidFill : MonoBehaviour

@@ -39,13 +39,21 @@ Material:
     m_Ints: []
     m_Floats:
     - _BottomLevel: 1.13
+    - _BubbleAmount: 0.8
+    - _BubbleDensity: 200
+    - _BubbleSize: 0.1
+    - _BubbleSpeed: 0.05
     - _FillLevel: 1.2
     - _FoamHeight: 0
+    - _MaxRadius: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
     - _BeerColor: {r: 0.5450981, g: 0, b: 0, a: 1}
+    - _BeerColour: {r: 0.5450981, g: 0, b: 0, a: 1}
+    - _BubbleColour: {r: 0.6980392, g: 0.1333333, b: 0.1333333, a: 1}
     - _FoamColor: {r: 0.5450981, g: 0, b: 0, a: 1}
+    - _FoamColour: {r: 0.5450981, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7498652365451845661
